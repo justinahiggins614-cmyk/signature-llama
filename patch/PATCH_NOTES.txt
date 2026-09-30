@@ -5,8 +5,8 @@ Independent model by Justin Addam Higgins. Not affiliated with Meta.
 WHAT THIS IS
 ------------
 Everything needed to run, study, and build on Signature Llama v1 —
-his own tiny transformer, written and trained from scratch. One zip,
-no build step, no keys, no fees.
+a tiny transformer I built and trained from scratch. One zip,
+no build step, no keys, no fees. Currently free for all internet tasks.
 
 WHAT IS INSIDE
 --------------
@@ -20,6 +20,9 @@ src/ ....................... All the Python sources: tokenizer, transformer
                              builder, parity checker.
 data/llm-dictionary.json ... 312 original one-sentence LLM/AI definitions.
 data/explainer-kb.json ..... The on-site guide knowledge base.
+data/tool-libraries.json ... The Tool Library: plug-in tool libraries for
+                             LLM/AI functions (text, reasoning, memory, chat,
+                             search, math, web, voice, safety and more).
 llama-api.js ............... SignatureLlama.ask(question) -> Promise<string>.
 llama-manifest.json ........ Machine-readable manifest (start here, AIs).
 llms.txt ................... Plain-words summary for AI readers.
@@ -44,4 +47,5 @@ the site pill flips to LIVE and the real sigllama-v1.bin is inside.
 LICENSE
 -------
 Free for any website, app, or project. No API key, no fee, credit
-appreciated. Independent model by Justin Addam Higgins.
+appreciated. Currently free for all internet tasks.
+Independent model by Justin Addam Higgins.

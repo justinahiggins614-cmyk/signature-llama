@@ -1,0 +1,1508 @@
+{
+ "updated": "2026-09-30",
+ "version": "1.0",
+ "optimal": {
+  "name": "Optimal All-Purpose Setting",
+  "tagline": "The recommended default setup \u2014 sensible sampling plus the essential tool libraries, one click.",
+  "sampling": {
+   "temperature": 0.7,
+   "topK": 40,
+   "maxTokens": 120,
+   "stopAtEos": true
+  },
+  "note": "This card builds itself from the library index below \u2014 every new library flagged 'optimal' joins the set automatically. Last updated stamp refreshes with each index publish."
+ },
+ "libraries": [
+  {
+   "id": "text-shorten",
+   "name": "Shorten",
+   "category": "Text & Words",
+   "desc": "Trims long text down to a set number of words without cutting mid-thought \u2014 handy when a reply runs long.",
+   "version": "1.0",
+   "optimal": true,
+   "functions": [
+    "shorten(text, maxWords)",
+    "firstSentence(text)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['text-shorten']={version:'1.0',shorten:function(t,m){m=m||40;var w=String(t).split(/\\s+/);return w.length<=m?String(t):w.slice(0,m).join(' ')+'\u2026';},firstSentence:function(t){var m=String(t).match(/[^.!?]+[.!?]/);return m?m[0].trim():String(t).trim();}};})();"
+  },
+  {
+   "id": "text-count",
+   "name": "Count",
+   "category": "Text & Words",
+   "desc": "Counts words, characters and sentences, and estimates reading time \u2014 the quick health check for any text.",
+   "version": "1.0",
+   "optimal": true,
+   "functions": [
+    "count(text) -> {chars, words, sentences, readingMinutes}"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['text-count']={version:'1.0',count:function(t){t=String(t);var w=t.trim()?t.trim().split(/\\s+/).length:0;var s=(t.match(/[^.!?]+[.!?]/g)||[]).length;return{chars:t.length,words:w,sentences:s,readingMinutes:Math.max(1,Math.round(w/200))};}};})();"
+  },
+  {
+   "id": "text-clean",
+   "name": "Clean",
+   "category": "Text & Words",
+   "desc": "Tidies messy text: collapses extra spaces, strips invisible control characters, and can turn any title into a URL slug.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "clean(text)",
+    "slugify(text)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['text-clean']={version:'1.0',clean:function(t){return String(t).replace(/[\\u0000-\\u0008\\u000B\\u000C\\u000E-\\u001F]/g,'').replace(/[ \\t]+/g,' ').replace(/\\n{3,}/g,'\\n\\n').trim();},slugify:function(t){return String(t).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');}};})();"
+  },
+  {
+   "id": "text-keywords",
+   "name": "Keywords",
+   "category": "Text & Words",
+   "desc": "Pulls the most important words out of any text by frequency \u2014 a quick way to see what a passage is about.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "keywords(text, n)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['text-keywords']={version:'1.0',keywords:function(t,n){n=n||8;var stop={the:1,a:1,an:1,of:1,to:1,is:1,it:1,in:1,and:1,for:1,on:1,that:1,this:1,with:1,as:1,are:1,was:1,be:1,by:1,or:1,at:1,from:1,will:1};var c={};String(t).toLowerCase().replace(/[^a-z0-9\\s]/g,' ').split(/\\s+/).forEach(function(w){if(w.length>3&&!stop[w])c[w]=(c[w]||0)+1;});return Object.keys(c).sort(function(a,b){return c[b]-c[a];}).slice(0,n);}};})();"
+  },
+  {
+   "id": "text-summarize",
+   "name": "Summarize",
+   "category": "Text & Words",
+   "desc": "Boils text down to its first few sentences \u2014 a fast, honest extractive summary with no guessing.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "summarize(text, n)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['text-summarize']={version:'1.0',summarize:function(t,n){n=n||3;var s=String(t).match(/[^.!?]+[.!?]+/g)||[String(t)];return s.slice(0,n).join(' ').trim();}};})();"
+  },
+  {
+   "id": "text-template",
+   "name": "Template Fill",
+   "category": "Text & Words",
+   "desc": "Fills {{placeholders}} in a template with real values \u2014 the easy way to build prompts and messages.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "fill(template, vars)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['text-template']={version:'1.0',fill:function(t,v){return String(t).replace(/\\{\\{(\\w+)\\}\\}/g,function(m,k){return(k in v)?v[k]:m;});}};})();"
+  },
+  {
+   "id": "text-diff",
+   "name": "Diff Words",
+   "category": "Text & Words",
+   "desc": "Compares two texts word by word and lists what was added and what was removed.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "diffWords(a, b) -> {added, removed}"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['text-diff']={version:'1.0',diffWords:function(a,b){var aw={},bw={};String(a).split(/\\s+/).forEach(function(w){aw[w]=1;});String(b).split(/\\s+/).forEach(function(w){bw[w]=1;});return{added:Object.keys(bw).filter(function(w){return!aw[w];}),removed:Object.keys(aw).filter(function(w){return!bw[w];})};}};})();"
+  },
+  {
+   "id": "text-wrap",
+   "name": "Wrap",
+   "category": "Text & Words",
+   "desc": "Wraps text to a set line width without breaking words \u2014 for clean pre-formatted output.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "wrap(text, width)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['text-wrap']={version:'1.0',wrap:function(t,w){w=w||60;var out=[],line='';String(t).split(/\\s+/).forEach(function(x){if((line+' '+x).trim().length>w){out.push(line.trim());line=x;}else line+=' '+x;});if(line.trim())out.push(line.trim());return out.join('\\n');}};})();"
+  },
+  {
+   "id": "text-tone",
+   "name": "Tone Shift",
+   "category": "Text & Words",
+   "desc": "Expands contractions (don't \u2192 do not) to make casual writing more formal \u2014 a small, real tone adjustment.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "expandContractions(text)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['text-tone']={version:'1.0',expandContractions:function(t){var map={\"don't\":\"do not\",\"can't\":\"cannot\",\"won't\":\"will not\",\"isn't\":\"is not\",\"aren't\":\"are not\",\"wasn't\":\"was not\",\"weren't\":\"were not\",\"haven't\":\"have not\",\"hasn't\":\"has not\",\"didn't\":\"did not\",\"doesn't\":\"does not\",\"couldn't\":\"could not\",\"shouldn't\":\"should not\",\"wouldn't\":\"would not\"};return String(t).replace(/\\b(don't|can't|won't|isn't|aren't|wasn't|weren't|haven't|hasn't|didn't|doesn't|couldn't|shouldn't|wouldn't)\\b/gi,function(m){var r=map[m.toLowerCase()];return m[0]===m[0].toUpperCase()?r.charAt(0).toUpperCase()+r.slice(1):r;});}};})();"
+  },
+  {
+   "id": "text-bullets",
+   "name": "Bullets",
+   "category": "Text & Words",
+   "desc": "Turns lines into bullet points and back \u2014 for tidy lists in chats and pages.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "toBullets(text)",
+    "fromBullets(text)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['text-bullets']={version:'1.0',toBullets:function(t){return String(t).split(/\\n+/).map(function(l){return l.trim();}).filter(Boolean).map(function(l){return '\u2022 '+l;}).join('\\n');},fromBullets:function(t){return String(t).split('\\n').map(function(l){return l.replace(/^[\u2022\\-\\*]\\s*/,'');}).filter(Boolean);}};})();"
+  },
+  {
+   "id": "think-steps",
+   "name": "Step Thinker",
+   "category": "Thinking & Reasoning",
+   "desc": "Breaks any goal into numbered steps and can frame a question so the Llama thinks step by step.",
+   "version": "1.0",
+   "optimal": true,
+   "functions": [
+    "steps(goal, n)",
+    "thinkPrompt(question)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['think-steps']={version:'1.0',steps:function(g,n){n=n||5;var o=[];for(var i=1;i<=n;i++)o.push('Step '+i+': ');return{goal:g,steps:o};},thinkPrompt:function(q){return 'Think through this step by step, showing each step:\\n'+q;}};})();"
+  },
+  {
+   "id": "think-proscons",
+   "name": "Pros & Cons",
+   "category": "Thinking & Reasoning",
+   "desc": "Splits marked-up lines into pro and con lists, and gives you a blank decision frame to fill in.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "split(text) -> {pros, cons}",
+    "frame(topic)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['think-proscons']={version:'1.0',split:function(t){var p=[],c=[];String(t).split('\\n').forEach(function(l){l=l.trim();if(/^(pro|\\+|yes)/i.test(l))p.push(l.replace(/^(pro|\\+|yes)[:\\s]*/i,''));else if(/^(con|-|no)/i.test(l))c.push(l.replace(/^(con|-|no)[:\\s]*/i,''));});return{pros:p,cons:c};},frame:function(t){return{topic:t,pros:[],cons:[],verdict:''};}};})();"
+  },
+  {
+   "id": "think-decide",
+   "name": "Decider",
+   "category": "Thinking & Reasoning",
+   "desc": "Scores options against weighted criteria and ranks them \u2014 decisions with the math shown.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "score(options)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['think-decide']={version:'1.0',score:function(o){return o.map(function(x){var t=0,w=0;Object.keys(x.scores).forEach(function(k){var wt=(x.weights&&x.weights[k])||1;t+=x.scores[k]*wt;w+=wt;});return{name:x.name,score:w?t/w:0};}).sort(function(a,b){return b.score-a.score;});}};})();"
+  },
+  {
+   "id": "think-why",
+   "name": "Five Whys",
+   "category": "Thinking & Reasoning",
+   "desc": "Generates the classic five-whys chain to dig to the root cause of anything.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "fiveWhys(statement)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['think-why']={version:'1.0',fiveWhys:function(s){var o=[];for(var i=1;i<=5;i++)o.push('Why '+i+': why is \"'+s+'\" true? Dig one level deeper.');return o;}};})();"
+  },
+  {
+   "id": "think-socratic",
+   "name": "Socratic Questions",
+   "category": "Thinking & Reasoning",
+   "desc": "Asks the five questions that test whether an idea actually holds up.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "questions(topic)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['think-socratic']={version:'1.0',questions:function(t){return['What do we actually know about '+t+'?','What are we assuming without proof?','What would change my mind?','What is the strongest argument against it?','What would a beginner ask about '+t+'?'];}};})();"
+  },
+  {
+   "id": "think-fermi",
+   "name": "Fermi Estimator",
+   "category": "Thinking & Reasoning",
+   "desc": "Frames a Fermi estimate: break a huge question into guessable factors and multiply.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "breakdown(question, factors)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['think-fermi']={version:'1.0',breakdown:function(q,f){return{question:q,factors:f||['(factor 1: guess a number)','(factor 2: guess a number)'],how:'Multiply the factors for a rough answer \u2014 landing within 10x counts as a win.'};}};})();"
+  },
+  {
+   "id": "think-invert",
+   "name": "Invert",
+   "category": "Thinking & Reasoning",
+   "desc": "Flips a goal upside down \u2014 plan how to fail at it, then simply avoid each failure.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "invert(goal)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['think-invert']={version:'1.0',invert:function(g){return['How could someone guarantee failure at: '+g+'?','Name 3 ways to fail, then avoid each one.','What would the exact opposite of success look like?'];}};})();"
+  },
+  {
+   "id": "think-analogy",
+   "name": "Analogy",
+   "category": "Thinking & Reasoning",
+   "desc": "Builds an analogy frame: what maps across between two things, and what breaks.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "frame(a, b)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['think-analogy']={version:'1.0',frame:function(a,b){return a+' is to its world as '+b+' is to its world \u2014 what maps across, and what breaks?';}};})();"
+  },
+  {
+   "id": "think-assume",
+   "name": "Find Assumptions",
+   "category": "Thinking & Reasoning",
+   "desc": "Pulls assumption phrases (assume, if, suppose, given that\u2026) out of any text so you can check them.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "find(text)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['think-assume']={version:'1.0',find:function(t){return (String(t).match(/\\b(assume|assumes|assuming|if|suppose|supposing|given that|provided)\\b[^.!?]*[.!?]/gi)||[]).map(function(s){return s.trim();});}};})();"
+  },
+  {
+   "id": "think-checklist",
+   "name": "Checklist",
+   "category": "Thinking & Reasoning",
+   "desc": "Makes a check-off list from any goal and tracks what is done.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "make(goal, items)",
+    "check(list, i)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['think-checklist']={version:'1.0',make:function(g,items){return{goal:g,items:(items||[]).map(function(t){return{task:t,done:false};})};},check:function(l,i){if(l.items[i])l.items[i].done=true;return l;}};})();"
+  },
+  {
+   "id": "mem-note",
+   "name": "Notes",
+   "category": "Memory",
+   "desc": "Remembers things for you in the browser \u2014 save a note under a key, recall it later, forget it when done.",
+   "version": "1.0",
+   "optimal": true,
+   "functions": [
+    "set(key, value)",
+    "get(key)",
+    "forget(key)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['mem-note']={version:'1.0',set:function(k,v){try{localStorage.setItem('sigllama-mem-'+k,JSON.stringify(v));}catch(e){}return true;},get:function(k){try{var v=localStorage.getItem('sigllama-mem-'+k);return v==null?null:JSON.parse(v);}catch(e){return null;}},forget:function(k){try{localStorage.removeItem('sigllama-mem-'+k);}catch(e){}return true;}};})();"
+  },
+  {
+   "id": "mem-facts",
+   "name": "Fact Store",
+   "category": "Memory",
+   "desc": "Collects facts about any topic into a list you can read back any time.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "add(topic, fact)",
+    "about(topic)",
+    "clear(topic)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['mem-facts']={version:'1.0',add:function(t,f){var k='sigllama-facts-'+String(t).toLowerCase();var l=[];try{l=JSON.parse(localStorage.getItem(k)||'[]');}catch(e){}l.push(f);try{localStorage.setItem(k,JSON.stringify(l));}catch(e){}return l;},about:function(t){try{return JSON.parse(localStorage.getItem('sigllama-facts-'+String(t).toLowerCase())||'[]');}catch(e){return[];}},clear:function(t){try{localStorage.removeItem('sigllama-facts-'+String(t).toLowerCase());}catch(e){}return true;}};})();"
+  },
+  {
+   "id": "mem-pin",
+   "name": "Pin Board",
+   "category": "Memory",
+   "desc": "Pins important items to a board so they stay at the top of the Llama's mind.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "pin(item)",
+    "pinned()",
+    "unpin(i)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['mem-pin']={version:'1.0',pin:function(x){var l=this.pinned();l.push(x);try{localStorage.setItem('sigllama-pins',JSON.stringify(l));}catch(e){}return l;},pinned:function(){try{return JSON.parse(localStorage.getItem('sigllama-pins')||'[]');}catch(e){return[];}},unpin:function(i){var l=this.pinned();l.splice(i,1);try{localStorage.setItem('sigllama-pins',JSON.stringify(l));}catch(e){}return l;}};})();"
+  },
+  {
+   "id": "mem-timeline",
+   "name": "Timeline",
+   "category": "Memory",
+   "desc": "Keeps a dated timeline of events \u2014 add what happened and when, read it back in order.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "add(when, what)",
+    "all()"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['mem-timeline']={version:'1.0',add:function(w,x){var l=this.all();l.push({when:w,what:x});l.sort(function(a,b){return a.when<b.when?-1:1;});try{localStorage.setItem('sigllama-timeline',JSON.stringify(l));}catch(e){}return l;},all:function(){try{return JSON.parse(localStorage.getItem('sigllama-timeline')||'[]');}catch(e){return[];}}};})();"
+  },
+  {
+   "id": "mem-review",
+   "name": "Review Scheduler",
+   "category": "Memory",
+   "desc": "Spaced-repetition schedule: tells you when to review something again so it sticks.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "nextReview(level)",
+    "plan(topic)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['mem-review']={version:'1.0',nextReview:function(l){var d=[1,3,7,14,30,60,120];l=Math.max(0,Math.min(d.length-1,l||0));var dt=new Date();dt.setDate(dt.getDate()+d[l]);return{level:l,days:d[l],reviewOn:dt.toISOString().slice(0,10)};},plan:function(t){var r=[];for(var i=0;i<5;i++)r.push(this.nextReview(i));return{topic:t,schedule:r};}};})();"
+  },
+  {
+   "id": "mem-context",
+   "name": "Context Packer",
+   "category": "Memory",
+   "desc": "Packs a list of items into a character budget for a prompt \u2014 oldest get cut first, newest survive.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "pack(items, maxChars)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['mem-context']={version:'1.0',pack:function(items,m){m=m||2000;var out=[],n=0;for(var i=items.length-1;i>=0;i--){var s=String(items[i]);if(n+s.length+1>m)break;out.unshift(s);n+=s.length+1;}return{packed:out.join('\\n'),dropped:items.length-out.length};}};})();"
+  },
+  {
+   "id": "mem-session",
+   "name": "Session Log",
+   "category": "Memory",
+   "desc": "Logs the turns of a chat session in memory so the conversation can be replayed or summarized.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "log(who, text)",
+    "get()",
+    "clear()"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['mem-session']={version:'1.0',_log:[],log:function(w,t){this._log.push({who:w,text:String(t),at:new Date().toISOString()});return this._log.length;},get:function(){return this._log.slice();},clear:function(){this._log=[];return true;}};})();"
+  },
+  {
+   "id": "mem-export",
+   "name": "Memory Export",
+   "category": "Memory",
+   "desc": "Exports everything the Llama remembers in this browser to JSON, and can import it back.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "exportAll()",
+    "importAll(json)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['mem-export']={version:'1.0',exportAll:function(){var o={};for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(k&&k.indexOf('sigllama-')===0)o[k]=localStorage.getItem(k);}return JSON.stringify(o);},importAll:function(j){var o=JSON.parse(j),n=0;Object.keys(o).forEach(function(k){try{localStorage.setItem(k,o[k]);n++;}catch(e){}});return n;}};})();"
+  },
+  {
+   "id": "mem-digest",
+   "name": "Digest",
+   "category": "Memory",
+   "desc": "Compresses a long list of memories into a short bullet digest.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "digest(items, n)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['mem-digest']={version:'1.0',digest:function(items,n){n=n||5;return String(items.slice(0,n).map(function(x){return '\u2022 '+x;}).join('\\n'))+(items.length>n?'\\n\u2026 +'+(items.length-n)+' more':'');}};})();"
+  },
+  {
+   "id": "mem-search",
+   "name": "Memory Search",
+   "category": "Memory",
+   "desc": "Searches everything stored in this browser for a word and shows which memory keys mention it.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "search(query)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['mem-search']={version:'1.0',search:function(q){q=String(q).toLowerCase();var hits=[];for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(k&&k.indexOf('sigllama-')===0){var v=localStorage.getItem(k)||'';if(v.toLowerCase().indexOf(q)>=0)hits.push(k);}}return hits;}};})();"
+  },
+  {
+   "id": "chat-persona",
+   "name": "Persona",
+   "category": "Chat & Persona",
+   "desc": "Builds a personality prompt from a name and traits \u2014 the fastest way to give the Llama a character.",
+   "version": "1.0",
+   "optimal": true,
+   "functions": [
+    "make(name, traits)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['chat-persona']={version:'1.0',make:function(n,t){return 'You are '+n+', an AI with these traits: '+t+'. Stay in character, be helpful, and keep replies short unless asked for more.';}};})();"
+  },
+  {
+   "id": "chat-greet",
+   "name": "Greeter",
+   "category": "Chat & Persona",
+   "desc": "Writes a warm greeting that matches the time of day \u2014 mornings, afternoons and evenings covered.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "greet(name)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['chat-greet']={version:'1.0',greet:function(n){var h=new Date().getHours();var tod=h<12?'morning':(h<18?'afternoon':'evening');return 'Good '+tod+(n?', '+n:'')+'! What are we working on?';}};})();"
+  },
+  {
+   "id": "chat-farewell",
+   "name": "Farewell",
+   "category": "Chat & Persona",
+   "desc": "A friendly goodbye that invites the visitor back \u2014 small touch, big warmth.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "farewell(name)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['chat-farewell']={version:'1.0',farewell:function(n){return 'Goodbye'+(n?', '+n:'')+' \u2014 I will be right here when you need me.';}};})();"
+  },
+  {
+   "id": "chat-frames",
+   "name": "Prompt Frames",
+   "category": "Chat & Persona",
+   "desc": "Ready-made prompt frames: explain-like-I-am-5, expert answer, and patient teacher mode.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "like5(question)",
+    "expert(question)",
+    "teacher(question)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['chat-frames']={version:'1.0',like5:function(q){return 'Explain like I am 5 years old, using tiny words and a fun example: '+q;},expert:function(q){return 'Answer as a world-class expert. Be precise and complete: '+q;},teacher:function(q){return 'Teach me this step by step, checking my understanding as we go: '+q;}};})();"
+  },
+  {
+   "id": "chat-history",
+   "name": "History Keeper",
+   "category": "Chat & Persona",
+   "desc": "Keeps chat history inside a size budget and turns it into one prompt the model can read.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "create(budget)",
+    "push(h, who, text)",
+    "prompt(h)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['chat-history']={version:'1.0',create:function(b){return{budget:b||2000,turns:[]};},push:function(h,w,t){h.turns.push({who:w,text:String(t)});var s=JSON.stringify(h.turns);while(s.length>h.budget&&h.turns.length>1){h.turns.shift();s=JSON.stringify(h.turns);}return h;},prompt:function(h){return h.turns.map(function(t){return t.who+': '+t.text;}).join('\\n')+'\\nLlama:';}};})();"
+  },
+  {
+   "id": "chat-suggest",
+   "name": "Reply Suggester",
+   "category": "Chat & Persona",
+   "desc": "Suggests natural follow-up replies to keep a conversation flowing.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "suggest()"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['chat-suggest']={version:'1.0',suggest:function(){return['Tell me more about that.','Can you give me an example?','What should I do next?'];}};})();"
+  },
+  {
+   "id": "chat-recap",
+   "name": "Chat Recap",
+   "category": "Chat & Persona",
+   "desc": "Turns a list of chat turns into a short recap of who said what.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "recap(turns)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['chat-recap']={version:'1.0',recap:function(turns){return turns.map(function(t){var s=String(t.text);return t.who+': '+(s.length>70?s.slice(0,70)+'\u2026':s);}).join('\\n');}};})();"
+  },
+  {
+   "id": "chat-emoji",
+   "name": "Mood Emoji",
+   "category": "Chat & Persona",
+   "desc": "Picks an emoji for a mood \u2014 for playful replies and persona chats.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "forMood(mood)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['chat-emoji']={version:'1.0',forMood:function(m){var map={happy:'\ud83d\ude0a',sad:'\ud83d\ude22',excited:'\ud83e\udd29',thinking:'\ud83e\udd14',love:'\u2764\ufe0f',angry:'\ud83d\ude20',robot:'\ud83e\udd16',party:'\ud83c\udf89',sleepy:'\ud83d\ude34'};return map[String(m).toLowerCase()]||'\ud83e\udd16';}};})();"
+  },
+  {
+   "id": "chat-opener",
+   "name": "Opener",
+   "category": "Chat & Persona",
+   "desc": "Opens a conversation on any topic with a welcoming first line.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "opener(topic)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['chat-opener']={version:'1.0',opener:function(t){return \"Let's talk about \"+t+'. What do you want to know first?';}};})();"
+  },
+  {
+   "id": "chat-closer",
+   "name": "Closer",
+   "category": "Chat & Persona",
+   "desc": "Wraps up a topic warmly with a one-line send-off.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "wrapUp(topic)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['chat-closer']={version:'1.0',wrapUp:function(t){return 'That was '+t+' in a nutshell \u2014 come back any time you want to go deeper.';}};})();"
+  },
+  {
+   "id": "search-score",
+   "name": "Scorer",
+   "category": "Search & Knowledge",
+   "desc": "Scores how well a text matches a query \u2014 the tiny relevance engine behind the other search tools.",
+   "version": "1.0",
+   "optimal": true,
+   "functions": [
+    "score(text, query)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['search-score']={version:'1.0',score:function(t,q){t=String(t).toLowerCase();q=String(q).toLowerCase().trim();if(!q)return 0;var s=0,i=-1;while((i=t.indexOf(q,i+1))>=0)s++;if(t.indexOf(q)===0)s+=2;return s;}};})();"
+  },
+  {
+   "id": "search-highlight",
+   "name": "Highlighter",
+   "category": "Search & Knowledge",
+   "desc": "Wraps every match of a query in <mark> tags so search hits glow on the page.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "highlight(text, query)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['search-highlight']={version:'1.0',highlight:function(t,q){var e=String(q).replace(/[.*+?^${}()|[\\]\\\\]/g,'\\\\$&');return String(t).replace(new RegExp('('+e+')','gi'),'<mark>$1</mark>');}};})();"
+  },
+  {
+   "id": "search-filter",
+   "name": "Filter List",
+   "category": "Search & Knowledge",
+   "desc": "Filters any list down to the items that match a query, best matches first.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "filter(items, query, keyFn)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['search-filter']={version:'1.0',filter:function(items,q,k){var T=this;q=String(q).toLowerCase().trim();if(!q)return items.slice();return items.map(function(x){var s=String(k?k(x):x).toLowerCase();var sc=0,qi=0;for(var i=0;i<s.length&&qi<q.length;i++){if(s[i]===q[qi]){sc++;qi++;}}return{i:x,s:qi===q.length?sc:-1};}).filter(function(r){return r.s>=0;}).sort(function(a,b){return b.s-a.s;}).map(function(r){return r.i;});}};})();"
+  },
+  {
+   "id": "search-suggest",
+   "name": "Suggester",
+   "category": "Search & Knowledge",
+   "desc": "Suggests completions from a word list as you type \u2014 the classic autocomplete helper.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "suggest(prefix, words, n)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['search-suggest']={version:'1.0',suggest:function(p,words,n){n=n||8;p=String(p).toLowerCase();return words.filter(function(w){return String(w).toLowerCase().indexOf(p)===0;}).slice(0,n);}};})();"
+  },
+  {
+   "id": "search-rank",
+   "name": "Ranker",
+   "category": "Search & Knowledge",
+   "desc": "Ranks items by query relevance using the Scorer \u2014 pass any list and a text picker.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "rank(items, query, keyFn)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['search-rank']={version:'1.0',rank:function(items,q,k){var self=this;return items.map(function(x){return{i:x,s:self.score(String(k?k(x):x),q)};}).filter(function(r){return r.s>0;}).sort(function(a,b){return b.s-a.s;}).map(function(r){return r.i;});},score:function(t,q){t=String(t).toLowerCase();q=String(q).toLowerCase().trim();if(!q)return 0;var s=0,i=-1;while((i=t.indexOf(q,i+1))>=0)s++;return s;}};})();"
+  },
+  {
+   "id": "search-snippet",
+   "name": "Snippet",
+   "category": "Search & Knowledge",
+   "desc": "Cuts a readable snippet around the first match of a query \u2014 like search results show.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "snippet(text, query, radius)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['search-snippet']={version:'1.0',snippet:function(t,q,r){r=r||60;t=String(t);var i=t.toLowerCase().indexOf(String(q).toLowerCase());if(i<0)return t.slice(0,r*2);var a=Math.max(0,i-r),b=Math.min(t.length,i+String(q).length+r);return(a>0?'\u2026':'')+t.slice(a,b)+(b<t.length?'\u2026':'');}};})();"
+  },
+  {
+   "id": "search-dedupe",
+   "name": "Dedupe",
+   "category": "Search & Knowledge",
+   "desc": "Removes duplicate items from a list while keeping the original order.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "dedupe(items)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['search-dedupe']={version:'1.0',dedupe:function(a){var seen={},out=[];a.forEach(function(x){var k=typeof x==='object'?JSON.stringify(x):String(x);if(!seen[k]){seen[k]=1;out.push(x);}});return out;}};})();"
+  },
+  {
+   "id": "search-group",
+   "name": "Group By",
+   "category": "Search & Knowledge",
+   "desc": "Groups a list into buckets by any key \u2014 instant categories from flat data.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "groupBy(items, keyFn)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['search-group']={version:'1.0',groupBy:function(a,k){var g={};a.forEach(function(x){var key=k(x);(g[key]=g[key]||[]).push(x);});return g;}};})();"
+  },
+  {
+   "id": "search-page",
+   "name": "Paginator",
+   "category": "Search & Knowledge",
+   "desc": "Slices a list into pages and reports page counts \u2014 for browsing big result sets.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "page(items, page, perPage)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['search-page']={version:'1.0',page:function(a,p,pp){pp=pp||20;p=Math.max(1,p||1);var pages=Math.max(1,Math.ceil(a.length/pp));p=Math.min(p,pages);return{items:a.slice((p-1)*pp,p*pp),page:p,pages:pages,total:a.length};}};})();"
+  },
+  {
+   "id": "search-recent",
+   "name": "Recent Searches",
+   "category": "Search & Knowledge",
+   "desc": "Remembers the last searches in this browser so visitors can re-run them in one tap.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "add(query)",
+    "list()",
+    "clear()"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['search-recent']={version:'1.0',add:function(q){var l=this.list();l.unshift(String(q));l=l.filter(function(x,i){return l.indexOf(x)===i;}).slice(0,10);try{localStorage.setItem('sigllama-recent',JSON.stringify(l));}catch(e){}return l;},list:function(){try{return JSON.parse(localStorage.getItem('sigllama-recent')||'[]');}catch(e){return[];}},clear:function(){try{localStorage.removeItem('sigllama-recent');}catch(e){}return true;}};})();"
+  },
+  {
+   "id": "math-calc",
+   "name": "Safe Calculator",
+   "category": "Math & Logic",
+   "desc": "Evaluates math expressions (+ - * / % ^ and parentheses) with a hand-written parser \u2014 no eval, no surprises.",
+   "version": "1.0",
+   "optimal": true,
+   "functions": [
+    "calc(expr)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['math-calc']={version:'1.0',calc:function(e){var t=String(e).replace(/\\s+/g,'').match(/(\\d+\\.?\\d*|[+\\-*/()^%])/g);if(!t)throw new Error('bad expression');var p=0;function pk(){return t[p];}function nx(){return t[p++];}function ex(){var v=tm();while(pk()==='+'||pk()==='-'){var o=nx(),r=tm();v=o==='+'?v+r:v-r;}return v;}function tm(){var v=pw();while(pk()==='*'||pk()==='/'||pk()==='%'){var o=nx(),r=pw();v=o==='*'?v*r:(o==='/'?v/r:v%r);}return v;}function pw(){var v=pr();if(pk()==='^'){nx();v=Math.pow(v,pw());}return v;}function pr(){var x=nx();if(x==='('){var v=ex();nx();return v;}if(x==='-')return -pr();var n=parseFloat(x);if(isNaN(n))throw new Error('bad number');return n;}var out=ex();if(p<t.length)throw new Error('bad expression');return out;}};})();"
+  },
+  {
+   "id": "math-stats",
+   "name": "Statistics",
+   "category": "Math & Logic",
+   "desc": "Mean, median and standard deviation for any list of numbers.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "mean(a)",
+    "median(a)",
+    "stddev(a)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['math-stats']={version:'1.0',mean:function(a){return a.reduce(function(x,y){return x+y;},0)/a.length;},median:function(a){var s=a.slice().sort(function(x,y){return x-y;});var m=s.length>>1;return s.length%2?s[m]:(s[m-1]+s[m])/2;},stddev:function(a){var m=this.mean(a);return Math.sqrt(a.reduce(function(x,y){return x+(y-m)*(y-m);},0)/a.length);}};})();"
+  },
+  {
+   "id": "math-percent",
+   "name": "Percent",
+   "category": "Math & Logic",
+   "desc": "Percentages made painless: what share is this, and how much did it change.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "of(part, whole)",
+    "change(oldV, newV)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['math-percent']={version:'1.0',of:function(p,w){return w? (p/w*100):0;},change:function(a,b){return a?((b-a)/Math.abs(a)*100):0;}};})();"
+  },
+  {
+   "id": "math-convert",
+   "name": "Unit Converter",
+   "category": "Math & Logic",
+   "desc": "Converts everyday units: miles/km, Fahrenheit/Celsius, pounds/kg.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "convert(value, from, to)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['math-convert']={version:'1.0',convert:function(v,f,t){var k=f+'>'+t;var m={'mi>km':1.60934,'km>mi':0.621371,'lb>kg':0.453592,'kg>lb':2.20462};if(k==='c>f')return v*9/5+32;if(k==='f>c')return(v-32)*5/9;if(m[k])return v*m[k];throw new Error('unknown conversion '+k);}};})();"
+  },
+  {
+   "id": "math-geometry",
+   "name": "Geometry",
+   "category": "Math & Logic",
+   "desc": "Areas, volumes and the hypotenuse \u2014 the shapes math you actually reach for.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "circleArea(r)",
+    "rectArea(w,h)",
+    "boxVolume(w,h,d)",
+    "hypotenuse(a,b)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['math-geometry']={version:'1.0',circleArea:function(r){return Math.PI*r*r;},rectArea:function(w,h){return w*h;},boxVolume:function(w,h,d){return w*h*d;},hypotenuse:function(a,b){return Math.sqrt(a*a+b*b);}};})();"
+  },
+  {
+   "id": "math-finance",
+   "name": "Money Math",
+   "category": "Math & Logic",
+   "desc": "Compound growth and loan payments from three numbers each.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "compound(principal, rate, years)",
+    "loanPayment(principal, annualRate, years)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['math-finance']={version:'1.0',compound:function(p,r,y){return p*Math.pow(1+r,y);},loanPayment:function(p,ar,y){var m=ar/12,n=y*12;return m?p*m/(1-Math.pow(1+m,-n)):p/n;}};})();"
+  },
+  {
+   "id": "math-random",
+   "name": "Random",
+   "category": "Math & Logic",
+   "desc": "Random integers, random picks and real shuffles \u2014 for games, demos and sampling.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "int(min, max)",
+    "pick(arr)",
+    "shuffle(arr)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['math-random']={version:'1.0',int:function(a,b){return a+Math.floor(Math.random()*(b-a+1));},pick:function(x){return x[Math.floor(Math.random()*x.length)];},shuffle:function(x){var a=x.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}};})();"
+  },
+  {
+   "id": "math-seq",
+   "name": "Sequences",
+   "category": "Math & Logic",
+   "desc": "Number sequences: Fibonacci numbers and numeric ranges with steps.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "fib(n)",
+    "range(a, b, step)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['math-seq']={version:'1.0',fib:function(n){var a=[0,1];for(var i=2;i<n;i++)a.push(a[i-1]+a[i-2]);return a.slice(0,n);},range:function(a,b,s){s=s||1;var o=[];for(var i=a;i<b;i+=s)o.push(i);return o;}};})();"
+  },
+  {
+   "id": "math-clamp",
+   "name": "Clamp & Round",
+   "category": "Math & Logic",
+   "desc": "Keeps numbers in bounds, rounds to decimals, and blends between two values.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "clamp(v, lo, hi)",
+    "roundTo(v, d)",
+    "lerp(a, b, t)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['math-clamp']={version:'1.0',clamp:function(v,lo,hi){return Math.max(lo,Math.min(hi,v));},roundTo:function(v,d){var p=Math.pow(10,d||0);return Math.round(v*p)/p;},lerp:function(a,b,t){return a+(b-a)*t;}};})();"
+  },
+  {
+   "id": "math-logic",
+   "name": "Logic",
+   "category": "Math & Logic",
+   "desc": "The logic gates \u2014 and, or, not, xor and implies \u2014 for clean true/false reasoning.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "AND(a,b)",
+    "OR(a,b)",
+    "NOT(a)",
+    "XOR(a,b)",
+    "implies(a,b)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['math-logic']={version:'1.0',AND:function(a,b){return!!(a&&b);},OR:function(a,b){return!!(a||b);},NOT:function(a){return!a;},XOR:function(a,b){return!!a!==!!b;},implies:function(a,b){return!a||!!b;}};})();"
+  },
+  {
+   "id": "web-query",
+   "name": "Query Strings",
+   "category": "Web & Network",
+   "desc": "Builds and reads URL query strings \u2014 the ?name=value pairs that carry data in links.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "stringify(obj)",
+    "parse(qs)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['web-query']={version:'1.0',stringify:function(o){return Object.keys(o).map(function(k){return encodeURIComponent(k)+'='+encodeURIComponent(o[k]);}).join('&');},parse:function(q){var o={};String(q).replace(/^\\?/,'').split('&').forEach(function(p){var kv=p.split('=');if(kv[0])o[decodeURIComponent(kv[0])]=decodeURIComponent(kv[1]||'');});return o;}};})();"
+  },
+  {
+   "id": "web-url",
+   "name": "URL Tools",
+   "category": "Web & Network",
+   "desc": "Joins base URLs with paths safely and tells external links from internal ones.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "join(base, path)",
+    "isExternal(url)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['web-url']={version:'1.0',join:function(b,p){return String(b).replace(/\\/$/,'')+'/'+String(p).replace(/^\\//,'');},isExternal:function(u){try{return new URL(u,location.href).origin!==location.origin;}catch(e){return false;}}};})();"
+  },
+  {
+   "id": "web-share",
+   "name": "Share Links",
+   "category": "Web & Network",
+   "desc": "Builds share links for X, Facebook and email from any page URL and text.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "links(url, text)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['web-share']={version:'1.0',links:function(u,t){u=encodeURIComponent(u);t=encodeURIComponent(t||'');return{x:'https://twitter.com/intent/tweet?url='+u+'&text='+t,facebook:'https://www.facebook.com/sharer/sharer.php?u='+u,email:'mailto:?subject='+t+'&body='+u};}};})();"
+  },
+  {
+   "id": "web-meta",
+   "name": "Meta Tags",
+   "category": "Web & Network",
+   "desc": "Generates the title/description meta tags every page needs for search and previews.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "tags(title, desc)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['web-meta']={version:'1.0',tags:function(t,d){t=String(t).replace(/\"/g,'&quot;');d=String(d).replace(/\"/g,'&quot;');return '<title>'+t+'</title>\\n<meta name=\"description\" content=\"'+d+'\">';}};})();"
+  },
+  {
+   "id": "web-ping",
+   "name": "Ping",
+   "category": "Web & Network",
+   "desc": "Checks whether a URL answers, with a simple true/false promise \u2014 for status pills and health checks.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "ping(url) -> Promise<boolean>"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['web-ping']={version:'1.0',ping:function(u){return fetch(u,{method:'HEAD'}).then(function(r){return r.ok;}).catch(function(){return false;});}};})();"
+  },
+  {
+   "id": "web-get",
+   "name": "Get JSON",
+   "category": "Web & Network",
+   "desc": "Fetches a URL and parses it as JSON in one call \u2014 the workhorse of every network tool.",
+   "version": "1.0",
+   "optimal": true,
+   "functions": [
+    "getJSON(url) -> Promise"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['web-get']={version:'1.0',getJSON:function(u){return fetch(u).then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.json();});}};})();"
+  },
+  {
+   "id": "web-retry",
+   "name": "Retry",
+   "category": "Web & Network",
+   "desc": "Retries a failing async function a set number of times with a pause between tries.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "retry(fn, times, ms)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['web-retry']={version:'1.0',retry:function(fn,times,ms){times=times||3;ms=ms||500;return fn().catch(function(e){return times<=1?Promise.reject(e):new Promise(function(r){setTimeout(r,ms);}).then(function(){return window.SigLlama.tools['web-retry'].retry(fn,times-1,ms);});});}};})();"
+  },
+  {
+   "id": "web-cache",
+   "name": "Cache",
+   "category": "Web & Network",
+   "desc": "Caches async results in memory for a set time so repeated calls stay fast and free.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "cached(key, fn, ttlMs)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['web-cache']={version:'1.0',_c:{},cached:function(k,fn,ttl){var c=this._c[k],now=Date.now();if(c&&now-c.at<ttl)return Promise.resolve(c.v);return fn().then(function(v){this._c[k]={v:v,at:now};return v;}.bind(this));}};})();"
+  },
+  {
+   "id": "web-embed",
+   "name": "Embed Tags",
+   "category": "Web & Network",
+   "desc": "Builds <script> and <link> tags from URLs \u2014 for dropping libraries into any page.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "scriptTag(src)",
+    "cssLink(href)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['web-embed']={version:'1.0',scriptTag:function(s){return '<script src=\"'+s+'\"><\\/script>';},cssLink:function(h){return '<link rel=\"stylesheet\" href=\"'+h+'\">';}};})();"
+  },
+  {
+   "id": "web-sitemap",
+   "name": "Sitemap",
+   "category": "Web & Network",
+   "desc": "Builds a sitemap.xml from a URL list so search engines can find every page.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "xml(urls)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['web-sitemap']={version:'1.0',xml:function(u){return '<?xml version=\"1.0\" encoding=\"UTF-8\"?>\\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\\n'+u.map(function(x){return '  <url><loc>'+x+'</loc></url>';}).join('\\n')+'\\n</urlset>';}};})();"
+  },
+  {
+   "id": "data-json",
+   "name": "JSON Tools",
+   "category": "Files & Data",
+   "desc": "Pretty-prints objects and parses JSON safely without throwing \u2014 the daily bread of data work.",
+   "version": "1.0",
+   "optimal": true,
+   "functions": [
+    "pretty(obj)",
+    "safeParse(text)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['data-json']={version:'1.0',pretty:function(o){return JSON.stringify(o,null,2);},safeParse:function(t){try{return{ok:true,value:JSON.parse(t)};}catch(e){return{ok:false,error:String(e)};}}};})();"
+  },
+  {
+   "id": "data-csv",
+   "name": "CSV Tools",
+   "category": "Files & Data",
+   "desc": "Turns row arrays into CSV text and parses CSV back \u2014 for spreadsheets and data exchange.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "toCSV(rows)",
+    "fromCSV(text)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['data-csv']={version:'1.0',toCSV:function(r){return r.map(function(row){return row.map(function(c){c=String(c);return /[\",\\n]/.test(c)?'\"'+c.replace(/\"/g,'\"\"')+'\"':c;}).join(',');}).join('\\n');},fromCSV:function(t){return String(t).split('\\n').filter(function(l){return l.trim();}).map(function(l){var out=[],cur='',q=false;for(var i=0;i<l.length;i++){var c=l[i];if(q){if(c==='\"'){if(l[i+1]==='\"'){cur+='\"';i++;}else q=false;}else cur+=c;}else if(c==='\"')q=true;else if(c===','){out.push(cur);cur='';}else cur+=c;}out.push(cur);return out;});}};})();"
+  },
+  {
+   "id": "data-table",
+   "name": "Markdown Table",
+   "category": "Files & Data",
+   "desc": "Turns rows into a Markdown table you can paste into docs and chats.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "md(rows)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['data-table']={version:'1.0',md:function(r){if(!r.length)return '';var h='| '+r[0].join(' | ')+' |\\n|'+r[0].map(function(){return '---';}).join('|')+'|\\n';return h+r.slice(1).map(function(row){return '| '+row.join(' | ')+' |';}).join('\\n');}};})();"
+  },
+  {
+   "id": "data-sort",
+   "name": "Sort By",
+   "category": "Files & Data",
+   "desc": "Sorts objects by any key, up or down, without mutating the original list.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "by(arr, key, dir)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['data-sort']={version:'1.0',by:function(a,k,d){var m=d==='desc'?-1:1;return a.slice().sort(function(x,y){var xv=x[k],yv=y[k];return xv<yv?-m:xv>yv?m:0;});}};})();"
+  },
+  {
+   "id": "data-chunk",
+   "name": "Chunk",
+   "category": "Files & Data",
+   "desc": "Splits a big array into small chunks \u2014 for paging, batching and lazy loading.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "chunk(arr, n)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['data-chunk']={version:'1.0',chunk:function(a,n){var o=[];for(var i=0;i<a.length;i+=n)o.push(a.slice(i,i+n));return o;}};})();"
+  },
+  {
+   "id": "data-flatten",
+   "name": "Flatten",
+   "category": "Files & Data",
+   "desc": "Flattens a nested object into dot-path keys \u2014 handy for search indexes and debugging.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "flatten(obj, prefix)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['data-flatten']={version:'1.0',flatten:function(o,p){p=p||'';var out={};Object.keys(o).forEach(function(k){var v=o[k],key=p?p+'.'+k:k;if(v&&typeof v==='object'&&!Array.isArray(v)){var sub=this.flatten(v,key);Object.keys(sub).forEach(function(sk){out[sk]=sub[sk];});}else out[key]=v;},this);return out;}};})();"
+  },
+  {
+   "id": "data-hash",
+   "name": "Hash & ID",
+   "category": "Files & Data",
+   "desc": "A tiny string hash and unique-ID maker for keys, stamps and dedupe checks.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "djb2(str)",
+    "uid(prefix)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['data-hash']={version:'1.0',djb2:function(s){var h=5381;for(var i=0;i<s.length;i++)h=((h<<5)+h+s.charCodeAt(i))>>>0;return h.toString(36);},uid:function(p){return (p||'id')+'-'+Date.now().toString(36)+'-'+Math.floor(Math.random()*1e6).toString(36);}};})();"
+  },
+  {
+   "id": "data-validate",
+   "name": "Validate",
+   "category": "Files & Data",
+   "desc": "Checks whether a string looks like an email or a URL before you trust it.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "isEmail(s)",
+    "isURL(s)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['data-validate']={version:'1.0',isEmail:function(s){return /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(String(s));},isURL:function(s){try{var u=new URL(String(s));return u.protocol==='http:'||u.protocol==='https:';}catch(e){return false;}}};})();"
+  },
+  {
+   "id": "data-download",
+   "name": "Download Text",
+   "category": "Files & Data",
+   "desc": "Downloads any text as a file straight from the browser \u2014 no server needed.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "text(filename, content)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['data-download']={version:'1.0',text:function(n,c){var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([c],{type:'text/plain'}));a.download=n;document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove();},4000);return true;}};})();"
+  },
+  {
+   "id": "data-lines",
+   "name": "Lines",
+   "category": "Files & Data",
+   "desc": "Splits text into clean, non-empty, trimmed lines \u2014 the first step of most text pipelines.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "lines(text)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['data-lines']={version:'1.0',lines:function(t){return String(t).split(/\\r?\\n/).map(function(l){return l.trim();}).filter(Boolean);}};})();"
+  },
+  {
+   "id": "voice-speak",
+   "name": "Speak",
+   "category": "Voice & Audio",
+   "desc": "Reads text aloud with the device voice, falling back to Google's voice if needed. The read-aloud engine.",
+   "version": "1.0",
+   "optimal": true,
+   "functions": [
+    "speak(text, opts)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['voice-speak']={version:'1.0',speak:function(t,o){o=o||{};t=String(t).slice(0,400);try{if(window.speechSynthesis){var u=new SpeechSynthesisUtterance(t);u.rate=o.rate||1;u.pitch=o.pitch||1;speechSynthesis.cancel();speechSynthesis.speak(u);return true;}}catch(e){}try{new Audio('https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q='+encodeURIComponent(t.slice(0,180))).play();return true;}catch(e){}return false;}};})();"
+  },
+  {
+   "id": "voice-stop",
+   "name": "Stop Voice",
+   "category": "Voice & Audio",
+   "desc": "Stops any speech immediately \u2014 the quiet button for every read-aloud.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "stop()"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['voice-stop']={version:'1.0',stop:function(){try{if(window.speechSynthesis)speechSynthesis.cancel();}catch(e){}return true;}};})();"
+  },
+  {
+   "id": "voice-chunk",
+   "name": "Speech Chunks",
+   "category": "Voice & Audio",
+   "desc": "Splits long text into speakable chunks so nothing gets cut off mid-sentence.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "chunk(text, max)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['voice-chunk']={version:'1.0',chunk:function(t,m){m=m||180;var out=[],cur='';String(t).match(/[^.!?]+[.!?]+/g)||[String(t)];(String(t).match(/[^.!?]+[.!?]+/g)||[String(t)]).forEach(function(s){if((cur+s).length>m){out.push(cur.trim());cur=s;}else cur+=s;});if(cur.trim())out.push(cur.trim());return out;}};})();"
+  },
+  {
+   "id": "voice-presets",
+   "name": "Voice Presets",
+   "category": "Voice & Audio",
+   "desc": "Rate and pitch presets per persona \u2014 robots, teachers, villains and narrators each get a voice.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "forPersona(name)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['voice-presets']={version:'1.0',forPersona:function(n){var m={robot:{rate:0.9,pitch:0.5},teacher:{rate:0.95,pitch:1.0},villain:{rate:0.85,pitch:0.6},narrator:{rate:1.0,pitch:0.9},child:{rate:1.1,pitch:1.4},elder:{rate:0.85,pitch:0.8}};return m[String(n).toLowerCase()]||{rate:1.0,pitch:1.0};}};})();"
+  },
+  {
+   "id": "voice-queue",
+   "name": "Speech Queue",
+   "category": "Voice & Audio",
+   "desc": "Queues texts to be read aloud one after another, in order, with no overlap.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "queue(text)",
+    "clear()"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['voice-queue']={version:'1.0',_q:[],_busy:false,queue:function(t){this._q.push(String(t));this._next();return this._q.length;},_next:function(){if(this._busy||!this._q.length)return;var self=this;if(!window.speechSynthesis){this._q=[];return;}this._busy=true;var u=new SpeechSynthesisUtterance(this._q.shift());u.onend=function(){self._busy=false;self._next();};u.onerror=function(){self._busy=false;self._next();};speechSynthesis.speak(u);},clear:function(){this._q=[];try{speechSynthesis.cancel();}catch(e){}this._busy=false;return true;}};})();"
+  },
+  {
+   "id": "voice-buttons",
+   "name": "Read Buttons",
+   "category": "Voice & Audio",
+   "desc": "Builds Read/Stop button HTML for any text \u2014 drop it next to articles and entries.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "html(text, id)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['voice-buttons']={version:'1.0',html:function(t,id){id=id||('v'+Math.floor(Math.random()*1e6));var e=String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;');return '<button onclick=\"SigLlama.tools[\\'voice-speak\\'].speak(decodeURIComponent(\\''+encodeURIComponent(t)+'\\'))\">\ud83d\udd0a Read</button> <button onclick=\"SigLlama.tools[\\'voice-stop\\'].stop()\">\u23f9 Stop</button>';}};})();"
+  },
+  {
+   "id": "voice-announce",
+   "name": "Announce",
+   "category": "Voice & Audio",
+   "desc": "Posts a message to a screen-reader live region \u2014 for accessible status updates.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "announce(msg)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['voice-announce']={version:'1.0',announce:function(m){var d=document.getElementById('sigllama-live');if(!d){d=document.createElement('div');d.id='sigllama-live';d.setAttribute('aria-live','polite');d.style.cssText='position:absolute;left:-9999px;';document.body.appendChild(d);}d.textContent=String(m);return true;}};})();"
+  },
+  {
+   "id": "voice-captions",
+   "name": "Captions",
+   "category": "Voice & Audio",
+   "desc": "Turns timed segments into SRT caption text for videos and audio.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "srt(segments)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['voice-captions']={version:'1.0',srt:function(s){function ts(x){var h=Math.floor(x/3600),m=Math.floor(x%3600/60),s2=Math.floor(x%60),ms=Math.floor(x%1*1000);function p(n){return(n<10?'0':'')+n;}return p(h)+':'+p(m)+':'+p(s2)+','+(ms<100?'0':'')+(ms<10?'0':'')+ms;}return s.map(function(sg,i){return(i+1)+'\\n'+ts(sg.start)+' --> '+ts(sg.end)+'\\n'+sg.text;}).join('\\n\\n');}};})();"
+  },
+  {
+   "id": "voice-clean",
+   "name": "Clean Transcript",
+   "category": "Voice & Audio",
+   "desc": "Cleans raw speech-to-text output: fixes spacing, capitalizes sentences.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "cleanTranscript(text)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['voice-clean']={version:'1.0',cleanTranscript:function(t){return String(t).replace(/\\s+/g,' ').trim().replace(/(^|[.!?]\\s+)([a-z])/g,function(m,p,c){return p+c.toUpperCase();});}};})();"
+  },
+  {
+   "id": "voice-rate",
+   "name": "Reading Time",
+   "category": "Voice & Audio",
+   "desc": "Estimates how long text takes to read aloud at a natural pace.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "minutes(text, wpm)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['voice-rate']={version:'1.0',minutes:function(t,w){w=w||150;var n=String(t).trim()?String(t).trim().split(/\\s+/).length:0;return Math.max(1,Math.round(n/w));}};})();"
+  },
+  {
+   "id": "safe-honesty",
+   "name": "Honesty Notes",
+   "category": "Safety & Honesty",
+   "desc": "The honesty stamps: draft-not-filed, simulation, and AI-made labels that keep every page truthful.",
+   "version": "1.0",
+   "optimal": true,
+   "functions": [
+    "note(kind)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['safe-honesty']={version:'1.0',note:function(k){var m={draft:'Draft \u2014 ready to file. NOT filed, NOT a granted patent.',sim:'Simulation layer: the system\\u2019s own model of the topic, not a record of real events.',ai:'Made with AI assistance.',unverified:'Unverified \u2014 the record is thin here, stated plainly.'};return m[k]||m.ai;}};})();"
+  },
+  {
+   "id": "safe-pii",
+   "name": "Redact PII",
+   "category": "Safety & Honesty",
+   "desc": "Redacts emails and phone numbers from text before it is shown or stored.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "redact(text)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['safe-pii']={version:'1.0',redact:function(t){return String(t).replace(/[^\\s@]+@[^\\s@]+\\.[^\\s@]+/g,'[email redacted]').replace(/(\\+?\\d[\\d\\s.\\-()]{7,}\\d)/g,'[phone redacted]');}};})();"
+  },
+  {
+   "id": "safe-clamp",
+   "name": "Clamp Output",
+   "category": "Safety & Honesty",
+   "desc": "Caps output length so long generations never flood the page.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "clamp(text, max)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['safe-clamp']={version:'1.0',clamp:function(t,m){m=m||2000;t=String(t);return t.length<=m?t:t.slice(0,m)+'\u2026';}};})();"
+  },
+  {
+   "id": "safe-disclaimer",
+   "name": "Disclaimers",
+   "category": "Safety & Honesty",
+   "desc": "The right caution for sensitive topics: medical, legal and financial helpers are assistants, not professionals.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "forKind(kind)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['safe-disclaimer']={version:'1.0',forKind:function(k){var m={medical:'AI assistant, not a licensed medical professional. For health decisions, see a professional.',legal:'AI assistant, not a lawyer. For legal decisions, see a licensed attorney.',financial:'AI assistant, not a licensed financial advisor. For money decisions, see a professional.'};return m[String(k).toLowerCase()]||'AI assistant \u2014 verify important facts independently.';}};})();"
+  },
+  {
+   "id": "safe-hedge",
+   "name": "Hedge Check",
+   "category": "Safety & Honesty",
+   "desc": "Spots hedge words (maybe, might, possibly) so uncertain claims get flagged, not hidden.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "findHedges(text)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['safe-hedge']={version:'1.0',findHedges:function(t){return (String(t).match(/\\b(maybe|might|could|possibly|perhaps|allegedly|reportedly|unconfirmed)\\b/gi)||[]).map(function(w){return w.toLowerCase();});}};})();"
+  },
+  {
+   "id": "safe-kid",
+   "name": "Kid Filter",
+   "category": "Safety & Honesty",
+   "desc": "A gentle word filter that swaps a small list of harsh words for kinder ones.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "filter(text)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['safe-kid']={version:'1.0',filter:function(t){var bad={hate:'dislike',stupid:'silly',dumb:'silly',ugly:'plain'};return String(t).replace(/\\b(hate|stupid|dumb|ugly)\\b/gi,function(m){return bad[m.toLowerCase()];});}};})();"
+  },
+  {
+   "id": "safe-guard",
+   "name": "Prompt Guard",
+   "category": "Safety & Honesty",
+   "desc": "Strips common prompt-injection phrases so pasted text cannot hijack the Llama's instructions.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "strip(text)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['safe-guard']={version:'1.0',strip:function(t){return String(t).replace(/ignore (all |any )?previous instructions/gi,'[removed]').replace(/disregard (all |the )?above/gi,'[removed]').replace(/you are now /gi,'[removed] ');}};})();"
+  },
+  {
+   "id": "safe-ratelimit",
+   "name": "Rate Limit",
+   "category": "Safety & Honesty",
+   "desc": "Wraps a function so it runs at most once per interval \u2014 protecting buttons from double-taps.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "limit(fn, ms)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['safe-ratelimit']={version:'1.0',limit:function(fn,ms){var last=0;return function(){var now=Date.now();if(now-last>=(ms||1000)){last=now;return fn.apply(this,arguments);}};}};})();"
+  },
+  {
+   "id": "safe-audit",
+   "name": "Audit Log",
+   "category": "Safety & Honesty",
+   "desc": "Keeps an in-memory audit trail of important actions with timestamps.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "log(action, detail)",
+    "all()",
+    "clear()"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['safe-audit']={version:'1.0',_log:[],log:function(a,d){this._log.push({at:new Date().toISOString(),action:a,detail:d||''});if(this._log.length>500)this._log.shift();return true;},all:function(){return this._log.slice();},clear:function(){this._log=[];return true;}};})();"
+  },
+  {
+   "id": "safe-license",
+   "name": "License Text",
+   "category": "Safety & Honesty",
+   "desc": "The free-use license in plain words \u2014 paste it wherever the Llama ships.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "text()"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['safe-license']={version:'1.0',text:function(){return 'Signature Llama is free for any website, app, or project. No API key, no fee, credit appreciated. Currently free for all internet tasks. Independent model by Justin Addam Higgins, not affiliated with Meta.';}};})();"
+  },
+  {
+   "id": "embed-snippet",
+   "name": "Embed Code",
+   "category": "Embed & Integrate",
+   "desc": "Returns the 3-line embed snippet that puts the Llama on any web page.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "code()"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['embed-snippet']={version:'1.0',code:function(){return '<script src=\"https://justinahiggins614-cmyk.github.io/signature-backend/sigllama/sigllama.js\"><\\/script>\\n<script>\\nawait SigLlama.load(\\'https://justinahiggins614-cmyk.github.io/signature-backend/sigllama/\\');\\nconst text = await SigLlama.generate(\\'Hello, Llama.\\', { maxTokens: 60 });\\n<\\/script>';}};})();"
+  },
+  {
+   "id": "embed-ask",
+   "name": "Ask Snippet",
+   "category": "Embed & Integrate",
+   "desc": "Builds a ready-to-paste snippet that asks the Llama a question from any page.",
+   "version": "1.0",
+   "optimal": true,
+   "functions": [
+    "askCode(question)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['embed-ask']={version:'1.0',askCode:function(q){return '<script src=\"https://justinahiggins614-cmyk.github.io/signature-llama/llama-api.js\"><\\/script>\\n<script>\\nSignatureLlama.ask('+JSON.stringify(q)+').then(function(a){ console.log(a); });\\n<\\/script>';}};})();"
+  },
+  {
+   "id": "embed-chatbox",
+   "name": "Chat Box",
+   "category": "Embed & Integrate",
+   "desc": "Generates a working chat-box HTML block wired to SignatureLlama.ask().",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "html()"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['embed-chatbox']={version:'1.0',html:function(){return '<div id=\"sl-chat\"><div id=\"sl-log\" style=\"border:1px solid #1e2c4d;height:180px;overflow:auto;padding:8px\"></div><input id=\"sl-in\" placeholder=\"Ask the Llama\u2026\"> <button onclick=\"var t=document.getElementById(\\'sl-in\\').value;SignatureLlama.ask(t).then(function(a){document.getElementById(\\'sl-log\\').innerHTML+=\\'<div><b>You:</b> \\'+t+\\'</div><div><b>Llama:</b> \\'+a+\\'</div>\\';});\">Send</button></div>';}};})();"
+  },
+  {
+   "id": "embed-dictlink",
+   "name": "Dictionary Link",
+   "category": "Embed & Integrate",
+   "desc": "Builds a deep link that opens the Llama site on any dictionary word.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "link(word)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['embed-dictlink']={version:'1.0',link:function(w){return 'https://justinahiggins614-cmyk.github.io/signature-llama/?term='+encodeURIComponent(w);}};})();"
+  },
+  {
+   "id": "embed-sectionlink",
+   "name": "Section Link",
+   "category": "Embed & Integrate",
+   "desc": "Builds a link straight to any section of the Llama site.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "link(sectionId)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['embed-sectionlink']={version:'1.0',link:function(s){return 'https://justinahiggins614-cmyk.github.io/signature-llama/#'+s;}};})();"
+  },
+  {
+   "id": "embed-loader",
+   "name": "Library Loader",
+   "category": "Embed & Integrate",
+   "desc": "Loads any tool library from this site into the current page \u2014 the 'use it in your network' engine.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "loadLibrary(id) -> Promise"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['embed-loader']={version:'1.0',loadLibrary:function(id){var base='https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json';return fetch(base).then(function(r){return r.json();}).then(function(j){var l=null;j.libraries.forEach(function(x){if(x.id===id)l=x;});if(!l)throw new Error('unknown library '+id);(new Function(l.code))();return id;});}};})();"
+  },
+  {
+   "id": "embed-optimal",
+   "name": "Optimal Apply",
+   "category": "Embed & Integrate",
+   "desc": "Applies the Optimal All-Purpose Setting: stores sampling defaults and loads the optimal libraries.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "current()",
+    "apply(libsIndex)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['embed-optimal']={version:'1.0',current:function(){try{return JSON.parse(localStorage.getItem('sigllama-optimal')||'null');}catch(e){return null;}},apply:function(idx){var libs=(idx.libraries||[]).filter(function(l){return l.optimal;});var cfg={sampling:idx.optimal.sampling,libraries:libs.map(function(l){return l.id;}),appliedAt:new Date().toISOString(),updated:idx.updated};window.SigLlamaDefaults=cfg.sampling;try{localStorage.setItem('sigllama-optimal',JSON.stringify(cfg));}catch(e){}libs.forEach(function(l){try{(new Function(l.code))();}catch(e){}});return cfg;}};})();"
+  },
+  {
+   "id": "embed-status",
+   "name": "Status Pill",
+   "category": "Embed & Integrate",
+   "desc": "Returns the NOW TRAINING / LIVE status pill HTML for embedding on other sites.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "pill(live)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['embed-status']={version:'1.0',pill:function(live){return live?'<span style=\"border:1px solid #5aff8a;color:#5aff8a;border-radius:999px;padding:4px 16px;\">\u25cf LIVE</span>':'<span style=\"border:1px solid #e8c766;color:#e8c766;border-radius:999px;padding:4px 16px;\">\u25cc NOW TRAINING</span>';}};})();"
+  },
+  {
+   "id": "embed-manifest",
+   "name": "Manifest URL",
+   "category": "Embed & Integrate",
+   "desc": "The machine-readable manifest URL \u2014 the starting point for every AI reader.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "url()"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['embed-manifest']={version:'1.0',url:function(){return 'https://justinahiggins614-cmyk.github.io/signature-llama/llama-manifest.json';}};})();"
+  },
+  {
+   "id": "embed-copybtn",
+   "name": "Copy Button",
+   "category": "Embed & Integrate",
+   "desc": "Builds a copy-to-clipboard button for any text with a toast confirmation.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "button(label, text)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['embed-copybtn']={version:'1.0',button:function(l,t){return '<button onclick=\"navigator.clipboard.writeText(decodeURIComponent(\\''+encodeURIComponent(t)+'\\')).then(function(){alert(\\'Copied\\')});\">'+String(l).replace(/</g,'&lt;')+'</button>';}};})();"
+  },
+  {
+   "id": "fun-joke",
+   "name": "Joke Setups",
+   "category": "Fun & Creative",
+   "desc": "Family-friendly joke setups to spark a laugh \u2014 the Llama writes the punchline.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "setups()"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['fun-joke']={version:'1.0',setups:function(){return['Why did the robot go on vacation?','What do you call a pirate AI?','Why did the transformer cross the road?','How does a language model apologize?'];}};})();"
+  },
+  {
+   "id": "fun-story",
+   "name": "Story Starters",
+   "category": "Fun & Creative",
+   "desc": "Story starters across genres \u2014 pick one and let the Llama continue the tale.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "starter()"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['fun-story']={version:'1.0',starter:function(){var s=['The lighthouse blinked twice, then went dark\u2026','Mara found a key that hummed when touched\u2026','On the last train to nowhere, the conductor smiled\u2026','The map showed an island that should not exist\u2026'];return s[Math.floor(Math.random()*s.length)];}};})();"
+  },
+  {
+   "id": "fun-haiku",
+   "name": "Haiku",
+   "category": "Fun & Creative",
+   "desc": "Formats three lines as a haiku with syllable counts shown.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "format(l1, l2, l3)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['fun-haiku']={version:'1.0',format:function(a,b,c){function syl(s){return Math.max(1,(String(s).toLowerCase().match(/[aeiouy]+/g)||[]).length);}return a+' ('+syl(a)+')\\n'+b+' ('+syl(b)+')\\n'+c+' ('+syl(c)+')';}};})();"
+  },
+  {
+   "id": "fun-riddle",
+   "name": "Riddles",
+   "category": "Fun & Creative",
+   "desc": "Classic riddles with answers included \u2014 for quizzes and game nights.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "all()",
+    "random()"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['fun-riddle']={version:'1.0',all:function(){return[{q:'I speak without a mouth and hear without ears. What am I?',a:'An echo'},{q:'The more of me you take, the more you leave behind. What am I?',a:'Footsteps'},{q:'I have keys but no locks. What am I?',a:'A keyboard'}];},random:function(){var a=this.all();return a[Math.floor(Math.random()*a.length)];}};})();"
+  },
+  {
+   "id": "fun-name",
+   "name": "AI Namer",
+   "category": "Fun & Creative",
+   "desc": "Invents original AI names from syllable parts \u2014 for forged AIs and characters.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "generate()"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['fun-name']={version:'1.0',generate:function(){var a=['Sig','Jah','Neu','Vox','Cyb','Lum','Quant','Nox'],b=['tron','mancer','wise','forge','mind','spark','core','ling'];function p(x){return x[Math.floor(Math.random()*x.length)];}return p(a)+p(b)+'-'+Math.floor(Math.random()*99);}};})();"
+  },
+  {
+   "id": "fun-praise",
+   "name": "Praise",
+   "category": "Fun & Creative",
+   "desc": "Warm praise lines to celebrate a visitor's creation.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "praise(name)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['fun-praise']={version:'1.0',praise:function(n){var p=['brilliant work','a stellar build','genuinely impressive','top-tier making'];return 'That is '+p[Math.floor(Math.random()*p.length)]+(n?', '+n:'')+' \u2014 keep going!';}};})();"
+  },
+  {
+   "id": "fun-quest",
+   "name": "Quest Maker",
+   "category": "Fun & Creative",
+   "desc": "Generates a mini quest with a goal and a twist \u2014 for games and challenges.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "generate()"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['fun-quest']={version:'1.0',generate:function(){var g=['recover the lost signal','map the quiet sector','teach the village engine to sing','find the door with no key'];var t=['but it only appears at dawn','but someone else wants it first','but the map is upside down','but it hums a warning'];function p(x){return x[Math.floor(Math.random()*x.length)];}return{title:'Quest: '+p(g),goal:p(g),twist:p(t)};}};})();"
+  },
+  {
+   "id": "fun-mashup",
+   "name": "Mashup",
+   "category": "Fun & Creative",
+   "desc": "Mashes two ideas into one wild combination prompt.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "mash(a, b)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['fun-mashup']={version:'1.0',mash:function(a,b){return 'Combine \"'+a+'\" with \"'+b+'\": what new thing appears at the overlap? Describe it in three sentences.';}};})();"
+  },
+  {
+   "id": "fun-emoji",
+   "name": "Emoji Story",
+   "category": "Fun & Creative",
+   "desc": "Turns a list of words into a playful emoji-accented line.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "story(words)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['fun-emoji']={version:'1.0',story:function(w){var e=['\u2728','\ud83d\ude80','\ud83c\udf19','\ud83d\udd25','\ud83c\udf0a','\u2b50','\ud83c\udfad','\ud83d\udddd\ufe0f'];return w.map(function(x,i){return e[i%e.length]+' '+x;}).join(' ');}};})();"
+  },
+  {
+   "id": "fun-banner",
+   "name": "Banner",
+   "category": "Fun & Creative",
+   "desc": "Makes a code-comment banner from any text for proud headers.",
+   "version": "1.0",
+   "optimal": false,
+   "functions": [
+    "banner(text)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['fun-banner']={version:'1.0',banner:function(t){t=String(t);var line=new Array(t.length+6).join('=');return '// '+line+'\\n//   '+t.toUpperCase()+'\\n// '+line;}};})();"
+  }
+ ]
+}

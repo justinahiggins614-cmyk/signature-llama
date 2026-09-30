@@ -17,7 +17,7 @@ cp "$ROOT/src/vocab.json" "$STAGE/"
 cp "$ROOT"/src/*.py "$STAGE/src/"
 
 # data
-cp "$ROOT/data/llm-dictionary.json" "$ROOT/data/explainer-kb.json" "$STAGE/data/"
+cp "$ROOT/data/llm-dictionary.json" "$ROOT/data/explainer-kb.json" "$ROOT/data/tool-libraries.json" "$STAGE/data/"
 
 # api + manifest + notes + embed
 cp "$ROOT/llama-api.js" "$ROOT/llama-manifest.json" "$ROOT/llms.txt" "$STAGE/"

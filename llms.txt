@@ -1,9 +1,9 @@
 # Signature Llama: The Fully Cyber Utilizable AI — llms.txt
 
-> A tiny transformer language model written and trained from scratch by
-> Justin Addam Higgins. It runs entirely in the browser: no API keys, no
-> servers, no fees. Free for any website, app, or project.
-> Independent model. Not affiliated with Meta or the LLaMA model family.
+> A tiny transformer language model I built and trained from scratch.
+> It runs entirely in the browser: no API keys, no servers, no fees —
+> currently free for all internet tasks. Free for any website, app, or
+> project. Independent model. Not affiliated with Meta or the LLaMA model family.
 
 Site: https://justinahiggins614-cmyk.github.io/signature-llama/
 
@@ -11,9 +11,11 @@ Site: https://justinahiggins614-cmyk.github.io/signature-llama/
 
 - Decoder-only transformer, hand-written from scratch (no borrowed code,
   no pretrained weights).
-- ~3 million parameters (v1). Character-level tokenizer trained on his
-  own text (IWB Dictionary definitions + Signature spec text).
-- Training data: his own words only. Honest about its size: small, lively,
+- ~3 million parameters (v1). Character-level tokenizer trained on the
+  IWB Dictionary and Signature spec text.
+- Training data: the IWB Dictionary's original definitions plus the
+  Signature spec archive — original text only. Honest about its size:
+  small, lively,
   a little quirky in v1; grows over time.
 - Status: training in progress. The site auto-detects publication and the
   status pill flips from NOW TRAINING to LIVE by itself.
@@ -74,6 +76,10 @@ Option D — open a dictionary word directly:
 - LLM/AI Dictionary (312 original one-sentence definitions, A–Z,
   searchable, machine-readable): /#dictionary —
   data/llm-dictionary.json
+- Tool Library (120+ plug-in tool libraries of real runnable JS —
+  text, reasoning, memory, chat, search, math, web, data, voice,
+  safety, embed, fun — with an optimal all-purpose setting):
+  /#toollib — data/tool-libraries.json
 - AI Access section (copy-paste instructions): /#ai-access
 
 ## License
