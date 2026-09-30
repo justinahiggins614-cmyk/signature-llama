@@ -5,7 +5,7 @@ Independent model by Justin Addam Higgins. Not affiliated with Meta.
 WHAT THIS IS
 ------------
 Everything needed to run, study, and build on Signature Llama v1 —
-her own tiny transformer, written and trained from scratch. One zip,
+his own tiny transformer, written and trained from scratch. One zip,
 no build step, no keys, no fees.
 
 WHAT IS INSIDE

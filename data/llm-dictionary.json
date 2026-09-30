@@ -1,5 +1,5 @@
 {"terms":[
-{"t":"Signature Llama","c":"Model Architecture","d":"Justin Addam Higgins' own tiny language model, written and trained from scratch on her own words — an independent model, not affiliated with Meta."},
+{"t":"Signature Llama","c":"Model Architecture","d":"Justin Addam Higgins' own tiny language model, written and trained from scratch on his own words — an independent model, not affiliated with Meta."},
 {"t":"large language model","c":"Model Architecture","d":"A neural network trained on huge amounts of text so it can generate human-like writing, answer questions, and follow instructions."},
 {"t":"transformer","c":"Model Architecture","d":"The neural network design behind modern language models, built from stacked blocks that weigh how every word relates to every other word."},
 {"t":"attention","c":"Model Architecture","d":"The mechanism that lets a model decide which words in a sentence matter most when understanding or generating the next word."},

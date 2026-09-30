@@ -11,9 +11,9 @@ Site: https://justinahiggins614-cmyk.github.io/signature-llama/
 
 - Decoder-only transformer, hand-written from scratch (no borrowed code,
   no pretrained weights).
-- ~3 million parameters (v1). Character-level tokenizer trained on her
+- ~3 million parameters (v1). Character-level tokenizer trained on his
   own text (IWB Dictionary definitions + Signature spec text).
-- Training data: her own words only. Honest about its size: small, lively,
+- Training data: his own words only. Honest about its size: small, lively,
   a little quirky in v1; grows over time.
 - Status: training in progress. The site auto-detects publication and the
   status pill flips from NOW TRAINING to LIVE by itself.

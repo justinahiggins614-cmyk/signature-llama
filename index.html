@@ -80,7 +80,7 @@ code{background:#05080f;border:1px solid var(--line);border-radius:4px;padding:1
 <div class="hero">
   <h1>Signature Llama</h1>
   <p class="offname">The Fully Cyber Utilizable AI</p>
-  <p>Her own baseline AI — a tiny language model written and trained from scratch by Justin Addam Higgins. No big-tech API, no keys, no fees: it runs right in your browser, free forever.</p>
+  <p>His own baseline AI — a tiny language model written and trained from scratch by Justin Addam Higgins. No big-tech API, no keys, no fees: it runs right in your browser, free forever.</p>
   <div><span class="pill train" id="statuspill">◌ NOW TRAINING</span></div>
   <p style="font-size:.8em;max-width:640px">Signature Llama is an independent model by Justin Addam Higgins. It is not affiliated with, endorsed by, or related to Meta or the LLaMA models.</p>
 </div>
@@ -100,12 +100,12 @@ code{background:#05080f;border:1px solid var(--line);border-radius:4px;padding:1
     <h2><span class="tick">●</span> MODEL CARD</h2>
     <div class="kv"><b>What it is</b><span>A decoder-only transformer, hand-written from scratch — no borrowed code, no pretrained weights.</span></div>
     <div class="kv"><b>Size</b><span>~3 million parameters (v1)</span></div>
-    <div class="kv"><b>Tokenizer</b><span>Character-level, trained on her own text</span></div>
-    <div class="kv"><b>Trained on</b><span>The IWB Dictionary + Signature spec corpus — her own words, her own inventions</span></div>
+    <div class="kv"><b>Tokenizer</b><span>Character-level, trained on his own text</span></div>
+    <div class="kv"><b>Trained on</b><span>The IWB Dictionary + Signature spec corpus — his own words, his own inventions</span></div>
     <div class="kv"><b>Weights</b><span>int8-quantized, a few megabytes — downloads in seconds</span></div>
     <div class="kv"><b>Runs where</b><span>100% in your browser, pure JavaScript — works offline once loaded</span></div>
     <div class="kv"><b>Cost</b><span>Free forever. No API keys, no accounts, no calls home.</span></div>
-    <div class="kv"><b>v1 honesty</b><span>v1 is small, lively and a little quirky — like a bright intern. It grows smarter every time it retrains on her new words and specs.</span></div>
+    <div class="kv"><b>v1 honesty</b><span>v1 is small, lively and a little quirky — like a bright intern. It grows smarter every time it retrains on his new words and specs.</span></div>
   </div>
 
   <div class="panel" id="chat">
@@ -248,7 +248,7 @@ Signature Llama is an independent model by Justin Addam Higgins, not affiliated 
     </div>
   </div>
 
-  <div class="disclaimer">Signature Llama is an <b>independent model created by Justin Addam Higgins</b> — trained from scratch on her own dictionary and spec text. It is not affiliated with, endorsed by, sponsored by, or connected to Meta Platforms, Inc. or the LLaMA model family. The name similarity is coincidental branding of her own "signature" line.</div>
+  <div class="disclaimer">Signature Llama is an <b>independent model created by Justin Addam Higgins</b> — trained from scratch on his own dictionary and spec text. It is not affiliated with, endorsed by, sponsored by, or connected to Meta Platforms, Inc. or the LLaMA model family. The name similarity is coincidental branding of his own "signature" line.</div>
 
   <div class="panel" id="guide">
     <h2><span class="tick">●</span> THE EXPLAINER — YOUR ON-SITE GUIDE</h2>
@@ -288,11 +288,11 @@ Signature Llama is an independent model by Justin Addam Higgins, not affiliated 
     <div id="dictlist"></div>
   </div>
 
-  <div class="disclaimer">Signature Llama is an <b>independent model created by Justin Addam Higgins</b> — trained from scratch on her own dictionary and spec text. It is not affiliated with, endorsed by, sponsored by, or connected to Meta Platforms, Inc. or the LLaMA model family. The name similarity is coincidental branding of her own "signature" line.</div>
+  <div class="disclaimer">Signature Llama is an <b>independent model created by Justin Addam Higgins</b> — trained from scratch on his own dictionary and spec text. It is not affiliated with, endorsed by, sponsored by, or connected to Meta Platforms, Inc. or the LLaMA model family. The name similarity is coincidental branding of his own "signature" line.</div>
 
 </div>
 
-<div class="footer"><span class="sig">A SIGNATURE SYSTEM</span><br>Signature Llama — her own baseline AI, free forever.<br><span style="font-size:.8em">Independent model by Justin Addam Higgins · Not affiliated with Meta</span></div>
+<div class="footer"><span class="sig">A SIGNATURE SYSTEM</span><br>Signature Llama — his own baseline AI, free forever.<br><span style="font-size:.8em">Independent model by Justin Addam Higgins · Not affiliated with Meta</span></div>
 
 <script>
 /* ================= Signature Llama site engine ================= */
@@ -745,8 +745,8 @@ var INVENTORY = [
   desc: 'The pure-JavaScript runner: loads the weights and vocabulary, runs the transformer math in the browser, generates text. No dependencies, works offline once loaded.',
   sample: 'await SigLlama.load(MODEL_URL);\nconst text = await SigLlama.generate("Hello,", { maxTokens: 60 });' },
 { name: 'Signature Corpus Builder', cat: 'Source Code', file: 'src/build_corpus.py',
-  desc: 'Gathers her IWB Dictionary definitions and Signature spec texts into one clean training file the tokenizer and trainer consume.',
-  sample: 'python3 build_corpus.py   # -> corpus.txt (23MB of her own words)' },
+  desc: 'Gathers his IWB Dictionary definitions and Signature spec texts into one clean training file the tokenizer and trainer consume.',
+  sample: 'python3 build_corpus.py   # -> corpus.txt (23MB of his own words)' },
 { name: 'Signature Parity Checker', cat: 'Source Code', file: 'src/parity_py.py',
   desc: 'Proves the JavaScript engine matches the Python model token-for-token, so the browser Llama is the real trained Llama.',
   sample: 'python3 parity_py.py      # compares py vs js outputs' },
@@ -763,7 +763,7 @@ var INVENTORY = [
   desc: 'How each next token is picked: temperature sets adventurousness, top-k keeps only the k most likely candidates.',
   sample: 'await SigLlama.generate(prompt, {\n  temperature: 0.8,  // 0 = strict, 1+ = wild\n  topK: 40\n});' },
 { name: 'Signature Model Card', cat: 'Concepts', file: '',
-  desc: 'The honest facts: ~3M params, decoder-only, char tokenizer, trained on her words, int8, free forever. Readable live via SigLlama.info().',
+  desc: 'The honest facts: ~3M params, decoder-only, char tokenizer, trained on his words, int8, free forever. Readable live via SigLlama.info().',
   sample: 'const facts = await SigLlama.info();\n// { params, vocab, layers, ... }' },
 { name: 'Signature Prompt Builder', cat: 'Concepts', file: '',
   desc: 'Shapes a chat into one prompt the model understands: labeled turns of Human and Llama, newest last.',
