@@ -1,0 +1,82 @@
+# Signature Llama: The Fully Cyber Utilizable AI — llms.txt
+
+> A tiny transformer language model written and trained from scratch by
+> Justin Addam Higgins. It runs entirely in the browser: no API keys, no
+> servers, no fees. Free for any website, app, or project.
+> Independent model. Not affiliated with Meta or the LLaMA model family.
+
+Site: https://justinahiggins614-cmyk.github.io/signature-llama/
+
+## What it is
+
+- Decoder-only transformer, hand-written from scratch (no borrowed code,
+  no pretrained weights).
+- ~3 million parameters (v1). Character-level tokenizer trained on her
+  own text (IWB Dictionary definitions + Signature spec text).
+- Training data: her own words only. Honest about its size: small, lively,
+  a little quirky in v1; grows over time.
+- Status: training in progress. The site auto-detects publication and the
+  status pill flips from NOW TRAINING to LIVE by itself.
+
+## Where the files live
+
+- Engine (pure JavaScript, zero dependencies):
+  https://justinahiggins614-cmyk.github.io/signature-backend/sigllama/sigllama.js
+- Weights (int8, published when training completes):
+  https://justinahiggins614-cmyk.github.io/signature-backend/sigllama/sigllama-v1.bin
+- Vocabulary:
+  https://justinahiggins614-cmyk.github.io/signature-backend/sigllama/vocab.json
+- Whole patch (engine + weights or placeholder + vocab + sources +
+  dictionary + knowledge base + embed snippet + patch notes):
+  https://justinahiggins614-cmyk.github.io/signature-llama/patch/signature-llama-patch-v1.zip
+- Machine-readable manifest (start here for integration):
+  https://justinahiggins614-cmyk.github.io/signature-llama/llama-manifest.json
+- This site's source tools (tokenizer, model, trainer, exporter/quantizer,
+  corpus builder, parity checker):
+  https://justinahiggins614-cmyk.github.io/signature-llama/src/
+
+## How to call the API
+
+Option A — ask a question, get an answer (easiest, works today):
+  <script src="https://justinahiggins614-cmyk.github.io/signature-llama/llama-api.js"></script>
+  <script>
+    SignatureLlama.ask("What is a token?").then(function(answer){
+      console.log(answer);
+    });
+  </script>
+  SignatureLlama.ask(question) returns a Promise of a string. Answers come
+  from the on-site knowledge base now and upgrade to the trained model
+  automatically once it publishes.
+
+Option B — run the trained model yourself (browser or webview):
+  <script src="https://justinahiggins614-cmyk.github.io/signature-backend/sigllama/sigllama.js"></script>
+  <script>
+    await SigLlama.load("https://justinahiggins614-cmyk.github.io/signature-backend/sigllama/");
+    const text = await SigLlama.generate("Hello,", { maxTokens: 80, temperature: 0.8, topK: 40 });
+  </script>
+  SigLlama.generate(prompt, { maxTokens, temperature, topK, stopAtEos, onToken })
+  also supports onToken for streaming. SigLlama.info() returns model facts.
+  SigLlama.loaded() reports whether weights are present.
+
+Option C — ask through the site URL (opens the page with the on-site
+guide answering the question):
+  https://justinahiggins614-cmyk.github.io/signature-llama/?ask=YOUR_QUESTION
+
+Option D — open a dictionary word directly:
+  https://justinahiggins614-cmyk.github.io/signature-llama/?term=transformer
+
+## On-site resources for AI readers
+
+- The Explainer (on-site guide AI + knowledge base of every file,
+  library, and tool): /#guide — data/explainer-kb.json
+- Signature Inventory (every building block, downloadable):
+  /#inventory
+- LLM/AI Dictionary (312 original one-sentence definitions, A–Z,
+  searchable, machine-readable): /#dictionary —
+  data/llm-dictionary.json
+- AI Access section (copy-paste instructions): /#ai-access
+
+## License
+
+Free for any website, app, or project. No API key, no fee, credit
+appreciated. Independent model by Justin Addam Higgins.

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Signature Llama embed</title>
+</head>
+<body>
+<!-- Signature Llama embed — paste this whole block into any web page.
+     Independent model by Justin Addam Higgins. Not affiliated with Meta.
+     Free for any website, app, or project. No API key, no fee. -->
+<script src="https://justinahiggins614-cmyk.github.io/signature-backend/sigllama/sigllama.js"></script>
+<script>
+(async function () {
+  await SigLlama.load('https://justinahiggins614-cmyk.github.io/signature-backend/sigllama/');
+  var reply = await SigLlama.generate('Hello, Llama.', { maxTokens: 80, temperature: 0.8, topK: 40 });
+  document.body.innerHTML += '<p>' + reply + '</p>';
+})();
+</script>
+</body>
+</html>

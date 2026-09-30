@@ -1,0 +1,27 @@
+User-agent: *
+Allow: /
+
+# AI crawlers are explicitly welcome on this site.
+# Signature Llama is built to be found and used by AI assistants.
+User-agent: GPTBot
+Allow: /
+User-agent: ChatGPT-User
+Allow: /
+User-agent: Google-Extended
+Allow: /
+User-agent: GoogleOther
+Allow: /
+User-agent: anthropic-ai
+Allow: /
+User-agent: ClaudeBot
+Allow: /
+User-agent: Claude-User
+Allow: /
+User-agent: CCBot
+Allow: /
+User-agent: PerplexityBot
+Allow: /
+User-agent: Applebot-Extended
+Allow: /
+
+Sitemap: https://justinahiggins614-cmyk.github.io/signature-llama/sitemap.xml
