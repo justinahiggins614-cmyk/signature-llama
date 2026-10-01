@@ -45,6 +45,23 @@ ENGINE MODES — every answer is labeled
   guide, or as fallback if the trained model cannot load. The site always says
   which engine answered.
 
+INDUSTRY STANDARD — the cloud option (NOT the on-device model)
+- The site chat has a model picker: "✦ Signature Llama v1 · on-device" (LOCAL,
+  no key) vs "⬢ Llama · Industry Standard · full-scale cloud" (CLOUD).
+- Industry Standard = the full-scale Llama the industry runs (default Llama 3.3
+  70B; Llama 4 Maverick / Llama 4 Scout selectable), served live from the cloud
+  by Groq at https://api.groq.com/openai/v1/chat/completions.
+- NEEDS A FREE API KEY (bring-your-own, from https://console.groq.com/keys).
+  The key lives only in the user's browser localStorage and is sent ONLY to
+  api.groq.com. Without a key, sending refuses clearly (MISSING_KEY) and v1
+  keeps working.
+- Every Industry Standard reply is labeled "⬢ Industry Standard · <model>:" —
+  impossible to confuse with ✦ Trained Llama v1. The cloud system prompt
+  forbids claiming to be the small on-device v1. Llama weights are by Meta;
+  the site is independent, not affiliated with Meta.
+- Client: industry-llama.js. SignatureLlama.askIndustry(question) answers via
+  the cloud; SignatureLlama.industryReady() reports whether a key is saved.
+
 NAMED FAILURE STATES (no silent failures)
 {failures}
 

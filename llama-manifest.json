@@ -12,6 +12,16 @@
    "returns": "Promise<{answer, engine, mode, model_version, provenance}>",
    "usage": "SignatureLlama.askWithProvenance(question) -> Promise<object>"
   },
+  "ask_industry": {
+   "behavior": "Answers with the full-scale cloud Llama (Industry Standard mode), not the on-device v1. Every reply is labeled '⬢ Industry Standard'. Rejects with MISSING_KEY when no key is saved.",
+   "example": "SignatureLlama.askIndustry('Explain attention.').then(function(a){ console.log(a); });",
+   "requires": "industry-llama.js included on the page AND the user's own free Groq API key saved (the site's Industry Standard box)",
+   "usage": "SignatureLlama.askIndustry(question) -> Promise<string>"
+  },
+  "industry_ready": {
+   "usage": "SignatureLlama.industryReady() -> boolean",
+   "description": "True when a cloud API key is saved in this browser (industry-llama.js loaded)."
+  },
   "ask_url": {
    "description": "Opens the site with the on-site guide answering the question.",
    "pattern": "https://justinahiggins614-cmyk.github.io/signature-llama/?ask=<question>"
@@ -106,10 +116,14 @@
    "description": "On-demand ask API. Include via script tag, then call SignatureLlama.ask().",
    "filename": "llama-api.js",
    "license": "Free for any website, app, or project. No API key, no fee.",
-   "sha256": "c3741ea580ce02052e9caf3f30257bfdfb468f5a7e82c11a108f828b9e7610c9",
-   "size_bytes": 3223,
+   "sha256": "095be7f039a5d18aadb727b23a8da28d951862e57f3460ed77754386caa05da6",
+   "size_bytes": 5927,
    "url": "https://justinahiggins614-cmyk.github.io/signature-llama/llama-api.js",
-   "version": "1.0"
+   "version": "1.0",
+   "also_provides": [
+    "SignatureLlama.askIndustry(question) — full-scale cloud Llama via industry-llama.js; needs the user's free Groq key. Replies labeled '⬢ Industry Standard'.",
+    "SignatureLlama.industryReady() — true when a cloud key is saved in the browser."
+   ]
   },
   "dictionary": {
    "description": "312 original one-sentence LLM/AI definitions. Schema: {\"terms\": [{\"t\": term, \"d\": definition, \"c\": category}]}.",
@@ -158,8 +172,8 @@
    "description": "Single authoritative machine-readable model state: MODEL_STATUS, MODEL_VERSION, WEIGHTS_AVAILABLE, GUIDE_AVAILABLE, API_AVAILABLE. Every section of the site reads this.",
    "filename": "model-status.json",
    "license": "Free for any website, app, or project. No API key, no fee.",
-   "sha256": "4f690b9a98898dac4e0fd649f615c833a057324254d966d158379e90421d2ac9",
-   "size_bytes": 2325,
+   "sha256": "d36bb5a7f92255b9a574dff517ac857c185457ecb31494bd4cbde87a4fb4d66a",
+   "size_bytes": 2406,
    "url": "https://justinahiggins614-cmyk.github.io/signature-llama/model-status.json",
    "version": "1.0"
   },
@@ -223,6 +237,17 @@
    "size_bytes": 3042035,
    "url": "https://justinahiggins614-cmyk.github.io/signature-backend/sigllama/sigllama-v1.bin",
    "version": "1.0"
+  },
+  "industry_api": {
+   "description": "Cloud client for the 'Llama · Industry Standard' mode: full-scale Llama (Llama 3.3 70B / Llama 4) served by Groq over its OpenAI-compatible API. Bring-your-own free key; the key is kept in the browser's localStorage and is only ever sent to api.groq.com.",
+   "filename": "industry-llama.js",
+   "license": "Free for any website, app, or project. No API key, no fee for the file itself.",
+   "sha256": "1ec98253ae565ab3c096e948b8ac7f5fc9ec61860f9dda2fd01593ca19b2bdf3",
+   "size_bytes": 4846,
+   "url": "https://justinahiggins614-cmyk.github.io/signature-llama/industry-llama.js",
+   "version": "1.0",
+   "api_key_required": true,
+   "key_destination": "https://api.groq.com/openai/v1/chat/completions — the ONLY host the key is ever sent to"
   }
  },
  "identity": {
@@ -382,5 +407,40 @@
   "training_corpus_version": "corpus.txt 2026-09-30, seed 614, 135,340 lines / ~23.2 MB",
   "weights_published": "2026-09-30T22:39:00-04:00"
  },
- "version": "1.0"
+ "version": "1.0",
+ "industry_standard": {
+  "what": "The 'Llama · Industry Standard' mode on the site: the full-scale Llama the industry runs (Llama 3.3 70B by default; Llama 4 Maverick / Llama 4 Scout selectable), served live from the cloud by Groq. It is NOT the on-device Signature Llama v1 — the two are labeled differently on every reply (⬢ vs ✦) and cannot be confused.",
+  "not_affiliated": "Llama weights are by Meta; this site and its Signature extras are an independent project by Justin Addam Higgins, not affiliated with Meta.",
+  "local_vs_cloud": "LOCAL = ✦ Signature Llama v1 (SIGLLAMA-V1, 2,983,488 parameters, runs in the browser, no key). CLOUD = ⬢ Industry Standard (full-scale Llama, cloud-served, needs a free API key).",
+  "endpoint": "https://api.groq.com/openai/v1/chat/completions",
+  "models": [
+   {
+    "id": "llama-3.3-70b-versatile",
+    "label": "Llama 3.3 70B",
+    "note": "the workhorse — fast, strong, 128k context",
+    "default": true
+   },
+   {
+    "id": "meta-llama/llama-4-maverick-17b-128e-instruct",
+    "label": "Llama 4 Maverick",
+    "note": "newest generation, 128k context"
+   },
+   {
+    "id": "meta-llama/llama-4-scout-17b-16e-instruct",
+    "label": "Llama 4 Scout",
+    "note": "long-context specialist"
+   }
+  ],
+  "api_key": {
+   "required": true,
+   "where": "Free key from https://console.groq.com/keys (no credit card). Pasted in the Industry Standard box above the site chat, or via IndustryLlama.setKey(key).",
+   "storage": "Browser localStorage only (key 'sigllama_industry_key'). Never stored on any server — the site is static hosting.",
+   "destination": "The key is sent ONLY to https://api.groq.com — never to any Signature site or any other host.",
+   "missing_key_behavior": "Send refuses clearly with code MISSING_KEY: 'Industry Standard needs your free API key first — paste it in the box above the chat, hit Connect, then send again. v1 keeps working meanwhile.'"
+  },
+  "reply_label": "⬢ Industry Standard · <model label>:",
+  "system_prompt_note": "Industry replies carry a system prompt that forbids claiming to be the small on-device Signature Llama v1.",
+  "client": "industry-llama.js (see files.industry_api)",
+  "choice_storage": "The model picker choice ('v1' | 'industry') persists in browser localStorage key 'sigllama_model_choice'; default 'v1'."
+ }
 }
