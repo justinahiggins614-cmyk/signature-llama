@@ -19,6 +19,10 @@
  * SignatureLlama.askWithProvenance(question) returns the answer plus
  * {engine, mode, model_version, provenance}. SignatureLlama.mode()
  * reports the current mode: 'trained' | 'guide' | 'loading' | 'failed'.
+ * Industry Standard: SignatureLlama.askIndustry(question) answers with the
+ * full-scale cloud Llama (needs industry-llama.js + the user's free key),
+ * labeled "⬢ Industry Standard"; SignatureLlama.industryReady() says if
+ * a key is saved.
  * License: free for any website, app, or project. No API key, no fee.
  * ============================================================ */
 (function () {
@@ -96,5 +100,22 @@
       return r.mode === 'trained_model' ? '✦ Trained Llama v1: ' + r.answer
         : 'Guide: ' + r.answer;
     });
+  };
+  /* Industry Standard: full-scale Llama via the cloud client (industry-llama.js).
+   * Needs window.IndustryLlama and a saved key; otherwise the Promise rejects
+   * with an Error carrying .code (MISSING_KEY, BAD_KEY, RATE_LIMITED,
+   * NETWORK, BAD_RESPONSE). Replies are labeled '⬢ Industry Standard'. */
+  window.SignatureLlama.askIndustry = function (question) {
+    if (!window.IndustryLlama) {
+      return Promise.reject(new Error('IndustryLlama engine file (industry-llama.js) is not loaded on this page.'));
+    }
+    return IndustryLlama.chat([
+      { role: 'user', content: String(question) }
+    ], { maxTokens: 600 }).then(function (t) {
+      return '⬢ Industry Standard · ' + IndustryLlama.modelLabel() + ': ' + t;
+    });
+  };
+  window.SignatureLlama.industryReady = function () {
+    return !!(window.IndustryLlama && IndustryLlama.ready());
   };
 })();

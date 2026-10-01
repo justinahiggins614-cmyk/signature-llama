@@ -127,6 +127,26 @@ code{background:#05080f;border:1px solid var(--line);border-radius:4px;padding:1
       <p id="llamastatushash" style="margin:.3em 0;font-size:.78em;color:var(--dim)"></p>
     </div>
     <p style="color:var(--dim);font-size:.9em;margin-top:.6em" id="chatstate">Loading the trained model…</p>
+    <div class="chatrow" style="margin-bottom:8px;align-items:center">
+      <label for="modelpick" style="color:var(--dim);font-size:.85em;flex:none">Model&nbsp;</label>
+      <select id="modelpick" style="font-size:1em;padding:10px;flex:1;min-width:0">
+        <option value="v1">✦ Signature Llama v1 · on-device</option>
+        <option value="industry">⬢ Llama · Industry Standard · full-scale cloud</option>
+      </select>
+      <button type="button" id="savechat" title="Download this chat as a text file">⤓ Save chat</button>
+    </div>
+    <div id="industrybox" style="display:none;border:1px solid var(--amber);border-radius:8px;padding:.7em .9em;margin-bottom:8px">
+      <b style="color:var(--amber2)">⬢ Llama · Industry Standard</b>
+      <p style="font-size:.88em;margin:.4em 0">The full-scale Llama the industry runs — 70-billion-parameter class, 128k context, instruction-tuned — served live from the cloud. The same standard brain, with Signature extras on top: read-aloud on every reply, save and copy your chat, 12-turn memory, and instant fallback to the on-device v1. A touch better.</p>
+      <p style="font-size:.85em;margin:.4em 0">Needs a free API key — <a href="https://console.groq.com/keys" target="_blank" rel="noopener" style="color:var(--amber2)">get one free here</a> (no credit card). Your key stays in this browser; it is only ever sent to api.groq.com.</p>
+      <div class="chatrow">
+        <input type="password" id="industrykey" placeholder="Paste your key (gsk_…)" autocomplete="off" aria-label="Groq API key">
+        <select id="industrymodel" style="font-size:1em;padding:10px" aria-label="Industry model"></select>
+        <button type="button" id="industryconnect">Connect</button>
+      </div>
+      <p id="industrystate" style="font-size:.85em;margin:.4em 0 0;color:var(--dim)"></p>
+      <p style="font-size:.75em;margin:.4em 0 0;color:var(--dim)">Weights: Meta Llama, served by Groq. Signature Llama is independent — not affiliated with Meta.</p>
+    </div>
     <div class="chatlog" id="llamalog" aria-live="polite"></div>
     <div class="chatrow">
       <input type="text" id="llamainput" placeholder="Say something to the Llama…" autocomplete="off" disabled>
@@ -234,6 +254,21 @@ async function chat(userText) {
 // temperature 0; { seed: 1234 } seeds the sampler. Both give byte-identical
 // output for the same prompt.</pre>
         <button type="button" class="copybtn" data-copy="snip5">⧉ Copy</button></li>
+      <li><b>6 · Industry Standard in your IDE (Continue / VS Code)</b>
+        <pre id="snip6"># ~/.continue/config.yaml — the same full-scale Llama the site's
+# "Industry Standard" mode uses, inside your editor.
+models:
+  - name: Llama Industry Standard
+    provider: openai
+    model: llama-3.3-70b-versatile
+    apiBase: https://api.groq.com/openai/v1
+    apiKey: YOUR_GROQ_KEY   # free at console.groq.com/keys
+# OpenAI-compatible endpoint: plug it into any tool that speaks
+# the /v1/chat/completions dialect — terminal scripts included:
+# curl https://api.groq.com/openai/v1/chat/completions \
+#   -H "Authorization: Bearer $GROQ_KEY" \
+#   -d '{"model":"llama-3.3-70b-versatile","messages":[{"role":"user","content":"hi"}]}'</pre>
+        <button type="button" class="copybtn" data-copy="snip6">⧉ Copy</button></li>
     </ul>
   </div>
 
@@ -348,6 +383,7 @@ Signature Llama is an independent model by Justin Addam Higgins, not affiliated 
 
 <div class="footer"><span class="sig">A SIGNATURE SYSTEM</span><br>Signature Llama — the baseline AI, currently free for all internet tasks.<br><span style="font-size:.8em">Independent model by Justin Addam Higgins · Not affiliated with Meta</span></div>
 
+<script src="industry-llama.js"></script>
 <script>
 /* ================= Signature Llama site engine ================= */
 (function () {
@@ -595,6 +631,7 @@ var LlamaChat = {
   ready: false, history: [], MAX_TURNS: 12,
   reset: function () {
     this.history = [];
+    industryHistory = [];
     var log = document.getElementById('llamalog');
     if (log) { log.innerHTML = ''; addMsg(log, 's', 'Chat reset — fresh start.'); }
   },
@@ -604,6 +641,10 @@ var LlamaChat = {
   },
   send: function (text) {
     var self = this;
+    /* Industry Standard branch: full-scale Llama via the cloud client. */
+    if (window.IndustryLlama && IndustryLlama.getChoice() === 'industry') {
+      return sendIndustry(text);
+    }
     if (!self.ready || !window.SigLlama || !SigLlama.loaded()) {
       var code = LlamaRuntime.lastFailure || 'MODEL_NOT_FOUND';
       return Promise.resolve({ text: failureText(code) + ' Guide mode is still answering below.',
@@ -624,6 +665,114 @@ var LlamaChat = {
     });
   }
 };
+
+/* ---------- Industry Standard mode: full-scale Llama, cloud-served ---------- */
+var INDUSTRY_SYSTEM = 'You are Llama, chatting on the Signature Llama site in "Industry Standard" mode — the full-scale, instruction-tuned Llama the industry runs. Be warm, personal, and genuinely helpful, like a bright friend. Keep answers focused; use plain language. Never claim to be the small on-device Signature Llama v1 — you are the full-scale cloud model. If asked who made you: the Llama weights are by Meta; this site and its Signature extras are an independent project by Justin Addam Higgins, not affiliated with Meta.';
+var industryHistory = []; /* [{role, content}] — user/assistant turns, 12-turn cap */
+function industryPush(role, content) {
+  industryHistory.push({ role: role, content: content });
+  while (industryHistory.length > 24) industryHistory.shift();
+}
+function sendIndustry(text) {
+  if (!window.IndustryLlama) {
+    return Promise.resolve({ text: 'Industry Standard mode could not start (engine file missing). v1 still works — switch the model picker back.',
+      engine: 'none', mode: 'failed', code: 'ENGINE_MISSING' });
+  }
+  if (!IndustryLlama.ready()) {
+    return Promise.resolve({ text: 'Industry Standard needs your free API key first — paste it in the box above the chat, hit Connect, then send again. v1 keeps working meanwhile.',
+      engine: 'none', mode: 'failed', code: 'MISSING_KEY' });
+  }
+  industryPush('user', text);
+  var messages = [{ role: 'system', content: INDUSTRY_SYSTEM }].concat(industryHistory);
+  return IndustryLlama.chat(messages, { maxTokens: 600 }).then(function (reply) {
+    industryPush('assistant', reply);
+    return { text: reply, engine: 'IndustryLlama', mode: 'industry',
+      model_version: IndustryLlama.modelLabel(),
+      provenance: { kind: 'CLOUD_GENERATION', tool: null, status: 'full-scale Llama output — verify anything important' } };
+  }).catch(function (e) {
+    industryHistory.pop(); /* don't keep the failed turn */
+    var code = (e && e.code) || 'FAILED';
+    return { text: String((e && e.message) || e) + ' — v1 still works: switch the model picker back any time.',
+      engine: 'none', mode: 'failed', code: code };
+  });
+}
+function renderIndustryStatus() {
+  var box = document.getElementById('industrybox'),
+      state = document.getElementById('chatstate'),
+      card = document.getElementById('llamastatuscard'),
+      val = document.getElementById('llamastatusval'),
+      detail = document.getElementById('llamastatusdetail'),
+      on = window.IndustryLlama && IndustryLlama.getChoice() === 'industry';
+  if (box) box.style.display = on ? 'block' : 'none';
+  if (!on || !card) return;
+  if (val) { val.textContent = '⬢ INDUSTRY STANDARD'; val.style.color = 'var(--amber2)'; }
+  if (detail) detail.textContent = IndustryLlama.ready()
+    ? 'Connected — talking to ' + IndustryLlama.modelLabel() + ' (full-scale Llama, cloud-served). Key lives only in your browser.'
+    : 'Paste your free API key above and hit Connect to talk to the full-scale Llama.';
+  if (state) state.textContent = '⬢ Industry Standard mode — the full-scale Llama, with Signature extras on top.';
+}
+function wireModelPicker() {
+  var pick = document.getElementById('modelpick'),
+      msel = document.getElementById('industrymodel'),
+      keyInp = document.getElementById('industrykey'),
+      conn = document.getElementById('industryconnect'),
+      istate = document.getElementById('industrystate'),
+      saveBtn = document.getElementById('savechat');
+  if (!window.IndustryLlama || !pick) return;
+  IndustryLlama.models.forEach(function (m) {
+    var o = document.createElement('option');
+    o.value = m.id; o.textContent = m.label + ' — ' + m.note;
+    msel.appendChild(o);
+  });
+  msel.value = IndustryLlama.getModel();
+  pick.value = IndustryLlama.getChoice();
+  var saved = IndustryLlama.getKey();
+  if (saved && keyInp) { keyInp.value = saved; }
+  function say(t, ok) {
+    if (!istate) return;
+    istate.textContent = t;
+    istate.style.color = ok ? 'var(--grn)' : 'var(--dim)';
+  }
+  pick.onchange = function () {
+    IndustryLlama.setChoice(pick.value);
+    if (pick.value === 'industry') {
+      /* industry mode needs no on-device model: enable the chat row for it */
+      var inp = document.getElementById('llamainput'), btn = document.getElementById('llamasend');
+      if (inp) inp.disabled = false;
+      if (btn) btn.disabled = false;
+    }
+    renderStatusCard(); renderIndustryStatus();
+  };
+  msel.onchange = function () { IndustryLlama.setModel(msel.value); renderIndustryStatus(); };
+  conn.onclick = function () {
+    var k = keyInp.value.trim();
+    if (!k) { say('Paste your key first — the free one from console.groq.com/keys.', false); return; }
+    say('Checking the key…', false);
+    IndustryLlama.setKey(k);
+    IndustryLlama.chat([{ role: 'user', content: 'Reply with exactly: key ok' }], { maxTokens: 10 })
+      .then(function () { say('● Connected — ' + IndustryLlama.modelLabel() + ' is live. Talk away.', true); renderIndustryStatus(); })
+      .catch(function (e) {
+        if (e && e.code === 'BAD_KEY') IndustryLlama.setKey('');
+        say('⚠ ' + String((e && e.message) || e), false);
+        renderIndustryStatus();
+      });
+  };
+  if (saveBtn) saveBtn.onclick = function () {
+    var log = document.getElementById('llamalog');
+    var lines = [];
+    Array.prototype.forEach.call(log.children, function (d) {
+      var who = d.className === 'u' ? 'You' : d.className === 'a' ? 'Llama' : '—';
+      lines.push(who + ': ' + d.textContent);
+    });
+    saveBlob('signature-llama-chat.txt', new Blob([lines.join('\n\n')], { type: 'text/plain' }));
+  };
+  renderIndustryStatus();
+  if (IndustryLlama.getChoice() === 'industry') {
+    var inp2 = document.getElementById('llamainput'), btn2 = document.getElementById('llamasend');
+    if (inp2) inp2.disabled = false;
+    if (btn2) btn2.disabled = false;
+  }
+}
 function initChat(base) {
   var log = document.getElementById('llamalog'),
       inp = document.getElementById('llamainput'),
@@ -678,6 +827,7 @@ function wireChatBox() {
     LlamaChat.send(t).then(function (reply) {
       var s = log.querySelector('.s:last-child'); if (s) s.remove();
       var tag = reply.mode === 'trained_model' ? '✦ Trained Llama v1: '
+        : reply.mode === 'industry' ? '⬢ Industry Standard · ' + (reply.model_version || 'Llama') + ': '
         : reply.mode === 'guide' ? 'Guide: '
         : '⚠ ' + (reply.code || 'failed') + ': ';
       addMsg(log, 'a', tag + reply.text);
@@ -1410,6 +1560,7 @@ function wireAIAccess() {
 document.addEventListener('DOMContentLoaded', function () {
   checkEngine();
   wireChatBox();
+  wireModelPicker();
   wireCopyButtons();
   wireDictionary();
   loadDictionary();
