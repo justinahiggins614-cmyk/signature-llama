@@ -11,9 +11,9 @@ no build step, no keys, no fees. Currently free for all internet tasks.
 WHAT IS INSIDE
 --------------
 engine/sigllama.js ......... The pure-JavaScript inference engine (SigLlama global).
-weights/ ................... sigllama-v1.bin (int8 weights) when published,
-                             or WEIGHTS_PENDING.txt explaining the model is
-                             still training and where to check.
+weights/ ................... sigllama-v1.bin — the real published int8 weights
+                             (SIGLLAMA-V1, 2,983,488 params, SHA-256 in
+                             llama-manifest.json under files.weights).
 vocab.json ................. The character vocabulary.
 src/ ....................... All the Python sources: tokenizer, transformer
                              model, trainer, exporter/quantizer, corpus

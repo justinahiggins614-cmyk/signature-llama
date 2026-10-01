@@ -83,7 +83,7 @@ code{background:#05080f;border:1px solid var(--line);border-radius:4px;padding:1
   <p class="offname">The Fully Cyber Utilizable AI</p>
   <p>Welcome to the home of Signature Llama — a baseline AI, a tiny language model written and trained from scratch on the IWB Dictionary and Signature spec text. No big-tech API, no keys, no fees: it runs right in your browser, currently free for all internet tasks.</p>
   <p>This site is where the Llama lives. Talk to it in the chat below, look up AI terms in the dictionary, learn how language models work in the explainers and the inventory, plug in tool libraries to make it smarter, and copy the whole thing into your own websites, apps, and projects with 3 lines of code. This same Llama is the talking brain inside every AI in the Signature AI Telephone Book.</p>
-  <div><span class="pill train" id="statuspill">◌ NOW TRAINING</span></div>
+  <div><span class="pill live" id="statuspill">● LIVE</span></div>
   <p style="font-size:.8em;max-width:640px">Signature Llama is an independent model by Justin Addam Higgins. It is not affiliated with, endorsed by, or related to Meta or the LLaMA models.</p>
 </div>
 
@@ -91,7 +91,14 @@ code{background:#05080f;border:1px solid var(--line);border-radius:4px;padding:1
 
   <div class="panel" id="phonebook" style="border:2px solid var(--amber)">
     <h2><span class="tick">★</span> LLAMA POWERS THE TELEPHONE BOOK</h2>
-    <p style="color:var(--dim);font-size:.95em">Signature Llama is the talking brain inside every AI in <b style="color:var(--gold)">The Signature AI Telephone Book</b> — the 11 Signature system AIs, Vader, Ultron, Jarvis, T-800, Skynet, all 243 domain AIs, and every word AI. They all talk through this very model. Its showcase card sits at the top of the book, and the moment the trained Llama goes live here, every AI in the book starts talking with its voice.</p>
+    <p style="color:var(--dim);font-size:.95em">Signature Llama is the talking brain inside every AI in <b style="color:var(--gold)">The Signature AI Telephone Book</b> — the 11 Signature system AIs, Vader, Ultron, Jarvis, T-800, Skynet, all 243 domain AIs, and every word AI. They all talk through this very model, which is <b style="color:var(--grn)">LIVE</b>: the book loads the same engine file and the same weights as this site (runtime proof below) and routes every AI chat through them with a per-AI persona prompt.</p>
+    <div class="dterm" style="text-align:left;border-color:var(--grn)">
+      <h3>Runtime proof <span class="cat">same engine · same weights · same voice</span></h3>
+      <p style="font-size:.85em;margin:.3em 0"><b>ENGINE</b> — <code>sigllama.js</code> from <code>signature-backend/sigllama/</code>, SHA-256 <code>6188cb26…2edb4355a</code>. The book and this site load the identical file.</p>
+      <p style="font-size:.85em;margin:.3em 0"><b>MODEL</b> — <code>sigllama-v1.bin</code> (SIGLLAMA-V1), SHA-256 <code>b2dfc0d0…05d6317b58</code>, 2,983,488 parameters. Same binary, both sites.</p>
+      <p style="font-size:.85em;margin:.3em 0"><b>AI PROFILE</b> — each book AI brings its profile (name, kind, mentality, abilities, domain, tone, mission; word AIs add their word; fusions add their parents) into the prompt.</p>
+      <p style="font-size:.85em;margin:.3em 0"><b>PROMPT / CONFIG</b> — the book's persona prompt builder + <code>{maxTokens: 100, temperature: 0.75, topK: 40}</code>; each AI answers in its own voice, in a few sentences.</p>
+    </div>
     <div style="margin:12px 0 4px">
       <a href="https://justinahiggins614-cmyk.github.io/jah-ai-models/" style="display:inline-block;background:var(--amber);color:#1a1206;font-weight:800;text-decoration:none;font-size:1.15em;padding:14px 30px;border-radius:10px">📖 OPEN THE SIGNATURE AI TELEPHONE BOOK</a>
     </div>
@@ -105,19 +112,28 @@ code{background:#05080f;border:1px solid var(--line);border-radius:4px;padding:1
     <div class="kv"><b>Tokenizer</b><span>Character-level, trained on the IWB Dictionary and Signature spec text</span></div>
     <div class="kv"><b>Trained on</b><span>The IWB Dictionary + Signature spec corpus — original words, original inventions</span></div>
     <div class="kv"><b>Weights</b><span>int8-quantized, a few megabytes — downloads in seconds</span></div>
-    <div class="kv"><b>Runs where</b><span>100% in your browser, pure JavaScript — works offline once loaded</span></div>
-    <div class="kv"><b>Cost</b><span>Currently free for all internet tasks. No API keys, no accounts, no calls home.</span></div>
-    <div class="kv"><b>v1 honesty</b><span>v1 is small, lively and a little quirky — like a bright intern. It grows smarter every time it retrains on new words and specs.</span></div>
+    <div class="kv"><b>Status</b><span id="modelcardstatus">● LIVE — Signature Llama v1 · 2,983,488 parameters</span></div>
+    <div class="kv"><b>Runs where</b><span>In your browser, pure JavaScript, no servers. First load needs internet (engine + ~3&nbsp;MB weights); afterwards your browser's cache can serve the files offline — offline use is not guaranteed and has not been lab-tested.</span></div>
+    <div class="kv"><b>Cost</b><span>Currently free for all internet tasks. No API keys, no accounts.</span></div>
+    <div class="kv"><b>What the model does</b><span>Local text generation only — no network, no files, no device access. Tool libraries are optional plug-ins; only the ones you load run, and only as ordinary page JavaScript.</span></div>
+    <div class="kv"><b>v1 honesty</b><span>v1 is small, lively and a little quirky — like a bright intern. It grows smarter every time it retrains on new words and specs. It can invent facts — verify anything important.</span></div>
   </div>
 
   <div class="panel" id="chat">
     <h2><span class="tick">●</span> TALK TO LLAMA</h2>
-    <p style="color:var(--dim);font-size:.9em;margin-top:0" id="chatstate">Checking whether the trained model has published yet…</p>
+    <div class="dterm" id="llamastatuscard" style="border-color:var(--grn)">
+      <h3>Signature Llama V1 <span class="cat">STATUS: <b id="llamastatusval" style="color:var(--grn)">● LIVE</b></span></h3>
+      <p id="llamastatusdetail" style="margin:.3em 0;font-size:.9em">Loading model status…</p>
+      <p id="llamastatushash" style="margin:.3em 0;font-size:.78em;color:var(--dim)"></p>
+    </div>
+    <p style="color:var(--dim);font-size:.9em;margin-top:.6em" id="chatstate">Loading the trained model…</p>
     <div class="chatlog" id="llamalog" aria-live="polite"></div>
     <div class="chatrow">
       <input type="text" id="llamainput" placeholder="Say something to the Llama…" autocomplete="off" disabled>
       <button type="button" id="llamasend" disabled>Send</button>
+      <button type="button" id="llamareset" title="Clear conversation history">Reset</button>
     </div>
+    <p style="color:var(--dim);font-size:.8em;margin:.4em 0 0">Every reply is labeled with the engine that wrote it: <b style="color:var(--amber2)">✦ Trained Llama v1</b> or <b style="color:var(--dim)">Guide</b>. History keeps your last 12 turns; the 128-token window always drops the oldest text first.</p>
   </div>
 
   <div class="panel" style="border:2px solid var(--amber)" id="creations">
@@ -128,11 +144,15 @@ code{background:#05080f;border:1px solid var(--line);border-radius:4px;padding:1
       <button type="button" id="dlall" style="font-size:1.05em;padding:12px 22px" disabled>⤓ Download everything (.zip)</button>
       <button type="button" id="dlpatch" style="font-size:1.05em;padding:12px 22px">⤓ Download the whole Llama patch</button>
     </div>
-    <p style="color:var(--dim);font-size:.85em;margin:.4em 0" id="embednote">The embed code is 3 lines: load the engine, load the model, generate text. Paste it into any web page.</p>
+    <p style="color:var(--dim);font-size:.85em;margin:.4em 0" id="embednote">The embed code is 3 lines: load the engine, load the model, generate text. Paste it into any web page. It must be a <code>type="module"</code> script — only a module allows the top-level <code>await</code>; that requirement is written into the snippet itself.</p>
     <pre id="embedcode">&lt;script src="https://justinahiggins614-cmyk.github.io/signature-backend/sigllama/sigllama.js"&gt;&lt;/script&gt;
-&lt;script&gt;
+&lt;script type="module"&gt;
+// type="module" is REQUIRED: only a module script allows the top-level await below.
+// First load needs internet (engine + ~3 MB weights). Failures surface by name —
+// see llama-manifest.json "failure_states" (ENGINE_LOAD_FAILED, MODEL_NOT_FOUND, ...).
 await SigLlama.load('https://justinahiggins614-cmyk.github.io/signature-backend/sigllama/');
-document.body.innerHTML += await SigLlama.generate('Hello, Llama.', { maxTokens: 60 });
+const reply = await SigLlama.generate('Hello, Llama.', { maxTokens: 60 });
+document.body.insertAdjacentHTML('beforeend', '&lt;p&gt;' + reply + '&lt;/p&gt;');
 &lt;/script&gt;</pre>
     <p style="color:var(--dim);font-size:.9em;margin:.8em 0 .3em">Raw file links — copy any of them into your own code:</p>
     <div id="rawlinks" style="font-size:.88em"></div>
@@ -161,12 +181,13 @@ document.body.innerHTML += await SigLlama.generate('Hello, Llama.', { maxTokens:
 
   <div class="panel" id="downloads">
     <h2><span class="tick">●</span> DOWNLOADS</h2>
-    <p style="color:var(--dim);font-size:.9em;margin-top:0" id="dlstate">Checking publication status…</p>
+    <p style="color:var(--dim);font-size:.9em;margin-top:0" id="dlstate">Checking model status…</p>
     <div style="display:flex;gap:10px;flex-wrap:wrap">
       <button type="button" id="dl-bin" disabled>⤓ Weights (sigllama-v1.bin)</button>
       <button type="button" id="dl-js" disabled>⤓ Engine (sigllama.js)</button>
       <button type="button" id="dl-vocab" disabled>⤓ Vocab (vocab.json)</button>
     </div>
+    <div id="assetmeta" style="font-size:.82em;color:var(--dim);margin-top:10px"></div>
   </div>
 
   <div class="panel docs" id="developers">
@@ -202,6 +223,17 @@ async function chat(userText) {
   return out;
 }</pre>
         <button type="button" class="copybtn" data-copy="snip4">⧉ Copy</button></li>
+      <li><b>5 · Sampling, honestly</b>
+        <pre id="snip5">// temperature: any real number, default 0.8. Typical 0–1.5.
+//   temperature &lt;= 0 → greedy argmax: NO randomness, same prompt → same output.
+// topK: integer ≥ 1, default 40. Only applies when 1 ≤ topK &lt; 84 (vocab size).
+// maxTokens: integer ≥ 1, default 120. stopAtEos: default true.
+// CONTEXT: 128 tokens. Your prompt is LEFT-TRUNCATED to (128 − maxTokens − 2)
+// tokens — a bigger maxTokens leaves less room for the prompt.
+// Deterministic (site-level LlamaRuntime): { deterministic: true } forces
+// temperature 0; { seed: 1234 } seeds the sampler. Both give byte-identical
+// output for the same prompt.</pre>
+        <button type="button" class="copybtn" data-copy="snip5">⧉ Copy</button></li>
     </ul>
   </div>
 
@@ -225,15 +257,22 @@ async function chat(userText) {
      });
    &lt;/script&gt;
    SignatureLlama.ask(question) returns a Promise of a string.
-   It answers from the on-site knowledge base today, and upgrades
-   to the trained model automatically once it publishes.
+   It answers with the trained model when the model is loaded on the page,
+   and falls back to the on-site knowledge base otherwise. Every answer is
+   labeled with its engine mode; askWithProvenance(question) returns the
+   answer plus engine, mode, model version, and provenance.
+   SignatureLlama.mode() reports the current mode.
 
 4. RUN THE TRAINED MODEL YOURSELF (browser or webview):
    &lt;script src="https://justinahiggins614-cmyk.github.io/signature-backend/sigllama/sigllama.js"&gt;&lt;/script&gt;
-   &lt;script&gt;
+   &lt;script type="module"&gt;
+     // type="module" is REQUIRED for the top-level await below.
      await SigLlama.load("https://justinahiggins614-cmyk.github.io/signature-backend/sigllama/");
      const text = await SigLlama.generate("Hello,", { maxTokens: 80, temperature: 0.8, topK: 40 });
    &lt;/script&gt;
+   Deterministic: { deterministic: true } forces temperature 0 (same prompt →
+   same output); { seed: 1234 } seeds the sampler. Failures surface by name —
+   see llama-manifest.json "failure_states".
 
 5. ASK THROUGH THE SITE (opens the page with the on-site guide answering):
    SITE_URL?ask=YOUR_QUESTION_HERE
@@ -255,7 +294,7 @@ Signature Llama is an independent model by Justin Addam Higgins, not affiliated 
 
   <div class="panel" id="guide">
     <h2><span class="tick">●</span> THE EXPLAINER — YOUR ON-SITE GUIDE</h2>
-    <p style="color:var(--dim);font-size:.9em;margin-top:0">An AI whose whole job is explaining. Ask it about Signature Llama itself — what it is, how it was built, how to use it — or about LLM and AI files, libraries, and tools: what each file does, what each library is for, what each tool runs. It answers from a real knowledge base on this page. <i>Guide mode, not the trained model — yet: once the trained Llama goes live, the guide can hand your question straight to it.</i></p>
+    <p style="color:var(--dim);font-size:.9em;margin-top:0">An AI whose whole job is explaining. Ask it about Signature Llama itself — what it is, how it was built, how to use it — or about LLM and AI files, libraries, and tools: what each file does, what each library is for, what each tool runs. It answers from a real knowledge base on this page. <i>The ✦ Ask Llama button hands your question to the trained model itself — and every answer is labeled with which engine wrote it.</i></p>
     <div class="chatlog" id="guidelog" aria-live="polite" style="height:170px"></div>
     <div class="chatrow">
       <input type="text" id="guideinput" placeholder="Ask the guide, e.g. “what does the quantizer do?”" autocomplete="off">
@@ -317,6 +356,95 @@ var BACKEND = 'https://justinahiggins614-cmyk.github.io/signature-backend/siglla
 var FILES = { bin: 'sigllama-v1.bin', js: 'sigllama.js', vocab: 'vocab.json' };
 var modelLive = false;
 
+/* ---------- single authoritative model state (model-status.json) ---------- */
+var MODEL_STATUS = {
+  MODEL_ID: 'SIGLLAMA-V1', MODEL_STATUS: 'live', MODEL_VERSION: '1.0',
+  WEIGHTS_AVAILABLE: true, GUIDE_AVAILABLE: true, API_AVAILABLE: true,
+  ENGINE_MIN_VERSION: '1.0', ENGINE_MAX_VERSION: '1.x', MODEL_FORMAT_VERSION: 1
+};
+function loadModelStatus() {
+  return fetch('model-status.json').then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (j) { if (j) MODEL_STATUS = j; return MODEL_STATUS; })
+    .catch(function () { return MODEL_STATUS; });
+}
+
+/* ---------- named failure states (never a bare "Llama failed") ---------- */
+var FAILURES = {
+  ENGINE_LOAD_FAILED: 'The engine script sigllama.js could not be downloaded or parsed.',
+  MODEL_NOT_FOUND: 'vocab.json or sigllama-v1.bin returned 404 at the model base URL.',
+  MODEL_CORRUPT: "The weight binary failed its header check (magic 'SGLL', format version 1) or failed to parse.",
+  BROWSER_UNSUPPORTED: 'This browser is missing APIs the engine needs (fetch, Blob, URL, typed arrays).',
+  OUT_OF_MEMORY: 'The browser ran out of memory while allocating the model (~3 MB of weights expand to tens of MB of Float32 tensors).',
+  NETWORK_REQUIRED: 'The browser reports it is offline and the engine/weights are not cached yet. First load needs internet.',
+  GENERATION_TIMEOUT: 'Generation did not finish within the requested timeoutMs.'
+};
+function browserOK() {
+  try { return !!(window.fetch && window.Blob && window.URL && window.Uint8Array && window.Float32Array); }
+  catch (e) { return false; }
+}
+function classifyError(err, phase) {
+  var m = String((err && err.message) || err || '');
+  if (/out of memory|allocation failed|RangeError/i.test(m)) return 'OUT_OF_MEMORY';
+  if (/bad magic|bad version|parse/i.test(m)) return 'MODEL_CORRUPT';
+  if (/vocab\.json not found|fetch failed|404|Failed to fetch|NetworkError/i.test(m)) {
+    if (phase === 'script') return 'ENGINE_LOAD_FAILED';
+    return 'MODEL_NOT_FOUND';
+  }
+  return phase === 'script' ? 'ENGINE_LOAD_FAILED' : 'MODEL_CORRUPT';
+}
+function failureText(code) {
+  return code + ' — ' + (FAILURES[code] || 'Unknown failure.');
+}
+
+/* ---------- seeded PRNG (mulberry32) for deterministic seeded sampling ---------- */
+function mulberry32(seed) {
+  var a = seed >>> 0;
+  return function () {
+    a |= 0; a = (a + 0x6D2B79F5) | 0;
+    var t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+/* ---------- LlamaRuntime: the site-level generation seam ----------
+   SigLlama.generate is the raw engine. LlamaRuntime.generate adds:
+   - deterministic:true -> forces temperature 0 (greedy argmax, byte-identical)
+   - seed:<int>        -> seeded mulberry32 PRNG during generation (restored after)
+   - timeoutMs:<n>     -> rejects with named GENERATION_TIMEOUT
+   - mode tracking: LlamaRuntime.mode -> 'loading'|'trained'|'guide'|'failed'
+   Every answer path on this site goes through here, so the engine mode is
+   always known and always labeled. */
+var LlamaRuntime = {
+  mode: 'loading',
+  lastFailure: null,
+  generate: function (prompt, opts) {
+    var self = this;
+    opts = opts || {};
+    if (!window.SigLlama || !SigLlama.loaded()) {
+      self.lastFailure = self.lastFailure || 'MODEL_NOT_FOUND';
+      return Promise.reject(new Error(self.lastFailure));
+    }
+    var gopts = { maxTokens: opts.maxTokens, temperature: opts.temperature,
+      topK: opts.topK, stopAtEos: opts.stopAtEos, onToken: opts.onToken };
+    if (opts.deterministic) gopts.temperature = 0;
+    var seed = (opts.seed === undefined || opts.seed === null) ? null : opts.seed;
+    var realRandom = Math.random, seeded = false;
+    if (seed !== null && !opts.deterministic) {
+      Math.random = mulberry32(seed); seeded = true;
+    }
+    var p = SigLlama.generate(prompt, gopts);
+    function restore(v) { if (seeded) Math.random = realRandom; return v; }
+    p = p.then(restore, function (e) { restore(); throw e; });
+    if (opts.timeoutMs && opts.timeoutMs > 0) {
+      p = Promise.race([p, new Promise(function (_, rej) {
+        setTimeout(function () { rej(new Error('GENERATION_TIMEOUT')); }, opts.timeoutMs);
+      })]).then(restore, function (e) { restore(); throw e; });
+    }
+    return p;
+  }
+};
+
 /* ---------- status pill + engine load ---------- */
 function headOK(url) {
   return fetch(url, { method: 'HEAD' }).then(function (r) { return r.ok; }).catch(function () { return false; });
@@ -325,12 +453,49 @@ function setPill(live) {
   var p = document.getElementById('statuspill');
   modelLive = live;
   if (live) { p.className = 'pill live'; p.textContent = '● LIVE'; }
-  else { p.className = 'pill train'; p.textContent = '◌ NOW TRAINING'; }
+  else { p.className = 'pill train'; p.textContent = '◌ DEGRADED'; }
+}
+function renderStatusCard() {
+  var v = document.getElementById('llamastatusval'),
+      d = document.getElementById('llamastatushash'),
+      det = document.getElementById('llamastatusdetail');
+  if (!v) return;
+  if (modelLive) {
+    v.textContent = '● LIVE'; v.style.color = 'var(--grn)';
+    document.getElementById('llamastatuscard').style.borderColor = 'var(--grn)';
+  } else {
+    v.textContent = '◌ ' + (LlamaRuntime.lastFailure || 'OFFLINE');
+    v.style.color = 'var(--amber2)';
+    document.getElementById('llamastatuscard').style.borderColor = 'var(--amber)';
+  }
+  det.textContent = 'Signature Llama V1 · 2,983,488 parameters · decoder-only transformer · 5 layers · 8 heads · 128-token context · int8 weights.';
+  d.innerHTML = 'weights <code>b2dfc0d0…05d6317b58</code> · engine <code>6188cb26…2edb4355a</code> · state: <code>model-status.json</code>';
+}
+function verifyBinHeader(base) {
+  /* loader-side version lock: read the SGLL magic + format version ourselves */
+  return fetch(base + FILES.bin, { headers: { Range: 'bytes=0-35' } }).then(function (r) {
+    if (!r.ok) throw new Error('MODEL_NOT_FOUND');
+    return r.arrayBuffer();
+  }).then(function (buf) {
+    var b = new Uint8Array(buf), magic = '';
+    for (var i = 0; i < 4; i++) magic += String.fromCharCode(b[i]);
+    var ver = new DataView(buf).getUint32(4, true);
+    if (magic !== 'SGLL' || ver !== MODEL_STATUS.MODEL_FORMAT_VERSION) {
+      throw new Error('MODEL_CORRUPT');
+    }
+    return true;
+  }).catch(function (e) {
+    var m = String(e.message || '');
+    if (m === 'MODEL_NOT_FOUND' || m === 'MODEL_CORRUPT') throw e;
+    throw new Error('MODEL_NOT_FOUND');
+  });
 }
 function loadScript(url) {
   return new Promise(function (res, rej) {
     var s = document.createElement('script'); s.src = url;
-    s.onload = res; s.onerror = rej; document.head.appendChild(s);
+    s.onload = res;
+    s.onerror = function () { rej(new Error('ENGINE_LOAD_FAILED')); };
+    document.head.appendChild(s);
   });
 }
 function addMsg(log, cls, text) {
@@ -338,34 +503,94 @@ function addMsg(log, cls, text) {
   log.appendChild(d); log.scrollTop = log.scrollHeight;
 }
 
-/* ---------- engine detection ---------- */
+/* ---------- engine detection: every section reads MODEL_STATUS ---------- */
 function checkEngine() {
-  headOK('sigllama/sigllama.js').then(function (local) {
-    var base = local ? 'sigllama/' : BACKEND;
-    return headOK(base + FILES.js).then(function (ok) { return { ok: ok, base: base }; });
+  if (!browserOK()) {
+    LlamaRuntime.mode = 'failed'; LlamaRuntime.lastFailure = 'BROWSER_UNSUPPORTED';
+    setPill(false); renderStatusCard();
+    wireDownloads(false, null); wireUseSimple(false, null);
+    chatNotReady('BROWSER_UNSUPPORTED');
+    return;
+  }
+  loadModelStatus().then(function () {
+    var offline = (typeof navigator !== 'undefined' && navigator.onLine === false);
+    return headOK('sigllama/' + FILES.js).then(function (local) {
+      var base = local ? 'sigllama/' : BACKEND;
+      return headOK(base + FILES.bin).then(function (binOK) {
+        return { base: base, binOK: binOK, offline: offline };
+      });
+    });
   }).then(function (r) {
-    setPill(r.ok);
-    wireDownloads(r.ok, r.base);
-    wireUseSimple(r.ok, r.base);
-    if (r.ok) initChat(r.base); else chatNotReady();
+    if (r.offline && !r.binOK) {
+      LlamaRuntime.mode = 'failed'; LlamaRuntime.lastFailure = 'NETWORK_REQUIRED';
+      setPill(false); renderStatusCard();
+      wireDownloads(false, r.base); wireUseSimple(false, r.base);
+      chatNotReady('NETWORK_REQUIRED');
+      return;
+    }
+    if (!r.binOK) {
+      LlamaRuntime.mode = 'failed'; LlamaRuntime.lastFailure = 'MODEL_NOT_FOUND';
+      setPill(false); renderStatusCard();
+      wireDownloads(false, r.base); wireUseSimple(false, r.base);
+      chatNotReady('MODEL_NOT_FOUND');
+      return;
+    }
+    /* weights reachable: verify the SGLL header (version lock), then load */
+    verifyBinHeader(r.base).then(function () {
+      setPill(true);
+      wireDownloads(true, r.base);
+      wireUseSimple(true, r.base);
+      initChat(r.base);
+    }, function (e) {
+      LlamaRuntime.mode = 'failed';
+      LlamaRuntime.lastFailure = String(e.message || 'MODEL_CORRUPT');
+      setPill(false); renderStatusCard();
+      wireDownloads(false, r.base); wireUseSimple(false, r.base);
+      chatNotReady(LlamaRuntime.lastFailure);
+    });
+  }).catch(function () {
+    LlamaRuntime.mode = 'failed'; LlamaRuntime.lastFailure = 'NETWORK_REQUIRED';
+    setPill(false); renderStatusCard();
+    wireDownloads(false, null); wireUseSimple(false, null);
+    chatNotReady('NETWORK_REQUIRED');
   });
 }
 
-/* ---------- TALK TO LLAMA (single seam) ---------- */
+/* ---------- TALK TO LLAMA (single seam, mode-labeled, context-managed) ----------
+   Max history: 12 turns (24 entries). Truncation policy: oldest turns are
+   dropped first; the engine additionally left-truncates the prompt to fit the
+   128-token window. Reset: LlamaChat.reset() / the Reset button. */
 var LlamaChat = {
-  ready: false, history: [],
+  ready: false, history: [], MAX_TURNS: 12,
+  reset: function () {
+    this.history = [];
+    var log = document.getElementById('llamalog');
+    if (log) { log.innerHTML = ''; addMsg(log, 's', 'Chat reset — fresh start.'); }
+  },
+  push: function (entry) {
+    this.history.push(entry);
+    while (this.history.length > this.MAX_TURNS * 2) this.history.shift();
+  },
   send: function (text) {
     var self = this;
     if (!self.ready || !window.SigLlama || !SigLlama.loaded()) {
-      return Promise.resolve('The trained model is still publishing — check back soon. (Guide mode below can answer questions meanwhile.)');
+      var code = LlamaRuntime.lastFailure || 'MODEL_NOT_FOUND';
+      return Promise.resolve({ text: failureText(code) + ' Guide mode is still answering below.',
+        engine: 'guide', mode: 'guide', code: code });
     }
-    self.history.push('Human: ' + text + '\nLlama:');
+    self.push('Human: ' + text + '\nLlama:');
     var out = '';
-    return SigLlama.generate(self.history.join('\n'), {
+    return LlamaRuntime.generate(self.history.join('\n'), {
       maxTokens: 90, temperature: 0.85, topK: 40, stopAtEos: true,
-      onToken: function (t) { out += t; }
-    }).then(function () { self.history.push(out); return out; })
-      .catch(function () { return 'The model hiccuped on that one — try again.'; });
+      onToken: function (t) { out += t; }, timeoutMs: 60000
+    }).then(function () {
+      self.push(out);
+      return { text: out, engine: 'SigLlama', mode: 'trained_model', model_version: '1.0',
+        provenance: { kind: 'MODEL_GENERATION', tool: null, status: 'model output — verify anything important' } };
+    }).catch(function (e) {
+      var code = /GENERATION_TIMEOUT/.test(String(e && e.message)) ? 'GENERATION_TIMEOUT' : classifyError(e, 'generate');
+      return { text: failureText(code), engine: 'none', mode: 'failed', code: code };
+    });
   }
 };
 function initChat(base) {
@@ -373,41 +598,58 @@ function initChat(base) {
       inp = document.getElementById('llamainput'),
       btn = document.getElementById('llamasend'),
       state = document.getElementById('chatstate');
+  LlamaRuntime.mode = 'loading';
   state.textContent = 'Loading the trained model into this page…';
+  renderStatusCard();
   addMsg(log, 's', 'Waking the Llama up…');
   loadScript(base + FILES.js).then(function () {
     return SigLlama.load(base);
   }).then(function () {
     LlamaChat.ready = true;
+    LlamaRuntime.mode = 'trained'; LlamaRuntime.lastFailure = null;
     inp.disabled = false; btn.disabled = false;
-    state.textContent = '● Live — you are talking to the real trained Signature Llama v1, running in your browser.';
+    renderStatusCard();
+    state.textContent = '● Live — you are talking to the real trained Signature Llama v1 (SIGLLAMA-V1), running in your browser.';
     addMsg(log, 'a', 'Llama is here. Say hello.');
     var askBtn = document.getElementById('guideaskllama');
     if (askBtn) askBtn.disabled = false;
-  }).catch(function () { chatNotReady(); });
+  }).catch(function (e) {
+    var code = classifyError(e, /sigllama\.js/.test(String(e && e.message)) ? 'script' : 'generate');
+    LlamaRuntime.mode = 'failed'; LlamaRuntime.lastFailure = code;
+    chatNotReady(code);
+  });
 }
-function chatNotReady() {
+function chatNotReady(code) {
   var log = document.getElementById('llamalog'),
       state = document.getElementById('chatstate');
-  state.textContent = 'Still training — the real model has not published yet. This chat will switch on by itself the moment it lands. No canned stand-in: what you see below is honest.';
+  code = code || LlamaRuntime.lastFailure || 'MODEL_NOT_FOUND';
+  setPill(false); renderStatusCard();
+  state.textContent = '◌ The trained model could not load: ' + code + '. Guide mode below still answers.';
   log.innerHTML = '';
-  addMsg(log, 's', 'The Llama is still in training. Check back soon — this chat lights up automatically when the model publishes.');
+  addMsg(log, 's', failureText(code));
+  addMsg(log, 's', 'The guide below answers from its knowledge base — every answer is labeled with its engine.');
 }
 function wireChatBox() {
   var log = document.getElementById('llamalog'),
       inp = document.getElementById('llamainput'),
-      btn = document.getElementById('llamasend');
+      btn = document.getElementById('llamasend'),
+      rst = document.getElementById('llamareset');
   function go() {
     var t = inp.value.trim(); if (!t) return;
     addMsg(log, 'u', t); inp.value = '';
     addMsg(log, 's', '…');
     LlamaChat.send(t).then(function (reply) {
       var s = log.querySelector('.s:last-child'); if (s) s.remove();
-      addMsg(log, 'a', reply); speak(reply);
+      var tag = reply.mode === 'trained_model' ? '✦ Trained Llama v1: '
+        : reply.mode === 'guide' ? 'Guide: '
+        : '⚠ ' + (reply.code || 'failed') + ': ';
+      addMsg(log, 'a', tag + reply.text);
+      speak(reply.text);
     });
   }
   btn.onclick = go;
   inp.onkeydown = function (e) { if (e.key === 'Enter') go(); };
+  if (rst) rst.onclick = function () { LlamaChat.reset(); };
 }
 
 /* ---------- downloads ---------- */
@@ -417,12 +659,40 @@ function saveBlob(name, blob) {
   document.body.appendChild(a); a.click();
   setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 4000);
 }
+/* ---------- downloads: every asset exposes filename, version, size, SHA-256 ---------- */
+var ASSETS = [
+  { name: 'sigllama-v1.bin', label: 'Weights', version: '1.0', size: '3,042,035 bytes (~2.9 MB)',
+    sha: 'b2dfc0d05add95786797e596559f3e86de9b3a9c9dbce6818814ad05d6317b58',
+    created: '2026-09-30', engine: 'SigLlama engine 1.0 (SGLL v1)' },
+  { name: 'sigllama.js', label: 'Engine', version: '1.0', size: '11,683 bytes',
+    sha: '6188cb269e07a134e865de4f7b68ee8c5dcfd1bde8771ad2c7b574a2edb4355a',
+    created: '2026-09-30', engine: 'this file IS the engine' },
+  { name: 'vocab.json', label: 'Vocab', version: '1.0', size: '1,265 bytes · 84 tokens',
+    sha: '53363d3fc2ca692de59c1b311f5dcfef29555e41295adb7fb40d8e10a79b6406',
+    created: '2026-09-30', engine: 'SigLlama engine 1.0' }
+];
+function renderAssetMeta() {
+  var box = document.getElementById('assetmeta');
+  if (!box) return;
+  var h = '<b style="color:var(--gold)">Asset record</b> — filename · version · size · SHA-256 · created · compatible engine. License: free for any website, app, or project. No API key, no fee.';
+  ASSETS.forEach(function (a) {
+    h += '<div style="margin:.5em 0;padding:.5em .7em;border:1px solid var(--line);border-radius:6px">'
+      + '<b style="color:var(--amber2)">' + a.label + '</b> <code>' + a.name + '</code> · v' + a.version
+      + '<br>size: ' + a.size + ' · created: ' + a.created + ' · engine: ' + a.engine
+      + '<br>SHA-256: <code style="word-break:break-all">' + a.sha + '</code></div>';
+  });
+  box.innerHTML = h;
+}
 function wireDownloads(ok, base) {
   var st = document.getElementById('dlstate');
   var b1 = document.getElementById('dl-bin'),
       b2 = document.getElementById('dl-js'),
       b3 = document.getElementById('dl-vocab');
-  if (!ok) { st.textContent = 'Not yet published — the buttons switch on the moment training finishes.'; return; }
+  renderAssetMeta();
+  if (!ok) {
+    st.textContent = '◌ ' + (LlamaRuntime.lastFailure || 'MODEL_NOT_FOUND') + ' — files cannot be downloaded right now. The asset record below stays visible so you can verify later.';
+    return;
+  }
   st.textContent = '● Published — grab the files:';
   b1.disabled = b2.disabled = b3.disabled = false;
   b1.onclick = function () { fetch(base + FILES.bin).then(function (r) { return r.blob(); }).then(function (b) { saveBlob(FILES.bin, b); }); };
@@ -449,7 +719,10 @@ function wireUseSimple(ok, base) {
     b.onclick = function () { copyText(url, names[k] + ' link copied.'); };
     row.appendChild(code); row.appendChild(b); rl.appendChild(row);
   });
-  if (!ok) { note.textContent += ' (The model itself is still training — the code is ready now, and it starts working the moment the model publishes.)'; return; }
+  if (!ok) {
+    note.textContent = 'The trained model could not load (' + (LlamaRuntime.lastFailure || 'MODEL_NOT_FOUND') + ') — the embed code above is still correct and will work once the model is reachable.';
+    return;
+  }
   da.disabled = false;
   da.onclick = function () { downloadAllZip(base); };
 }
@@ -494,7 +767,7 @@ function downloadAllZip(base) {
     btn.disabled = false; btn.textContent = '⤓ Download everything (.zip)';
   }).catch(function () {
     btn.disabled = false; btn.textContent = '⤓ Download everything (.zip)';
-    alert('The files are not reachable yet — the model is still training.');
+    alert('The files are not reachable right now (MODEL_NOT_FOUND). See the Downloads panel for the asset record and the named failure state.');
   });
 }
 
@@ -544,7 +817,12 @@ function speak(text) {
 var DICT = [], dictLetter = '', dictCat = '';
 function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
 function loadDictionary() {
-  fetch('data/llm-dictionary.json').then(function (r) { return r.json(); }).then(function (j) {
+  var count = document.getElementById('dictcount');
+  count.textContent = 'Loading dictionary…';
+  fetch('data/llm-dictionary.json').then(function (r) {
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    return r.json();
+  }).then(function (j) {
     DICT = j.terms || j; buildDictAZ(); buildDictCat();
     var t = getParam('term');
     if (t) {
@@ -555,7 +833,13 @@ function loadDictionary() {
       if (first) speak(first.t + '. ' + first.d);
     } else renderDict('');
   }).catch(function () {
-    document.getElementById('dictcount').textContent = 'Dictionary failed to load.';
+    count.innerHTML = '';
+    var s = document.createElement('span');
+    s.textContent = '◌ Dictionary failed to load (network or file missing). ';
+    var b = document.createElement('button');
+    b.textContent = '↻ Retry'; b.style.cssText = 'font-size:.85em;padding:4px 12px';
+    b.onclick = function () { loadDictionary(); };
+    count.appendChild(s); count.appendChild(b);
   });
 }
 function buildDictAZ() {
@@ -636,7 +920,27 @@ function words(s) {
   return s.toLowerCase().replace(/[^a-z0-9\s]/g, ' ').split(/\s+/).filter(function (w) { return w && !STOP[w]; });
 }
 var ExplainerAI = {
+  /* truthful identity answer, read from the live MODEL_STATUS — item 19 */
+  identityAnswer: function () {
+    if (LlamaRuntime.mode === 'trained' && window.SigLlama && SigLlama.loaded && SigLlama.loaded()) {
+      return { title: 'Yes — the trained model',
+        text: 'Yes. I am the on-site guide, and the trained Signature Llama v1 (SIGLLAMA-V1, 2,983,488 parameters) is loaded in this page right now. Press ✦ Ask Llama and your question goes to the real model running in your browser.',
+        kind: 'concept', engine: 'guide', mode: 'trained_model' };
+    }
+    if (LlamaRuntime.mode === 'failed') {
+      return { title: 'Guide mode (model failed to load)',
+        text: 'Right now I am the guide, answering from the on-site knowledge base — the trained model could not load (' + (LlamaRuntime.lastFailure || 'MODEL_NOT_FOUND') + '). Nothing here pretends to be the trained model.',
+        kind: 'concept', engine: 'guide', mode: 'guide' };
+    }
+    return { title: 'Guide mode',
+      text: 'I am the on-site guide, answering from the knowledge base on this page — not the trained model. The trained Signature Llama v1 is published and loads automatically; press ✦ Ask Llama to talk to it directly.',
+      kind: 'concept', engine: 'guide', mode: 'guide' };
+  },
   answer: function (q) {
+    if (/(are you|is this|this is).{0,20}(the )?(trained|real|actual).{0,20}(model|llama)/i.test(q)
+      || /what (model|engine) are you/i.test(q)) {
+      return this.identityAnswer();
+    }
     var ws = words(q), best = null, bestScore = 0;
     KB.forEach(function (e) {
       var hay = (e.title + ' ' + e.kw.join(' ') + ' ' + e.text).toLowerCase();
@@ -644,14 +948,23 @@ var ExplainerAI = {
       ws.forEach(function (w) { if (hay.indexOf(w) >= 0) score += (e.kw.indexOf(w) >= 0 ? 3 : 1); });
       if (score > bestScore) { bestScore = score; best = e; }
     });
-    if (best && bestScore >= 2) return { title: best.title, text: best.text, kind: best.kind };
-    return { title: 'The guide', text: 'I can explain Signature Llama itself, or any of its files, libraries, and tools — try asking what sigllama.js does, what the quantizer is for, or how to use the model in your own page. Browse the cards below for everything I know.', kind: 'concept' };
+    if (best && bestScore >= 2)
+      return { title: best.title, text: best.text, kind: best.kind, engine: 'guide', mode: 'guide',
+        provenance: { kind: 'GUIDE_KB', tool: null, status: 'knowledge-base entry — curated, not model output' } };
+    return { title: 'The guide',
+      text: 'I can explain Signature Llama itself, or any of its files, libraries, and tools — try asking what sigllama.js does, what the quantizer is for, or how to use the model in your own page. Browse the cards below for everything I know.',
+      kind: 'concept', engine: 'guide', mode: 'guide',
+      provenance: { kind: 'GUIDE_KB', tool: null, status: 'fallback text — curated, not model output' } };
   },
   /* hands off to the trained model once it is live */
   askLlama: function (q) {
-    if (window.SigLlama && SigLlama.loaded && SigLlama.loaded()) {
-      return SigLlama.generate('You are the Signature Llama on-site guide. Explain clearly and briefly: ' + q,
-        { maxTokens: 140, temperature: 0.7, topK: 40, stopAtEos: true });
+    if (LlamaRuntime.mode === 'trained' && window.SigLlama && SigLlama.loaded && SigLlama.loaded()) {
+      return LlamaRuntime.generate('You are the Signature Llama on-site guide. Explain clearly and briefly: ' + q,
+        { maxTokens: 140, temperature: 0.7, topK: 40, stopAtEos: true, timeoutMs: 60000 })
+        .then(function (r) {
+          return { text: r, engine: 'SigLlama', mode: 'trained_model', model_version: '1.0',
+            provenance: { kind: 'MODEL_GENERATION', tool: null, status: 'model output — verify anything important' } };
+        });
     }
     return Promise.resolve(null);
   }
@@ -659,10 +972,21 @@ var ExplainerAI = {
 /* on-demand API for anyone: SignatureLlama.ask(question) -> Promise<string> */
 window.SignatureLlama = {
   version: '1.0',
+  mode: function () { return LlamaRuntime.mode; },
+  askWithProvenance: function (question) {
+    return ExplainerAI.askLlama(question).then(function (r) {
+      if (r) return { answer: r.text, engine: r.engine, mode: r.mode,
+        model_version: r.model_version, provenance: r.provenance };
+      var a = ExplainerAI.answer(question);
+      return { answer: a.title + ': ' + a.text, engine: 'guide', mode: 'guide',
+        model_version: null, provenance: a.provenance || { kind: 'GUIDE_KB', tool: null, status: 'knowledge-base entry' } };
+    });
+  },
   ask: function (question) {
     return ExplainerAI.askLlama(question).then(function (r) {
-      if (r) return r;
-      return ExplainerAI.answer(question).text;
+      if (r) return '✦ Trained Llama v1: ' + r.text;
+      var a = ExplainerAI.answer(question);
+      return 'Guide: ' + a.title + ': ' + a.text;
     });
   }
 };
@@ -721,13 +1045,13 @@ function wireGuide() {
       addMsg(log, 's', 'Asking the trained Llama…');
       ExplainerAI.askLlama(t).then(function (r) {
         var s = log.querySelector('.s:last-child'); if (s) s.remove();
-        if (r) { addMsg(log, 'a', '✦ Trained Llama: ' + r); speak(r); }
-        else showAns(ExplainerAI.answer(t));
+        if (r) { addMsg(log, 'a', '✦ Trained Llama v1: ' + r.text); speak(r.text); }
+        else showAns(ExplainerAI.answer(t), 'Guide: ');
       });
       return;
     }
     var a = ExplainerAI.answer(t);
-    showAns(a); speak(a.text);
+    showAns(a, 'Guide: '); speak(a.text);
   }
   btn.onclick = function () { go(false); };
   inp.onkeydown = function (e) { if (e.key === 'Enter') go(false); };
@@ -894,7 +1218,12 @@ function escHtml(s) {
   return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 function loadToolLibs() {
-  fetch('data/tool-libraries.json').then(function (r) { return r.json(); }).then(function (j) {
+  var count = document.getElementById('toolcount');
+  count.textContent = 'Loading tool libraries…';
+  fetch('data/tool-libraries.json').then(function (r) {
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    return r.json();
+  }).then(function (j) {
     TOOLIBS = j;
     buildToolCat();
     renderOptimal();
@@ -912,7 +1241,13 @@ function loadToolLibs() {
     }
     renderTools('');
   }).catch(function () {
-    document.getElementById('toolcount').textContent = 'Tool libraries failed to load.';
+    count.innerHTML = '';
+    var s = document.createElement('span');
+    s.textContent = '◌ Tool libraries failed to load (network or file missing). ';
+    var b = document.createElement('button');
+    b.textContent = '↻ Retry'; b.style.cssText = 'font-size:.85em;padding:4px 12px';
+    b.onclick = function () { loadToolLibs(); };
+    count.appendChild(s); count.appendChild(b);
   });
 }
 function renderOptimal() {
@@ -987,6 +1322,23 @@ function renderTools(q) {
     fns.style.cssText = 'font-family:monospace;font-size:.8em;color:var(--dim);margin:4px 0';
     fns.textContent = l.functions.join('   ');
     d.appendChild(fns);
+    /* capability declaration: what it does, permissions, internet, storage, example, version */
+    var caps = l.capabilities || {};
+    var perm = document.createElement('div');
+    perm.style.cssText = 'font-size:.78em;color:var(--dim);margin:6px 0;line-height:1.7';
+    function yn(v) { return v ? 'yes' : 'no'; }
+    var pcNames = { 'local-computation': 'local computation only', 'local-storage': 'uses browser storage',
+      'network-fetch': 'makes network requests', 'device-media': 'uses camera/microphone' };
+    perm.innerHTML =
+      '<b style="color:var(--amber2)">Permissions</b> — network: ' + yn(caps.network)
+      + ' · filesystem: ' + yn(caps.filesystem) + ' · camera: ' + yn(caps.camera)
+      + ' · microphone: ' + yn(caps.microphone) + ' · storage: ' + yn(caps.storage)
+      + ' · runs code: ' + yn(caps.code_execution) + ' (it is a code plug-in)'
+      + '<br><b style="color:var(--amber2)">Internet use</b> — ' + (pcNames[l.provenance_class] || l.provenance_class || 'unknown')
+      + ' · <b style="color:var(--amber2)">Data storage</b> — ' + (caps.storage ? 'this library reads/writes this site\'s own browser storage' : 'none')
+      + '<br><b style="color:var(--amber2)">Example</b> — <code>' + escHtml(l.example || '') + '</code> · v' + escHtml(l.version || '?')
+      + '<br><span style="color:var(--amber2)">⚠</span> Tool results are untrusted external data until you verify them.';
+    d.appendChild(perm);
     var row = document.createElement('div'); row.className = 'row';
     var b1 = document.createElement('button'); b1.textContent = '⧉ Copy code';
     b1.onclick = function () { copyText(l.code, 'Library code copied — paste it next to llama-api.js.'); };

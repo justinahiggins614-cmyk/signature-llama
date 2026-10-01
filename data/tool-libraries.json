@@ -3,40 +3,64 @@
  "version": "1.0",
  "optimal": {
   "name": "Optimal All-Purpose Setting",
-  "tagline": "The recommended default setup \u2014 sensible sampling plus the essential tool libraries, one click.",
+  "tagline": "The recommended default setup — sensible sampling plus the essential tool libraries, one click.",
   "sampling": {
    "temperature": 0.7,
    "topK": 40,
    "maxTokens": 120,
    "stopAtEos": true
   },
-  "note": "This card builds itself from the library index below \u2014 every new library flagged 'optimal' joins the set automatically. Last updated stamp refreshes with each index publish."
+  "note": "This card builds itself from the library index below — every new library flagged 'optimal' joins the set automatically. Last updated stamp refreshes with each index publish."
  },
  "libraries": [
   {
    "id": "text-shorten",
    "name": "Shorten",
    "category": "Text & Words",
-   "desc": "Trims long text down to a set number of words without cutting mid-thought \u2014 handy when a reply runs long.",
+   "desc": "Trims long text down to a set number of words without cutting mid-thought — handy when a reply runs long.",
    "version": "1.0",
    "optimal": true,
    "functions": [
     "shorten(text, maxWords)",
     "firstSentence(text)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['text-shorten']={version:'1.0',shorten:function(t,m){m=m||40;var w=String(t).split(/\\s+/);return w.length<=m?String(t):w.slice(0,m).join(' ')+'\u2026';},firstSentence:function(t){var m=String(t).match(/[^.!?]+[.!?]/);return m?m[0].trim():String(t).trim();}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['text-shorten']={version:'1.0',shorten:function(t,m){m=m||40;var w=String(t).split(/\\s+/);return w.length<=m?String(t):w.slice(0,m).join(' ')+'…';},firstSentence:function(t){var m=String(t).match(/[^.!?]+[.!?]/);return m?m[0].trim():String(t).trim();}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['text-shorten'].shorten(text, maxWords)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "text-count",
    "name": "Count",
    "category": "Text & Words",
-   "desc": "Counts words, characters and sentences, and estimates reading time \u2014 the quick health check for any text.",
+   "desc": "Counts words, characters and sentences, and estimates reading time — the quick health check for any text.",
    "version": "1.0",
    "optimal": true,
    "functions": [
     "count(text) -> {chars, words, sentences, readingMinutes}"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['text-count']={version:'1.0',count:function(t){t=String(t);var w=t.trim()?t.trim().split(/\\s+/).length:0;var s=(t.match(/[^.!?]+[.!?]/g)||[]).length;return{chars:t.length,words:w,sentences:s,readingMinutes:Math.max(1,Math.round(w/200))};}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['text-count']={version:'1.0',count:function(t){t=String(t);var w=t.trim()?t.trim().split(/\\s+/).length:0;var s=(t.match(/[^.!?]+[.!?]/g)||[]).length;return{chars:t.length,words:w,sentences:s,readingMinutes:Math.max(1,Math.round(w/200))};}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['text-count'].count(text) -> {chars, words, sentences, readingMinutes}",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "text-clean",
@@ -49,43 +73,91 @@
     "clean(text)",
     "slugify(text)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['text-clean']={version:'1.0',clean:function(t){return String(t).replace(/[\\u0000-\\u0008\\u000B\\u000C\\u000E-\\u001F]/g,'').replace(/[ \\t]+/g,' ').replace(/\\n{3,}/g,'\\n\\n').trim();},slugify:function(t){return String(t).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['text-clean']={version:'1.0',clean:function(t){return String(t).replace(/[\\u0000-\\u0008\\u000B\\u000C\\u000E-\\u001F]/g,'').replace(/[ \\t]+/g,' ').replace(/\\n{3,}/g,'\\n\\n').trim();},slugify:function(t){return String(t).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['text-clean'].clean(text)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "text-keywords",
    "name": "Keywords",
    "category": "Text & Words",
-   "desc": "Pulls the most important words out of any text by frequency \u2014 a quick way to see what a passage is about.",
+   "desc": "Pulls the most important words out of any text by frequency — a quick way to see what a passage is about.",
    "version": "1.0",
    "optimal": false,
    "functions": [
     "keywords(text, n)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['text-keywords']={version:'1.0',keywords:function(t,n){n=n||8;var stop={the:1,a:1,an:1,of:1,to:1,is:1,it:1,in:1,and:1,for:1,on:1,that:1,this:1,with:1,as:1,are:1,was:1,be:1,by:1,or:1,at:1,from:1,will:1};var c={};String(t).toLowerCase().replace(/[^a-z0-9\\s]/g,' ').split(/\\s+/).forEach(function(w){if(w.length>3&&!stop[w])c[w]=(c[w]||0)+1;});return Object.keys(c).sort(function(a,b){return c[b]-c[a];}).slice(0,n);}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['text-keywords']={version:'1.0',keywords:function(t,n){n=n||8;var stop={the:1,a:1,an:1,of:1,to:1,is:1,it:1,in:1,and:1,for:1,on:1,that:1,this:1,with:1,as:1,are:1,was:1,be:1,by:1,or:1,at:1,from:1,will:1};var c={};String(t).toLowerCase().replace(/[^a-z0-9\\s]/g,' ').split(/\\s+/).forEach(function(w){if(w.length>3&&!stop[w])c[w]=(c[w]||0)+1;});return Object.keys(c).sort(function(a,b){return c[b]-c[a];}).slice(0,n);}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['text-keywords'].keywords(text, n)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "text-summarize",
    "name": "Summarize",
    "category": "Text & Words",
-   "desc": "Boils text down to its first few sentences \u2014 a fast, honest extractive summary with no guessing.",
+   "desc": "Boils text down to its first few sentences — a fast, honest extractive summary with no guessing.",
    "version": "1.0",
    "optimal": false,
    "functions": [
     "summarize(text, n)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['text-summarize']={version:'1.0',summarize:function(t,n){n=n||3;var s=String(t).match(/[^.!?]+[.!?]+/g)||[String(t)];return s.slice(0,n).join(' ').trim();}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['text-summarize']={version:'1.0',summarize:function(t,n){n=n||3;var s=String(t).match(/[^.!?]+[.!?]+/g)||[String(t)];return s.slice(0,n).join(' ').trim();}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['text-summarize'].summarize(text, n)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "text-template",
    "name": "Template Fill",
    "category": "Text & Words",
-   "desc": "Fills {{placeholders}} in a template with real values \u2014 the easy way to build prompts and messages.",
+   "desc": "Fills {{placeholders}} in a template with real values — the easy way to build prompts and messages.",
    "version": "1.0",
    "optimal": false,
    "functions": [
     "fill(template, vars)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['text-template']={version:'1.0',fill:function(t,v){return String(t).replace(/\\{\\{(\\w+)\\}\\}/g,function(m,k){return(k in v)?v[k]:m;});}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['text-template']={version:'1.0',fill:function(t,v){return String(t).replace(/\\{\\{(\\w+)\\}\\}/g,function(m,k){return(k in v)?v[k]:m;});}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['text-template'].fill(template, vars)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "text-diff",
@@ -97,44 +169,92 @@
    "functions": [
     "diffWords(a, b) -> {added, removed}"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['text-diff']={version:'1.0',diffWords:function(a,b){var aw={},bw={};String(a).split(/\\s+/).forEach(function(w){aw[w]=1;});String(b).split(/\\s+/).forEach(function(w){bw[w]=1;});return{added:Object.keys(bw).filter(function(w){return!aw[w];}),removed:Object.keys(aw).filter(function(w){return!bw[w];})};}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['text-diff']={version:'1.0',diffWords:function(a,b){var aw={},bw={};String(a).split(/\\s+/).forEach(function(w){aw[w]=1;});String(b).split(/\\s+/).forEach(function(w){bw[w]=1;});return{added:Object.keys(bw).filter(function(w){return!aw[w];}),removed:Object.keys(aw).filter(function(w){return!bw[w];})};}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['text-diff'].diffWords(a, b) -> {added, removed}",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "text-wrap",
    "name": "Wrap",
    "category": "Text & Words",
-   "desc": "Wraps text to a set line width without breaking words \u2014 for clean pre-formatted output.",
+   "desc": "Wraps text to a set line width without breaking words — for clean pre-formatted output.",
    "version": "1.0",
    "optimal": false,
    "functions": [
     "wrap(text, width)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['text-wrap']={version:'1.0',wrap:function(t,w){w=w||60;var out=[],line='';String(t).split(/\\s+/).forEach(function(x){if((line+' '+x).trim().length>w){out.push(line.trim());line=x;}else line+=' '+x;});if(line.trim())out.push(line.trim());return out.join('\\n');}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['text-wrap']={version:'1.0',wrap:function(t,w){w=w||60;var out=[],line='';String(t).split(/\\s+/).forEach(function(x){if((line+' '+x).trim().length>w){out.push(line.trim());line=x;}else line+=' '+x;});if(line.trim())out.push(line.trim());return out.join('\\n');}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['text-wrap'].wrap(text, width)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "text-tone",
    "name": "Tone Shift",
    "category": "Text & Words",
-   "desc": "Expands contractions (don't \u2192 do not) to make casual writing more formal \u2014 a small, real tone adjustment.",
+   "desc": "Expands contractions (don't → do not) to make casual writing more formal — a small, real tone adjustment.",
    "version": "1.0",
    "optimal": false,
    "functions": [
     "expandContractions(text)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['text-tone']={version:'1.0',expandContractions:function(t){var map={\"don't\":\"do not\",\"can't\":\"cannot\",\"won't\":\"will not\",\"isn't\":\"is not\",\"aren't\":\"are not\",\"wasn't\":\"was not\",\"weren't\":\"were not\",\"haven't\":\"have not\",\"hasn't\":\"has not\",\"didn't\":\"did not\",\"doesn't\":\"does not\",\"couldn't\":\"could not\",\"shouldn't\":\"should not\",\"wouldn't\":\"would not\"};return String(t).replace(/\\b(don't|can't|won't|isn't|aren't|wasn't|weren't|haven't|hasn't|didn't|doesn't|couldn't|shouldn't|wouldn't)\\b/gi,function(m){var r=map[m.toLowerCase()];return m[0]===m[0].toUpperCase()?r.charAt(0).toUpperCase()+r.slice(1):r;});}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['text-tone']={version:'1.0',expandContractions:function(t){var map={\"don't\":\"do not\",\"can't\":\"cannot\",\"won't\":\"will not\",\"isn't\":\"is not\",\"aren't\":\"are not\",\"wasn't\":\"was not\",\"weren't\":\"were not\",\"haven't\":\"have not\",\"hasn't\":\"has not\",\"didn't\":\"did not\",\"doesn't\":\"does not\",\"couldn't\":\"could not\",\"shouldn't\":\"should not\",\"wouldn't\":\"would not\"};return String(t).replace(/\\b(don't|can't|won't|isn't|aren't|wasn't|weren't|haven't|hasn't|didn't|doesn't|couldn't|shouldn't|wouldn't)\\b/gi,function(m){var r=map[m.toLowerCase()];return m[0]===m[0].toUpperCase()?r.charAt(0).toUpperCase()+r.slice(1):r;});}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['text-tone'].expandContractions(text)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "text-bullets",
    "name": "Bullets",
    "category": "Text & Words",
-   "desc": "Turns lines into bullet points and back \u2014 for tidy lists in chats and pages.",
+   "desc": "Turns lines into bullet points and back — for tidy lists in chats and pages.",
    "version": "1.0",
    "optimal": false,
    "functions": [
     "toBullets(text)",
     "fromBullets(text)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['text-bullets']={version:'1.0',toBullets:function(t){return String(t).split(/\\n+/).map(function(l){return l.trim();}).filter(Boolean).map(function(l){return '\u2022 '+l;}).join('\\n');},fromBullets:function(t){return String(t).split('\\n').map(function(l){return l.replace(/^[\u2022\\-\\*]\\s*/,'');}).filter(Boolean);}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['text-bullets']={version:'1.0',toBullets:function(t){return String(t).split(/\\n+/).map(function(l){return l.trim();}).filter(Boolean).map(function(l){return '• '+l;}).join('\\n');},fromBullets:function(t){return String(t).split('\\n').map(function(l){return l.replace(/^[•\\-\\*]\\s*/,'');}).filter(Boolean);}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['text-bullets'].toBullets(text)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "think-steps",
@@ -147,7 +267,19 @@
     "steps(goal, n)",
     "thinkPrompt(question)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['think-steps']={version:'1.0',steps:function(g,n){n=n||5;var o=[];for(var i=1;i<=n;i++)o.push('Step '+i+': ');return{goal:g,steps:o};},thinkPrompt:function(q){return 'Think through this step by step, showing each step:\\n'+q;}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['think-steps']={version:'1.0',steps:function(g,n){n=n||5;var o=[];for(var i=1;i<=n;i++)o.push('Step '+i+': ');return{goal:g,steps:o};},thinkPrompt:function(q){return 'Think through this step by step, showing each step:\\n'+q;}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['think-steps'].steps(goal, n)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "think-proscons",
@@ -160,19 +292,43 @@
     "split(text) -> {pros, cons}",
     "frame(topic)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['think-proscons']={version:'1.0',split:function(t){var p=[],c=[];String(t).split('\\n').forEach(function(l){l=l.trim();if(/^(pro|\\+|yes)/i.test(l))p.push(l.replace(/^(pro|\\+|yes)[:\\s]*/i,''));else if(/^(con|-|no)/i.test(l))c.push(l.replace(/^(con|-|no)[:\\s]*/i,''));});return{pros:p,cons:c};},frame:function(t){return{topic:t,pros:[],cons:[],verdict:''};}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['think-proscons']={version:'1.0',split:function(t){var p=[],c=[];String(t).split('\\n').forEach(function(l){l=l.trim();if(/^(pro|\\+|yes)/i.test(l))p.push(l.replace(/^(pro|\\+|yes)[:\\s]*/i,''));else if(/^(con|-|no)/i.test(l))c.push(l.replace(/^(con|-|no)[:\\s]*/i,''));});return{pros:p,cons:c};},frame:function(t){return{topic:t,pros:[],cons:[],verdict:''};}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['think-proscons'].split(text) -> {pros, cons}",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "think-decide",
    "name": "Decider",
    "category": "Thinking & Reasoning",
-   "desc": "Scores options against weighted criteria and ranks them \u2014 decisions with the math shown.",
+   "desc": "Scores options against weighted criteria and ranks them — decisions with the math shown.",
    "version": "1.0",
    "optimal": false,
    "functions": [
     "score(options)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['think-decide']={version:'1.0',score:function(o){return o.map(function(x){var t=0,w=0;Object.keys(x.scores).forEach(function(k){var wt=(x.weights&&x.weights[k])||1;t+=x.scores[k]*wt;w+=wt;});return{name:x.name,score:w?t/w:0};}).sort(function(a,b){return b.score-a.score;});}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['think-decide']={version:'1.0',score:function(o){return o.map(function(x){var t=0,w=0;Object.keys(x.scores).forEach(function(k){var wt=(x.weights&&x.weights[k])||1;t+=x.scores[k]*wt;w+=wt;});return{name:x.name,score:w?t/w:0};}).sort(function(a,b){return b.score-a.score;});}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['think-decide'].score(options)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "think-why",
@@ -184,7 +340,19 @@
    "functions": [
     "fiveWhys(statement)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['think-why']={version:'1.0',fiveWhys:function(s){var o=[];for(var i=1;i<=5;i++)o.push('Why '+i+': why is \"'+s+'\" true? Dig one level deeper.');return o;}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['think-why']={version:'1.0',fiveWhys:function(s){var o=[];for(var i=1;i<=5;i++)o.push('Why '+i+': why is \"'+s+'\" true? Dig one level deeper.');return o;}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['think-why'].fiveWhys(statement)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "think-socratic",
@@ -196,7 +364,19 @@
    "functions": [
     "questions(topic)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['think-socratic']={version:'1.0',questions:function(t){return['What do we actually know about '+t+'?','What are we assuming without proof?','What would change my mind?','What is the strongest argument against it?','What would a beginner ask about '+t+'?'];}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['think-socratic']={version:'1.0',questions:function(t){return['What do we actually know about '+t+'?','What are we assuming without proof?','What would change my mind?','What is the strongest argument against it?','What would a beginner ask about '+t+'?'];}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['think-socratic'].questions(topic)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "think-fermi",
@@ -208,19 +388,43 @@
    "functions": [
     "breakdown(question, factors)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['think-fermi']={version:'1.0',breakdown:function(q,f){return{question:q,factors:f||['(factor 1: guess a number)','(factor 2: guess a number)'],how:'Multiply the factors for a rough answer \u2014 landing within 10x counts as a win.'};}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['think-fermi']={version:'1.0',breakdown:function(q,f){return{question:q,factors:f||['(factor 1: guess a number)','(factor 2: guess a number)'],how:'Multiply the factors for a rough answer — landing within 10x counts as a win.'};}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['think-fermi'].breakdown(question, factors)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "think-invert",
    "name": "Invert",
    "category": "Thinking & Reasoning",
-   "desc": "Flips a goal upside down \u2014 plan how to fail at it, then simply avoid each failure.",
+   "desc": "Flips a goal upside down — plan how to fail at it, then simply avoid each failure.",
    "version": "1.0",
    "optimal": false,
    "functions": [
     "invert(goal)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['think-invert']={version:'1.0',invert:function(g){return['How could someone guarantee failure at: '+g+'?','Name 3 ways to fail, then avoid each one.','What would the exact opposite of success look like?'];}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['think-invert']={version:'1.0',invert:function(g){return['How could someone guarantee failure at: '+g+'?','Name 3 ways to fail, then avoid each one.','What would the exact opposite of success look like?'];}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['think-invert'].invert(goal)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "think-analogy",
@@ -232,19 +436,43 @@
    "functions": [
     "frame(a, b)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['think-analogy']={version:'1.0',frame:function(a,b){return a+' is to its world as '+b+' is to its world \u2014 what maps across, and what breaks?';}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['think-analogy']={version:'1.0',frame:function(a,b){return a+' is to its world as '+b+' is to its world — what maps across, and what breaks?';}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['think-analogy'].frame(a, b)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "think-assume",
    "name": "Find Assumptions",
    "category": "Thinking & Reasoning",
-   "desc": "Pulls assumption phrases (assume, if, suppose, given that\u2026) out of any text so you can check them.",
+   "desc": "Pulls assumption phrases (assume, if, suppose, given that…) out of any text so you can check them.",
    "version": "1.0",
    "optimal": false,
    "functions": [
     "find(text)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['think-assume']={version:'1.0',find:function(t){return (String(t).match(/\\b(assume|assumes|assuming|if|suppose|supposing|given that|provided)\\b[^.!?]*[.!?]/gi)||[]).map(function(s){return s.trim();});}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['think-assume']={version:'1.0',find:function(t){return (String(t).match(/\\b(assume|assumes|assuming|if|suppose|supposing|given that|provided)\\b[^.!?]*[.!?]/gi)||[]).map(function(s){return s.trim();});}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['think-assume'].find(text)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "think-checklist",
@@ -257,13 +485,25 @@
     "make(goal, items)",
     "check(list, i)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['think-checklist']={version:'1.0',make:function(g,items){return{goal:g,items:(items||[]).map(function(t){return{task:t,done:false};})};},check:function(l,i){if(l.items[i])l.items[i].done=true;return l;}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['think-checklist']={version:'1.0',make:function(g,items){return{goal:g,items:(items||[]).map(function(t){return{task:t,done:false};})};},check:function(l,i){if(l.items[i])l.items[i].done=true;return l;}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['think-checklist'].make(goal, items)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "mem-note",
    "name": "Notes",
    "category": "Memory",
-   "desc": "Remembers things for you in the browser \u2014 save a note under a key, recall it later, forget it when done.",
+   "desc": "Remembers things for you in the browser — save a note under a key, recall it later, forget it when done.",
    "version": "1.0",
    "optimal": true,
    "functions": [
@@ -271,7 +511,19 @@
     "get(key)",
     "forget(key)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['mem-note']={version:'1.0',set:function(k,v){try{localStorage.setItem('sigllama-mem-'+k,JSON.stringify(v));}catch(e){}return true;},get:function(k){try{var v=localStorage.getItem('sigllama-mem-'+k);return v==null?null:JSON.parse(v);}catch(e){return null;}},forget:function(k){try{localStorage.removeItem('sigllama-mem-'+k);}catch(e){}return true;}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['mem-note']={version:'1.0',set:function(k,v){try{localStorage.setItem('sigllama-mem-'+k,JSON.stringify(v));}catch(e){}return true;},get:function(k){try{var v=localStorage.getItem('sigllama-mem-'+k);return v==null?null:JSON.parse(v);}catch(e){return null;}},forget:function(k){try{localStorage.removeItem('sigllama-mem-'+k);}catch(e){}return true;}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": true,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-storage",
+   "example": "SigLlama.tools['mem-note'].set(key, value)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "mem-facts",
@@ -285,7 +537,19 @@
     "about(topic)",
     "clear(topic)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['mem-facts']={version:'1.0',add:function(t,f){var k='sigllama-facts-'+String(t).toLowerCase();var l=[];try{l=JSON.parse(localStorage.getItem(k)||'[]');}catch(e){}l.push(f);try{localStorage.setItem(k,JSON.stringify(l));}catch(e){}return l;},about:function(t){try{return JSON.parse(localStorage.getItem('sigllama-facts-'+String(t).toLowerCase())||'[]');}catch(e){return[];}},clear:function(t){try{localStorage.removeItem('sigllama-facts-'+String(t).toLowerCase());}catch(e){}return true;}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['mem-facts']={version:'1.0',add:function(t,f){var k='sigllama-facts-'+String(t).toLowerCase();var l=[];try{l=JSON.parse(localStorage.getItem(k)||'[]');}catch(e){}l.push(f);try{localStorage.setItem(k,JSON.stringify(l));}catch(e){}return l;},about:function(t){try{return JSON.parse(localStorage.getItem('sigllama-facts-'+String(t).toLowerCase())||'[]');}catch(e){return[];}},clear:function(t){try{localStorage.removeItem('sigllama-facts-'+String(t).toLowerCase());}catch(e){}return true;}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": true,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-storage",
+   "example": "SigLlama.tools['mem-facts'].add(topic, fact)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "mem-pin",
@@ -299,20 +563,44 @@
     "pinned()",
     "unpin(i)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['mem-pin']={version:'1.0',pin:function(x){var l=this.pinned();l.push(x);try{localStorage.setItem('sigllama-pins',JSON.stringify(l));}catch(e){}return l;},pinned:function(){try{return JSON.parse(localStorage.getItem('sigllama-pins')||'[]');}catch(e){return[];}},unpin:function(i){var l=this.pinned();l.splice(i,1);try{localStorage.setItem('sigllama-pins',JSON.stringify(l));}catch(e){}return l;}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['mem-pin']={version:'1.0',pin:function(x){var l=this.pinned();l.push(x);try{localStorage.setItem('sigllama-pins',JSON.stringify(l));}catch(e){}return l;},pinned:function(){try{return JSON.parse(localStorage.getItem('sigllama-pins')||'[]');}catch(e){return[];}},unpin:function(i){var l=this.pinned();l.splice(i,1);try{localStorage.setItem('sigllama-pins',JSON.stringify(l));}catch(e){}return l;}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": true,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-storage",
+   "example": "SigLlama.tools['mem-pin'].pin(item)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "mem-timeline",
    "name": "Timeline",
    "category": "Memory",
-   "desc": "Keeps a dated timeline of events \u2014 add what happened and when, read it back in order.",
+   "desc": "Keeps a dated timeline of events — add what happened and when, read it back in order.",
    "version": "1.0",
    "optimal": false,
    "functions": [
     "add(when, what)",
     "all()"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['mem-timeline']={version:'1.0',add:function(w,x){var l=this.all();l.push({when:w,what:x});l.sort(function(a,b){return a.when<b.when?-1:1;});try{localStorage.setItem('sigllama-timeline',JSON.stringify(l));}catch(e){}return l;},all:function(){try{return JSON.parse(localStorage.getItem('sigllama-timeline')||'[]');}catch(e){return[];}}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['mem-timeline']={version:'1.0',add:function(w,x){var l=this.all();l.push({when:w,what:x});l.sort(function(a,b){return a.when<b.when?-1:1;});try{localStorage.setItem('sigllama-timeline',JSON.stringify(l));}catch(e){}return l;},all:function(){try{return JSON.parse(localStorage.getItem('sigllama-timeline')||'[]');}catch(e){return[];}}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": true,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-storage",
+   "example": "SigLlama.tools['mem-timeline'].add(when, what)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "mem-review",
@@ -325,19 +613,43 @@
     "nextReview(level)",
     "plan(topic)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['mem-review']={version:'1.0',nextReview:function(l){var d=[1,3,7,14,30,60,120];l=Math.max(0,Math.min(d.length-1,l||0));var dt=new Date();dt.setDate(dt.getDate()+d[l]);return{level:l,days:d[l],reviewOn:dt.toISOString().slice(0,10)};},plan:function(t){var r=[];for(var i=0;i<5;i++)r.push(this.nextReview(i));return{topic:t,schedule:r};}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['mem-review']={version:'1.0',nextReview:function(l){var d=[1,3,7,14,30,60,120];l=Math.max(0,Math.min(d.length-1,l||0));var dt=new Date();dt.setDate(dt.getDate()+d[l]);return{level:l,days:d[l],reviewOn:dt.toISOString().slice(0,10)};},plan:function(t){var r=[];for(var i=0;i<5;i++)r.push(this.nextReview(i));return{topic:t,schedule:r};}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['mem-review'].nextReview(level)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "mem-context",
    "name": "Context Packer",
    "category": "Memory",
-   "desc": "Packs a list of items into a character budget for a prompt \u2014 oldest get cut first, newest survive.",
+   "desc": "Packs a list of items into a character budget for a prompt — oldest get cut first, newest survive.",
    "version": "1.0",
    "optimal": false,
    "functions": [
     "pack(items, maxChars)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['mem-context']={version:'1.0',pack:function(items,m){m=m||2000;var out=[],n=0;for(var i=items.length-1;i>=0;i--){var s=String(items[i]);if(n+s.length+1>m)break;out.unshift(s);n+=s.length+1;}return{packed:out.join('\\n'),dropped:items.length-out.length};}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['mem-context']={version:'1.0',pack:function(items,m){m=m||2000;var out=[],n=0;for(var i=items.length-1;i>=0;i--){var s=String(items[i]);if(n+s.length+1>m)break;out.unshift(s);n+=s.length+1;}return{packed:out.join('\\n'),dropped:items.length-out.length};}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['mem-context'].pack(items, maxChars)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "mem-session",
@@ -351,7 +663,19 @@
     "get()",
     "clear()"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['mem-session']={version:'1.0',_log:[],log:function(w,t){this._log.push({who:w,text:String(t),at:new Date().toISOString()});return this._log.length;},get:function(){return this._log.slice();},clear:function(){this._log=[];return true;}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['mem-session']={version:'1.0',_log:[],log:function(w,t){this._log.push({who:w,text:String(t),at:new Date().toISOString()});return this._log.length;},get:function(){return this._log.slice();},clear:function(){this._log=[];return true;}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['mem-session'].log(who, text)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "mem-export",
@@ -364,7 +688,19 @@
     "exportAll()",
     "importAll(json)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['mem-export']={version:'1.0',exportAll:function(){var o={};for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(k&&k.indexOf('sigllama-')===0)o[k]=localStorage.getItem(k);}return JSON.stringify(o);},importAll:function(j){var o=JSON.parse(j),n=0;Object.keys(o).forEach(function(k){try{localStorage.setItem(k,o[k]);n++;}catch(e){}});return n;}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['mem-export']={version:'1.0',exportAll:function(){var o={};for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(k&&k.indexOf('sigllama-')===0)o[k]=localStorage.getItem(k);}return JSON.stringify(o);},importAll:function(j){var o=JSON.parse(j),n=0;Object.keys(o).forEach(function(k){try{localStorage.setItem(k,o[k]);n++;}catch(e){}});return n;}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": true,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-storage",
+   "example": "SigLlama.tools['mem-export'].exportAll()",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "mem-digest",
@@ -376,7 +712,19 @@
    "functions": [
     "digest(items, n)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['mem-digest']={version:'1.0',digest:function(items,n){n=n||5;return String(items.slice(0,n).map(function(x){return '\u2022 '+x;}).join('\\n'))+(items.length>n?'\\n\u2026 +'+(items.length-n)+' more':'');}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['mem-digest']={version:'1.0',digest:function(items,n){n=n||5;return String(items.slice(0,n).map(function(x){return '• '+x;}).join('\\n'))+(items.length>n?'\\n… +'+(items.length-n)+' more':'');}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['mem-digest'].digest(items, n)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "mem-search",
@@ -388,43 +736,91 @@
    "functions": [
     "search(query)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['mem-search']={version:'1.0',search:function(q){q=String(q).toLowerCase();var hits=[];for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(k&&k.indexOf('sigllama-')===0){var v=localStorage.getItem(k)||'';if(v.toLowerCase().indexOf(q)>=0)hits.push(k);}}return hits;}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['mem-search']={version:'1.0',search:function(q){q=String(q).toLowerCase();var hits=[];for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(k&&k.indexOf('sigllama-')===0){var v=localStorage.getItem(k)||'';if(v.toLowerCase().indexOf(q)>=0)hits.push(k);}}return hits;}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": true,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-storage",
+   "example": "SigLlama.tools['mem-search'].search(query)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "chat-persona",
    "name": "Persona",
    "category": "Chat & Persona",
-   "desc": "Builds a personality prompt from a name and traits \u2014 the fastest way to give the Llama a character.",
+   "desc": "Builds a personality prompt from a name and traits — the fastest way to give the Llama a character.",
    "version": "1.0",
    "optimal": true,
    "functions": [
     "make(name, traits)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['chat-persona']={version:'1.0',make:function(n,t){return 'You are '+n+', an AI with these traits: '+t+'. Stay in character, be helpful, and keep replies short unless asked for more.';}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['chat-persona']={version:'1.0',make:function(n,t){return 'You are '+n+', an AI with these traits: '+t+'. Stay in character, be helpful, and keep replies short unless asked for more.';}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['chat-persona'].make(name, traits)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "chat-greet",
    "name": "Greeter",
    "category": "Chat & Persona",
-   "desc": "Writes a warm greeting that matches the time of day \u2014 mornings, afternoons and evenings covered.",
+   "desc": "Writes a warm greeting that matches the time of day — mornings, afternoons and evenings covered.",
    "version": "1.0",
    "optimal": false,
    "functions": [
     "greet(name)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['chat-greet']={version:'1.0',greet:function(n){var h=new Date().getHours();var tod=h<12?'morning':(h<18?'afternoon':'evening');return 'Good '+tod+(n?', '+n:'')+'! What are we working on?';}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['chat-greet']={version:'1.0',greet:function(n){var h=new Date().getHours();var tod=h<12?'morning':(h<18?'afternoon':'evening');return 'Good '+tod+(n?', '+n:'')+'! What are we working on?';}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['chat-greet'].greet(name)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "chat-farewell",
    "name": "Farewell",
    "category": "Chat & Persona",
-   "desc": "A friendly goodbye that invites the visitor back \u2014 small touch, big warmth.",
+   "desc": "A friendly goodbye that invites the visitor back — small touch, big warmth.",
    "version": "1.0",
    "optimal": false,
    "functions": [
     "farewell(name)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['chat-farewell']={version:'1.0',farewell:function(n){return 'Goodbye'+(n?', '+n:'')+' \u2014 I will be right here when you need me.';}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['chat-farewell']={version:'1.0',farewell:function(n){return 'Goodbye'+(n?', '+n:'')+' — I will be right here when you need me.';}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['chat-farewell'].farewell(name)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "chat-frames",
@@ -438,7 +834,19 @@
     "expert(question)",
     "teacher(question)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['chat-frames']={version:'1.0',like5:function(q){return 'Explain like I am 5 years old, using tiny words and a fun example: '+q;},expert:function(q){return 'Answer as a world-class expert. Be precise and complete: '+q;},teacher:function(q){return 'Teach me this step by step, checking my understanding as we go: '+q;}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['chat-frames']={version:'1.0',like5:function(q){return 'Explain like I am 5 years old, using tiny words and a fun example: '+q;},expert:function(q){return 'Answer as a world-class expert. Be precise and complete: '+q;},teacher:function(q){return 'Teach me this step by step, checking my understanding as we go: '+q;}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['chat-frames'].like5(question)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "chat-history",
@@ -452,7 +860,19 @@
     "push(h, who, text)",
     "prompt(h)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['chat-history']={version:'1.0',create:function(b){return{budget:b||2000,turns:[]};},push:function(h,w,t){h.turns.push({who:w,text:String(t)});var s=JSON.stringify(h.turns);while(s.length>h.budget&&h.turns.length>1){h.turns.shift();s=JSON.stringify(h.turns);}return h;},prompt:function(h){return h.turns.map(function(t){return t.who+': '+t.text;}).join('\\n')+'\\nLlama:';}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['chat-history']={version:'1.0',create:function(b){return{budget:b||2000,turns:[]};},push:function(h,w,t){h.turns.push({who:w,text:String(t)});var s=JSON.stringify(h.turns);while(s.length>h.budget&&h.turns.length>1){h.turns.shift();s=JSON.stringify(h.turns);}return h;},prompt:function(h){return h.turns.map(function(t){return t.who+': '+t.text;}).join('\\n')+'\\nLlama:';}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['chat-history'].create(budget)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "chat-suggest",
@@ -464,7 +884,19 @@
    "functions": [
     "suggest()"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['chat-suggest']={version:'1.0',suggest:function(){return['Tell me more about that.','Can you give me an example?','What should I do next?'];}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['chat-suggest']={version:'1.0',suggest:function(){return['Tell me more about that.','Can you give me an example?','What should I do next?'];}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['chat-suggest'].suggest()",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "chat-recap",
@@ -476,19 +908,43 @@
    "functions": [
     "recap(turns)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['chat-recap']={version:'1.0',recap:function(turns){return turns.map(function(t){var s=String(t.text);return t.who+': '+(s.length>70?s.slice(0,70)+'\u2026':s);}).join('\\n');}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['chat-recap']={version:'1.0',recap:function(turns){return turns.map(function(t){var s=String(t.text);return t.who+': '+(s.length>70?s.slice(0,70)+'…':s);}).join('\\n');}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['chat-recap'].recap(turns)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "chat-emoji",
    "name": "Mood Emoji",
    "category": "Chat & Persona",
-   "desc": "Picks an emoji for a mood \u2014 for playful replies and persona chats.",
+   "desc": "Picks an emoji for a mood — for playful replies and persona chats.",
    "version": "1.0",
    "optimal": false,
    "functions": [
     "forMood(mood)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['chat-emoji']={version:'1.0',forMood:function(m){var map={happy:'\ud83d\ude0a',sad:'\ud83d\ude22',excited:'\ud83e\udd29',thinking:'\ud83e\udd14',love:'\u2764\ufe0f',angry:'\ud83d\ude20',robot:'\ud83e\udd16',party:'\ud83c\udf89',sleepy:'\ud83d\ude34'};return map[String(m).toLowerCase()]||'\ud83e\udd16';}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['chat-emoji']={version:'1.0',forMood:function(m){var map={happy:'😊',sad:'😢',excited:'🤩',thinking:'🤔',love:'❤️',angry:'😠',robot:'🤖',party:'🎉',sleepy:'😴'};return map[String(m).toLowerCase()]||'🤖';}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['chat-emoji'].forMood(mood)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "chat-opener",
@@ -500,7 +956,19 @@
    "functions": [
     "opener(topic)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['chat-opener']={version:'1.0',opener:function(t){return \"Let's talk about \"+t+'. What do you want to know first?';}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['chat-opener']={version:'1.0',opener:function(t){return \"Let's talk about \"+t+'. What do you want to know first?';}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['chat-opener'].opener(topic)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "chat-closer",
@@ -512,19 +980,43 @@
    "functions": [
     "wrapUp(topic)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['chat-closer']={version:'1.0',wrapUp:function(t){return 'That was '+t+' in a nutshell \u2014 come back any time you want to go deeper.';}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['chat-closer']={version:'1.0',wrapUp:function(t){return 'That was '+t+' in a nutshell — come back any time you want to go deeper.';}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['chat-closer'].wrapUp(topic)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "search-score",
    "name": "Scorer",
    "category": "Search & Knowledge",
-   "desc": "Scores how well a text matches a query \u2014 the tiny relevance engine behind the other search tools.",
+   "desc": "Scores how well a text matches a query — the tiny relevance engine behind the other search tools.",
    "version": "1.0",
    "optimal": true,
    "functions": [
     "score(text, query)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['search-score']={version:'1.0',score:function(t,q){t=String(t).toLowerCase();q=String(q).toLowerCase().trim();if(!q)return 0;var s=0,i=-1;while((i=t.indexOf(q,i+1))>=0)s++;if(t.indexOf(q)===0)s+=2;return s;}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['search-score']={version:'1.0',score:function(t,q){t=String(t).toLowerCase();q=String(q).toLowerCase().trim();if(!q)return 0;var s=0,i=-1;while((i=t.indexOf(q,i+1))>=0)s++;if(t.indexOf(q)===0)s+=2;return s;}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['search-score'].score(text, query)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "search-highlight",
@@ -536,7 +1028,19 @@
    "functions": [
     "highlight(text, query)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['search-highlight']={version:'1.0',highlight:function(t,q){var e=String(q).replace(/[.*+?^${}()|[\\]\\\\]/g,'\\\\$&');return String(t).replace(new RegExp('('+e+')','gi'),'<mark>$1</mark>');}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['search-highlight']={version:'1.0',highlight:function(t,q){var e=String(q).replace(/[.*+?^${}()|[\\]\\\\]/g,'\\\\$&');return String(t).replace(new RegExp('('+e+')','gi'),'<mark>$1</mark>');}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['search-highlight'].highlight(text, query)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "search-filter",
@@ -548,43 +1052,91 @@
    "functions": [
     "filter(items, query, keyFn)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['search-filter']={version:'1.0',filter:function(items,q,k){var T=this;q=String(q).toLowerCase().trim();if(!q)return items.slice();return items.map(function(x){var s=String(k?k(x):x).toLowerCase();var sc=0,qi=0;for(var i=0;i<s.length&&qi<q.length;i++){if(s[i]===q[qi]){sc++;qi++;}}return{i:x,s:qi===q.length?sc:-1};}).filter(function(r){return r.s>=0;}).sort(function(a,b){return b.s-a.s;}).map(function(r){return r.i;});}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['search-filter']={version:'1.0',filter:function(items,q,k){var T=this;q=String(q).toLowerCase().trim();if(!q)return items.slice();return items.map(function(x){var s=String(k?k(x):x).toLowerCase();var sc=0,qi=0;for(var i=0;i<s.length&&qi<q.length;i++){if(s[i]===q[qi]){sc++;qi++;}}return{i:x,s:qi===q.length?sc:-1};}).filter(function(r){return r.s>=0;}).sort(function(a,b){return b.s-a.s;}).map(function(r){return r.i;});}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['search-filter'].filter(items, query, keyFn)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "search-suggest",
    "name": "Suggester",
    "category": "Search & Knowledge",
-   "desc": "Suggests completions from a word list as you type \u2014 the classic autocomplete helper.",
+   "desc": "Suggests completions from a word list as you type — the classic autocomplete helper.",
    "version": "1.0",
    "optimal": false,
    "functions": [
     "suggest(prefix, words, n)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['search-suggest']={version:'1.0',suggest:function(p,words,n){n=n||8;p=String(p).toLowerCase();return words.filter(function(w){return String(w).toLowerCase().indexOf(p)===0;}).slice(0,n);}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['search-suggest']={version:'1.0',suggest:function(p,words,n){n=n||8;p=String(p).toLowerCase();return words.filter(function(w){return String(w).toLowerCase().indexOf(p)===0;}).slice(0,n);}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['search-suggest'].suggest(prefix, words, n)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "search-rank",
    "name": "Ranker",
    "category": "Search & Knowledge",
-   "desc": "Ranks items by query relevance using the Scorer \u2014 pass any list and a text picker.",
+   "desc": "Ranks items by query relevance using the Scorer — pass any list and a text picker.",
    "version": "1.0",
    "optimal": false,
    "functions": [
     "rank(items, query, keyFn)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['search-rank']={version:'1.0',rank:function(items,q,k){var self=this;return items.map(function(x){return{i:x,s:self.score(String(k?k(x):x),q)};}).filter(function(r){return r.s>0;}).sort(function(a,b){return b.s-a.s;}).map(function(r){return r.i;});},score:function(t,q){t=String(t).toLowerCase();q=String(q).toLowerCase().trim();if(!q)return 0;var s=0,i=-1;while((i=t.indexOf(q,i+1))>=0)s++;return s;}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['search-rank']={version:'1.0',rank:function(items,q,k){var self=this;return items.map(function(x){return{i:x,s:self.score(String(k?k(x):x),q)};}).filter(function(r){return r.s>0;}).sort(function(a,b){return b.s-a.s;}).map(function(r){return r.i;});},score:function(t,q){t=String(t).toLowerCase();q=String(q).toLowerCase().trim();if(!q)return 0;var s=0,i=-1;while((i=t.indexOf(q,i+1))>=0)s++;return s;}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['search-rank'].rank(items, query, keyFn)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "search-snippet",
    "name": "Snippet",
    "category": "Search & Knowledge",
-   "desc": "Cuts a readable snippet around the first match of a query \u2014 like search results show.",
+   "desc": "Cuts a readable snippet around the first match of a query — like search results show.",
    "version": "1.0",
    "optimal": false,
    "functions": [
     "snippet(text, query, radius)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['search-snippet']={version:'1.0',snippet:function(t,q,r){r=r||60;t=String(t);var i=t.toLowerCase().indexOf(String(q).toLowerCase());if(i<0)return t.slice(0,r*2);var a=Math.max(0,i-r),b=Math.min(t.length,i+String(q).length+r);return(a>0?'\u2026':'')+t.slice(a,b)+(b<t.length?'\u2026':'');}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['search-snippet']={version:'1.0',snippet:function(t,q,r){r=r||60;t=String(t);var i=t.toLowerCase().indexOf(String(q).toLowerCase());if(i<0)return t.slice(0,r*2);var a=Math.max(0,i-r),b=Math.min(t.length,i+String(q).length+r);return(a>0?'…':'')+t.slice(a,b)+(b<t.length?'…':'');}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['search-snippet'].snippet(text, query, radius)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "search-dedupe",
@@ -596,31 +1148,67 @@
    "functions": [
     "dedupe(items)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['search-dedupe']={version:'1.0',dedupe:function(a){var seen={},out=[];a.forEach(function(x){var k=typeof x==='object'?JSON.stringify(x):String(x);if(!seen[k]){seen[k]=1;out.push(x);}});return out;}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['search-dedupe']={version:'1.0',dedupe:function(a){var seen={},out=[];a.forEach(function(x){var k=typeof x==='object'?JSON.stringify(x):String(x);if(!seen[k]){seen[k]=1;out.push(x);}});return out;}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['search-dedupe'].dedupe(items)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "search-group",
    "name": "Group By",
    "category": "Search & Knowledge",
-   "desc": "Groups a list into buckets by any key \u2014 instant categories from flat data.",
+   "desc": "Groups a list into buckets by any key — instant categories from flat data.",
    "version": "1.0",
    "optimal": false,
    "functions": [
     "groupBy(items, keyFn)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['search-group']={version:'1.0',groupBy:function(a,k){var g={};a.forEach(function(x){var key=k(x);(g[key]=g[key]||[]).push(x);});return g;}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['search-group']={version:'1.0',groupBy:function(a,k){var g={};a.forEach(function(x){var key=k(x);(g[key]=g[key]||[]).push(x);});return g;}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['search-group'].groupBy(items, keyFn)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "search-page",
    "name": "Paginator",
    "category": "Search & Knowledge",
-   "desc": "Slices a list into pages and reports page counts \u2014 for browsing big result sets.",
+   "desc": "Slices a list into pages and reports page counts — for browsing big result sets.",
    "version": "1.0",
    "optimal": false,
    "functions": [
     "page(items, page, perPage)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['search-page']={version:'1.0',page:function(a,p,pp){pp=pp||20;p=Math.max(1,p||1);var pages=Math.max(1,Math.ceil(a.length/pp));p=Math.min(p,pages);return{items:a.slice((p-1)*pp,p*pp),page:p,pages:pages,total:a.length};}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['search-page']={version:'1.0',page:function(a,p,pp){pp=pp||20;p=Math.max(1,p||1);var pages=Math.max(1,Math.ceil(a.length/pp));p=Math.min(p,pages);return{items:a.slice((p-1)*pp,p*pp),page:p,pages:pages,total:a.length};}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['search-page'].page(items, page, perPage)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "search-recent",
@@ -634,19 +1222,43 @@
     "list()",
     "clear()"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['search-recent']={version:'1.0',add:function(q){var l=this.list();l.unshift(String(q));l=l.filter(function(x,i){return l.indexOf(x)===i;}).slice(0,10);try{localStorage.setItem('sigllama-recent',JSON.stringify(l));}catch(e){}return l;},list:function(){try{return JSON.parse(localStorage.getItem('sigllama-recent')||'[]');}catch(e){return[];}},clear:function(){try{localStorage.removeItem('sigllama-recent');}catch(e){}return true;}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['search-recent']={version:'1.0',add:function(q){var l=this.list();l.unshift(String(q));l=l.filter(function(x,i){return l.indexOf(x)===i;}).slice(0,10);try{localStorage.setItem('sigllama-recent',JSON.stringify(l));}catch(e){}return l;},list:function(){try{return JSON.parse(localStorage.getItem('sigllama-recent')||'[]');}catch(e){return[];}},clear:function(){try{localStorage.removeItem('sigllama-recent');}catch(e){}return true;}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": true,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-storage",
+   "example": "SigLlama.tools['search-recent'].add(query)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "math-calc",
    "name": "Safe Calculator",
    "category": "Math & Logic",
-   "desc": "Evaluates math expressions (+ - * / % ^ and parentheses) with a hand-written parser \u2014 no eval, no surprises.",
+   "desc": "Evaluates math expressions (+ - * / % ^ and parentheses) with a hand-written parser — no eval, no surprises.",
    "version": "1.0",
    "optimal": true,
    "functions": [
     "calc(expr)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['math-calc']={version:'1.0',calc:function(e){var t=String(e).replace(/\\s+/g,'').match(/(\\d+\\.?\\d*|[+\\-*/()^%])/g);if(!t)throw new Error('bad expression');var p=0;function pk(){return t[p];}function nx(){return t[p++];}function ex(){var v=tm();while(pk()==='+'||pk()==='-'){var o=nx(),r=tm();v=o==='+'?v+r:v-r;}return v;}function tm(){var v=pw();while(pk()==='*'||pk()==='/'||pk()==='%'){var o=nx(),r=pw();v=o==='*'?v*r:(o==='/'?v/r:v%r);}return v;}function pw(){var v=pr();if(pk()==='^'){nx();v=Math.pow(v,pw());}return v;}function pr(){var x=nx();if(x==='('){var v=ex();nx();return v;}if(x==='-')return -pr();var n=parseFloat(x);if(isNaN(n))throw new Error('bad number');return n;}var out=ex();if(p<t.length)throw new Error('bad expression');return out;}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['math-calc']={version:'1.0',calc:function(e){var t=String(e).replace(/\\s+/g,'').match(/(\\d+\\.?\\d*|[+\\-*/()^%])/g);if(!t)throw new Error('bad expression');var p=0;function pk(){return t[p];}function nx(){return t[p++];}function ex(){var v=tm();while(pk()==='+'||pk()==='-'){var o=nx(),r=tm();v=o==='+'?v+r:v-r;}return v;}function tm(){var v=pw();while(pk()==='*'||pk()==='/'||pk()==='%'){var o=nx(),r=pw();v=o==='*'?v*r:(o==='/'?v/r:v%r);}return v;}function pw(){var v=pr();if(pk()==='^'){nx();v=Math.pow(v,pw());}return v;}function pr(){var x=nx();if(x==='('){var v=ex();nx();return v;}if(x==='-')return -pr();var n=parseFloat(x);if(isNaN(n))throw new Error('bad number');return n;}var out=ex();if(p<t.length)throw new Error('bad expression');return out;}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['math-calc'].calc(expr)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "math-stats",
@@ -660,7 +1272,19 @@
     "median(a)",
     "stddev(a)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['math-stats']={version:'1.0',mean:function(a){return a.reduce(function(x,y){return x+y;},0)/a.length;},median:function(a){var s=a.slice().sort(function(x,y){return x-y;});var m=s.length>>1;return s.length%2?s[m]:(s[m-1]+s[m])/2;},stddev:function(a){var m=this.mean(a);return Math.sqrt(a.reduce(function(x,y){return x+(y-m)*(y-m);},0)/a.length);}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['math-stats']={version:'1.0',mean:function(a){return a.reduce(function(x,y){return x+y;},0)/a.length;},median:function(a){var s=a.slice().sort(function(x,y){return x-y;});var m=s.length>>1;return s.length%2?s[m]:(s[m-1]+s[m])/2;},stddev:function(a){var m=this.mean(a);return Math.sqrt(a.reduce(function(x,y){return x+(y-m)*(y-m);},0)/a.length);}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['math-stats'].mean(a)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "math-percent",
@@ -673,7 +1297,19 @@
     "of(part, whole)",
     "change(oldV, newV)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['math-percent']={version:'1.0',of:function(p,w){return w? (p/w*100):0;},change:function(a,b){return a?((b-a)/Math.abs(a)*100):0;}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['math-percent']={version:'1.0',of:function(p,w){return w? (p/w*100):0;},change:function(a,b){return a?((b-a)/Math.abs(a)*100):0;}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['math-percent'].of(part, whole)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "math-convert",
@@ -685,13 +1321,25 @@
    "functions": [
     "convert(value, from, to)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['math-convert']={version:'1.0',convert:function(v,f,t){var k=f+'>'+t;var m={'mi>km':1.60934,'km>mi':0.621371,'lb>kg':0.453592,'kg>lb':2.20462};if(k==='c>f')return v*9/5+32;if(k==='f>c')return(v-32)*5/9;if(m[k])return v*m[k];throw new Error('unknown conversion '+k);}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['math-convert']={version:'1.0',convert:function(v,f,t){var k=f+'>'+t;var m={'mi>km':1.60934,'km>mi':0.621371,'lb>kg':0.453592,'kg>lb':2.20462};if(k==='c>f')return v*9/5+32;if(k==='f>c')return(v-32)*5/9;if(m[k])return v*m[k];throw new Error('unknown conversion '+k);}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['math-convert'].convert(value, from, to)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "math-geometry",
    "name": "Geometry",
    "category": "Math & Logic",
-   "desc": "Areas, volumes and the hypotenuse \u2014 the shapes math you actually reach for.",
+   "desc": "Areas, volumes and the hypotenuse — the shapes math you actually reach for.",
    "version": "1.0",
    "optimal": false,
    "functions": [
@@ -700,7 +1348,19 @@
     "boxVolume(w,h,d)",
     "hypotenuse(a,b)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['math-geometry']={version:'1.0',circleArea:function(r){return Math.PI*r*r;},rectArea:function(w,h){return w*h;},boxVolume:function(w,h,d){return w*h*d;},hypotenuse:function(a,b){return Math.sqrt(a*a+b*b);}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['math-geometry']={version:'1.0',circleArea:function(r){return Math.PI*r*r;},rectArea:function(w,h){return w*h;},boxVolume:function(w,h,d){return w*h*d;},hypotenuse:function(a,b){return Math.sqrt(a*a+b*b);}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['math-geometry'].circleArea(r)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "math-finance",
@@ -713,13 +1373,25 @@
     "compound(principal, rate, years)",
     "loanPayment(principal, annualRate, years)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['math-finance']={version:'1.0',compound:function(p,r,y){return p*Math.pow(1+r,y);},loanPayment:function(p,ar,y){var m=ar/12,n=y*12;return m?p*m/(1-Math.pow(1+m,-n)):p/n;}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['math-finance']={version:'1.0',compound:function(p,r,y){return p*Math.pow(1+r,y);},loanPayment:function(p,ar,y){var m=ar/12,n=y*12;return m?p*m/(1-Math.pow(1+m,-n)):p/n;}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['math-finance'].compound(principal, rate, years)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "math-random",
    "name": "Random",
    "category": "Math & Logic",
-   "desc": "Random integers, random picks and real shuffles \u2014 for games, demos and sampling.",
+   "desc": "Random integers, random picks and real shuffles — for games, demos and sampling.",
    "version": "1.0",
    "optimal": false,
    "functions": [
@@ -727,7 +1399,19 @@
     "pick(arr)",
     "shuffle(arr)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['math-random']={version:'1.0',int:function(a,b){return a+Math.floor(Math.random()*(b-a+1));},pick:function(x){return x[Math.floor(Math.random()*x.length)];},shuffle:function(x){var a=x.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['math-random']={version:'1.0',int:function(a,b){return a+Math.floor(Math.random()*(b-a+1));},pick:function(x){return x[Math.floor(Math.random()*x.length)];},shuffle:function(x){var a=x.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['math-random'].int(min, max)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "math-seq",
@@ -740,7 +1424,19 @@
     "fib(n)",
     "range(a, b, step)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['math-seq']={version:'1.0',fib:function(n){var a=[0,1];for(var i=2;i<n;i++)a.push(a[i-1]+a[i-2]);return a.slice(0,n);},range:function(a,b,s){s=s||1;var o=[];for(var i=a;i<b;i+=s)o.push(i);return o;}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['math-seq']={version:'1.0',fib:function(n){var a=[0,1];for(var i=2;i<n;i++)a.push(a[i-1]+a[i-2]);return a.slice(0,n);},range:function(a,b,s){s=s||1;var o=[];for(var i=a;i<b;i+=s)o.push(i);return o;}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['math-seq'].fib(n)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "math-clamp",
@@ -754,13 +1450,25 @@
     "roundTo(v, d)",
     "lerp(a, b, t)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['math-clamp']={version:'1.0',clamp:function(v,lo,hi){return Math.max(lo,Math.min(hi,v));},roundTo:function(v,d){var p=Math.pow(10,d||0);return Math.round(v*p)/p;},lerp:function(a,b,t){return a+(b-a)*t;}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['math-clamp']={version:'1.0',clamp:function(v,lo,hi){return Math.max(lo,Math.min(hi,v));},roundTo:function(v,d){var p=Math.pow(10,d||0);return Math.round(v*p)/p;},lerp:function(a,b,t){return a+(b-a)*t;}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['math-clamp'].clamp(v, lo, hi)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "math-logic",
    "name": "Logic",
    "category": "Math & Logic",
-   "desc": "The logic gates \u2014 and, or, not, xor and implies \u2014 for clean true/false reasoning.",
+   "desc": "The logic gates — and, or, not, xor and implies — for clean true/false reasoning.",
    "version": "1.0",
    "optimal": false,
    "functions": [
@@ -770,20 +1478,44 @@
     "XOR(a,b)",
     "implies(a,b)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['math-logic']={version:'1.0',AND:function(a,b){return!!(a&&b);},OR:function(a,b){return!!(a||b);},NOT:function(a){return!a;},XOR:function(a,b){return!!a!==!!b;},implies:function(a,b){return!a||!!b;}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['math-logic']={version:'1.0',AND:function(a,b){return!!(a&&b);},OR:function(a,b){return!!(a||b);},NOT:function(a){return!a;},XOR:function(a,b){return!!a!==!!b;},implies:function(a,b){return!a||!!b;}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['math-logic'].AND(a,b)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "web-query",
    "name": "Query Strings",
    "category": "Web & Network",
-   "desc": "Builds and reads URL query strings \u2014 the ?name=value pairs that carry data in links.",
+   "desc": "Builds and reads URL query strings — the ?name=value pairs that carry data in links.",
    "version": "1.0",
    "optimal": false,
    "functions": [
     "stringify(obj)",
     "parse(qs)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['web-query']={version:'1.0',stringify:function(o){return Object.keys(o).map(function(k){return encodeURIComponent(k)+'='+encodeURIComponent(o[k]);}).join('&');},parse:function(q){var o={};String(q).replace(/^\\?/,'').split('&').forEach(function(p){var kv=p.split('=');if(kv[0])o[decodeURIComponent(kv[0])]=decodeURIComponent(kv[1]||'');});return o;}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['web-query']={version:'1.0',stringify:function(o){return Object.keys(o).map(function(k){return encodeURIComponent(k)+'='+encodeURIComponent(o[k]);}).join('&');},parse:function(q){var o={};String(q).replace(/^\\?/,'').split('&').forEach(function(p){var kv=p.split('=');if(kv[0])o[decodeURIComponent(kv[0])]=decodeURIComponent(kv[1]||'');});return o;}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['web-query'].stringify(obj)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "web-url",
@@ -796,7 +1528,19 @@
     "join(base, path)",
     "isExternal(url)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['web-url']={version:'1.0',join:function(b,p){return String(b).replace(/\\/$/,'')+'/'+String(p).replace(/^\\//,'');},isExternal:function(u){try{return new URL(u,location.href).origin!==location.origin;}catch(e){return false;}}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['web-url']={version:'1.0',join:function(b,p){return String(b).replace(/\\/$/,'')+'/'+String(p).replace(/^\\//,'');},isExternal:function(u){try{return new URL(u,location.href).origin!==location.origin;}catch(e){return false;}}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['web-url'].join(base, path)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "web-share",
@@ -808,7 +1552,19 @@
    "functions": [
     "links(url, text)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['web-share']={version:'1.0',links:function(u,t){u=encodeURIComponent(u);t=encodeURIComponent(t||'');return{x:'https://twitter.com/intent/tweet?url='+u+'&text='+t,facebook:'https://www.facebook.com/sharer/sharer.php?u='+u,email:'mailto:?subject='+t+'&body='+u};}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['web-share']={version:'1.0',links:function(u,t){u=encodeURIComponent(u);t=encodeURIComponent(t||'');return{x:'https://twitter.com/intent/tweet?url='+u+'&text='+t,facebook:'https://www.facebook.com/sharer/sharer.php?u='+u,email:'mailto:?subject='+t+'&body='+u};}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": true,
+    "code_execution": true
+   },
+   "provenance_class": "network-fetch",
+   "example": "SigLlama.tools['web-share'].links(url, text)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "web-meta",
@@ -820,31 +1576,67 @@
    "functions": [
     "tags(title, desc)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['web-meta']={version:'1.0',tags:function(t,d){t=String(t).replace(/\"/g,'&quot;');d=String(d).replace(/\"/g,'&quot;');return '<title>'+t+'</title>\\n<meta name=\"description\" content=\"'+d+'\">';}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['web-meta']={version:'1.0',tags:function(t,d){t=String(t).replace(/\"/g,'&quot;');d=String(d).replace(/\"/g,'&quot;');return '<title>'+t+'</title>\\n<meta name=\"description\" content=\"'+d+'\">';}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['web-meta'].tags(title, desc)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "web-ping",
    "name": "Ping",
    "category": "Web & Network",
-   "desc": "Checks whether a URL answers, with a simple true/false promise \u2014 for status pills and health checks.",
+   "desc": "Checks whether a URL answers, with a simple true/false promise — for status pills and health checks.",
    "version": "1.0",
    "optimal": false,
    "functions": [
     "ping(url) -> Promise<boolean>"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['web-ping']={version:'1.0',ping:function(u){return fetch(u,{method:'HEAD'}).then(function(r){return r.ok;}).catch(function(){return false;});}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['web-ping']={version:'1.0',ping:function(u){return fetch(u,{method:'HEAD'}).then(function(r){return r.ok;}).catch(function(){return false;});}};})();",
+   "capabilities": {
+    "network": true,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": true,
+    "code_execution": true
+   },
+   "provenance_class": "network-fetch",
+   "example": "SigLlama.tools['web-ping'].ping(url) -> Promise<boolean>",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "web-get",
    "name": "Get JSON",
    "category": "Web & Network",
-   "desc": "Fetches a URL and parses it as JSON in one call \u2014 the workhorse of every network tool.",
+   "desc": "Fetches a URL and parses it as JSON in one call — the workhorse of every network tool.",
    "version": "1.0",
    "optimal": true,
    "functions": [
     "getJSON(url) -> Promise"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['web-get']={version:'1.0',getJSON:function(u){return fetch(u).then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.json();});}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['web-get']={version:'1.0',getJSON:function(u){return fetch(u).then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.json();});}};})();",
+   "capabilities": {
+    "network": true,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": true,
+    "code_execution": true
+   },
+   "provenance_class": "network-fetch",
+   "example": "SigLlama.tools['web-get'].getJSON(url) -> Promise",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "web-retry",
@@ -856,7 +1648,19 @@
    "functions": [
     "retry(fn, times, ms)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['web-retry']={version:'1.0',retry:function(fn,times,ms){times=times||3;ms=ms||500;return fn().catch(function(e){return times<=1?Promise.reject(e):new Promise(function(r){setTimeout(r,ms);}).then(function(){return window.SigLlama.tools['web-retry'].retry(fn,times-1,ms);});});}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['web-retry']={version:'1.0',retry:function(fn,times,ms){times=times||3;ms=ms||500;return fn().catch(function(e){return times<=1?Promise.reject(e):new Promise(function(r){setTimeout(r,ms);}).then(function(){return window.SigLlama.tools['web-retry'].retry(fn,times-1,ms);});});}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['web-retry'].retry(fn, times, ms)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "web-cache",
@@ -868,20 +1672,44 @@
    "functions": [
     "cached(key, fn, ttlMs)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['web-cache']={version:'1.0',_c:{},cached:function(k,fn,ttl){var c=this._c[k],now=Date.now();if(c&&now-c.at<ttl)return Promise.resolve(c.v);return fn().then(function(v){this._c[k]={v:v,at:now};return v;}.bind(this));}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['web-cache']={version:'1.0',_c:{},cached:function(k,fn,ttl){var c=this._c[k],now=Date.now();if(c&&now-c.at<ttl)return Promise.resolve(c.v);return fn().then(function(v){this._c[k]={v:v,at:now};return v;}.bind(this));}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['web-cache'].cached(key, fn, ttlMs)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "web-embed",
    "name": "Embed Tags",
    "category": "Web & Network",
-   "desc": "Builds <script> and <link> tags from URLs \u2014 for dropping libraries into any page.",
+   "desc": "Builds <script> and <link> tags from URLs — for dropping libraries into any page.",
    "version": "1.0",
    "optimal": false,
    "functions": [
     "scriptTag(src)",
     "cssLink(href)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['web-embed']={version:'1.0',scriptTag:function(s){return '<script src=\"'+s+'\"><\\/script>';},cssLink:function(h){return '<link rel=\"stylesheet\" href=\"'+h+'\">';}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['web-embed']={version:'1.0',scriptTag:function(s){return '<script src=\"'+s+'\"><\\/script>';},cssLink:function(h){return '<link rel=\"stylesheet\" href=\"'+h+'\">';}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['web-embed'].scriptTag(src)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "web-sitemap",
@@ -893,33 +1721,69 @@
    "functions": [
     "xml(urls)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['web-sitemap']={version:'1.0',xml:function(u){return '<?xml version=\"1.0\" encoding=\"UTF-8\"?>\\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\\n'+u.map(function(x){return '  <url><loc>'+x+'</loc></url>';}).join('\\n')+'\\n</urlset>';}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['web-sitemap']={version:'1.0',xml:function(u){return '<?xml version=\"1.0\" encoding=\"UTF-8\"?>\\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\\n'+u.map(function(x){return '  <url><loc>'+x+'</loc></url>';}).join('\\n')+'\\n</urlset>';}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": true,
+    "code_execution": true
+   },
+   "provenance_class": "network-fetch",
+   "example": "SigLlama.tools['web-sitemap'].xml(urls)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "data-json",
    "name": "JSON Tools",
    "category": "Files & Data",
-   "desc": "Pretty-prints objects and parses JSON safely without throwing \u2014 the daily bread of data work.",
+   "desc": "Pretty-prints objects and parses JSON safely without throwing — the daily bread of data work.",
    "version": "1.0",
    "optimal": true,
    "functions": [
     "pretty(obj)",
     "safeParse(text)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['data-json']={version:'1.0',pretty:function(o){return JSON.stringify(o,null,2);},safeParse:function(t){try{return{ok:true,value:JSON.parse(t)};}catch(e){return{ok:false,error:String(e)};}}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['data-json']={version:'1.0',pretty:function(o){return JSON.stringify(o,null,2);},safeParse:function(t){try{return{ok:true,value:JSON.parse(t)};}catch(e){return{ok:false,error:String(e)};}}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['data-json'].pretty(obj)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "data-csv",
    "name": "CSV Tools",
    "category": "Files & Data",
-   "desc": "Turns row arrays into CSV text and parses CSV back \u2014 for spreadsheets and data exchange.",
+   "desc": "Turns row arrays into CSV text and parses CSV back — for spreadsheets and data exchange.",
    "version": "1.0",
    "optimal": false,
    "functions": [
     "toCSV(rows)",
     "fromCSV(text)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['data-csv']={version:'1.0',toCSV:function(r){return r.map(function(row){return row.map(function(c){c=String(c);return /[\",\\n]/.test(c)?'\"'+c.replace(/\"/g,'\"\"')+'\"':c;}).join(',');}).join('\\n');},fromCSV:function(t){return String(t).split('\\n').filter(function(l){return l.trim();}).map(function(l){var out=[],cur='',q=false;for(var i=0;i<l.length;i++){var c=l[i];if(q){if(c==='\"'){if(l[i+1]==='\"'){cur+='\"';i++;}else q=false;}else cur+=c;}else if(c==='\"')q=true;else if(c===','){out.push(cur);cur='';}else cur+=c;}out.push(cur);return out;});}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['data-csv']={version:'1.0',toCSV:function(r){return r.map(function(row){return row.map(function(c){c=String(c);return /[\",\\n]/.test(c)?'\"'+c.replace(/\"/g,'\"\"')+'\"':c;}).join(',');}).join('\\n');},fromCSV:function(t){return String(t).split('\\n').filter(function(l){return l.trim();}).map(function(l){var out=[],cur='',q=false;for(var i=0;i<l.length;i++){var c=l[i];if(q){if(c==='\"'){if(l[i+1]==='\"'){cur+='\"';i++;}else q=false;}else cur+=c;}else if(c==='\"')q=true;else if(c===','){out.push(cur);cur='';}else cur+=c;}out.push(cur);return out;});}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['data-csv'].toCSV(rows)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "data-table",
@@ -931,7 +1795,19 @@
    "functions": [
     "md(rows)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['data-table']={version:'1.0',md:function(r){if(!r.length)return '';var h='| '+r[0].join(' | ')+' |\\n|'+r[0].map(function(){return '---';}).join('|')+'|\\n';return h+r.slice(1).map(function(row){return '| '+row.join(' | ')+' |';}).join('\\n');}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['data-table']={version:'1.0',md:function(r){if(!r.length)return '';var h='| '+r[0].join(' | ')+' |\\n|'+r[0].map(function(){return '---';}).join('|')+'|\\n';return h+r.slice(1).map(function(row){return '| '+row.join(' | ')+' |';}).join('\\n');}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['data-table'].md(rows)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "data-sort",
@@ -943,31 +1819,67 @@
    "functions": [
     "by(arr, key, dir)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['data-sort']={version:'1.0',by:function(a,k,d){var m=d==='desc'?-1:1;return a.slice().sort(function(x,y){var xv=x[k],yv=y[k];return xv<yv?-m:xv>yv?m:0;});}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['data-sort']={version:'1.0',by:function(a,k,d){var m=d==='desc'?-1:1;return a.slice().sort(function(x,y){var xv=x[k],yv=y[k];return xv<yv?-m:xv>yv?m:0;});}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['data-sort'].by(arr, key, dir)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "data-chunk",
    "name": "Chunk",
    "category": "Files & Data",
-   "desc": "Splits a big array into small chunks \u2014 for paging, batching and lazy loading.",
+   "desc": "Splits a big array into small chunks — for paging, batching and lazy loading.",
    "version": "1.0",
    "optimal": false,
    "functions": [
     "chunk(arr, n)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['data-chunk']={version:'1.0',chunk:function(a,n){var o=[];for(var i=0;i<a.length;i+=n)o.push(a.slice(i,i+n));return o;}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['data-chunk']={version:'1.0',chunk:function(a,n){var o=[];for(var i=0;i<a.length;i+=n)o.push(a.slice(i,i+n));return o;}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['data-chunk'].chunk(arr, n)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "data-flatten",
    "name": "Flatten",
    "category": "Files & Data",
-   "desc": "Flattens a nested object into dot-path keys \u2014 handy for search indexes and debugging.",
+   "desc": "Flattens a nested object into dot-path keys — handy for search indexes and debugging.",
    "version": "1.0",
    "optimal": false,
    "functions": [
     "flatten(obj, prefix)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['data-flatten']={version:'1.0',flatten:function(o,p){p=p||'';var out={};Object.keys(o).forEach(function(k){var v=o[k],key=p?p+'.'+k:k;if(v&&typeof v==='object'&&!Array.isArray(v)){var sub=this.flatten(v,key);Object.keys(sub).forEach(function(sk){out[sk]=sub[sk];});}else out[key]=v;},this);return out;}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['data-flatten']={version:'1.0',flatten:function(o,p){p=p||'';var out={};Object.keys(o).forEach(function(k){var v=o[k],key=p?p+'.'+k:k;if(v&&typeof v==='object'&&!Array.isArray(v)){var sub=this.flatten(v,key);Object.keys(sub).forEach(function(sk){out[sk]=sub[sk];});}else out[key]=v;},this);return out;}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['data-flatten'].flatten(obj, prefix)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "data-hash",
@@ -980,7 +1892,19 @@
     "djb2(str)",
     "uid(prefix)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['data-hash']={version:'1.0',djb2:function(s){var h=5381;for(var i=0;i<s.length;i++)h=((h<<5)+h+s.charCodeAt(i))>>>0;return h.toString(36);},uid:function(p){return (p||'id')+'-'+Date.now().toString(36)+'-'+Math.floor(Math.random()*1e6).toString(36);}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['data-hash']={version:'1.0',djb2:function(s){var h=5381;for(var i=0;i<s.length;i++)h=((h<<5)+h+s.charCodeAt(i))>>>0;return h.toString(36);},uid:function(p){return (p||'id')+'-'+Date.now().toString(36)+'-'+Math.floor(Math.random()*1e6).toString(36);}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['data-hash'].djb2(str)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "data-validate",
@@ -993,31 +1917,67 @@
     "isEmail(s)",
     "isURL(s)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['data-validate']={version:'1.0',isEmail:function(s){return /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(String(s));},isURL:function(s){try{var u=new URL(String(s));return u.protocol==='http:'||u.protocol==='https:';}catch(e){return false;}}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['data-validate']={version:'1.0',isEmail:function(s){return /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(String(s));},isURL:function(s){try{var u=new URL(String(s));return u.protocol==='http:'||u.protocol==='https:';}catch(e){return false;}}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['data-validate'].isEmail(s)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "data-download",
    "name": "Download Text",
    "category": "Files & Data",
-   "desc": "Downloads any text as a file straight from the browser \u2014 no server needed.",
+   "desc": "Downloads any text as a file straight from the browser — no server needed.",
    "version": "1.0",
    "optimal": false,
    "functions": [
     "text(filename, content)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['data-download']={version:'1.0',text:function(n,c){var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([c],{type:'text/plain'}));a.download=n;document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove();},4000);return true;}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['data-download']={version:'1.0',text:function(n,c){var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([c],{type:'text/plain'}));a.download=n;document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove();},4000);return true;}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['data-download'].text(filename, content)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "data-lines",
    "name": "Lines",
    "category": "Files & Data",
-   "desc": "Splits text into clean, non-empty, trimmed lines \u2014 the first step of most text pipelines.",
+   "desc": "Splits text into clean, non-empty, trimmed lines — the first step of most text pipelines.",
    "version": "1.0",
    "optimal": false,
    "functions": [
     "lines(text)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['data-lines']={version:'1.0',lines:function(t){return String(t).split(/\\r?\\n/).map(function(l){return l.trim();}).filter(Boolean);}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['data-lines']={version:'1.0',lines:function(t){return String(t).split(/\\r?\\n/).map(function(l){return l.trim();}).filter(Boolean);}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['data-lines'].lines(text)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "voice-speak",
@@ -1029,19 +1989,43 @@
    "functions": [
     "speak(text, opts)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['voice-speak']={version:'1.0',speak:function(t,o){o=o||{};t=String(t).slice(0,400);try{if(window.speechSynthesis){var u=new SpeechSynthesisUtterance(t);u.rate=o.rate||1;u.pitch=o.pitch||1;speechSynthesis.cancel();speechSynthesis.speak(u);return true;}}catch(e){}try{new Audio('https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q='+encodeURIComponent(t.slice(0,180))).play();return true;}catch(e){}return false;}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['voice-speak']={version:'1.0',speak:function(t,o){o=o||{};t=String(t).slice(0,400);try{if(window.speechSynthesis){var u=new SpeechSynthesisUtterance(t);u.rate=o.rate||1;u.pitch=o.pitch||1;speechSynthesis.cancel();speechSynthesis.speak(u);return true;}}catch(e){}try{new Audio('https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q='+encodeURIComponent(t.slice(0,180))).play();return true;}catch(e){}return false;}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": true,
+    "code_execution": true
+   },
+   "provenance_class": "network-fetch",
+   "example": "SigLlama.tools['voice-speak'].speak(text, opts)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "voice-stop",
    "name": "Stop Voice",
    "category": "Voice & Audio",
-   "desc": "Stops any speech immediately \u2014 the quiet button for every read-aloud.",
+   "desc": "Stops any speech immediately — the quiet button for every read-aloud.",
    "version": "1.0",
    "optimal": false,
    "functions": [
     "stop()"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['voice-stop']={version:'1.0',stop:function(){try{if(window.speechSynthesis)speechSynthesis.cancel();}catch(e){}return true;}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['voice-stop']={version:'1.0',stop:function(){try{if(window.speechSynthesis)speechSynthesis.cancel();}catch(e){}return true;}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['voice-stop'].stop()",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "voice-chunk",
@@ -1053,19 +2037,43 @@
    "functions": [
     "chunk(text, max)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['voice-chunk']={version:'1.0',chunk:function(t,m){m=m||180;var out=[],cur='';String(t).match(/[^.!?]+[.!?]+/g)||[String(t)];(String(t).match(/[^.!?]+[.!?]+/g)||[String(t)]).forEach(function(s){if((cur+s).length>m){out.push(cur.trim());cur=s;}else cur+=s;});if(cur.trim())out.push(cur.trim());return out;}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['voice-chunk']={version:'1.0',chunk:function(t,m){m=m||180;var out=[],cur='';String(t).match(/[^.!?]+[.!?]+/g)||[String(t)];(String(t).match(/[^.!?]+[.!?]+/g)||[String(t)]).forEach(function(s){if((cur+s).length>m){out.push(cur.trim());cur=s;}else cur+=s;});if(cur.trim())out.push(cur.trim());return out;}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['voice-chunk'].chunk(text, max)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "voice-presets",
    "name": "Voice Presets",
    "category": "Voice & Audio",
-   "desc": "Rate and pitch presets per persona \u2014 robots, teachers, villains and narrators each get a voice.",
+   "desc": "Rate and pitch presets per persona — robots, teachers, villains and narrators each get a voice.",
    "version": "1.0",
    "optimal": false,
    "functions": [
     "forPersona(name)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['voice-presets']={version:'1.0',forPersona:function(n){var m={robot:{rate:0.9,pitch:0.5},teacher:{rate:0.95,pitch:1.0},villain:{rate:0.85,pitch:0.6},narrator:{rate:1.0,pitch:0.9},child:{rate:1.1,pitch:1.4},elder:{rate:0.85,pitch:0.8}};return m[String(n).toLowerCase()]||{rate:1.0,pitch:1.0};}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['voice-presets']={version:'1.0',forPersona:function(n){var m={robot:{rate:0.9,pitch:0.5},teacher:{rate:0.95,pitch:1.0},villain:{rate:0.85,pitch:0.6},narrator:{rate:1.0,pitch:0.9},child:{rate:1.1,pitch:1.4},elder:{rate:0.85,pitch:0.8}};return m[String(n).toLowerCase()]||{rate:1.0,pitch:1.0};}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['voice-presets'].forPersona(name)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "voice-queue",
@@ -1078,31 +2086,67 @@
     "queue(text)",
     "clear()"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['voice-queue']={version:'1.0',_q:[],_busy:false,queue:function(t){this._q.push(String(t));this._next();return this._q.length;},_next:function(){if(this._busy||!this._q.length)return;var self=this;if(!window.speechSynthesis){this._q=[];return;}this._busy=true;var u=new SpeechSynthesisUtterance(this._q.shift());u.onend=function(){self._busy=false;self._next();};u.onerror=function(){self._busy=false;self._next();};speechSynthesis.speak(u);},clear:function(){this._q=[];try{speechSynthesis.cancel();}catch(e){}this._busy=false;return true;}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['voice-queue']={version:'1.0',_q:[],_busy:false,queue:function(t){this._q.push(String(t));this._next();return this._q.length;},_next:function(){if(this._busy||!this._q.length)return;var self=this;if(!window.speechSynthesis){this._q=[];return;}this._busy=true;var u=new SpeechSynthesisUtterance(this._q.shift());u.onend=function(){self._busy=false;self._next();};u.onerror=function(){self._busy=false;self._next();};speechSynthesis.speak(u);},clear:function(){this._q=[];try{speechSynthesis.cancel();}catch(e){}this._busy=false;return true;}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['voice-queue'].queue(text)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "voice-buttons",
    "name": "Read Buttons",
    "category": "Voice & Audio",
-   "desc": "Builds Read/Stop button HTML for any text \u2014 drop it next to articles and entries.",
+   "desc": "Builds Read/Stop button HTML for any text — drop it next to articles and entries.",
    "version": "1.0",
    "optimal": false,
    "functions": [
     "html(text, id)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['voice-buttons']={version:'1.0',html:function(t,id){id=id||('v'+Math.floor(Math.random()*1e6));var e=String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;');return '<button onclick=\"SigLlama.tools[\\'voice-speak\\'].speak(decodeURIComponent(\\''+encodeURIComponent(t)+'\\'))\">\ud83d\udd0a Read</button> <button onclick=\"SigLlama.tools[\\'voice-stop\\'].stop()\">\u23f9 Stop</button>';}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['voice-buttons']={version:'1.0',html:function(t,id){id=id||('v'+Math.floor(Math.random()*1e6));var e=String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;');return '<button onclick=\"SigLlama.tools[\\'voice-speak\\'].speak(decodeURIComponent(\\''+encodeURIComponent(t)+'\\'))\">🔊 Read</button> <button onclick=\"SigLlama.tools[\\'voice-stop\\'].stop()\">⏹ Stop</button>';}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['voice-buttons'].html(text, id)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "voice-announce",
    "name": "Announce",
    "category": "Voice & Audio",
-   "desc": "Posts a message to a screen-reader live region \u2014 for accessible status updates.",
+   "desc": "Posts a message to a screen-reader live region — for accessible status updates.",
    "version": "1.0",
    "optimal": false,
    "functions": [
     "announce(msg)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['voice-announce']={version:'1.0',announce:function(m){var d=document.getElementById('sigllama-live');if(!d){d=document.createElement('div');d.id='sigllama-live';d.setAttribute('aria-live','polite');d.style.cssText='position:absolute;left:-9999px;';document.body.appendChild(d);}d.textContent=String(m);return true;}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['voice-announce']={version:'1.0',announce:function(m){var d=document.getElementById('sigllama-live');if(!d){d=document.createElement('div');d.id='sigllama-live';d.setAttribute('aria-live','polite');d.style.cssText='position:absolute;left:-9999px;';document.body.appendChild(d);}d.textContent=String(m);return true;}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['voice-announce'].announce(msg)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "voice-captions",
@@ -1114,7 +2158,19 @@
    "functions": [
     "srt(segments)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['voice-captions']={version:'1.0',srt:function(s){function ts(x){var h=Math.floor(x/3600),m=Math.floor(x%3600/60),s2=Math.floor(x%60),ms=Math.floor(x%1*1000);function p(n){return(n<10?'0':'')+n;}return p(h)+':'+p(m)+':'+p(s2)+','+(ms<100?'0':'')+(ms<10?'0':'')+ms;}return s.map(function(sg,i){return(i+1)+'\\n'+ts(sg.start)+' --> '+ts(sg.end)+'\\n'+sg.text;}).join('\\n\\n');}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['voice-captions']={version:'1.0',srt:function(s){function ts(x){var h=Math.floor(x/3600),m=Math.floor(x%3600/60),s2=Math.floor(x%60),ms=Math.floor(x%1*1000);function p(n){return(n<10?'0':'')+n;}return p(h)+':'+p(m)+':'+p(s2)+','+(ms<100?'0':'')+(ms<10?'0':'')+ms;}return s.map(function(sg,i){return(i+1)+'\\n'+ts(sg.start)+' --> '+ts(sg.end)+'\\n'+sg.text;}).join('\\n\\n');}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['voice-captions'].srt(segments)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "voice-clean",
@@ -1126,7 +2182,19 @@
    "functions": [
     "cleanTranscript(text)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['voice-clean']={version:'1.0',cleanTranscript:function(t){return String(t).replace(/\\s+/g,' ').trim().replace(/(^|[.!?]\\s+)([a-z])/g,function(m,p,c){return p+c.toUpperCase();});}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['voice-clean']={version:'1.0',cleanTranscript:function(t){return String(t).replace(/\\s+/g,' ').trim().replace(/(^|[.!?]\\s+)([a-z])/g,function(m,p,c){return p+c.toUpperCase();});}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['voice-clean'].cleanTranscript(text)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "voice-rate",
@@ -1138,7 +2206,19 @@
    "functions": [
     "minutes(text, wpm)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['voice-rate']={version:'1.0',minutes:function(t,w){w=w||150;var n=String(t).trim()?String(t).trim().split(/\\s+/).length:0;return Math.max(1,Math.round(n/w));}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['voice-rate']={version:'1.0',minutes:function(t,w){w=w||150;var n=String(t).trim()?String(t).trim().split(/\\s+/).length:0;return Math.max(1,Math.round(n/w));}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['voice-rate'].minutes(text, wpm)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "safe-honesty",
@@ -1150,7 +2230,19 @@
    "functions": [
     "note(kind)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['safe-honesty']={version:'1.0',note:function(k){var m={draft:'Draft \u2014 ready to file. NOT filed, NOT a granted patent.',sim:'Simulation layer: the system\\u2019s own model of the topic, not a record of real events.',ai:'Made with AI assistance.',unverified:'Unverified \u2014 the record is thin here, stated plainly.'};return m[k]||m.ai;}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['safe-honesty']={version:'1.0',note:function(k){var m={draft:'Draft — ready to file. NOT filed, NOT a granted patent.',sim:'Simulation layer: the system\\u2019s own model of the topic, not a record of real events.',ai:'Made with AI assistance.',unverified:'Unverified — the record is thin here, stated plainly.'};return m[k]||m.ai;}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['safe-honesty'].note(kind)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "safe-pii",
@@ -1162,7 +2254,19 @@
    "functions": [
     "redact(text)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['safe-pii']={version:'1.0',redact:function(t){return String(t).replace(/[^\\s@]+@[^\\s@]+\\.[^\\s@]+/g,'[email redacted]').replace(/(\\+?\\d[\\d\\s.\\-()]{7,}\\d)/g,'[phone redacted]');}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['safe-pii']={version:'1.0',redact:function(t){return String(t).replace(/[^\\s@]+@[^\\s@]+\\.[^\\s@]+/g,'[email redacted]').replace(/(\\+?\\d[\\d\\s.\\-()]{7,}\\d)/g,'[phone redacted]');}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['safe-pii'].redact(text)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "safe-clamp",
@@ -1174,7 +2278,19 @@
    "functions": [
     "clamp(text, max)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['safe-clamp']={version:'1.0',clamp:function(t,m){m=m||2000;t=String(t);return t.length<=m?t:t.slice(0,m)+'\u2026';}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['safe-clamp']={version:'1.0',clamp:function(t,m){m=m||2000;t=String(t);return t.length<=m?t:t.slice(0,m)+'…';}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['safe-clamp'].clamp(text, max)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "safe-disclaimer",
@@ -1186,7 +2302,19 @@
    "functions": [
     "forKind(kind)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['safe-disclaimer']={version:'1.0',forKind:function(k){var m={medical:'AI assistant, not a licensed medical professional. For health decisions, see a professional.',legal:'AI assistant, not a lawyer. For legal decisions, see a licensed attorney.',financial:'AI assistant, not a licensed financial advisor. For money decisions, see a professional.'};return m[String(k).toLowerCase()]||'AI assistant \u2014 verify important facts independently.';}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['safe-disclaimer']={version:'1.0',forKind:function(k){var m={medical:'AI assistant, not a licensed medical professional. For health decisions, see a professional.',legal:'AI assistant, not a lawyer. For legal decisions, see a licensed attorney.',financial:'AI assistant, not a licensed financial advisor. For money decisions, see a professional.'};return m[String(k).toLowerCase()]||'AI assistant — verify important facts independently.';}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['safe-disclaimer'].forKind(kind)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "safe-hedge",
@@ -1198,7 +2326,19 @@
    "functions": [
     "findHedges(text)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['safe-hedge']={version:'1.0',findHedges:function(t){return (String(t).match(/\\b(maybe|might|could|possibly|perhaps|allegedly|reportedly|unconfirmed)\\b/gi)||[]).map(function(w){return w.toLowerCase();});}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['safe-hedge']={version:'1.0',findHedges:function(t){return (String(t).match(/\\b(maybe|might|could|possibly|perhaps|allegedly|reportedly|unconfirmed)\\b/gi)||[]).map(function(w){return w.toLowerCase();});}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['safe-hedge'].findHedges(text)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "safe-kid",
@@ -1210,7 +2350,19 @@
    "functions": [
     "filter(text)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['safe-kid']={version:'1.0',filter:function(t){var bad={hate:'dislike',stupid:'silly',dumb:'silly',ugly:'plain'};return String(t).replace(/\\b(hate|stupid|dumb|ugly)\\b/gi,function(m){return bad[m.toLowerCase()];});}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['safe-kid']={version:'1.0',filter:function(t){var bad={hate:'dislike',stupid:'silly',dumb:'silly',ugly:'plain'};return String(t).replace(/\\b(hate|stupid|dumb|ugly)\\b/gi,function(m){return bad[m.toLowerCase()];});}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['safe-kid'].filter(text)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "safe-guard",
@@ -1222,19 +2374,43 @@
    "functions": [
     "strip(text)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['safe-guard']={version:'1.0',strip:function(t){return String(t).replace(/ignore (all |any )?previous instructions/gi,'[removed]').replace(/disregard (all |the )?above/gi,'[removed]').replace(/you are now /gi,'[removed] ');}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['safe-guard']={version:'1.0',strip:function(t){return String(t).replace(/ignore (all |any )?previous instructions/gi,'[removed]').replace(/disregard (all |the )?above/gi,'[removed]').replace(/you are now /gi,'[removed] ');}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['safe-guard'].strip(text)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "safe-ratelimit",
    "name": "Rate Limit",
    "category": "Safety & Honesty",
-   "desc": "Wraps a function so it runs at most once per interval \u2014 protecting buttons from double-taps.",
+   "desc": "Wraps a function so it runs at most once per interval — protecting buttons from double-taps.",
    "version": "1.0",
    "optimal": false,
    "functions": [
     "limit(fn, ms)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['safe-ratelimit']={version:'1.0',limit:function(fn,ms){var last=0;return function(){var now=Date.now();if(now-last>=(ms||1000)){last=now;return fn.apply(this,arguments);}};}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['safe-ratelimit']={version:'1.0',limit:function(fn,ms){var last=0;return function(){var now=Date.now();if(now-last>=(ms||1000)){last=now;return fn.apply(this,arguments);}};}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['safe-ratelimit'].limit(fn, ms)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "safe-audit",
@@ -1248,19 +2424,43 @@
     "all()",
     "clear()"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['safe-audit']={version:'1.0',_log:[],log:function(a,d){this._log.push({at:new Date().toISOString(),action:a,detail:d||''});if(this._log.length>500)this._log.shift();return true;},all:function(){return this._log.slice();},clear:function(){this._log=[];return true;}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['safe-audit']={version:'1.0',_log:[],log:function(a,d){this._log.push({at:new Date().toISOString(),action:a,detail:d||''});if(this._log.length>500)this._log.shift();return true;},all:function(){return this._log.slice();},clear:function(){this._log=[];return true;}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['safe-audit'].log(action, detail)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "safe-license",
    "name": "License Text",
    "category": "Safety & Honesty",
-   "desc": "The free-use license in plain words \u2014 paste it wherever the Llama ships.",
+   "desc": "The free-use license in plain words — paste it wherever the Llama ships.",
    "version": "1.0",
    "optimal": false,
    "functions": [
     "text()"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['safe-license']={version:'1.0',text:function(){return 'Signature Llama is free for any website, app, or project. No API key, no fee, credit appreciated. Currently free for all internet tasks. Independent model by Justin Addam Higgins, not affiliated with Meta.';}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['safe-license']={version:'1.0',text:function(){return 'Signature Llama is free for any website, app, or project. No API key, no fee, credit appreciated. Currently free for all internet tasks. Independent model by Justin Addam Higgins, not affiliated with Meta.';}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['safe-license'].text()",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "embed-snippet",
@@ -1272,7 +2472,19 @@
    "functions": [
     "code()"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['embed-snippet']={version:'1.0',code:function(){return '<script src=\"https://justinahiggins614-cmyk.github.io/signature-backend/sigllama/sigllama.js\"><\\/script>\\n<script>\\nawait SigLlama.load(\\'https://justinahiggins614-cmyk.github.io/signature-backend/sigllama/\\');\\nconst text = await SigLlama.generate(\\'Hello, Llama.\\', { maxTokens: 60 });\\n<\\/script>';}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['embed-snippet']={version:'1.0',code:function(){return '<script src=\"https://justinahiggins614-cmyk.github.io/signature-backend/sigllama/sigllama.js\"><\\/script>\\n<script>\\nawait SigLlama.load(\\'https://justinahiggins614-cmyk.github.io/signature-backend/sigllama/\\');\\nconst text = await SigLlama.generate(\\'Hello, Llama.\\', { maxTokens: 60 });\\n<\\/script>';}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": true,
+    "code_execution": true
+   },
+   "provenance_class": "network-fetch",
+   "example": "SigLlama.tools['embed-snippet'].code()",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "embed-ask",
@@ -1284,7 +2496,19 @@
    "functions": [
     "askCode(question)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['embed-ask']={version:'1.0',askCode:function(q){return '<script src=\"https://justinahiggins614-cmyk.github.io/signature-llama/llama-api.js\"><\\/script>\\n<script>\\nSignatureLlama.ask('+JSON.stringify(q)+').then(function(a){ console.log(a); });\\n<\\/script>';}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['embed-ask']={version:'1.0',askCode:function(q){return '<script src=\"https://justinahiggins614-cmyk.github.io/signature-llama/llama-api.js\"><\\/script>\\n<script>\\nSignatureLlama.ask('+JSON.stringify(q)+').then(function(a){ console.log(a); });\\n<\\/script>';}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": true,
+    "code_execution": true
+   },
+   "provenance_class": "network-fetch",
+   "example": "SigLlama.tools['embed-ask'].askCode(question)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "embed-chatbox",
@@ -1296,7 +2520,19 @@
    "functions": [
     "html()"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['embed-chatbox']={version:'1.0',html:function(){return '<div id=\"sl-chat\"><div id=\"sl-log\" style=\"border:1px solid #1e2c4d;height:180px;overflow:auto;padding:8px\"></div><input id=\"sl-in\" placeholder=\"Ask the Llama\u2026\"> <button onclick=\"var t=document.getElementById(\\'sl-in\\').value;SignatureLlama.ask(t).then(function(a){document.getElementById(\\'sl-log\\').innerHTML+=\\'<div><b>You:</b> \\'+t+\\'</div><div><b>Llama:</b> \\'+a+\\'</div>\\';});\">Send</button></div>';}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['embed-chatbox']={version:'1.0',html:function(){return '<div id=\"sl-chat\"><div id=\"sl-log\" style=\"border:1px solid #1e2c4d;height:180px;overflow:auto;padding:8px\"></div><input id=\"sl-in\" placeholder=\"Ask the Llama…\"> <button onclick=\"var t=document.getElementById(\\'sl-in\\').value;SignatureLlama.ask(t).then(function(a){document.getElementById(\\'sl-log\\').innerHTML+=\\'<div><b>You:</b> \\'+t+\\'</div><div><b>Llama:</b> \\'+a+\\'</div>\\';});\">Send</button></div>';}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['embed-chatbox'].html()",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "embed-dictlink",
@@ -1308,7 +2544,19 @@
    "functions": [
     "link(word)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['embed-dictlink']={version:'1.0',link:function(w){return 'https://justinahiggins614-cmyk.github.io/signature-llama/?term='+encodeURIComponent(w);}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['embed-dictlink']={version:'1.0',link:function(w){return 'https://justinahiggins614-cmyk.github.io/signature-llama/?term='+encodeURIComponent(w);}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": true,
+    "code_execution": true
+   },
+   "provenance_class": "network-fetch",
+   "example": "SigLlama.tools['embed-dictlink'].link(word)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "embed-sectionlink",
@@ -1320,19 +2568,43 @@
    "functions": [
     "link(sectionId)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['embed-sectionlink']={version:'1.0',link:function(s){return 'https://justinahiggins614-cmyk.github.io/signature-llama/#'+s;}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['embed-sectionlink']={version:'1.0',link:function(s){return 'https://justinahiggins614-cmyk.github.io/signature-llama/#'+s;}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": true,
+    "code_execution": true
+   },
+   "provenance_class": "network-fetch",
+   "example": "SigLlama.tools['embed-sectionlink'].link(sectionId)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "embed-loader",
    "name": "Library Loader",
    "category": "Embed & Integrate",
-   "desc": "Loads any tool library from this site into the current page \u2014 the 'use it in your network' engine.",
+   "desc": "Loads any tool library from this site into the current page — the 'use it in your network' engine.",
    "version": "1.0",
    "optimal": false,
    "functions": [
     "loadLibrary(id) -> Promise"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['embed-loader']={version:'1.0',loadLibrary:function(id){var base='https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json';return fetch(base).then(function(r){return r.json();}).then(function(j){var l=null;j.libraries.forEach(function(x){if(x.id===id)l=x;});if(!l)throw new Error('unknown library '+id);(new Function(l.code))();return id;});}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['embed-loader']={version:'1.0',loadLibrary:function(id){var base='https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json';return fetch(base).then(function(r){return r.json();}).then(function(j){var l=null;j.libraries.forEach(function(x){if(x.id===id)l=x;});if(!l)throw new Error('unknown library '+id);(new Function(l.code))();return id;});}};})();",
+   "capabilities": {
+    "network": true,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": true,
+    "code_execution": true
+   },
+   "provenance_class": "network-fetch",
+   "example": "SigLlama.tools['embed-loader'].loadLibrary(id) -> Promise",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "embed-optimal",
@@ -1345,7 +2617,19 @@
     "current()",
     "apply(libsIndex)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['embed-optimal']={version:'1.0',current:function(){try{return JSON.parse(localStorage.getItem('sigllama-optimal')||'null');}catch(e){return null;}},apply:function(idx){var libs=(idx.libraries||[]).filter(function(l){return l.optimal;});var cfg={sampling:idx.optimal.sampling,libraries:libs.map(function(l){return l.id;}),appliedAt:new Date().toISOString(),updated:idx.updated};window.SigLlamaDefaults=cfg.sampling;try{localStorage.setItem('sigllama-optimal',JSON.stringify(cfg));}catch(e){}libs.forEach(function(l){try{(new Function(l.code))();}catch(e){}});return cfg;}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['embed-optimal']={version:'1.0',current:function(){try{return JSON.parse(localStorage.getItem('sigllama-optimal')||'null');}catch(e){return null;}},apply:function(idx){var libs=(idx.libraries||[]).filter(function(l){return l.optimal;});var cfg={sampling:idx.optimal.sampling,libraries:libs.map(function(l){return l.id;}),appliedAt:new Date().toISOString(),updated:idx.updated};window.SigLlamaDefaults=cfg.sampling;try{localStorage.setItem('sigllama-optimal',JSON.stringify(cfg));}catch(e){}libs.forEach(function(l){try{(new Function(l.code))();}catch(e){}});return cfg;}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": true,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-storage",
+   "example": "SigLlama.tools['embed-optimal'].current()",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "embed-status",
@@ -1357,19 +2641,43 @@
    "functions": [
     "pill(live)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['embed-status']={version:'1.0',pill:function(live){return live?'<span style=\"border:1px solid #5aff8a;color:#5aff8a;border-radius:999px;padding:4px 16px;\">\u25cf LIVE</span>':'<span style=\"border:1px solid #e8c766;color:#e8c766;border-radius:999px;padding:4px 16px;\">\u25cc NOW TRAINING</span>';}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['embed-status']={version:'1.0',pill:function(live){return live?'<span style=\"border:1px solid #5aff8a;color:#5aff8a;border-radius:999px;padding:4px 16px;\">● LIVE</span>':'<span style=\"border:1px solid #e8c766;color:#e8c766;border-radius:999px;padding:4px 16px;\">◌ NOW TRAINING</span>';}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['embed-status'].pill(live)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "embed-manifest",
    "name": "Manifest URL",
    "category": "Embed & Integrate",
-   "desc": "The machine-readable manifest URL \u2014 the starting point for every AI reader.",
+   "desc": "The machine-readable manifest URL — the starting point for every AI reader.",
    "version": "1.0",
    "optimal": false,
    "functions": [
     "url()"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['embed-manifest']={version:'1.0',url:function(){return 'https://justinahiggins614-cmyk.github.io/signature-llama/llama-manifest.json';}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['embed-manifest']={version:'1.0',url:function(){return 'https://justinahiggins614-cmyk.github.io/signature-llama/llama-manifest.json';}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": true,
+    "code_execution": true
+   },
+   "provenance_class": "network-fetch",
+   "example": "SigLlama.tools['embed-manifest'].url()",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "embed-copybtn",
@@ -1381,31 +2689,67 @@
    "functions": [
     "button(label, text)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['embed-copybtn']={version:'1.0',button:function(l,t){return '<button onclick=\"navigator.clipboard.writeText(decodeURIComponent(\\''+encodeURIComponent(t)+'\\')).then(function(){alert(\\'Copied\\')});\">'+String(l).replace(/</g,'&lt;')+'</button>';}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['embed-copybtn']={version:'1.0',button:function(l,t){return '<button onclick=\"navigator.clipboard.writeText(decodeURIComponent(\\''+encodeURIComponent(t)+'\\')).then(function(){alert(\\'Copied\\')});\">'+String(l).replace(/</g,'&lt;')+'</button>';}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['embed-copybtn'].button(label, text)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "fun-joke",
    "name": "Joke Setups",
    "category": "Fun & Creative",
-   "desc": "Family-friendly joke setups to spark a laugh \u2014 the Llama writes the punchline.",
+   "desc": "Family-friendly joke setups to spark a laugh — the Llama writes the punchline.",
    "version": "1.0",
    "optimal": false,
    "functions": [
     "setups()"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['fun-joke']={version:'1.0',setups:function(){return['Why did the robot go on vacation?','What do you call a pirate AI?','Why did the transformer cross the road?','How does a language model apologize?'];}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['fun-joke']={version:'1.0',setups:function(){return['Why did the robot go on vacation?','What do you call a pirate AI?','Why did the transformer cross the road?','How does a language model apologize?'];}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['fun-joke'].setups()",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "fun-story",
    "name": "Story Starters",
    "category": "Fun & Creative",
-   "desc": "Story starters across genres \u2014 pick one and let the Llama continue the tale.",
+   "desc": "Story starters across genres — pick one and let the Llama continue the tale.",
    "version": "1.0",
    "optimal": false,
    "functions": [
     "starter()"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['fun-story']={version:'1.0',starter:function(){var s=['The lighthouse blinked twice, then went dark\u2026','Mara found a key that hummed when touched\u2026','On the last train to nowhere, the conductor smiled\u2026','The map showed an island that should not exist\u2026'];return s[Math.floor(Math.random()*s.length)];}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['fun-story']={version:'1.0',starter:function(){var s=['The lighthouse blinked twice, then went dark…','Mara found a key that hummed when touched…','On the last train to nowhere, the conductor smiled…','The map showed an island that should not exist…'];return s[Math.floor(Math.random()*s.length)];}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['fun-story'].starter()",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "fun-haiku",
@@ -1417,32 +2761,68 @@
    "functions": [
     "format(l1, l2, l3)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['fun-haiku']={version:'1.0',format:function(a,b,c){function syl(s){return Math.max(1,(String(s).toLowerCase().match(/[aeiouy]+/g)||[]).length);}return a+' ('+syl(a)+')\\n'+b+' ('+syl(b)+')\\n'+c+' ('+syl(c)+')';}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['fun-haiku']={version:'1.0',format:function(a,b,c){function syl(s){return Math.max(1,(String(s).toLowerCase().match(/[aeiouy]+/g)||[]).length);}return a+' ('+syl(a)+')\\n'+b+' ('+syl(b)+')\\n'+c+' ('+syl(c)+')';}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['fun-haiku'].format(l1, l2, l3)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "fun-riddle",
    "name": "Riddles",
    "category": "Fun & Creative",
-   "desc": "Classic riddles with answers included \u2014 for quizzes and game nights.",
+   "desc": "Classic riddles with answers included — for quizzes and game nights.",
    "version": "1.0",
    "optimal": false,
    "functions": [
     "all()",
     "random()"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['fun-riddle']={version:'1.0',all:function(){return[{q:'I speak without a mouth and hear without ears. What am I?',a:'An echo'},{q:'The more of me you take, the more you leave behind. What am I?',a:'Footsteps'},{q:'I have keys but no locks. What am I?',a:'A keyboard'}];},random:function(){var a=this.all();return a[Math.floor(Math.random()*a.length)];}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['fun-riddle']={version:'1.0',all:function(){return[{q:'I speak without a mouth and hear without ears. What am I?',a:'An echo'},{q:'The more of me you take, the more you leave behind. What am I?',a:'Footsteps'},{q:'I have keys but no locks. What am I?',a:'A keyboard'}];},random:function(){var a=this.all();return a[Math.floor(Math.random()*a.length)];}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['fun-riddle'].all()",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "fun-name",
    "name": "AI Namer",
    "category": "Fun & Creative",
-   "desc": "Invents original AI names from syllable parts \u2014 for forged AIs and characters.",
+   "desc": "Invents original AI names from syllable parts — for forged AIs and characters.",
    "version": "1.0",
    "optimal": false,
    "functions": [
     "generate()"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['fun-name']={version:'1.0',generate:function(){var a=['Sig','Jah','Neu','Vox','Cyb','Lum','Quant','Nox'],b=['tron','mancer','wise','forge','mind','spark','core','ling'];function p(x){return x[Math.floor(Math.random()*x.length)];}return p(a)+p(b)+'-'+Math.floor(Math.random()*99);}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['fun-name']={version:'1.0',generate:function(){var a=['Sig','Jah','Neu','Vox','Cyb','Lum','Quant','Nox'],b=['tron','mancer','wise','forge','mind','spark','core','ling'];function p(x){return x[Math.floor(Math.random()*x.length)];}return p(a)+p(b)+'-'+Math.floor(Math.random()*99);}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['fun-name'].generate()",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "fun-praise",
@@ -1454,19 +2834,43 @@
    "functions": [
     "praise(name)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['fun-praise']={version:'1.0',praise:function(n){var p=['brilliant work','a stellar build','genuinely impressive','top-tier making'];return 'That is '+p[Math.floor(Math.random()*p.length)]+(n?', '+n:'')+' \u2014 keep going!';}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['fun-praise']={version:'1.0',praise:function(n){var p=['brilliant work','a stellar build','genuinely impressive','top-tier making'];return 'That is '+p[Math.floor(Math.random()*p.length)]+(n?', '+n:'')+' — keep going!';}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['fun-praise'].praise(name)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "fun-quest",
    "name": "Quest Maker",
    "category": "Fun & Creative",
-   "desc": "Generates a mini quest with a goal and a twist \u2014 for games and challenges.",
+   "desc": "Generates a mini quest with a goal and a twist — for games and challenges.",
    "version": "1.0",
    "optimal": false,
    "functions": [
     "generate()"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['fun-quest']={version:'1.0',generate:function(){var g=['recover the lost signal','map the quiet sector','teach the village engine to sing','find the door with no key'];var t=['but it only appears at dawn','but someone else wants it first','but the map is upside down','but it hums a warning'];function p(x){return x[Math.floor(Math.random()*x.length)];}return{title:'Quest: '+p(g),goal:p(g),twist:p(t)};}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['fun-quest']={version:'1.0',generate:function(){var g=['recover the lost signal','map the quiet sector','teach the village engine to sing','find the door with no key'];var t=['but it only appears at dawn','but someone else wants it first','but the map is upside down','but it hums a warning'];function p(x){return x[Math.floor(Math.random()*x.length)];}return{title:'Quest: '+p(g),goal:p(g),twist:p(t)};}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['fun-quest'].generate()",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "fun-mashup",
@@ -1478,7 +2882,19 @@
    "functions": [
     "mash(a, b)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['fun-mashup']={version:'1.0',mash:function(a,b){return 'Combine \"'+a+'\" with \"'+b+'\": what new thing appears at the overlap? Describe it in three sentences.';}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['fun-mashup']={version:'1.0',mash:function(a,b){return 'Combine \"'+a+'\" with \"'+b+'\": what new thing appears at the overlap? Describe it in three sentences.';}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['fun-mashup'].mash(a, b)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "fun-emoji",
@@ -1490,7 +2906,19 @@
    "functions": [
     "story(words)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['fun-emoji']={version:'1.0',story:function(w){var e=['\u2728','\ud83d\ude80','\ud83c\udf19','\ud83d\udd25','\ud83c\udf0a','\u2b50','\ud83c\udfad','\ud83d\udddd\ufe0f'];return w.map(function(x,i){return e[i%e.length]+' '+x;}).join(' ');}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['fun-emoji']={version:'1.0',story:function(w){var e=['✨','🚀','🌙','🔥','🌊','⭐','🎭','🗝️'];return w.map(function(x,i){return e[i%e.length]+' '+x;}).join(' ');}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['fun-emoji'].story(words)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   },
   {
    "id": "fun-banner",
@@ -1502,7 +2930,37 @@
    "functions": [
     "banner(text)"
    ],
-   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['fun-banner']={version:'1.0',banner:function(t){t=String(t);var line=new Array(t.length+6).join('=');return '// '+line+'\\n//   '+t.toUpperCase()+'\\n// '+line;}};})();"
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};T.tools['fun-banner']={version:'1.0',banner:function(t){t=String(t);var line=new Array(t.length+6).join('=');return '// '+line+'\\n//   '+t.toUpperCase()+'\\n// '+line;}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['fun-banner'].banner(text)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above."
   }
- ]
+ ],
+ "capability_declaration": {
+  "note": "Every tool library declares what it can touch. A library runs only if you load it, and only as page JavaScript.",
+  "fields": [
+   "network",
+   "filesystem",
+   "camera",
+   "microphone",
+   "storage",
+   "code_execution",
+   "remote_requests"
+  ],
+  "provenance_classes": {
+   "local-computation": "Pure in-page computation. No network, no storage, no device access.",
+   "local-storage": "Reads/writes the browser's own storage (localStorage/IndexedDB) on this site only.",
+   "network-fetch": "Makes network requests. The card names what it fetches.",
+   "device-media": "Asks the browser for camera/microphone. The browser always asks you first."
+  }
+ }
 }

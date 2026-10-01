@@ -10,6 +10,8 @@
      Free for any website, app, or project. No API key, no fee. -->
 <script src="https://justinahiggins614-cmyk.github.io/signature-backend/sigllama/sigllama.js"></script>
 <script>
+/* The (async function(){ ... })() wrapper is REQUIRED: await is only legal
+   inside an async function (or a type="module" script). */
 (async function () {
   await SigLlama.load('https://justinahiggins614-cmyk.github.io/signature-backend/sigllama/');
   var reply = await SigLlama.generate('Hello, Llama.', { maxTokens: 80, temperature: 0.8, topK: 40 });

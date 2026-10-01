@@ -12,15 +12,19 @@
  *     });
  *   </script>
  *
- * SignatureLlama.ask(question) returns a Promise of a string.
- * Before the trained model publishes it answers from the on-site
- * knowledge base; once the live model is present on the page it
- * answers with the trained Llama automatically.
+ * SignatureLlama.ask(question) -> Promise<string>.
+ * Answers with the trained model (SIGLLAMA-V1) when the engine is loaded on
+ * the page, otherwise from the on-site knowledge base. Every answer is
+ * labeled with its engine mode ("Guide: ..." or "✦ Trained Llama v1: ...").
+ * SignatureLlama.askWithProvenance(question) returns the answer plus
+ * {engine, mode, model_version, provenance}. SignatureLlama.mode()
+ * reports the current mode: 'trained' | 'guide' | 'loading' | 'failed'.
  * License: free for any website, app, or project. No API key, no fee.
  * ============================================================ */
 (function () {
   'use strict';
   var SITE = 'https://justinahiggins614-cmyk.github.io/signature-llama/';
+  var MODEL_VERSION = '1.0';
   var STOP = { the:1, a:1, an:1, of:1, to:1, is:1, it:1, in:1, and:1,
     what:1, how:1, does:1, do:1, for:1, with:1, on:1, by:1, i:1, you:1,
     me:1, my:1, this:1, that:1, tell:1, about:1, please:1, can:1, explain:1 };
@@ -52,18 +56,45 @@
       'quantizer is for, or how to use the model in your own page. ' +
       'See ' + SITE + '#guide for everything the on-site guide knows.';
   }
+  function trainedReady() {
+    try { return !!(window.SigLlama && SigLlama.loaded && SigLlama.loaded()); }
+    catch (e) { return false; }
+  }
   window.SignatureLlama = window.SignatureLlama || {};
   window.SignatureLlama.version = '1.0';
   window.SignatureLlama.site = SITE;
-  /* ask(question) -> Promise<string> */
-  window.SignatureLlama.ask = function (question) {
-    try {
-      if (window.SigLlama && SigLlama.loaded && SigLlama.loaded()) {
+  window.SignatureLlama.modelVersion = MODEL_VERSION;
+  /* mode() -> 'trained' | 'guide' | 'loading' | 'failed' */
+  window.SignatureLlama.mode = function () {
+    if (trainedReady()) return 'trained';
+    if (window.LlamaRuntime && window.LlamaRuntime.mode) return window.LlamaRuntime.mode;
+    return 'guide';
+  };
+  /* askWithProvenance(question) -> Promise<{answer, engine, mode, model_version, provenance}> */
+  window.SignatureLlama.askWithProvenance = function (question) {
+    if (trainedReady()) {
+      try {
         return SigLlama.generate(
           'You are the Signature Llama on-site guide. Explain clearly and briefly: ' + question,
-          { maxTokens: 140, temperature: 0.7, topK: 40, stopAtEos: true });
-      }
-    } catch (e) { /* fall through to the knowledge base */ }
-    return fetchKB().then(function (kb) { return answerFromKB(question, kb); });
+          { maxTokens: 140, temperature: 0.7, topK: 40, stopAtEos: true })
+          .then(function (t) {
+            return { answer: t, engine: 'SigLlama', mode: 'trained_model',
+              model_version: MODEL_VERSION,
+              provenance: { kind: 'MODEL_GENERATION', tool: null, status: 'model output — verify anything important' } };
+          });
+      } catch (e) { /* fall through to the knowledge base */ }
+    }
+    return fetchKB().then(function (kb) {
+      return { answer: answerFromKB(question, kb), engine: 'guide', mode: 'guide',
+        model_version: null,
+        provenance: { kind: 'GUIDE_KB', tool: null, status: 'knowledge-base entry — curated, not model output' } };
+    });
+  };
+  /* ask(question) -> Promise<string>, answer labeled with its engine mode */
+  window.SignatureLlama.ask = function (question) {
+    return window.SignatureLlama.askWithProvenance(question).then(function (r) {
+      return r.mode === 'trained_model' ? '✦ Trained Llama v1: ' + r.answer
+        : 'Guide: ' + r.answer;
+    });
   };
 })();

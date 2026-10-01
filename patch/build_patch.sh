@@ -19,8 +19,8 @@ cp "$ROOT"/src/*.py "$STAGE/src/"
 # data
 cp "$ROOT/data/llm-dictionary.json" "$ROOT/data/explainer-kb.json" "$ROOT/data/tool-libraries.json" "$STAGE/data/"
 
-# api + manifest + notes + embed
-cp "$ROOT/llama-api.js" "$ROOT/llama-manifest.json" "$ROOT/llms.txt" "$STAGE/"
+# api + manifest + status + notes + embed
+cp "$ROOT/llama-api.js" "$ROOT/llama-manifest.json" "$ROOT/llms.txt" "$ROOT/model-status.json" "$STAGE/"
 cp "$ROOT/patch/PATCH_NOTES.txt" "$ROOT/patch/embed-snippet.html" "$STAGE/"
 
 # weights: local file wins, else try the published backend, else placeholder
@@ -32,20 +32,17 @@ elif curl -sfI --max-time 20 "$BACKEND/sigllama-v1.bin" >/dev/null 2>&1; then
   echo "weights: downloaded from published backend"
 else
   cat > "$STAGE/weights/WEIGHTS_PENDING.txt" <<'EOF'
-The trained weights are not published yet — the Llama is still training.
+The trained weights could not be fetched while building this patch
+(the model IS published and live — this is a build-time network hiccup).
 
-Check the live status pill at:
-https://justinahiggins614-cmyk.github.io/signature-llama/
+Get them directly:
+https://justinahiggins614-cmyk.github.io/signature-backend/sigllama/sigllama-v1.bin
+SHA-256: b2dfc0d05add95786797e596559f3e86de9b3a9c9dbce6818814ad05d6317b58
 
-When it flips to LIVE, re-download the patch:
+Or re-download the patch later:
 https://justinahiggins614-cmyk.github.io/signature-llama/patch/signature-llama-patch-v1.zip
-and the real int8 sigllama-v1.bin will be inside this folder.
-
-In the meantime, everything else in this patch works:
-the engine, the sources, the dictionary, the knowledge base,
-and SignatureLlama.ask() (knowledge-base answers).
 EOF
-  echo "weights: PENDING placeholder written"
+  echo "weights: PENDING placeholder written (network hiccup)"
 fi
 
 rm -f "$OUT"

@@ -1,19 +1,32 @@
-# Signature Llama: The Fully Cyber Utilizable AI
+#!/usr/bin/env python3
+"""Generate llms.txt from llama-manifest.json + model-status.json.
+The manifest is the single source of truth; do not hand-edit llms.txt.
+Run: python3 build_llms.py
+"""
+import json, os
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+m = json.load(open(os.path.join(HERE, 'llama-manifest.json')))
+s = json.load(open(os.path.join(HERE, 'model-status.json')))
+arch = m['model']
+failures = '\n'.join('  - %s: %s' % (k, v['meaning']) for k, v in m['failure_states'].items())
+
+txt = """# Signature Llama: The Fully Cyber Utilizable AI
 # Generated from llama-manifest.json + model-status.json by build_llms.py — do not hand-edit.
 
 Signature Llama v1 (SIGLLAMA-V1) is a tiny transformer language model built and
 trained from scratch by Justin Addam Higgins on the IWB Dictionary and Signature
 spec text. Independent model — not affiliated with Meta or the LLaMA family.
 
-STATUS: LIVE (see model-status.json: MODEL_STATUS=live, MODEL_VERSION=1.0,
-WEIGHTS_AVAILABLE=True, GUIDE_AVAILABLE=True, API_AVAILABLE=True)
+STATUS: {status} (see model-status.json: MODEL_STATUS={ms}, MODEL_VERSION={mv},
+WEIGHTS_AVAILABLE={wa}, GUIDE_AVAILABLE={ga}, API_AVAILABLE={aa})
 
 MODEL FACTS
-- Parameters: 2,983,488 (~3M), 5 layers, 8 attention heads,
-  hidden size 192, context 128 tokens, vocab 84 (character-level)
-- Weights: int8 per-row scales, SGLL v1 binary, 3,042,035 bytes
-- Weights SHA-256: b2dfc0d05add95786797e596559f3e86de9b3a9c9dbce6818814ad05d6317b58
-- Engine: sigllama.js (pure JavaScript, zero dependencies), SHA-256 6188cb269e07a134e865de4f7b68ee8c5dcfd1bde8771ad2c7b574a2edb4355a
+- Parameters: {params:,} (~3M), {layers} layers, {heads} attention heads,
+  hidden size {hidden}, context {ctx} tokens, vocab {vocab} (character-level)
+- Weights: int8 per-row scales, SGLL v1 binary, {wbytes:,} bytes
+- Weights SHA-256: {whash}
+- Engine: sigllama.js (pure JavaScript, zero dependencies), SHA-256 {ehash}
 - Training: 12,890 steps on a 135,340-line / 23.2 MB creator-authored corpus
   (IWB Dictionary definitions + Signature spec text, seed 614), finished
   2026-09-30; weights published 2026-09-30 22:39 EDT.
@@ -33,34 +46,28 @@ ENGINE MODES — every answer is labeled
   which engine answered.
 
 NAMED FAILURE STATES (no silent failures)
-  - BROWSER_UNSUPPORTED: The browser is missing APIs the engine needs (fetch, Blob, URL, typed arrays).
-  - ENGINE_LOAD_FAILED: The engine script sigllama.js could not be downloaded or parsed.
-  - GENERATION_TIMEOUT: Generation did not finish within the requested timeoutMs. The model is small; this usually means the tab is throttled or frozen.
-  - MODEL_CORRUPT: The weight binary failed its header check (magic 'SGLL', format version 1) or failed to parse.
-  - MODEL_NOT_FOUND: vocab.json or sigllama-v1.bin returned 404 at the model base URL.
-  - NETWORK_REQUIRED: The browser reports it is offline and the engine/weights are not cached yet. First load needs internet.
-  - OUT_OF_MEMORY: The browser ran out of memory while allocating the model (~3 MB weights expand to tens of MB of Float32 tensors).
+{failures}
 
 USE IT
 1. Read the manifest first (machine-readable, start here):
-   https://justinahiggins614-cmyk.github.io/signature-llama/llama-manifest.json
+   {site}llama-manifest.json
 2. Model state (single authority):
-   https://justinahiggins614-cmyk.github.io/signature-llama/model-status.json
+   {site}model-status.json
 3. Ask on demand (no model download needed):
-   <script src="https://justinahiggins614-cmyk.github.io/signature-llama/llama-api.js"></script>
+   <script src="{site}llama-api.js"></script>
    <script>
-     SignatureLlama.ask("What is a token?").then(function(answer){
+     SignatureLlama.ask("What is a token?").then(function(answer){{
        console.log(answer);
-     });
+     }});
    </script>
    SignatureLlama.askWithProvenance(question) also returns the engine, mode,
    model version, and provenance. SignatureLlama.mode() reports the mode.
 4. Run the trained model yourself:
-   <script src="https://justinahiggins614-cmyk.github.io/signature-backend/sigllama/sigllama.js"></script>
+   <script src="{engine_url}"></script>
    <script type="module">
      // type="module" is REQUIRED for the top-level await below.
-     await SigLlama.load("https://justinahiggins614-cmyk.github.io/signature-backend/sigllama/");
-     const text = await SigLlama.generate("Hello,", { maxTokens: 80, temperature: 0.8, topK: 40 });
+     await SigLlama.load("{base}");
+     const text = await SigLlama.generate("Hello,", {{ maxTokens: 80, temperature: 0.8, topK: 40 }});
    </script>
    Deterministic: pass deterministic:true (forces temperature 0) or seed:<n>.
 5. The same engine + weights are the talking brain inside every AI in the
@@ -76,3 +83,17 @@ HONEST LIMITS
 - First load needs internet; offline afterwards depends on the browser cache.
 
 Independent model by Justin Addam Higgins. Not affiliated with Meta.
+""".format(
+    status=m['model_status'].upper(), ms=s['MODEL_STATUS'], mv=s['MODEL_VERSION'],
+    wa=s['WEIGHTS_AVAILABLE'], ga=s['GUIDE_AVAILABLE'], aa=s['API_AVAILABLE'],
+    params=arch['parameter_count'], layers=arch['layers'], heads=arch['attention_heads'],
+    hidden=arch['hidden_size'], ctx=arch['context_length'], vocab=arch['vocabulary_size'],
+    wbytes=m['files']['weights']['size_bytes'], whash=arch['weight_hash'],
+    ehash=m['files']['engine']['sha256'], failures=failures,
+    site='https://justinahiggins614-cmyk.github.io/signature-llama/',
+    engine_url='https://justinahiggins614-cmyk.github.io/signature-backend/sigllama/sigllama.js',
+    base='https://justinahiggins614-cmyk.github.io/signature-backend/sigllama/')
+
+out = os.path.join(HERE, 'llms.txt')
+open(out, 'w').write(txt)
+print('wrote', out, len(txt), 'bytes')

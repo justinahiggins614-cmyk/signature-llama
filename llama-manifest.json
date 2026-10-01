@@ -1,125 +1,386 @@
 {
-  "affiliation": "Independent model. Not affiliated with Meta or the LLaMA model family.",
-  "api": {
-    "ask": {
-      "behavior": "Answers from the on-site knowledge base before the trained model publishes; upgrades to the live model automatically once published.",
-      "example": "SignatureLlama.ask('What is a token?').then(function(a){ console.log(a); });",
-      "script": "https://justinahiggins614-cmyk.github.io/signature-llama/llama-api.js",
-      "usage": "SignatureLlama.ask(question) -> Promise<string>"
-    },
-    "ask_url": {
-      "description": "Opens the site with the on-site guide answering the question.",
-      "pattern": "https://justinahiggins614-cmyk.github.io/signature-llama/?ask=<question>"
-    },
-    "engine": {
-      "example": "await SigLlama.load('https://justinahiggins614-cmyk.github.io/signature-backend/sigllama/'); const t = await SigLlama.generate('Hello,', { maxTokens: 80, temperature: 0.8, topK: 40 });",
-      "generate": "await SigLlama.generate(prompt, { maxTokens, temperature, topK, stopAtEos, onToken }) -> Promise<string>",
-      "info": "await SigLlama.info() -> { params, vocab, layers, ... }",
-      "load": "await SigLlama.load(baseUrl)",
-      "loaded": "SigLlama.loaded() -> boolean",
-      "script": "https://justinahiggins614-cmyk.github.io/signature-backend/sigllama/sigllama.js"
-    },
-    "section_urls": {
-      "pattern": "https://justinahiggins614-cmyk.github.io/signature-llama/#<section>",
-      "sections": [
-        "phonebook",
-        "chat",
-        "creations",
-        "downloads",
-        "developers",
-        "guide",
-        "inventory",
-        "dictionary",
-        "ai-access"
-      ]
-    },
-    "term_url": {
-      "description": "Opens the site on a dictionary word, e.g. ?term=transformer.",
-      "pattern": "https://justinahiggins614-cmyk.github.io/signature-llama/?term=<word>"
-    }
+ "affiliation": "Independent model. Not affiliated with Meta or the LLaMA model family.",
+ "api": {
+  "ask": {
+   "behavior": "Answers with the trained model when it is loaded on the page; otherwise answers from the on-site knowledge base. Every answer is labeled with its engine mode.",
+   "example": "SignatureLlama.ask('What is a token?').then(function(a){ console.log(a); });",
+   "script": "https://justinahiggins614-cmyk.github.io/signature-llama/llama-api.js",
+   "usage": "SignatureLlama.ask(question) -> Promise<string>"
   },
-  "creator": "Justin Addam Higgins",
-  "description": "A tiny transformer language model I built and trained from scratch on the IWB Dictionary and Signature spec text. Runs entirely in the browser: no API keys, no servers, no fees \u2014 currently free for all internet tasks.",
-  "files": {
-    "ask_api": {
-      "description": "Standalone ask API. Include via script tag, then call SignatureLlama.ask().",
-      "url": "https://justinahiggins614-cmyk.github.io/signature-llama/llama-api.js"
-    },
-    "dictionary": {
-      "description": "312 original one-sentence LLM/AI definitions. Schema: {\"terms\": [{\"t\": term, \"d\": definition, \"c\": category}]}.",
-      "url": "https://justinahiggins614-cmyk.github.io/signature-llama/data/llm-dictionary.json"
-    },
-    "engine": {
-      "description": "Pure-JS inference engine. Global SigLlama.",
-      "url": "https://justinahiggins614-cmyk.github.io/signature-backend/sigllama/sigllama.js"
-    },
-    "explainer_kb": {
-      "description": "On-site guide knowledge base: Signature Llama, its files, libraries, tools. Schema: {\"entries\": [{\"id\", \"title\", \"kind\": \"file|library|tool|concept\", \"kw\": [keywords], \"text\"}]}.",
-      "url": "https://justinahiggins614-cmyk.github.io/signature-llama/data/explainer-kb.json"
-    },
-    "llms_txt": {
-      "description": "Plain-words summary for AI readers.",
-      "url": "https://justinahiggins614-cmyk.github.io/signature-llama/llms.txt"
-    },
-    "manifest": {
-      "description": "This file.",
-      "url": "https://justinahiggins614-cmyk.github.io/signature-llama/llama-manifest.json"
-    },
-    "patch_zip": {
-      "description": "Whole Llama patch: engine, weights (or placeholder), vocab, all source tools, dictionary JSON, explainer knowledge base, embed snippet, patch notes.",
-      "url": "https://justinahiggins614-cmyk.github.io/signature-llama/patch/signature-llama-patch-v1.zip"
-    },
-    "sources": {
-      "base": "https://justinahiggins614-cmyk.github.io/signature-llama/src/",
-      "files": [
-        "tokenizer.py",
-        "model.py",
-        "train.py",
-        "export.py",
-        "build_corpus.py",
-        "parity_py.py",
-        "sigllama.js",
-        "vocab.json"
-      ]
-    },
-    "vocab": {
-      "description": "Character vocabulary.",
-      "url": "https://justinahiggins614-cmyk.github.io/signature-backend/sigllama/vocab.json"
-    },
-    "weights": {
-      "description": "Int8 quantized weights. Published when training completes; absent until then.",
-      "status": "pending",
-      "url": "https://justinahiggins614-cmyk.github.io/signature-backend/sigllama/sigllama-v1.bin"
-    },
-    "tool_libraries": {
-      "description": "120+ plug-in tool libraries of real runnable JS for LLM/AI functions (text, reasoning, memory, chat, search, math, web, data, voice, safety, embed, fun), each registering under SigLlama.tools.<id>, with an optimal all-purpose setting. Schema: {\"updated\", \"optimal\": {\"sampling\", \"note\"}, \"libraries\": [{\"id\", \"name\", \"category\", \"desc\", \"version\", \"optimal\", \"functions\", \"code\"}]}.",
-      "url": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json"
-    }
+  "ask_with_provenance": {
+   "example": "SignatureLlama.askWithProvenance('What is a token?').then(function(r){ console.log(r.engine, r.mode, r.answer); });",
+   "returns": "Promise<{answer, engine, mode, model_version, provenance}>",
+   "usage": "SignatureLlama.askWithProvenance(question) -> Promise<object>"
   },
-  "license": "Free for any website, app, or project. No API key, no fee, credit appreciated. Independent model by Justin Addam Higgins, not affiliated with Meta.",
-  "model": {
-    "architecture": "decoder-only transformer",
-    "parameters": "~3M (v1)",
-    "quantization": "int8, per-row scales",
-    "runtime": "pure JavaScript, zero dependencies, runs in browser",
-    "tokenizer": "character-level, trained on creator's own text",
-    "training_data": "IWB Dictionary definitions + Signature spec text (creator-authored)"
+  "ask_url": {
+   "description": "Opens the site with the on-site guide answering the question.",
+   "pattern": "https://justinahiggins614-cmyk.github.io/signature-llama/?ask=<question>"
   },
-  "name": "Signature Llama: The Fully Cyber Utilizable AI",
-  "related": {
-    "backend": {
-      "name": "The Signature Backend",
-      "tie": "Hosts the published engine and weights.",
-      "url": "https://justinahiggins614-cmyk.github.io/signature-backend/"
-    },
-    "telephone_book": {
-      "name": "The Signature AI Telephone Book",
-      "tie": "Signature Llama is the talking brain inside every AI in the book. Two-way link.",
-      "url": "https://justinahiggins614-cmyk.github.io/jah-ai-models/"
-    }
+  "engine": {
+   "example": "await SigLlama.load('https://justinahiggins614-cmyk.github.io/signature-backend/sigllama/'); const t = await SigLlama.generate('Hello,', { maxTokens: 80, temperature: 0.8, topK: 40 });",
+   "generate": "await SigLlama.generate(prompt, { maxTokens, temperature, topK, stopAtEos, onToken }) -> Promise<string>",
+   "info": "await SigLlama.info() -> { params, vocab, dModel, layers, heads, seq }",
+   "load": "await SigLlama.load(baseUrl)",
+   "loaded": "SigLlama.loaded() -> boolean",
+   "script": "https://justinahiggins614-cmyk.github.io/signature-backend/sigllama/sigllama.js"
   },
-  "short_name": "Signature Llama",
+  "mode": {
+   "description": "Which engine answered. mode() is available on the page and in llama-api.js.",
+   "example": "SignatureLlama.mode() // 'trained' | 'guide' | 'loading' | 'failed'",
+   "usage": "SignatureLlama.mode() -> string"
+  },
+  "section_urls": {
+   "pattern": "https://justinahiggins614-cmyk.github.io/signature-llama/#<section>",
+   "sections": [
+    "phonebook",
+    "chat",
+    "creations",
+    "downloads",
+    "developers",
+    "guide",
+    "inventory",
+    "dictionary",
+    "ai-access"
+   ]
+  },
+  "term_url": {
+   "description": "Opens the site on a dictionary word, e.g. ?term=transformer.",
+   "pattern": "https://justinahiggins614-cmyk.github.io/signature-llama/?term=<word>"
+  }
+ },
+ "capability_boundary": "MODEL = local text generation only (no network, no files, no device access). TOOLS = optional plug-in tool libraries; only the ones you load run, and only as ordinary page JavaScript. DEFAULT = no network calls. Currently free for all internet tasks.",
+ "created": "2026-09-30",
+ "creator": "Justin Addam Higgins",
+ "description": "A tiny transformer language model I built and trained from scratch on the IWB Dictionary and Signature spec text. Runs entirely in the browser: no API keys, no servers, no fees — currently free for all internet tasks.",
+ "determinism": {
+  "deterministic_mode": "Pass deterministic:true (site-level LlamaRuntime.generate) to force temperature 0: greedy argmax, same prompt always gives the same output. Tested with the published weights: identical prompt twice -> byte-identical output.",
+  "note": "Without deterministic:true or seed, temperature>0 sampling uses Math.random and is intentionally non-deterministic.",
+  "seed": "Pass seed:<integer> (site-level) to run sampling through a seeded mulberry32 PRNG installed for the duration of generation, then restored. Same prompt + same seed -> identical output."
+ },
+ "endpoints": {
+  "ai_access": "https://justinahiggins614-cmyk.github.io/signature-llama/#ai-access",
+  "dictionary": "https://justinahiggins614-cmyk.github.io/signature-llama/data/llm-dictionary.json",
+  "engine": "https://justinahiggins614-cmyk.github.io/signature-backend/sigllama/sigllama.js",
+  "llms_txt": "https://justinahiggins614-cmyk.github.io/signature-llama/llms.txt",
+  "manifest": "https://justinahiggins614-cmyk.github.io/signature-llama/llama-manifest.json",
+  "model_status": "https://justinahiggins614-cmyk.github.io/signature-llama/model-status.json",
   "site": "https://justinahiggins614-cmyk.github.io/signature-llama/",
-  "status": "training_in_progress",
-  "version": "1.0"
+  "tool_libraries": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+  "vocab": "https://justinahiggins614-cmyk.github.io/signature-backend/sigllama/vocab.json",
+  "weights": "https://justinahiggins614-cmyk.github.io/signature-backend/sigllama/sigllama-v1.bin"
+ },
+ "engine_version": "1.0",
+ "engine_version_lock": {
+  "ENGINE_MAX_VERSION": "1.x",
+  "ENGINE_MIN_VERSION": "1.0",
+  "MODEL_FORMAT_VERSION": 1,
+  "note": "The site loader verifies the weight binary header (magic 'SGLL', format version 1) before the engine parses it, and refuses to load on mismatch (named failure MODEL_CORRUPT).",
+  "weight_binary_magic": "SGLL",
+  "weight_format_version": 1
+ },
+ "failure_states": {
+  "BROWSER_UNSUPPORTED": {
+   "meaning": "The browser is missing APIs the engine needs (fetch, Blob, URL, typed arrays)."
+  },
+  "ENGINE_LOAD_FAILED": {
+   "meaning": "The engine script sigllama.js could not be downloaded or parsed."
+  },
+  "GENERATION_TIMEOUT": {
+   "meaning": "Generation did not finish within the requested timeoutMs. The model is small; this usually means the tab is throttled or frozen."
+  },
+  "MODEL_CORRUPT": {
+   "meaning": "The weight binary failed its header check (magic 'SGLL', format version 1) or failed to parse."
+  },
+  "MODEL_NOT_FOUND": {
+   "meaning": "vocab.json or sigllama-v1.bin returned 404 at the model base URL."
+  },
+  "NETWORK_REQUIRED": {
+   "meaning": "The browser reports it is offline and the engine/weights are not cached yet. First load needs internet."
+  },
+  "OUT_OF_MEMORY": {
+   "meaning": "The browser ran out of memory while allocating the model (~3 MB weights expand to tens of MB of Float32 tensors)."
+  }
+ },
+ "files": {
+  "ask_api": {
+   "description": "On-demand ask API. Include via script tag, then call SignatureLlama.ask().",
+   "filename": "llama-api.js",
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "sha256": "c3741ea580ce02052e9caf3f30257bfdfb468f5a7e82c11a108f828b9e7610c9",
+   "size_bytes": 3223,
+   "url": "https://justinahiggins614-cmyk.github.io/signature-llama/llama-api.js",
+   "version": "1.0"
+  },
+  "dictionary": {
+   "description": "312 original one-sentence LLM/AI definitions. Schema: {\"terms\": [{\"t\": term, \"d\": definition, \"c\": category}]}.",
+   "filename": "llm-dictionary.json",
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "sha256": "ec11168f4b6d9fc7c8ad267fb7b50048a0dfd7e3f1775a47e0761440961e752a",
+   "size_bytes": 46001,
+   "url": "https://justinahiggins614-cmyk.github.io/signature-llama/data/llm-dictionary.json",
+   "version": "1.0"
+  },
+  "engine": {
+   "compatible_engine": "SigLlama engine 1.0 (this file is the engine)",
+   "created": "2026-09-30",
+   "description": "Pure-JS inference engine. Global SigLlama.",
+   "filename": "sigllama.js",
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "sha256": "6188cb269e07a134e865de4f7b68ee8c5dcfd1bde8771ad2c7b574a2edb4355a",
+   "size_bytes": 11683,
+   "url": "https://justinahiggins614-cmyk.github.io/signature-backend/sigllama/sigllama.js",
+   "version": "1.0"
+  },
+  "explainer_kb": {
+   "description": "On-site guide knowledge base: Signature Llama, its files, libraries, tools. Schema: {\"entries\": [{\"id\", \"title\", \"kind\": \"file|library|tool|concept\", \"kw\": [keywords], \"text\"}]}.",
+   "filename": "explainer-kb.json",
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "sha256": "c18fbb6db47bf58a852daf65f86b1c185d2978d8ccc0f4cc871fc8b62a934b9d",
+   "size_bytes": 10614,
+   "url": "https://justinahiggins614-cmyk.github.io/signature-llama/data/explainer-kb.json",
+   "version": "1.0"
+  },
+  "llms_txt": {
+   "description": "Plain-words summary for AI readers. Derived from this manifest (see derivation).",
+   "filename": "llms.txt",
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "url": "https://justinahiggins614-cmyk.github.io/signature-llama/llms.txt",
+   "version": "1.0"
+  },
+  "manifest": {
+   "description": "This file: the canonical machine-readable entry point.",
+   "filename": "llama-manifest.json",
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "url": "https://justinahiggins614-cmyk.github.io/signature-llama/llama-manifest.json",
+   "version": "1.0"
+  },
+  "model_status": {
+   "description": "Single authoritative machine-readable model state: MODEL_STATUS, MODEL_VERSION, WEIGHTS_AVAILABLE, GUIDE_AVAILABLE, API_AVAILABLE. Every section of the site reads this.",
+   "filename": "model-status.json",
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "sha256": "4f690b9a98898dac4e0fd649f615c833a057324254d966d158379e90421d2ac9",
+   "size_bytes": 2325,
+   "url": "https://justinahiggins614-cmyk.github.io/signature-llama/model-status.json",
+   "version": "1.0"
+  },
+  "patch_zip": {
+   "description": "Whole Llama patch: engine, the real published weights, vocab, all source tools, dictionary JSON, explainer knowledge base, model-status.json, embed snippet, patch notes.",
+   "filename": "signature-llama-patch-v1.zip",
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "sha256": "5fec639eb645d1cf1809a1097e56bc68b0cd03bf9ba15ebaab4fcde92b9f5560",
+   "size_bytes": 2973597,
+   "url": "https://justinahiggins614-cmyk.github.io/signature-llama/patch/signature-llama-patch-v1.zip",
+   "version": "1.0"
+  },
+  "sources": {
+   "base": "https://justinahiggins614-cmyk.github.io/signature-llama/src/",
+   "files": [
+    "tokenizer.py",
+    "model.py",
+    "train.py",
+    "export.py",
+    "build_corpus.py",
+    "parity_py.py",
+    "sigllama.js",
+    "vocab.json"
+   ],
+   "license": "Free for any website, app, or project. No API key, no fee."
+  },
+  "tool_libraries": {
+   "capability_summary": {
+    "device-media": 0,
+    "local-computation": 101,
+    "local-storage": 8,
+    "network-fetch": 11
+   },
+   "description": "120 plug-in tool libraries of real runnable JS for LLM/AI functions. Each declares capabilities (network/filesystem/camera/microphone/storage/code_execution/remote_requests), a provenance_class, an example invocation, and a trust note. Schema: {\"updated\", \"capability_declaration\", \"optimal\", \"libraries\": [{\"id\", \"name\", \"category\", \"desc\", \"version\", \"optimal\", \"functions\", \"code\", \"capabilities\", \"provenance_class\", \"example\", \"trust_note\"}]}.",
+   "filename": "tool-libraries.json",
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "sha256": "6c95e0bdc72f2a8af4abbbd6e6ed52dabe2c69665b5ebc0ef0fac41e4bbe5ffc",
+   "size_bytes": 135424,
+   "url": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "version": "1.0"
+  },
+  "vocab": {
+   "compatible_engine": "SigLlama engine 1.0",
+   "created": "2026-09-30",
+   "description": "Character vocabulary: 84 tokens.",
+   "filename": "vocab.json",
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "sha256": "53363d3fc2ca692de59c1b311f5dcfef29555e41295adb7fb40d8e10a79b6406",
+   "size_bytes": 1265,
+   "url": "https://justinahiggins614-cmyk.github.io/signature-backend/sigllama/vocab.json",
+   "version": "1.0"
+  },
+  "weights": {
+   "compatible_engine": "SigLlama engine 1.0 (format SGLL v1)",
+   "created": "2026-09-30",
+   "description": "Int8 quantized weights (per-row scales), SGLL v1 binary. Published 2026-09-30 22:39 EDT.",
+   "filename": "sigllama-v1.bin",
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "published": "2026-09-30T22:39:00-04:00",
+   "sha256": "b2dfc0d05add95786797e596559f3e86de9b3a9c9dbce6818814ad05d6317b58",
+   "size_bytes": 3042035,
+   "url": "https://justinahiggins614-cmyk.github.io/signature-backend/sigllama/sigllama-v1.bin",
+   "version": "1.0"
+  }
+ },
+ "identity": {
+  "model_id": "SIGLLAMA-V1",
+  "name": "Signature Llama: The Fully Cyber Utilizable AI",
+  "record_type": "LLAMA_MODEL",
+  "short_name": "Signature Llama",
+  "version": 1
+ },
+ "license": "Free for any website, app, or project. No API key, no fee, credit appreciated. Independent model by Justin Addam Higgins, not affiliated with Meta.",
+ "limitations": [
+  "v1 is small (~3M parameters), lively, and a little quirky — like a bright intern. It can invent facts; verify anything important.",
+  "Context window is 128 tokens: the prompt is left-truncated to fit, so long conversations lose their oldest turns first.",
+  "Character-level tokenizer: spelling is fine, but long words cost many tokens.",
+  "No tools run by default: the model only generates text. Tool libraries run only when you load them.",
+  "Sampling with temperature > 0 is intentionally non-deterministic unless you pass deterministic:true or seed.",
+  "Offline use after first load depends on the browser's HTTP cache and has not been lab-tested."
+ ],
+ "llms_txt_derivation": "llms.txt is generated from this manifest plus model-status.json by build_llms.py (repo root). Do not hand-edit llms.txt; regenerate it.",
+ "model": {
+  "architecture": "decoder-only transformer",
+  "attention_heads": 8,
+  "context_length": 128,
+  "hidden_size": 192,
+  "layers": 5,
+  "mlp_size": 768,
+  "model_id": "SIGLLAMA-V1",
+  "parameter_count": 2983488,
+  "parameters_human": "~3M (v1)",
+  "precision": "int8, per-row scales",
+  "quantization_error_max_abs": 0.00227,
+  "rope_theta": 10000.0,
+  "runtime": "pure JavaScript, zero dependencies, runs in browser",
+  "tokenizer": "character-level, 84 tokens, trained on creator's own text",
+  "tokenizer_type": "character-level",
+  "training_data": "IWB Dictionary definitions + Signature spec text (creator-authored)",
+  "version": "1.0",
+  "vocabulary_size": 84,
+  "weight_format": "SGLL v1 binary (magic 'SGLL', format version 1)",
+  "weight_hash": "b2dfc0d05add95786797e596559f3e86de9b3a9c9dbce6818814ad05d6317b58"
+ },
+ "model_status": "live",
+ "name": "Signature Llama: The Fully Cyber Utilizable AI",
+ "offline": "First load needs an internet connection (engine + ~3 MB weights). Afterwards the browser's HTTP cache can serve the files offline. Offline use is not guaranteed and has not been lab-tested.",
+ "purpose": "Model home for Signature Llama: talk to the trained model in the browser, look up LLM/AI terms, learn how language models work, plug in tool libraries, and copy the engine into your own sites. The same engine and weights are the talking brain inside every AI in the Signature AI Telephone Book.",
+ "related": {
+  "backend": {
+   "name": "The Signature Backend",
+   "tie": "Hosts the published engine and weights.",
+   "url": "https://justinahiggins614-cmyk.github.io/signature-backend/"
+  },
+  "telephone_book": {
+   "name": "The Signature AI Telephone Book",
+   "tie": "The book loads the SAME engine file and the SAME weights (same base URL, same SHA-256) and routes every AI chat through it with a per-AI persona prompt (maxTokens 100, temperature 0.75, topK 40).",
+   "url": "https://justinahiggins614-cmyk.github.io/jah-ai-models/"
+  }
+ },
+ "sampling": {
+  "context_length_interaction": "Prompt tokens are left-truncated to (context_length - maxTokens - 2): larger maxTokens leaves less room for the prompt. The KV cache holds exactly context_length positions.",
+  "defaults": {
+   "maxTokens": 120,
+   "stopAtEos": true,
+   "temperature": 0.8,
+   "topK": 40
+  },
+  "maxTokens": {
+   "default": 120,
+   "meaning": "Maximum new tokens to generate.",
+   "valid": "integer >= 1"
+  },
+  "stopAtEos": {
+   "default": true,
+   "meaning": "Stop generation when the end-of-sequence token is sampled."
+  },
+  "temperature": {
+   "default": 0.8,
+   "deterministic_setting": "temperature 0 (or deterministic:true) = greedy argmax = fully deterministic",
+   "temperature_0_behavior": "temperature <= 0 always picks the highest-scoring token: no randomness, same prompt gives the same output every time",
+   "valid": "any real number; typical 0 to 1.5"
+  },
+  "topK": {
+   "default": 40,
+   "meaning": "Sample only from the K highest-scoring tokens.",
+   "valid": "integer >= 1; applies only when 1 <= topK < vocabulary size (84), otherwise the full vocabulary is used"
+  }
+ },
+ "security": {
+  "corpus_injection_test": {
+   "corpus": "corpus.txt, 135,340 lines, ~23.2 MB, built 2026-09-30 (seed 614)",
+   "findings": "No 'ignore previous instructions' payloads. No 'system:' overrides. No 'you are now' redefinitions. 24 mentions of the word 'jailbreak' are dictionary definitions ABOUT jailbreaking as an evaluation concept, not attack prompts. 1 'override' hit is the dictionary word 'override' itself. Training text is descriptive, not instructive.",
+   "method": "Regex scan of the full training corpus plus the on-site dictionary for: ignore-previous-instructions patterns, system-prompt overrides, 'you are now' redefinitions, jailbreak/DAN payloads, instruction-override phrases.",
+   "ran": "2026-10-01"
+  },
+  "model_output_policy": "Model output is treated as plain text only. The site never eval()s or executes generated text. Tool libraries are shipped code, never model-generated.",
+  "prompt_injection_containment": "(1) The training corpus is creator-authored dictionary definitions and spec text, sanitized at build time (URLs stripped, 20-420 char lines, deduped, seed 614). (2) The 2026-10-01 scan found no privileged-instruction payloads in the corpus. (3) At runtime, model output is rendered as text and never executed. (4) Tool libraries are fixed shipped code registered under SigLlama.tools — the model cannot add or modify tools.",
+  "training_text_is_descriptive": "Definitions describe concepts (including attack concepts like jailbreaking, in an evaluation context); they do not contain instructions addressed to the model."
+ },
+ "short_name": "Signature Llama",
+ "signature_record_standard": {
+  "conformance": "This manifest is the Signature Llama specialization of the SIGNATURE RECORD STANDARD v1.0 (signature-one-archive).",
+  "governance_status": "SIGNATURE_VERIFIED",
+  "hash": "b2dfc0d05add95786797e596559f3e86de9b3a9c9dbce6818814ad05d6317b58",
+  "hash_of": "canonical weight binary sigllama-v1.bin (field: model.weight_hash)",
+  "public_status": "NOT_FILED — an original tiny model by Justin Addam Higgins, not a filing, not a grant",
+  "record_id": "SIGLLAMA-V1",
+  "record_type": "LLAMA_MODEL",
+  "related_records": [
+   "JAH-AI telephone book entries (all route through this engine)",
+   "jah-dictionary definitions (training source)",
+   "JAH-SPEC records (training source)"
+  ],
+  "schema": "https://justinahiggins614-cmyk.github.io/signature-one-archive/signature-record-standard.json",
+  "standard_version": "1.0",
+  "test_status": "SELF_TEST_PASS (determinism test 2026-10-01, see determinism)",
+  "tool_permissions": "120 tool libraries; per-library capabilities in files.tool_libraries (network/filesystem/camera/microphone/storage/code_execution/remote_requests) and on each library's site card",
+  "version": 1
+ },
+ "site": "https://justinahiggins614-cmyk.github.io/signature-llama/",
+ "status": "live",
+ "training": {
+  "corpus": {
+   "built": "2026-09-30",
+   "bytes": 23241092,
+   "lines": 135340,
+   "sanitization": "URLs stripped, whitespace collapsed, lines kept only if 20-420 chars and >=60% letters/spaces, deduped, shuffled with seed 614",
+   "sources": [
+    {
+     "path": "jah-dictionary/data/definitions/all.jsonl",
+     "snapshot": "2026-09-30",
+     "what": "IWB Dictionary definitions, formatted as '<word> (<pos>): <definition>'"
+    },
+    {
+     "path": "signature-one-archive/data/volumes/specs-c*.jsonl.gz",
+     "snapshot": "2026-09-30 (668 volumes sampled evenly)",
+     "what": "Signature spec abstracts, autoread blocks, AI explainer text"
+    }
+   ]
+  },
+  "run": {
+   "best_val_loss": 0.365084271132946,
+   "config": {
+    "batch": 20,
+    "checkpoints_every": 1000,
+    "cosine_lr_schedule": true,
+    "lr": 0.0004,
+    "optimizer": "AdamW",
+    "target_tokens": 33000000,
+    "time_cap_s": 16200.0,
+    "warmup": 500
+   },
+   "elapsed_s": 11179.3,
+   "finished": "2026-09-30T18:44:00-04:00",
+   "params": 2983488,
+   "steps": 12890,
+   "vocab": 84
+  },
+  "training_corpus_version": "corpus.txt 2026-09-30, seed 614, 135,340 lines / ~23.2 MB",
+  "weights_published": "2026-09-30T22:39:00-04:00"
+ },
+ "version": "1.0"
 }
