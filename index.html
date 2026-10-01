@@ -471,23 +471,54 @@ function renderStatusCard() {
   det.textContent = 'Signature Llama V1 · 2,983,488 parameters · decoder-only transformer · 5 layers · 8 heads · 128-token context · int8 weights.';
   d.innerHTML = 'weights <code>b2dfc0d0…05d6317b58</code> · engine <code>6188cb26…2edb4355a</code> · state: <code>model-status.json</code>';
 }
+function noteFailureDetail(d) {
+  /* invisible diagnostics: console + a data attribute, never changes the page's look */
+  try { if (window.console && console.warn) console.warn('[SigLlama loader]', d); } catch (e) {}
+  try { LlamaRuntime.lastFailureDetail = String(d).slice(0, 300); } catch (e) {}
+}
+function fetchRetry(url, opts, tries) {
+  /* transient edge/proxy hiccups must not kill the model load: retry, then report */
+  tries = tries || 3;
+  function attempt(n) {
+    return fetch(url, opts).then(function (r) {
+      if (!r.ok && n < tries) return new Promise(function (res) {
+        setTimeout(function () { res(attempt(n + 1)); }, 400 * n);
+      });
+      return r;
+    }, function (err) {
+      if (n < tries) return new Promise(function (res) {
+        setTimeout(function () { res(attempt(n + 1)); }, 400 * n);
+      });
+      throw err;
+    });
+  }
+  return attempt(1);
+}
 function verifyBinHeader(base) {
-  /* loader-side version lock: read the SGLL magic + format version ourselves */
-  return fetch(base + FILES.bin, { headers: { Range: 'bytes=0-35' } }).then(function (r) {
-    if (!r.ok) throw new Error('MODEL_NOT_FOUND');
+  /* loader-side version lock: read the SGLL magic + format version ourselves.
+     Accepts 206 (Range honored) or 200 (full body); validates magic+version only. */
+  var url = base + FILES.bin, lastNote = '';
+  return fetchRetry(url, { headers: { Range: 'bytes=0-35' } }, 3).then(function (r) {
+    lastNote = 'status=' + r.status + ' bytes=';
+    if (!r.ok) { noteFailureDetail('verifyBinHeader ' + url + ' -> HTTP ' + r.status); throw new Error('MODEL_NOT_FOUND'); }
     return r.arrayBuffer();
   }).then(function (buf) {
+    lastNote += buf.byteLength;
     var b = new Uint8Array(buf), magic = '';
     for (var i = 0; i < 4; i++) magic += String.fromCharCode(b[i]);
-    var ver = new DataView(buf).getUint32(4, true);
+    var ver = buf.byteLength >= 8 ? new DataView(buf).getUint32(4, true) : -1;
     if (magic !== 'SGLL' || ver !== MODEL_STATUS.MODEL_FORMAT_VERSION) {
+      noteFailureDetail('verifyBinHeader ' + url + ' -> ' + lastNote + ' magic=' + JSON.stringify(magic) + ' ver=' + ver);
       throw new Error('MODEL_CORRUPT');
     }
     return true;
   }).catch(function (e) {
     var m = String(e.message || '');
-    if (m === 'MODEL_NOT_FOUND' || m === 'MODEL_CORRUPT') throw e;
-    throw new Error('MODEL_NOT_FOUND');
+    if (m !== 'MODEL_NOT_FOUND' && m !== 'MODEL_CORRUPT') {
+      noteFailureDetail('verifyBinHeader ' + url + ' -> ' + lastNote + ' err=' + m);
+      throw new Error('MODEL_NOT_FOUND');
+    }
+    throw e;
   });
 }
 function loadScript(url) {
@@ -603,7 +634,13 @@ function initChat(base) {
   renderStatusCard();
   addMsg(log, 's', 'Waking the Llama up…');
   loadScript(base + FILES.js).then(function () {
-    return SigLlama.load(base);
+    /* the full ~3MB weights fetch can also catch a transient edge hiccup: one retry */
+    return SigLlama.load(base).catch(function (e) {
+      noteFailureDetail('SigLlama.load first attempt: ' + String((e && e.message) || e) + ' - retrying once');
+      return new Promise(function (res, rej) {
+        setTimeout(function () { SigLlama.load(base).then(res, rej); }, 800);
+      });
+    });
   }).then(function () {
     LlamaChat.ready = true;
     LlamaRuntime.mode = 'trained'; LlamaRuntime.lastFailure = null;
