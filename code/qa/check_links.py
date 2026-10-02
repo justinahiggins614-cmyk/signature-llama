@@ -19,7 +19,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)
 INDEX = os.path.join(ROOT, "index.html")
 
 NAV_EXPECTED = [
-    ("https://justinahiggins614-cmyk.github.io/jah-ai-models/", "Telephone Book"),
+    ("https://justinahiggins614-cmyk.github.io/jah-ai-models/", "The Signature AI Phone Book"),
     ("https://justinahiggins614-cmyk.github.io/jah-calculator/", "Calculator"),
     ("https://justinahiggins614-cmyk.github.io/jah-dictionary/", "Dictionary"),
     ("https://justinahiggins614-cmyk.github.io/jah-wiki/", "JAH Wiki"),
@@ -28,6 +28,22 @@ NAV_EXPECTED = [
     ("https://justinahiggins614-cmyk.github.io/signature-one-archive/specs.html", "Spec Catalog"),
     ("https://justinahiggins614-cmyk.github.io/signature-llama/", "Signature Llama"),
     ("https://justinahiggins614-cmyk.github.io/jah-computer-systems/", "PC Depository"),
+    ("https://justinahiggins614-cmyk.github.io/signature-cyber-mega-mall/", "Cyber Mega-Mall"),
+    ("https://justinahiggins614-cmyk.github.io/signature-university/", "Signature University"),
+    ("https://justinahiggins614-cmyk.github.io/signature-books/", "Book Depository"),
+    ("https://justinahiggins614-cmyk.github.io/signature-comics/", "Comic Store"),
+    ("https://justinahiggins614-cmyk.github.io/signature-newspapers/", "Global Newspaper Archive"),
+    ("https://justinahiggins614-cmyk.github.io/signature-3d-print/", "3D Print Depository"),
+    ("https://justinahiggins614-cmyk.github.io/signature-backend/", "Signature Backend"),
+    ("https://justinahiggins614-cmyk.github.io/signature-boundless-generators/", "Boundless Generator Archive"),
+    ("https://justinahiggins614-cmyk.github.io/signature-ai-mixlab/", "AI Mix Lab"),
+    ("https://justinahiggins614-cmyk.github.io/signature-ai-olypics/", "AI Olypics"),
+    ("https://justinahiggins614-cmyk.github.io/signature-chip-maker/", "Chip Maker and Archive"),
+    ("https://justinahiggins614-cmyk.github.io/signature-app-archive/", "App Archive"),
+    ("https://justinahiggins614-cmyk.github.io/signature-ai-robot-matcher/", "AI Robot Matcher"),
+    ("https://justinahiggins614-cmyk.github.io/signature-experiment-solver/", "Experiment Solver"),
+    ("https://justinahiggins614-cmyk.github.io/signature-ai-image-video-maker/", "Signature AI Pixel"),
+    ("https://justinahiggins614-cmyk.github.io/signature-ai-video-maker/", "Video Maker AI"),
 ]
 
 
@@ -46,27 +62,30 @@ def main():
     html = open(INDEX, encoding="utf-8").read()
     fails = []
 
-    # 1. THE JAH NETWORK bar: exact canonical order + destinations
+    # 1. THE JAH NETWORK bar: exact canonical order + destinations + labels.
+    # The bar carries all 25 canonical links; self is an <a class="cur"> link
+    # followed by a <span class="cur">YOU ARE HERE...</span> marker at position 8.
     m = re.search(r'<div class="jahnet">(.*?)</div>', html, re.S)
     if not m:
         fails.append("nav: THE JAH NETWORK bar not found")
     else:
         bar = m.group(1)
-        got = re.findall(r'href="([^"]+)"', bar)
-        got += ["(current)"] if '<span class="cur">' in bar else []
-        expected = [u for u, _ in NAV_EXPECTED]
-        # position 8 (index 7) is the "YOU ARE HERE" span, not a link
-        expected_links = [u for u in expected if u != "https://justinahiggins614-cmyk.github.io/signature-llama/"]
-        if got[:-1] != expected_links:
-            fails.append("nav: order/destinations wrong.\n  got: %s\n  want: %s"
-                         % (got[:-1], expected_links))
+        got = re.findall(r'<a [^>]*href="([^"]+)"[^>]*>([^<]+)</a>', bar)
+        if got != NAV_EXPECTED:
+            fails.append("nav: order/destinations/labels wrong.\n  got: %s\n  want: %s"
+                         % (got, NAV_EXPECTED))
+        # self link carries class="cur" at canonical position 8
+        SELF = "https://justinahiggins614-cmyk.github.io/signature-llama/"
+        if '<a class="cur" href="%s">Signature Llama</a>' % SELF not in bar:
+            fails.append('nav: self link missing class="cur"')
         if "YOU ARE HERE: SIGNATURE LLAMA" not in bar:
             fails.append("nav: YOU ARE HERE: SIGNATURE LLAMA marker missing")
         else:
             # marker must sit between position 7 (spec catalog) and position 9 (pc depository)
             parts = re.split(r'(<span class="cur">.*?</span>)', bar)
             before = parts[0]
-            if not before.rstrip().endswith('signature-one-archive/specs.html">Signature Spec Catalog Pending Patents</a>'):
+            if not (before.rstrip().endswith('">Signature Llama</a>')
+                    and 'signature-one-archive/specs.html">Spec Catalog</a><a class="cur"' in before):
                 fails.append("nav: YOU ARE HERE marker not at canonical position 8")
 
     # 2. #anchors resolve to an id= in the page
