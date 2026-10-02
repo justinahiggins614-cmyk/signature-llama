@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 """Regenerate sitemap.xml for signature-llama.
 
-Includes: core pages/data files, every LLM-dictionary term (?term= URL),
-every tool library (?toollib= URL), and the single-page section anchors
-(#model, #chat, #developers, ...). GitHub Pages serves the page for every
+Includes: core pages/data files, every LLM-dictionary term (?term= URL), and
+every tool library (?toollib= URL). GitHub Pages serves the page for every
 query string, so all listed URLs return HTTP 200.
+
+NOTE: section anchors (#model, #chat, ...) are deliberately NOT listed --
+fragments are not distinct crawlable URLs and don't belong in sitemaps.
 
 Run: python3 code/build_sitemap.py
 """
@@ -34,8 +36,8 @@ core = [
 urls = []
 for p in core:
     urls.append((BASE + p if p else BASE + '/', DATE, 'weekly'))
-for s in sections:
-    urls.append((BASE + '/#' + s, DATE, 'monthly'))
+# (section anchors like #model are intentionally omitted: URL fragments are
+# not distinct crawlable resources and must not appear in a sitemap)
 for t in terms:
     urls.append((BASE + '/?term=' + urllib.parse.quote(t['t'], safe=''), DATE, 'monthly'))
 for l in libs:
