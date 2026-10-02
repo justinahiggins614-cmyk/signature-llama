@@ -754,6 +754,113 @@ function checkEngine() {
   });
 }
 
+/* ---------- LLAMA CHAT COHERENCE: curated replies + quality gate + Guide fallback ----------
+   Signature Llama v1 is a tiny (~3M) model trained on dictionary + spec prose. It is
+   a continuer of that style — it cannot do open chat, and no sampling tweak changes
+   that (verified against the real weights). So the chat pipeline is:
+   1. curated replies for greetings / identity / common questions — deterministic,
+      warm, in the maker's voice; labeled Guide: (curated on-site content, never
+      model output);
+   2. one model attempt with calm sampling (temperature 0.5, topK 24) for the rest;
+   3. a quality gate scores the output — word salad is rejected and never shown;
+   4. on rejection the Guide (knowledge base + LLM dictionary) answers instead,
+      labeled Guide:. Labels stay truthful at every step. */
+var LLAMA_CURATED = [
+  { re: /(who made you|who created you|who built you|who trained you|your maker|your creator)/,
+    text: 'Justin Addam Higgins made me — trained from scratch on original dictionary and spec text, as an independent project. Not affiliated with any big AI lab.' },
+  { re: /(what are you|who are you|your name|about yourself|introduce yourself|what model are you)/,
+    text: "I'm Signature Llama v1 — a small AI, just under 3 million parameters, trained from scratch on the Signature dictionary and spec writings. I live entirely in this page: no servers, no API keys, nothing to pay." },
+  { re: /(^| )(hi|hello|hey|howdy|hiya|greetings|good morning|good afternoon|good evening)( |$)/,
+    text: "Hello! Good to see you. I'm the Signature Llama, running right here in your browser — ask me anything, or look through the dictionary, tools, and model card on this page." },
+  { re: /(how are you|how is it going|how do you feel|how are things)/,
+    text: 'Running at full health — weights loaded, ready to go. What would you like to explore?' },
+  { re: /(thank you|thanks|thx|much appreciated)/,
+    text: "Anytime — glad to help." },
+  { re: /(what can you do|help me|^help$|your abilities|your features)/,
+    text: 'I can chat, explain terms from the LLM dictionary below, describe the tool libraries and files, and show developers how to put me in their own pages. Try asking what sigllama.js does.' },
+  { re: /(bye|goodbye|good bye|see you|good night|farewell|talk later)/,
+    text: "Goodbye for now — I'll be right here in this page whenever you come back." }
+];
+function curatedReply(text) {
+  var t = ' ' + String(text || '').toLowerCase().replace(/[^a-z0-9' ]/g, ' ').replace(/\s+/g, ' ').trim() + ' ';
+  for (var i = 0; i < LLAMA_CURATED.length; i++) {
+    if (LLAMA_CURATED[i].re.test(t)) return LLAMA_CURATED[i].text;
+  }
+  return null;
+}
+/* small common-word set for the coherence gate */
+var LLAMA_COMMON = {};
+('a,i,me,my,mine,you,your,yours,he,him,his,she,her,it,its,we,us,our,they,them,their,' +
+ 'the,a,an,and,or,but,nor,so,yet,is,are,was,were,be,been,being,am,do,does,did,done,' +
+ 'have,has,had,having,can,will,would,shall,should,could,may,might,must,of,in,on,at,to,' +
+ 'for,with,by,from,as,into,over,under,not,no,yes,ok,okay,hello,hi,hey,thanks,than,then,' +
+ 'there,here,this,that,these,those,what,when,where,which,who,whom,why,how,all,any,each,' +
+ 'few,more,most,other,some,such,only,own,same,too,very,just,also,well,now,today,please'
+).split(',').forEach(function (w) { LLAMA_COMMON[w] = 1; });
+/* strip prompt echoes and trailing fragments the model leaves behind */
+function llamaClean(text) {
+  var t = String(text || '').replace(/\s+/g, ' ').trim();
+  var cut = t.search(/\n?\s*(human|user)\s*:/i);
+  if (cut > 0) t = t.slice(0, cut).trim();
+  t = t.replace(/^(llama|assistant|ai)\s*:\s*/i, '').trim();
+  return t;
+}
+/* coherence gate: rejects the tiny model's word salad before it ever shows */
+function llamaQuality(text) {
+  var t = llamaClean(text);
+  if (t.length < 12) return { ok: false, reason: 'too-short', text: t };
+  /* a reply that begins lowercase or with a dangling conjunction/preposition is a
+     continuation fragment of the model's spec-prose training text, not an answer */
+  if (/^[a-z]/.test(t)) return { ok: false, reason: 'fragment-start', text: t };
+  if (/^(of|for|and|the|a|an|in|to|is|it|its|as|by|with|from|that|this|these|those|which|on|at|or|but|so|if|are|was)\b/i.test(t))
+    return { ok: false, reason: 'fragment-start', text: t };
+  var words = t.split(/\s+/), seen = {}, i, g;
+  if (words.length < 4) return { ok: false, reason: 'too-short', text: t };
+  for (i = 0; i + 2 < words.length; i++) {
+    g = (words[i] + ' ' + words[i + 1] + ' ' + words[i + 2]).toLowerCase();
+    seen[g] = (seen[g] || 0) + 1;
+    if (seen[g] >= 3) return { ok: false, reason: 'repetition', text: t };
+  }
+  var bad = 0, w;
+  for (i = 0; i < words.length; i++) {
+    w = words[i].replace(/[^a-z']/gi, '');
+    if (w.length > 2 && (w.length > 18 || !/[aeiouy]/i.test(w))) bad++;
+  }
+  if (words.length > 0 && bad / words.length > 0.35) return { ok: false, reason: 'gibberish', text: t };
+  if (!/[.!?)"']$/.test(t) && t.length > 40) {
+    var last = words[words.length - 1].replace(/[^a-z']/gi, '').toLowerCase();
+    if (!LLAMA_COMMON[last]) return { ok: false, reason: 'truncated', text: t };
+  }
+  return { ok: true, reason: '', text: t };
+}
+/* one model attempt, cleaned and scored — resolves {text, ok, reason} */
+function llamaModelAttempt(prompt, opts) {
+  return LlamaRuntime.generate(prompt, opts).then(function (raw) {
+    return llamaQuality(raw);
+  });
+}
+/* Guide fallback that also consults the LLM dictionary for what-is/define questions */
+function guideAnswerFor(text) {
+  var m = String(text || '').match(/^(?:what is|what's|define|explain|meaning of|who is)\s+(?:a |an |the )?(.+?)\s*\??$/i);
+  if (m && window.DICT && DICT.length) {
+    var want = m[1].toLowerCase().trim(), hit = null, e, i;
+    for (i = 0; i < DICT.length; i++) {
+      e = DICT[i];
+      if (e.t && e.t.toLowerCase() === want) { hit = e; break; }
+    }
+    if (!hit) {
+      for (i = 0; i < DICT.length; i++) {
+        e = DICT[i];
+        if (e.t && (e.t.toLowerCase().indexOf(want) >= 0 || want.indexOf(e.t.toLowerCase()) >= 0)) { hit = e; break; }
+      }
+    }
+    if (hit) return { title: hit.t + ' — from the LLM dictionary', text: hit.d,
+      kind: 'dictionary', engine: 'guide', mode: 'guide',
+      provenance: { kind: 'GUIDE_KB', tool: null, status: 'curated dictionary entry — not model output' } };
+  }
+  return ExplainerAI.answer(text);
+}
+
 /* ---------- TALK TO LLAMA (single seam, mode-labeled, context-managed) ----------
    Max history: 12 turns (24 entries). Truncation policy: oldest turns are
    dropped first; the engine additionally left-truncates the prompt to fit the
@@ -782,14 +889,28 @@ var LlamaChat = {
         engine: 'guide', mode: 'guide', code: code });
     }
     self.push('Human: ' + text + '\nLlama:');
-    var out = '';
-    return LlamaRuntime.generate(self.history.join('\n'), {
-      maxTokens: 90, temperature: 0.85, topK: 40, stopAtEos: true,
-      onToken: function (t) { out += t; }, timeoutMs: 60000
-    }).then(function () {
-      self.push(out);
-      return { text: out, engine: 'SigLlama', mode: 'trained_model', model_version: '1.0',
-        provenance: { kind: 'MODEL_GENERATION', tool: null, status: 'model output — verify anything important' } };
+    /* curated replies first: greetings, identity, common questions — deterministic,
+       labeled Guide (curated on-site content, never model output) */
+    var cur = curatedReply(text);
+    if (cur) {
+      self.push(cur);
+      return Promise.resolve({ text: cur, engine: 'guide', mode: 'guide',
+        provenance: { kind: 'GUIDE_KB', tool: null, status: 'curated reply — not model output' } });
+    }
+    /* one model attempt with calm sampling; the coherence gate rejects salad and
+       the Guide answers instead — labels stay truthful either way */
+    return llamaModelAttempt(self.history.join('\n'), {
+      maxTokens: 90, temperature: 0.5, topK: 24, stopAtEos: true, timeoutMs: 60000
+    }).then(function (q) {
+      if (q.ok) {
+        self.push(q.text);
+        return { text: q.text, engine: 'SigLlama', mode: 'trained_model', model_version: '1.0',
+          provenance: { kind: 'MODEL_GENERATION', tool: null, status: 'model output, coherence-gated — verify anything important' } };
+      }
+      var a = guideAnswerFor(text);
+      self.push(a.title + ': ' + a.text);
+      return { text: a.title + ': ' + a.text, engine: 'guide', mode: 'guide',
+        provenance: a.provenance || { kind: 'GUIDE_KB', tool: null, status: 'knowledge-base entry' } };
     }).catch(function (e) {
       var code = /GENERATION_TIMEOUT/.test(String(e && e.message)) ? 'GENERATION_TIMEOUT' : classifyError(e, 'generate');
       return { text: failureText(code), engine: 'none', mode: 'failed', code: code };
@@ -1284,14 +1405,17 @@ var ExplainerAI = {
       kind: 'concept', engine: 'guide', mode: 'guide',
       provenance: { kind: 'GUIDE_KB', tool: null, status: 'fallback text — curated, not model output' } };
   },
-  /* hands off to the trained model once it is live */
+  /* hands off to the trained model once it is live — gated: salad returns null
+     so every caller falls back to the Guide with an honest label */
   askLlama: function (q) {
     if (LlamaRuntime.mode === 'trained' && window.SigLlama && SigLlama.loaded && SigLlama.loaded()) {
       return LlamaRuntime.generate('You are the Signature Llama on-site guide. Explain clearly and briefly: ' + q,
-        { maxTokens: 140, temperature: 0.7, topK: 40, stopAtEos: true, timeoutMs: 60000 })
+        { maxTokens: 140, temperature: 0.5, topK: 24, stopAtEos: true, timeoutMs: 60000 })
         .then(function (r) {
-          return { text: r, engine: 'SigLlama', mode: 'trained_model', model_version: '1.0',
-            provenance: { kind: 'MODEL_GENERATION', tool: null, status: 'model output — verify anything important' } };
+          var g = llamaQuality(r);
+          if (!g.ok) return null;
+          return { text: g.text, engine: 'SigLlama', mode: 'trained_model', model_version: '1.0',
+            provenance: { kind: 'MODEL_GENERATION', tool: null, status: 'model output, coherence-gated — verify anything important' } };
         });
     }
     return Promise.resolve(null);
