@@ -8,6 +8,8 @@ import json, os
 HERE = os.path.dirname(os.path.abspath(__file__))
 m = json.load(open(os.path.join(HERE, 'llama-manifest.json')))
 s = json.load(open(os.path.join(HERE, 'model-status.json')))
+nterms = len(json.load(open(os.path.join(HERE, 'data', 'llm-dictionary.json')))['terms'])
+nlibs = len(json.load(open(os.path.join(HERE, 'data', 'tool-libraries.json')))['libraries'])
 arch = m['model']
 failures = '\n'.join('  - %s: %s' % (k, v['meaning']) for k, v in m['failure_states'].items())
 
@@ -44,6 +46,11 @@ ENGINE MODES — every answer is labeled
 - guide: the on-site knowledge-base guide (28 entries), used when you ask the
   guide, or as fallback if the trained model cannot load. The site always says
   which engine answered.
+
+DATA ON THIS SITE (counts read from the data files at generation time)
+- LLM/AI dictionary: {nterms} original terms (data/llm-dictionary.json)
+- Tool libraries: {nlibs} runnable plug-ins, each with declared capabilities
+  (data/tool-libraries.json)
 
 INDUSTRY STANDARD — the cloud option (NOT the on-device model)
 - The site chat has a model picker: "✦ Signature Llama v1 · on-device" (LOCAL,
@@ -107,6 +114,7 @@ Independent model by Justin Addam Higgins. Not affiliated with Meta.
     hidden=arch['hidden_size'], ctx=arch['context_length'], vocab=arch['vocabulary_size'],
     wbytes=m['files']['weights']['size_bytes'], whash=arch['weight_hash'],
     ehash=m['files']['engine']['sha256'], failures=failures,
+    nterms=nterms, nlibs=nlibs,
     site='https://justinahiggins614-cmyk.github.io/signature-llama/',
     engine_url='https://justinahiggins614-cmyk.github.io/signature-backend/sigllama/sigllama.js',
     base='https://justinahiggins614-cmyk.github.io/signature-backend/sigllama/')

@@ -66,7 +66,7 @@ code{background:#05080f;border:1px solid var(--line);border-radius:4px;padding:1
 </style>
 </head>
 <body>
-<div class="jahnet"><span class="jahnet-t">THE JAH NETWORK</span><a href="https://justinahiggins614-cmyk.github.io/cyber-patent-catalog/">Globally Rejustered Patent Catalog</a><a href="https://justinahiggins614-cmyk.github.io/signature-one-archive/">Signature Spec Catalog Pending Patents</a><a href="https://justinahiggins614-cmyk.github.io/jah-dictionary/">The Signature Dictionary</a><a href="https://justinahiggins614-cmyk.github.io/jah-wiki/">JAH Wiki</a><a href="https://justinahiggins614-cmyk.github.io/jah-n-wiki-leaks/">JAH-N Wiki</a><a href="https://justinahiggins614-cmyk.github.io/jah-calculator/">Signature Universal Paradox Immune Calculator</a><a href="https://justinahiggins614-cmyk.github.io/jah-ai-models/">The Signature AI Telephone Book</a><a href="https://justinahiggins614-cmyk.github.io/signature-backend/">The Signature Backend</a><span class="cur">Signature Llama</span><a href="https://justinahiggins614-cmyk.github.io/jah-computer-systems/">The Signature PC System Depository</a></div>
+<div class="jahnet"><span class="jahnet-t">THE JAH NETWORK</span><a href="https://justinahiggins614-cmyk.github.io/jah-ai-models/">The Signature AI Telephone Book</a><a href="https://justinahiggins614-cmyk.github.io/jah-calculator/">Signature Universal Paradox Immune Calculator</a><a href="https://justinahiggins614-cmyk.github.io/jah-dictionary/">The Signature Dictionary</a><a href="https://justinahiggins614-cmyk.github.io/jah-wiki/">JAH Wiki</a><a href="https://justinahiggins614-cmyk.github.io/jah-n-wiki-leaks/">JAH-N Wiki</a><a href="https://justinahiggins614-cmyk.github.io/cyber-patent-catalog/">Globally Rejustered Patent Catalog</a><a href="https://justinahiggins614-cmyk.github.io/signature-one-archive/specs.html">Signature Spec Catalog Pending Patents</a><span class="cur">YOU ARE HERE: SIGNATURE LLAMA</span><a href="https://justinahiggins614-cmyk.github.io/jah-computer-systems/">The Signature PC System Depository</a></div>
 <nav class="bigmenu" aria-label="Site menu">
   <a href="#chat">💬 Talk</a>
   <a href="#dictionary">📖 Dictionary</a>
@@ -150,7 +150,7 @@ code{background:#05080f;border:1px solid var(--line);border-radius:4px;padding:1
     </div>
     <div class="chatlog" id="llamalog" aria-live="polite"></div>
     <div class="chatrow">
-      <input type="text" id="llamainput" placeholder="Say something to the Llama…" autocomplete="off" disabled>
+      <input type="text" id="llamainput" placeholder="Say something to the Llama…" autocomplete="off" disabled aria-label="Message to the Llama">
       <button type="button" id="llamasend" disabled>Send</button>
       <button type="button" id="llamareset" title="Clear conversation history">Reset</button>
     </div>
@@ -193,7 +193,7 @@ document.body.insertAdjacentHTML('beforeend', '&lt;p&gt;' + reply + '&lt;/p&gt;'
         <option value="term">🔤 Dictionary word</option>
         <option value="toollib">🔧 Tool library</option>
       </select>
-      <input id="linkextra" placeholder="Type a question or a word…" style="font-size:1em;padding:10px;min-width:220px">
+      <input id="linkextra" placeholder="Type a question or a word…" style="font-size:1em;padding:10px;min-width:220px" aria-label="Question or word for the link">
       <button type="button" id="linkmake">Build link</button>
       <button type="button" id="linkcopy">⧉ Copy link</button>
     </div>
@@ -209,6 +209,17 @@ document.body.insertAdjacentHTML('beforeend', '&lt;p&gt;' + reply + '&lt;/p&gt;'
       <button type="button" id="dl-vocab" disabled>⤓ Vocab (vocab.json)</button>
     </div>
     <div id="assetmeta" style="font-size:.82em;color:var(--dim);margin-top:10px"></div>
+  </div>
+
+  <div class="panel" id="compatibility">
+    <h2><span class="tick">●</span> RUNTIME COMPATIBILITY</h2>
+    <p style="color:var(--dim);font-size:.9em;margin-top:0">Where Signature Llama runs — stated only from what this site has actually established. No lab claims beyond these.</p>
+    <div class="kv"><b>Browser</b><span>Any modern browser with JavaScript. The engine is one dependency-free file; unsupported browsers get a named failure (BROWSER_UNSUPPORTED) instead of silence.</span></div>
+    <div class="kv"><b>Desktop</b><span>Yes — anything that runs a modern browser, any OS.</span></div>
+    <div class="kv"><b>Mobile</b><span>Yes — the same page; read-aloud is chunked so long replies are not cut off on phones.</span></div>
+    <div class="kv"><b>Online</b><span>Required for first load: the engine (~12 KB) plus the weights (~3 MB) download from signature-backend.</span></div>
+    <div class="kv"><b>Offline</b><span>After the first load, your browser's HTTP cache can serve the files offline. Offline use is not guaranteed and has not been lab-tested — it depends on your browser's cache.</span></div>
+    <div class="kv"><b>Model limits</b><span>The model itself does local text generation only — no network, no files, no device access. Tool libraries are optional plug-ins; only the ones you load run, and only as ordinary page JavaScript.</span></div>
   </div>
 
   <div class="panel docs" id="developers">
@@ -343,7 +354,7 @@ Signature Llama is an independent model by Justin Addam Higgins, not affiliated 
     <p style="color:var(--dim);font-size:.9em;margin-top:0">An AI whose whole job is explaining. Ask it about Signature Llama itself — what it is, how it was built, how to use it — or about LLM and AI files, libraries, and tools: what each file does, what each library is for, what each tool runs. It answers from a real knowledge base on this page. <i>The ✦ Ask Llama button hands your question to the trained model itself — and every answer is labeled with which engine wrote it.</i></p>
     <div class="chatlog" id="guidelog" aria-live="polite" style="height:170px"></div>
     <div class="chatrow">
-      <input type="text" id="guideinput" placeholder="Ask the guide, e.g. “what does the quantizer do?”" autocomplete="off">
+      <input type="text" id="guideinput" placeholder="Ask the guide, e.g. “what does the quantizer do?”" autocomplete="off" aria-label="Ask the on-site guide">
       <button type="button" id="guidesend">Ask</button>
       <button type="button" id="guideaskllama" disabled title="Ask the trained model instead">✦ Ask Llama</button>
     </div>
@@ -356,7 +367,7 @@ Signature Llama is an independent model by Justin Addam Higgins, not affiliated 
     <h2><span class="tick">●</span> SIGNATURE INVENTORY</h2>
     <p style="color:var(--dim);font-size:.9em;margin-top:0">Every building block of a language model, rebuilt the Signature way — original implementations written from scratch for this project, not copies of outside libraries. Real files download straight from this site.</p>
     <div class="chatrow" style="margin-bottom:8px">
-      <input type="text" id="invsearch" placeholder="Search the inventory…" autocomplete="off">
+      <input type="text" id="invsearch" placeholder="Search the inventory…" autocomplete="off" aria-label="Search the inventory">
     </div>
     <div class="az" id="invcat"></div>
     <div class="count" id="invcount"></div>
@@ -367,7 +378,7 @@ Signature Llama is an independent model by Justin Addam Higgins, not affiliated 
     <h2><span class="tick">●</span> THE LLM / AI DICTIONARY</h2>
     <p style="color:var(--dim);font-size:.9em;margin-top:0">Every Llama-and-language-model term worth knowing, defined in plain original words. Read any entry aloud, copy it, or download it.</p>
     <div class="chatrow" style="margin-bottom:8px">
-      <input type="text" id="dictsearch" placeholder="Search the dictionary…" autocomplete="off">
+      <input type="text" id="dictsearch" placeholder="Search the dictionary…" autocomplete="off" aria-label="Search the dictionary">
       <button type="button" id="dictdl">⤓ Download all</button>
     </div>
     <div class="az" id="dictaz"></div>
@@ -381,7 +392,7 @@ Signature Llama is an independent model by Justin Addam Higgins, not affiliated 
     <p style="color:var(--dim);font-size:.9em;margin-top:0">Plug-in tool libraries that make the Llama smarter — text, thinking, memory, chat, search, math, web, data, voice, safety, embedding and fun. Every library is real, runnable JavaScript. Load any of them next to the Llama on your own sites and they register under <span style="font-family:monospace">SigLlama.tools</span>.</p>
     <div id="optimalcard"></div>
     <div class="chatrow" style="margin-bottom:8px">
-      <input type="text" id="toolsearch" placeholder="Search tool libraries…" autocomplete="off">
+      <input type="text" id="toolsearch" placeholder="Search tool libraries…" autocomplete="off" aria-label="Search tool libraries">
     </div>
     <div class="az" id="toolcat"></div>
     <div class="count" id="toolcount">Loading tool libraries…</div>
@@ -392,7 +403,7 @@ Signature Llama is an independent model by Justin Addam Higgins, not affiliated 
 
 </div>
 
-<div class="footer"><span class="sig">A SIGNATURE SYSTEM</span><br>Signature Llama — the baseline AI, currently free for all internet tasks.<br><span style="font-size:.8em">Independent model by Justin Addam Higgins · Not affiliated with Meta</span></div>
+<div class="footer"><span class="sig">A SIGNATURE SYSTEM</span><br>Signature Llama — the baseline AI, currently free for all internet tasks.<br><span style="font-size:.8em">Independent model by Justin Addam Higgins · Not affiliated with Meta</span><br><span id="lastupdated" style="font-size:.78em;color:var(--dim)"></span></div>
 
 <script src="industry-llama.js"></script>
 <script>
@@ -406,6 +417,7 @@ var modelLive = false;
 /* ---------- single authoritative model state (model-status.json) ---------- */
 var MODEL_STATUS = {
   MODEL_ID: 'SIGLLAMA-V1', MODEL_STATUS: 'live', MODEL_VERSION: '1.0',
+  updated: '2026-10-01',
   WEIGHTS_AVAILABLE: true, GUIDE_AVAILABLE: true, API_AVAILABLE: true,
   ENGINE_MIN_VERSION: '1.0', ENGINE_MAX_VERSION: '1.x', MODEL_FORMAT_VERSION: 1,
   architecture: { type: 'decoder-only transformer', parameters: 2983488, layers: 5,
@@ -514,6 +526,12 @@ function setPill(live) {
   else { p.className = 'pill train'; p.textContent = '◌ DEGRADED'; }
 }
 function shortHash(h) { return h ? h.slice(0, 8) + '…' + h.slice(-10) : '?'; }
+/* ---------- last-updated stamp (footer; kept visually separate from model stats) ---------- */
+function renderLastUpdated() {
+  var u = document.getElementById('lastupdated');
+  if (!u) return;
+  u.textContent = 'Last updated ' + (MODEL_STATUS.updated || '?') + ' · Signature Llama v1';
+}
 function renderStatusCard() {
   var v = document.getElementById('llamastatusval'),
       d = document.getElementById('llamastatushash'),
@@ -1497,6 +1515,7 @@ function renderOptimal() {
     '<div class="dterm" style="border:2px solid var(--gold);margin:0 0 12px">' +
     '<h3 style="margin:.2em 0;color:var(--gold)">★ ' + escHtml(o.name).toUpperCase() + '</h3>' +
     '<p style="margin:.3em 0">' + escHtml(o.tagline) + '</p>' +
+    (o.optimizes_for ? '<p style="margin:.3em 0">' + escHtml(o.optimizes_for) + '</p>' : '') +
     '<p style="margin:.3em 0"><b>Sampling:</b> temperature ' + s.temperature + ' · topK ' + s.topK + ' · maxTokens ' + s.maxTokens + '</p>' +
     '<p style="margin:.3em 0"><b>Included libraries (' + libs.length + '):</b> ' + libs.map(function (l) { return escHtml(l.name); }).join(' · ') + '</p>' +
     '<p style="margin:.3em 0;font-size:.85em;color:var(--dim)">Last updated ' + escHtml(TOOLIBS.updated) + ' · ' + escHtml(o.note) + '</p>' +
@@ -1576,6 +1595,9 @@ function renderTools(q) {
       + '<br><b style="color:var(--amber2)">Internet use</b> — ' + (pcNames[l.provenance_class] || l.provenance_class || 'unknown')
       + ' · <b style="color:var(--amber2)">Data storage</b> — ' + (caps.storage ? 'this library reads/writes this site\'s own browser storage' : 'none')
       + '<br><b style="color:var(--amber2)">Example</b> — <code>' + escHtml(l.example || '') + '</code> · v' + escHtml(l.version || '?')
+      + '<br><b style="color:var(--amber2)">Input</b> — <code>' + escHtml(l.input || '') + '</code>'
+      + ' · <b style="color:var(--amber2)">Output</b> — ' + escHtml(l.output || '')
+      + '<br><b style="color:var(--amber2)">Status</b> — ' + escHtml(l.status || '')
       + '<br><span style="color:var(--amber2)">⚠</span> Tool results are untrusted external data until you verify them.';
     d.appendChild(perm);
     var row = document.createElement('div'); row.className = 'row';
@@ -1617,6 +1639,8 @@ function wireAIAccess() {
 /* ---------- init ---------- */
 document.addEventListener('DOMContentLoaded', function () {
   checkEngine();
+  renderLastUpdated();
+  loadModelStatus().then(function () { renderLastUpdated(); });
   wireChatBox();
   wireModelPicker();
   wireCopyButtons();
