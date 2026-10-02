@@ -516,8 +516,28 @@ Signature Llama is an independent model by Justin Addam Higgins, not affiliated 
 <div class="footer"><span class="sig">A SIGNATURE SYSTEM</span><br>Signature Llama — the baseline AI, currently free for all internet tasks.<br><span style="font-size:.8em">Independent model by Justin Addam Higgins · Not affiliated with Meta</span><br><span id="lastupdated" style="font-size:.78em;color:var(--dim)"></span></div>
 
 <script src="industry-llama.js"></script>
+<script src="js/jah-talk-fallback.js"></script>
 <script>
 /* ================= Signature Llama site engine ================= */
+/* JAHtalk: the shared human-talk fallback + stat-dump guard (invisible
+   plumbing — zero network, zero visual change). Every AI reply rendered on
+   this page passes through llamaHuman() so the Llama never answers with a
+   terse machine dump; when the weights fail to load, JAHtalk.reply answers
+   in human words instead. */
+var LLAMA_PROFILE = {name: 'Signature Llama', id: 'JAH-AI-SIG-LLAMA-1', kind: 'system',
+  domain: 'language models',
+  description: 'Signature Llama v1: a tiny transformer trained from scratch on the Signature corpus, running live in this browser. I chat, explain AI, and answer questions about the Llama project.',
+  abilities: ['Chat in plain human words', 'Explain AI and language models clearly',
+    'Answer questions about the Signature Llama project', 'Point you to the right file, library, or tool']};
+function llamaHuman(text) {
+  text = String(text == null ? '' : text);
+  try { return (typeof JAHtalk !== 'undefined') ? JAHtalk.guard(text, LLAMA_PROFILE) : text; }
+  catch (e) { return text; }
+}
+function llamaFallbackReply(text) {
+  try { return (typeof JAHtalk !== 'undefined') ? (JAHtalk.reply(LLAMA_PROFILE, text) || '') : ''; }
+  catch (e) { return ''; }
+}
 (function () {
 'use strict';
 var BACKEND = 'https://justinahiggins614-cmyk.github.io/signature-backend/sigllama/';
@@ -924,7 +944,10 @@ var LlamaChat = {
     }
     if (!self.ready || !window.SigLlama || !SigLlama.loaded()) {
       var code = LlamaRuntime.lastFailure || 'MODEL_NOT_FOUND';
-      return Promise.resolve({ text: failureText(code) + ' Guide mode is still answering below.',
+      /* weights failed: JAHtalk speaks for the Llama in human words (the
+         render tag already shows the failure code, so nothing is hidden) */
+      var fb = llamaFallbackReply(text) || (failureText(code) + ' Guide mode is still answering below.');
+      return Promise.resolve({ text: fb,
         engine: 'guide', mode: 'guide', code: code });
     }
     self.push('Human: ' + text + '\nLlama:');
@@ -1121,8 +1144,8 @@ function wireChatBox() {
         : reply.mode === 'industry' ? '⬢ Industry Standard · ' + (reply.model_version || 'Llama') + ': '
         : reply.mode === 'guide' ? 'Guide: '
         : '⚠ ' + (reply.code || 'failed') + ': ';
-      addMsg(log, 'a', tag + reply.text);
-      speak(reply.text);
+      addMsg(log, 'a', tag + llamaHuman(reply.text));
+      speak(llamaHuman(reply.text));
     });
   }
   btn.onclick = go;
@@ -1466,18 +1489,18 @@ window.SignatureLlama = {
   mode: function () { return LlamaRuntime.mode; },
   askWithProvenance: function (question) {
     return ExplainerAI.askLlama(question).then(function (r) {
-      if (r) return { answer: r.text, engine: r.engine, mode: r.mode,
+      if (r) return { answer: llamaHuman(r.text), engine: r.engine, mode: r.mode,
         model_version: r.model_version, provenance: r.provenance };
       var a = ExplainerAI.answer(question);
-      return { answer: a.title + ': ' + a.text, engine: 'guide', mode: 'guide',
+      return { answer: llamaHuman(a.title + ': ' + a.text), engine: 'guide', mode: 'guide',
         model_version: null, provenance: a.provenance || { kind: 'GUIDE_KB', tool: null, status: 'knowledge-base entry' } };
     });
   },
   ask: function (question) {
     return ExplainerAI.askLlama(question).then(function (r) {
-      if (r) return '✦ Trained Llama v1: ' + r.text;
+      if (r) return '✦ Trained Llama v1: ' + llamaHuman(r.text);
       var a = ExplainerAI.answer(question);
-      return 'Guide: ' + a.title + ': ' + a.text;
+      return 'Guide: ' + llamaHuman(a.title + ': ' + a.text);
     });
   }
 };
@@ -1530,19 +1553,19 @@ function wireGuide() {
     var t = inp.value.trim(); if (!t) return;
     addMsg(log, 'u', t); inp.value = '';
     function showAns(a, tag) {
-      addMsg(log, 'a', (tag || '') + a.title + ': ' + a.text);
+      addMsg(log, 'a', (tag || '') + llamaHuman(a.title + ': ' + a.text));
     }
     if (fromLlama) {
       addMsg(log, 's', 'Asking the trained Llama…');
       ExplainerAI.askLlama(t).then(function (r) {
         var s = log.querySelector('.s:last-child'); if (s) s.remove();
-        if (r) { addMsg(log, 'a', '✦ Trained Llama v1: ' + r.text); speak(r.text); }
+        if (r) { addMsg(log, 'a', '✦ Trained Llama v1: ' + llamaHuman(r.text)); speak(llamaHuman(r.text)); }
         else showAns(ExplainerAI.answer(t), 'Guide: ');
       });
       return;
     }
     var a = ExplainerAI.answer(t);
-    showAns(a, 'Guide: '); speak(a.text);
+    showAns(a, 'Guide: '); speak(llamaHuman(a.text));
   }
   btn.onclick = function () { go(false); };
   inp.onkeydown = function (e) { if (e.key === 'Enter') go(false); };
