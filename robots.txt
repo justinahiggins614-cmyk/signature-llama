@@ -25,3 +25,4 @@ User-agent: Applebot-Extended
 Allow: /
 
 Sitemap: https://justinahiggins614-cmyk.github.io/signature-llama/sitemap.xml
+Sitemap: https://justinahiggins614-cmyk.github.io/signature-llama/network-sitemap.xml

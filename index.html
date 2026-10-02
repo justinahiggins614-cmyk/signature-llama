@@ -5,6 +5,45 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Signature Llama: The Fully Cyber Utilizable AI</title>
 <meta name="description" content="Signature Llama: Justin Addam Higgins' own tiny AI model, trained from scratch, running in the browser, currently free for all internet tasks. Independent model, not affiliated with Meta.">
+<link rel="canonical" href="https://justinahiggins614-cmyk.github.io/signature-llama/">
+<meta property="og:title" content="Signature Llama: The Fully Cyber Utilizable AI">
+<meta property="og:description" content="Signature Llama v1 (SIGLLAMA-V1): a 2,983,488-parameter language model written and trained from scratch by Justin Addam Higgins. Runs in your browser, no keys, no fees. Independent model — not affiliated with Meta.">
+<meta property="og:url" content="https://justinahiggins614-cmyk.github.io/signature-llama/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Signature Llama v1",
+  "alternateName": "SIGLLAMA-V1",
+  "url": "https://justinahiggins614-cmyk.github.io/signature-llama/",
+  "applicationCategory": "AI language model",
+  "operatingSystem": "Any web browser",
+  "softwareVersion": "1.0",
+  "author": {"@type": "Person", "name": "Justin Addam Higgins"},
+  "description": "A 2,983,488-parameter decoder-only transformer language model written and trained from scratch by Justin Addam Higgins on the IWB Dictionary and Signature spec text. Runs entirely in the browser, no keys, no fees. Independent model — not affiliated with, endorsed by, or related to Meta or the LLaMA models.",
+  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+  "license": "https://justinahiggins614-cmyk.github.io/signature-llama/llms.txt",
+  "additionalProperty": [
+    {"@type": "PropertyValue", "name": "modelId", "value": "SIGLLAMA-V1"},
+    {"@type": "PropertyValue", "name": "parameterCount", "value": 2983488},
+    {"@type": "PropertyValue", "name": "layers", "value": 5},
+    {"@type": "PropertyValue", "name": "attentionHeads", "value": 8},
+    {"@type": "PropertyValue", "name": "hiddenSize", "value": 192},
+    {"@type": "PropertyValue", "name": "contextLengthTokens", "value": 128},
+    {"@type": "PropertyValue", "name": "tokenizer", "value": "character-level, 84 tokens"},
+    {"@type": "PropertyValue", "name": "weightsFormat", "value": "SGLL v1 binary, int8 per-row scales"},
+    {"@type": "PropertyValue", "name": "weightsSizeBytes", "value": 3042035},
+    {"@type": "PropertyValue", "name": "weightsSHA256", "value": "b2dfc0d05add95786797e596559f3e86de9b3a9c9dbce6818814ad05d6317b58"},
+    {"@type": "PropertyValue", "name": "engineSHA256", "value": "6188cb269e07a134e865de4f7b68ee8c5dcfd1bde8771ad2c7b574a2edb4355a"},
+    {"@type": "PropertyValue", "name": "trainingSteps", "value": 12890},
+    {"@type": "PropertyValue", "name": "datePublished", "value": "2026-09-30"},
+    {"@type": "PropertyValue", "name": "runsLocally", "value": true},
+    {"@type": "PropertyValue", "name": "requiresAPIKey", "value": false}
+  ]
+}
+</script>
 <style>
 :root{--bg:#070b14;--panel:#0d1424;--panel2:#111a30;--line:#1e2c4d;--txt:#d7e0f2;--dim:#8b98b8;--gold:#e8c766;--amber:#ffc93c;--amber2:#ffdf7e;--acc:#5aa2ff;--grn:#5aff8a;--red:#ff5a5a}
 *{box-sizing:border-box}
@@ -106,6 +145,20 @@ code{background:#05080f;border:1px solid var(--line);border-radius:4px;padding:1
     <p style="color:var(--dim);font-size:.8em;margin-bottom:0">The book's showcase card links back here — the two sites are tied both ways.</p>
   </div>
 
+  <div class="panel" id="facts">
+    <h2><span class="tick">●</span> FACTS AT A GLANCE</h2>
+    <p style="color:var(--dim);font-size:.85em;margin-top:0">Static facts, readable by search engines and AI crawlers without JavaScript. Counts grow; the "as of" date marks the last count.</p>
+    <div class="kv"><b>Model</b><span>Signature Llama v1 (SIGLLAMA-V1) — 2,983,488 parameters · 5 layers · 8 attention heads · hidden size 192 · context 128 tokens · character-level tokenizer, 84 tokens</span></div>
+    <div class="kv"><b>Status</b><span>● LIVE (as of 2026-10-01) — trained 12,890 steps; weights published 2026-09-30</span></div>
+    <div class="kv"><b>Weights hash</b><span>SHA-256 <code>b2dfc0d05add95786797e596559f3e86de9b3a9c9dbce6818814ad05d6317b58</code> · SGLL v1 binary, int8 per-row scales, 3,042,035 bytes</span></div>
+    <div class="kv"><b>Engine hash</b><span>SHA-256 <code>6188cb269e07a134e865de4f7b68ee8c5dcfd1bde8771ad2c7b574a2edb4355a</code> · sigllama.js, pure JavaScript, zero dependencies</span></div>
+    <div class="kv"><b>LLM / AI dictionary</b><span>312 original terms (as of 2026-10-02)</span></div>
+    <div class="kv"><b>Tool libraries</b><span>120 runnable plug-ins (as of 2026-10-02)</span></div>
+    <div class="kv"><b>Explainer guide</b><span>28 knowledge entries (as of 2026-10-02)</span></div>
+    <div class="kv"><b>Two ways to talk</b><span>✦ Signature Llama v1 runs LOCAL, on your device — no key, no fee. ⬢ Llama · Industry Standard is the full-scale CLOUD version via Groq and needs a free API key. They are never confused: every answer is labeled.</span></div>
+    <div class="kv"><b>Independence</b><span>Signature Llama is an independent model by Justin Addam Higgins — not affiliated with, endorsed by, or related to Meta or the LLaMA models.</span></div>
+  </div>
+
   <div class="panel" id="model">
     <h2><span class="tick">●</span> MODEL CARD</h2>
     <div class="kv"><b>What it is</b><span>A decoder-only transformer, hand-written from scratch — no borrowed code, no pretrained weights.</span></div>
@@ -130,7 +183,7 @@ code{background:#05080f;border:1px solid var(--line);border-radius:4px;padding:1
     <p style="color:var(--dim);font-size:.9em;margin-top:.6em" id="chatstate">Loading the trained model…</p>
     <div class="chatrow" style="margin-bottom:8px;align-items:center">
       <label for="modelpick" style="color:var(--dim);font-size:.85em;flex:none">Model&nbsp;</label>
-      <select id="modelpick" style="font-size:1em;padding:10px;flex:1;min-width:0">
+      <select id="modelpick" aria-label="Choose the model: on-device Signature Llama v1 or cloud Llama Industry Standard" style="font-size:1em;padding:10px;flex:1;min-width:0">
         <option value="v1">✦ Signature Llama v1 · on-device</option>
         <option value="industry">⬢ Llama · Industry Standard · full-scale cloud</option>
       </select>
@@ -180,7 +233,7 @@ document.body.insertAdjacentHTML('beforeend', '&lt;p&gt;' + reply + '&lt;/p&gt;'
     <h3 style="color:var(--gold);margin:1.2em 0 .3em;font-size:1em">🔗 LINK THIS INTO YOUR PROJECT</h3>
     <p style="color:var(--dim);font-size:.9em;margin:.2em 0 .6em">Pick what to link to, type a question or word if needed, then copy the link.</p>
     <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
-      <select id="linktarget" style="font-size:1em;padding:10px">
+      <select id="linktarget" aria-label="Link target section" style="font-size:1em;padding:10px">
         <option value="chat">💬 Talk to Llama</option>
         <option value="dictionary">📖 Dictionary</option>
         <option value="downloads">⤓ Downloads</option>
@@ -402,6 +455,24 @@ Signature Llama is an independent model by Justin Addam Higgins, not affiliated 
   <div class="disclaimer">Signature Llama is an <b>independent model created by Justin Addam Higgins</b> — trained from scratch on the IWB Dictionary and Signature spec text. It is not affiliated with, endorsed by, sponsored by, or connected to Meta Platforms, Inc. or the LLaMA model family. The name similarity is coincidental branding of the "signature" line.</div>
 
 </div>
+
+  <div class="panel" id="methodology">
+    <h2><span class="tick">●</span> DATA &amp; METHODOLOGY</h2>
+    <p style="color:var(--dim);font-size:.85em;margin-top:0">How Signature Llama v1 was built, what the files are, how to check them, and what is local versus cloud. Nothing here is a metaphor: the numbers below are the actual model facts.</p>
+    <h3 style="color:var(--amber2);font-size:1em;margin:1em 0 .4em">Model card summary</h3>
+    <div class="kv"><b>Architecture</b><span>Decoder-only transformer, hand-written from scratch — no borrowed code, no pretrained weights.</span></div>
+    <div class="kv"><b>Scale</b><span>2,983,488 parameters (~3M): 5 layers, 8 attention heads, hidden size 192, context 128 tokens, 84-token character-level tokenizer.</span></div>
+    <div class="kv"><b>Training</b><span>12,890 steps on a 135,340-line / 23.2 MB creator-authored corpus (IWB Dictionary definitions + Signature spec text, seed 614); finished 2026-09-30; weights published 2026-09-30 22:39 EDT.</span></div>
+    <div class="kv"><b>Honesty</b><span>v1 is small, lively and a little quirky — like a bright intern. It can invent facts — verify anything important.</span></div>
+    <h3 style="color:var(--amber2);font-size:1em;margin:1em 0 .4em">SGLL weights format</h3>
+    <p style="font-size:.9em;margin:.4em 0">Weights ship as a <b>SGLL v1 binary</b> file (<code>sigllama-v1.bin</code>, 3,042,035 bytes): the full 2,983,488 parameters in <b>int8 with per-row scales</b> — each row of the weight matrices is stored as 8-bit integers plus one scale value, so the whole model downloads in seconds and runs in a few megabytes of memory. The matching engine is <code>sigllama.js</code> (11,683 bytes, pure JavaScript, zero dependencies) with <code>vocab.json</code> (84 characters).</p>
+    <h3 style="color:var(--amber2);font-size:1em;margin:1em 0 .4em">Hash verification</h3>
+    <p style="font-size:.9em;margin:.4em 0">The official weights hash is <code>b2dfc0d05add95786797e596559f3e86de9b3a9c9dbce6818814ad05d6317b58</code> (SHA-256) and the official engine hash is <code>6188cb269e07a134e865de4f7b68ee8c5dcfd1bde8771ad2c7b574a2edb4355a</code>. To verify a copy: download the file, compute its SHA-256 (for example <code>sha256sum sigllama-v1.bin</code> on a computer, or any SHA-256 tool), and compare to the hash above — they must match exactly. The page's Downloads panel checks the hashes automatically at runtime and names the failure if a file does not match (MODEL_CORRUPT).</p>
+    <h3 style="color:var(--amber2);font-size:1em;margin:1em 0 .4em">Local vs Industry Standard</h3>
+    <div class="kv"><b>✦ Signature Llama v1 (LOCAL)</b><span>The trained 2,983,488-parameter model, running on your device in the browser. No keys, no fees, no network calls — local text generation only.</span></div>
+    <div class="kv"><b>⬢ Llama · Industry Standard (CLOUD)</b><span>The full-scale Llama the industry runs (default Llama 3.3 70B; Llama 4 Maverick / Llama 4 Scout selectable), served live from the cloud by Groq. Needs a free API key (bring-your-own, stored only in your browser). Llama weights are by Meta; this site is independent, not affiliated with Meta.</span></div>
+    <div class="kv"><b>Never confused</b><span>The chat box has a model picker; every reply is labeled with which engine answered — ✦ Trained Llama v1 or ⬢ Industry Standard.</span></div>
+  </div>
 
 <div class="footer"><span class="sig">A SIGNATURE SYSTEM</span><br>Signature Llama — the baseline AI, currently free for all internet tasks.<br><span style="font-size:.8em">Independent model by Justin Addam Higgins · Not affiliated with Meta</span><br><span id="lastupdated" style="font-size:.78em;color:var(--dim)"></span></div>
 

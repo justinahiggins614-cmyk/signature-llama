@@ -106,6 +106,14 @@ HONEST LIMITS
   sampling is intentionally non-deterministic unless deterministic:true/seed.
 - First load needs internet; offline afterwards depends on the browser cache.
 
+NETWORK MASTER INDEX (all 9 JAH sites, hosted here as data files only)
+- Machine-readable index: {site}network-index.json — the 9 sites with official
+  name, live URL, record type, live record count, last updated, and the
+  data/index file each count came from. Re-run code/build_network_index.py
+  to refresh; never hand-edit counts.
+- Ecosystem sitemap: {site}network-sitemap.xml — the 9 site roots plus the
+  index file above.
+
 Independent model by Justin Addam Higgins. Not affiliated with Meta.
 """.format(
     status=m['model_status'].upper(), ms=s['MODEL_STATUS'], mv=s['MODEL_VERSION'],

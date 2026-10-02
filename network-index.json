@@ -1,0 +1,127 @@
+{
+ "index_name": "JAH Network Master Index",
+ "hosted_by": "signature-llama (data files only)",
+ "generated": "2026-10-02",
+ "generated_by": "code/build_network_index.py \u2014 do not hand-edit counts; re-run the script.",
+ "sites": [
+  {
+   "official_name": "The Signature AI Telephone Book",
+   "repo": "jah-ai-models",
+   "live_url": "https://justinahiggins614-cmyk.github.io/jah-ai-models/",
+   "record_type": "AIs",
+   "live_record_count": {
+    "published_ais": 20060,
+    "embedded_ais": 260,
+    "word_ais": 19800
+   },
+   "count_source": "https://justinahiggins614-cmyk.github.io/jah-ai-models/api.json",
+   "last_updated": "2026-10-01",
+   "data_index_url": "https://justinahiggins614-cmyk.github.io/jah-ai-models/data/index/ai-catalog.json",
+   "sitemap_url": "https://justinahiggins614-cmyk.github.io/jah-ai-models/sitemap.xml",
+   "note": ""
+  },
+  {
+   "official_name": "Signature Universal Paradox Immune Calculator",
+   "repo": "jah-calculator",
+   "live_url": "https://justinahiggins614-cmyk.github.io/jah-calculator/",
+   "record_type": "equations",
+   "live_record_count": 48300,
+   "count_source": "https://justinahiggins614-cmyk.github.io/jah-calculator/data/index/eq.idx.json.gz",
+   "last_updated": "2026-09-29",
+   "data_index_url": "https://justinahiggins614-cmyk.github.io/jah-calculator/data/index/eq.idx.json.gz",
+   "sitemap_url": "https://justinahiggins614-cmyk.github.io/jah-calculator/sitemap.xml",
+   "note": ""
+  },
+  {
+   "official_name": "The Signature Dictionary",
+   "repo": "jah-dictionary",
+   "live_url": "https://justinahiggins614-cmyk.github.io/jah-dictionary/",
+   "record_type": "dictionary entries",
+   "live_record_count": {
+    "entries": 577742,
+    "headwords": 102218,
+    "spec_terms": 475524
+   },
+   "count_source": "https://justinahiggins614-cmyk.github.io/jah-dictionary/data/index/stats.json",
+   "last_updated": "2026-10-02",
+   "data_index_url": "https://justinahiggins614-cmyk.github.io/jah-dictionary/data/index/dict.idx.json.gz",
+   "sitemap_url": "https://justinahiggins614-cmyk.github.io/jah-dictionary/sitemap.xml",
+   "note": ""
+  },
+  {
+   "official_name": "JAH Wiki",
+   "repo": "jah-wiki",
+   "live_url": "https://justinahiggins614-cmyk.github.io/jah-wiki/",
+   "record_type": "encyclopedia articles",
+   "live_record_count": 463493,
+   "count_source": "https://justinahiggins614-cmyk.github.io/jah-wiki/api.json",
+   "last_updated": "2026-10-01",
+   "data_index_url": "https://justinahiggins614-cmyk.github.io/jah-wiki/api.json",
+   "sitemap_url": "https://justinahiggins614-cmyk.github.io/jah-wiki/sitemap.xml",
+   "note": "breakdown: {\"spec_articles\": 426870, \"patent_articles\": 36503, \"subject_files\": 120}"
+  },
+  {
+   "official_name": "JAH-N Wiki",
+   "repo": "jah-n-wiki-leaks",
+   "live_url": "https://justinahiggins614-cmyk.github.io/jah-n-wiki-leaks/",
+   "record_type": "dossiers",
+   "live_record_count": 27140,
+   "count_source": "https://justinahiggins614-cmyk.github.io/jah-n-wiki-leaks/api.json",
+   "last_updated": "2026-10-01",
+   "data_index_url": "https://justinahiggins614-cmyk.github.io/jah-n-wiki-leaks/data/patents.idx.json.gz",
+   "sitemap_url": "https://justinahiggins614-cmyk.github.io/jah-n-wiki-leaks/sitemap.xml",
+   "note": ""
+  },
+  {
+   "official_name": "Globally Rejustered Patent Catalog",
+   "repo": "cyber-patent-catalog",
+   "live_url": "https://justinahiggins614-cmyk.github.io/cyber-patent-catalog/",
+   "record_type": "public patent records",
+   "live_record_count": 37431,
+   "count_source": "https://justinahiggins614-cmyk.github.io/cyber-patent-catalog/api.json",
+   "last_updated": "2026-10-02",
+   "data_index_url": "https://justinahiggins614-cmyk.github.io/cyber-patent-catalog/data/patents.jsonl",
+   "sitemap_url": "https://justinahiggins614-cmyk.github.io/cyber-patent-catalog/sitemap.xml",
+   "note": ""
+  },
+  {
+   "official_name": "Signature Spec Catalog Pending Patents",
+   "repo": "signature-one-archive",
+   "live_url": "https://justinahiggins614-cmyk.github.io/signature-one-archive/",
+   "record_type": "draft specs",
+   "live_record_count": 438346,
+   "count_source": "https://justinahiggins614-cmyk.github.io/signature-one-archive/data/index/shards.json",
+   "last_updated": "2026-10-02",
+   "data_index_url": "https://justinahiggins614-cmyk.github.io/signature-one-archive/data/index/shards.json",
+   "sitemap_url": "https://justinahiggins614-cmyk.github.io/signature-one-archive/sitemap.xml",
+   "note": "main + 15 shard repos summed from live index files"
+  },
+  {
+   "official_name": "Signature Llama: The Fully Cyber Utilizable AI",
+   "repo": "signature-llama",
+   "live_url": "https://justinahiggins614-cmyk.github.io/signature-llama/",
+   "record_type": "LLM dictionary terms + tool libraries",
+   "live_record_count": {
+    "dictionary_terms": 312,
+    "tool_libraries": 120
+   },
+   "count_source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/llm-dictionary.json",
+   "last_updated": "2026-10-02",
+   "data_index_url": "https://justinahiggins614-cmyk.github.io/signature-llama/data/llm-dictionary.json",
+   "sitemap_url": "https://justinahiggins614-cmyk.github.io/signature-llama/sitemap.xml",
+   "note": ""
+  },
+  {
+   "official_name": "The Signature PC System Depository",
+   "repo": "jah-computer-systems",
+   "live_url": "https://justinahiggins614-cmyk.github.io/jah-computer-systems/",
+   "record_type": "computer systems",
+   "live_record_count": 5721,
+   "count_source": "https://justinahiggins614-cmyk.github.io/jah-computer-systems/data/last-updated.json",
+   "last_updated": "2026-10-02",
+   "data_index_url": "https://justinahiggins614-cmyk.github.io/jah-computer-systems/data/systems.json",
+   "sitemap_url": "https://justinahiggins614-cmyk.github.io/jah-computer-systems/sitemap.xml",
+   "note": ""
+  }
+ ]
+}
