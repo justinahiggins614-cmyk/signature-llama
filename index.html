@@ -102,10 +102,41 @@ code{background:#05080f;border:1px solid var(--line);border-radius:4px;padding:1
 .disclaimer{border:1px dashed var(--line);border-radius:8px;padding:10px 14px;font-size:.85em;color:var(--dim);margin:18px 0}
 .footer{text-align:center;color:var(--dim);font-size:.85em;padding:26px 10px;border-top:1px solid var(--line);margin-top:30px}
 .footer .sig{color:var(--gold);letter-spacing:.2em}
+
+/* FINDER + TERM/LIBRARY HELPER (additive, 2026-10-02) */
+.finder{border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:8px;background:#0b101c;margin:12px 0;padding:12px 14px}
+.finder-h{color:var(--gold);font-weight:700;letter-spacing:.12em;font-size:.8em;margin-bottom:10px}
+.finder-row{display:flex;gap:8px}
+#finderq{flex:1;min-width:0;background:#0e1424;border:1px solid var(--line);color:var(--ink);padding:9px 10px;font:inherit;border-radius:6px}
+#finderq:focus{outline:none;border-color:var(--gold)}
+#findergo{background:var(--gold);border:none;color:#241a02;font:inherit;font-weight:700;padding:9px 18px;cursor:pointer;border-radius:6px;white-space:nowrap}
+.finder-res{margin-top:10px;display:grid;gap:8px}
+.finder-count{color:var(--gold);letter-spacing:.08em;font-size:.78em}
+.finder-none{color:var(--dim);font-size:.85em}
+a.fcard{display:block;border:1px solid var(--line);background:#0e1424;padding:10px 12px;text-decoration:none;color:var(--ink);border-radius:8px}
+a.fcard:hover{border-color:var(--gold)}
+a.fcard .fkind{color:var(--gold);font-size:.75em;letter-spacing:.1em;font-weight:700}
+a.fcard h3{margin:6px 0;color:var(--ink);font-size:1em}
+a.fcard .fmeta{font-size:.82em;color:var(--dim)}
+a.fcard .fabs{font-size:.86em;margin-top:6px;color:var(--ink)}
+a.fcard .fgo{margin-top:8px;color:var(--gold);font-weight:700;font-size:.85em}
+.llamahelper{border:1px dashed var(--gold);border-radius:8px;margin:12px 0;padding:10px 12px;background:#0b101c}
+.llamahelper-h{color:var(--gold);font-weight:700;letter-spacing:.1em;font-size:.78em;margin-bottom:8px}
+.helper-chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+.hchip{background:transparent;border:1px solid var(--gold);color:var(--gold);font:inherit;font-size:.78em;padding:5px 10px;border-radius:14px;cursor:pointer}
+.hchip:hover{background:rgba(232,199,102,.12)}
+.helper-log{max-height:230px;overflow:auto;margin-bottom:8px}
+.hmsg{margin:6px 0;font-size:.86em;line-height:1.5}
+.hmsg.you{color:var(--dim)}
+.hmsg.ai{color:var(--ink)}
+.helper-row{display:flex;gap:6px}
+.helper-input{flex:1;min-width:0;background:#0e1424;border:1px solid var(--line);color:var(--ink);padding:8px 10px;font:inherit;border-radius:6px}
+.helper-input:focus{outline:none;border-color:var(--gold)}
+.helper-send{background:var(--gold);border:none;color:#241a02;font:inherit;font-weight:700;padding:8px 14px;cursor:pointer;border-radius:6px;white-space:nowrap}
 </style>
 </head>
 <body>
-<div class="jahnet"><span class="jahnet-t">THE JAH NETWORK</span><a href="https://justinahiggins614-cmyk.github.io/jah-ai-models/">The Signature AI Telephone Book</a><a href="https://justinahiggins614-cmyk.github.io/jah-calculator/">Signature Universal Paradox Immune Calculator</a><a href="https://justinahiggins614-cmyk.github.io/jah-dictionary/">The Signature Dictionary</a><a href="https://justinahiggins614-cmyk.github.io/jah-wiki/">JAH Wiki</a><a href="https://justinahiggins614-cmyk.github.io/jah-n-wiki-leaks/">JAH-N Wiki</a><a href="https://justinahiggins614-cmyk.github.io/cyber-patent-catalog/">Globally Rejustered Patent Catalog</a><a href="https://justinahiggins614-cmyk.github.io/signature-one-archive/specs.html">Signature Spec Catalog Pending Patents</a><a class="cur" href="https://justinahiggins614-cmyk.github.io/signature-llama/">Signature Llama</a><span class="cur">YOU ARE HERE: SIGNATURE LLAMA</span><a href="https://justinahiggins614-cmyk.github.io/jah-computer-systems/">The Signature PC System Depository</a><a href="https://justinahiggins614-cmyk.github.io/signature-cyber-mega-mall/">Signature Cyber Mega-Mall</a><a href="https://justinahiggins614-cmyk.github.io/signature-university/">Signature University</a><a href="https://justinahiggins614-cmyk.github.io/signature-books/">The Signature Book Depository</a></div>
+<div class="jahnet"><span class="jahnet-t">THE JAH NETWORK</span><a href="https://justinahiggins614-cmyk.github.io/jah-ai-models/">The Signature AI Telephone Book</a><a href="https://justinahiggins614-cmyk.github.io/jah-calculator/">Signature Universal Paradox Immune Calculator</a><a href="https://justinahiggins614-cmyk.github.io/jah-dictionary/">The Signature Dictionary</a><a href="https://justinahiggins614-cmyk.github.io/jah-wiki/">JAH Wiki</a><a href="https://justinahiggins614-cmyk.github.io/jah-n-wiki-leaks/">JAH-N Wiki</a><a href="https://justinahiggins614-cmyk.github.io/cyber-patent-catalog/">Globally Rejustered Patent Catalog</a><a href="https://justinahiggins614-cmyk.github.io/signature-one-archive/specs.html">Signature Spec Catalog Pending Patents</a><a class="cur" href="https://justinahiggins614-cmyk.github.io/signature-llama/">Signature Llama</a><span class="cur">YOU ARE HERE: SIGNATURE LLAMA</span><a href="https://justinahiggins614-cmyk.github.io/jah-computer-systems/">The Signature PC System Depository</a><a href="https://justinahiggins614-cmyk.github.io/signature-cyber-mega-mall/">Signature Cyber Mega-Mall</a><a href="https://justinahiggins614-cmyk.github.io/signature-university/">Signature University</a><a href="https://justinahiggins614-cmyk.github.io/signature-books/">The Signature Book Depository</a><a href="https://justinahiggins614-cmyk.github.io/signature-comics/">The Signature Comic Store</a><a href="https://justinahiggins614-cmyk.github.io/signature-newspapers/">The Signature Global Newspaper Archive</a><a href="https://justinahiggins614-cmyk.github.io/signature-3d-print/">The Signature 3D Print Depository</a><a href="https://justinahiggins614-cmyk.github.io/signature-backend/">Signature Backend</a><a href="https://justinahiggins614-cmyk.github.io/signature-boundless-generators/">The Signature Boundless Generator Archive</a></div>
 <nav class="bigmenu" aria-label="Site menu">
   <a href="#chat">💬 Talk</a>
   <a href="#dictionary">📖 Dictionary</a>
@@ -433,6 +464,14 @@ Signature Llama is an independent model by Justin Addam Higgins, not affiliated 
     <div class="chatrow" style="margin-bottom:8px">
       <input type="text" id="dictsearch" placeholder="Search the dictionary…" autocomplete="off" aria-label="Search the dictionary">
       <button type="button" id="dictdl">⤓ Download all</button>
+    </div>
+    <div class="finder" id="finder">
+      <div class="finder-h">&#9670; FINDER &mdash; describe what you're looking for in plain words</div>
+      <div class="finder-row">
+        <input id="finderq" type="search" aria-label="Describe what you're looking for" placeholder="Describe what you're looking for&hellip;" autocomplete="off">
+        <button id="findergo" type="button">Find it</button>
+      </div>
+      <div class="finder-res" id="finderres" aria-live="polite"></div>
     </div>
     <div class="az" id="dictaz"></div>
     <div class="az" id="dictcat"></div>
@@ -1279,7 +1318,7 @@ function loadDictionary() {
       renderDict(t);
       document.getElementById('dictionary').scrollIntoView();
       var first = DICT.filter(function (e) { return e.t.toLowerCase() === t.toLowerCase(); })[0];
-      if (first) speak(first.t + '. ' + first.d);
+      if (first) { termHelperMount(first); speak(first.t + '. ' + first.d); }
     } else renderDict('');
   }).catch(function () {
     count.innerHTML = '';
@@ -1806,6 +1845,7 @@ function renderTools(q) {
     b4.onclick = function () { copyText(pageURL() + '?toollib=' + l.id, 'Library link copied — it opens this page on "' + l.name + '".'); };
     row.appendChild(b1); row.appendChild(b2); row.appendChild(b3); row.appendChild(b4); d.appendChild(row);
     list.appendChild(d);
+    if (toolDeep) libHelperAppend(d, l);
   });
   var total = TOOLIBS.libraries.length;
   document.getElementById('toolcount').textContent =
@@ -1817,6 +1857,111 @@ function renderTools(q) {
 function wireToolLibrary() {
   document.getElementById('toolsearch').oninput = function (e) { toolDeep = ''; renderTools(e.target.value); };
   loadToolLibs();
+}
+
+/* ================= FINDER (additive, 2026-10-02) =================
+   Searches the LLM DICTIONARY entries + TOOL LIBRARIES with the same
+   haystacks their own filters use. Top 5 as ?term= / ?toollib= cards.
+   Deterministic, no backend calls. */
+var FINDER_STOP={a:1,an:1,the:1,of:1,to:1,is:1,it:1,in:1,and:1,what:1,how:1,does:1,do:1,
+for:1,with:1,on:1,by:1,i:1,you:1,me:1,my:1,this:1,that:1,tell:1,about:1,please:1,can:1,
+are:1,was:1,were:1,be:1,or:1,as:1,at:1,from:1,find:1,looking:1,want:1,need:1,show:1,
+give:1,some:1,which:1,who:1,when:1,where:1,why:1,all:1,there:1,have:1,has:1,had:1,
+will:1,would:1,could:1,should:1,they:1,we:1,our:1,us:1,if:1,not:1,no:1,but:1,so:1,
+very:1,more:1,many:1,other:1,than:1,just:1,like:1,also:1,over:1,through:1,before:1,
+after:1,each:1,these:1,those:1,then:1,now:1};
+function finderWords(sx){return String(sx==null?"":sx).toLowerCase().replace(/[^a-z0-9\s]/g," ").split(/\s+/).filter(function(w){return w.length>=3&&!FINDER_STOP[w];});}
+function finderScore(hay,ws){hay=String(hay||"").toLowerCase();var n=0;for(var i=0;i<ws.length;i++)if(hay.indexOf(ws[i])>=0)n++;return n;}
+function finderRun(){
+  var qi=document.getElementById("finderq"),box=document.getElementById("finderres");
+  var ws=finderWords(qi.value);
+  if(!ws.length){box.innerHTML='<div class="finder-none">Describe it in a few plain words \u2014 e.g. "token window memory" \u2014 and the Finder scans the dictionary and tool libraries.</div>';return;}
+  var ranked=[];
+  if(window.DICT)for(var i=0;i<DICT.length;i++){var e=DICT[i];
+    var n=finderScore((e.t||"")+" "+(e.d||"")+" "+(e.c||""),ws);
+    if(n>0)ranked.push({kind:"term",e:e,n:n,link:"?term="+encodeURIComponent(e.t)});}
+  if(window.TOOLIBS)for(var li=0;li<TOOLIBS.libraries.length;li++){var L=TOOLIBS.libraries[li];
+    var hay=L.id+" "+L.name+" "+L.desc+" "+L.category+" "+(L.functions||[]).join(" ");
+    var n2=finderScore(hay,ws);
+    if(n2>0)ranked.push({kind:"lib",L:L,n:n2,link:"?toollib="+encodeURIComponent(L.id)});}
+  if(!ranked.length){box.innerHTML='<div class="finder-none">Nothing matched "'+escHtml(ws.join(" "))+'" in the dictionary or tool libraries yet. Try fewer or different words.</div>';return;}
+  ranked.sort(function(a,b){return b.n-a.n;});
+  var top=ranked.slice(0,5);
+  box.innerHTML='<div class="finder-count">TOP '+top.length+' MATCH'+(top.length>1?"ES":"")+' FOR "'+escHtml(ws.join(" "))+'"</div>'+
+    top.map(function(r){
+      if(r.kind==="term")return '<a class="fcard" href="'+r.link+'"><div class="fkind">DICTIONARY TERM</div><h3>'+escHtml(r.e.t)+'</h3><div class="fmeta">'+escHtml(r.e.c||"")+'</div><div class="fabs">'+escHtml(String(r.e.d||"").slice(0,200))+'\u2026</div><div class="fgo">Take me there &rarr;</div></a>';
+      return '<a class="fcard" href="'+r.link+'"><div class="fkind">TOOL LIBRARY</div><h3>'+escHtml(r.L.name)+'</h3><div class="fmeta">'+escHtml(r.L.category||"")+' \u00b7 v'+escHtml(r.L.version||"?")+'</div><div class="fabs">'+escHtml(String(r.L.desc||"").slice(0,200))+'\u2026</div><div class="fgo">Take me there &rarr;</div></a>';
+    }).join("");
+}
+function wireFinder(){
+  var g=document.getElementById("findergo");if(!g)return;
+  g.onclick=finderRun;
+  document.getElementById("finderq").addEventListener("keydown",function(e){if(e.key==="Enter"){e.preventDefault();finderRun();}});
+}
+/* ================= TERM / LIBRARY HELPER (additive, 2026-10-02) ==========
+   Compact bubble on open term / library views. Answers ONLY from the open
+   record's own fields; says plainly when the record does not cover it. */
+function llamaHelperBoxHTML(dataId){
+  return '<div class="llamahelper"><div class="llamahelper-h">\u25c6 HELPER \u2014 answers only from this page\u2019s own record</div>'+
+   '<div class="helper-chips"><button type="button" class="hchip" data-hq="__what" data-rid="'+escHtml(dataId)+'">What is it?</button>'+
+   '<button type="button" class="hchip" data-hq="__facts" data-rid="'+escHtml(dataId)+'">Key facts</button>'+
+   '<button type="button" class="hchip" data-hq="__cover" data-rid="'+escHtml(dataId)+'">What this covers</button></div>'+
+   '<div class="helper-log" aria-live="polite"></div>'+
+   '<div class="helper-row"><input class="helper-input" maxlength="300" placeholder="Ask about this entry\u2026" aria-label="Ask the entry helper">'+
+   '<button class="helper-send" type="button" data-rid="'+escHtml(dataId)+'">ASK</button></div></div>';
+}
+var LLAMAHELPERS={};
+function llamaHelperAnswer(rec,q){
+  function tx(v){return String(v==null?"":(typeof v==="object"?JSON.stringify(v):v)).replace(/\s+/g," ").trim();}
+  function cut(sx,n){var t=tx(sx);return t.length>n?t.slice(0,n)+"\u2026":t;}
+  var isLib=!!rec.isLib;
+  if(q==="__what")return isLib?
+    "<b>What it is:</b> the tool library <b>"+escHtml(rec.L.name)+"</b> ("+escHtml(rec.L.category||"tools")+", v"+escHtml(rec.L.version||"?")+"). "+escHtml(cut(rec.L.desc,400)):
+    "<b>What it is:</b> the dictionary term <b>"+escHtml(rec.e.t)+"</b>"+(rec.e.c?" ("+escHtml(rec.e.c)+")":"")+". "+escHtml(cut(rec.e.d,400));
+  if(q==="__facts")return isLib?
+    "<b>Key facts:</b> library <b>"+escHtml(rec.L.name)+"</b> \u00b7 id "+escHtml(rec.L.id)+" \u00b7 category "+escHtml(rec.L.category||"\u2014")+" \u00b7 v"+escHtml(rec.L.version||"?")+" \u00b7 "+escHtml((rec.L.functions||[]).length+" exported functions")+" \u00b7 status "+escHtml(rec.L.status||"\u2014")+". It runs as a plain JavaScript plug-in under SigLlama.tools.":
+    "<b>Key facts:</b> term <b>"+escHtml(rec.e.t)+"</b>"+(rec.e.c?" \u00b7 category "+escHtml(rec.e.c):"")+" \u00b7 plain original definition, written for this site.";
+  if(q==="__cover")return isLib?
+    "This page covers: the library\u2019s name, category, description, exported functions, usage example, capability declaration, and its full runnable source. It covers nothing else.":
+    "This page covers: the term\u2019s plain definition, category, and its links to Signature AI systems. It covers nothing else.";
+  var ws=finderWords(q);
+  var fields=isLib?
+    [["Category",rec.L.category],["Description",rec.L.desc],["Exported functions",(rec.L.functions||[]).join(", ")],["Example",rec.L.example],["Input",rec.L.input],["Output",rec.L.output],["Status",rec.L.status]]:
+    [["Definition",rec.e.d],["Category",rec.e.c],["Term",rec.e.t]];
+  var best=null,bn=0;
+  for(var i=0;i<fields.length;i++){var hay=tx(fields[i][1]).toLowerCase(),n=0;if(!hay)continue;
+    for(var j=0;j<ws.length;j++)if(hay.indexOf(ws[j])>=0)n++;
+    if(n>bn){bn=n;best=fields[i];}}
+  if(best&&bn>0)return "<b>"+escHtml(best[0])+":</b> "+escHtml(cut(best[1],600));
+  return "<b>Not in this record.</b> I answer only from this page\u2019s own fields \u2014 it doesn\u2019t cover that. Try: what it is, the description, or the exported functions.";
+}
+function llamaHelperAsk(btn,q){
+  var wrap=btn.closest?btn.closest(".llamahelper"):null;if(!wrap)return;
+  var rec=LLAMAHELPERS[btn.getAttribute("data-rid")];if(!rec)return;
+  var log=wrap.querySelector(".helper-log");
+  log.innerHTML+='<div class="hmsg you"><b>YOU:</b> '+escHtml(q)+'</div><div class="hmsg ai"><b>HELPER:</b> '+llamaHelperAnswer(rec,q)+'</div>';
+  log.scrollTop=log.scrollHeight;
+}
+function wireLlamaHelper(scope){
+  var chips=scope.querySelectorAll(".hchip");
+  for(var i=0;i<chips.length;i++)(function(b){b.onclick=function(){llamaHelperAsk(b,b.getAttribute("data-hq"));};})(chips);
+  var sends=scope.querySelectorAll(".helper-send");
+  for(var j=0;j<sends.length;j++)(function(b){b.onclick=function(){var w=b.closest?b.closest(".llamahelper"):null;var inp=w?w.querySelector(".helper-input"):null;var v=inp?inp.value.trim():"";if(v){inp.value="";llamaHelperAsk(b,v);}};})(sends);
+  var inps=scope.querySelectorAll(".helper-input");
+  for(var k=0;k<inps.length;k++)inps[k].addEventListener("keydown",function(e){if(e.key==="Enter"){var v=this.value.trim();if(!v)return;this.value="";var w=this.closest?this.closest(".llamahelper"):null;var b=w?w.querySelector(".helper-send"):null;if(b)llamaHelperAsk(b,v);}});
+}
+function termHelperMount(e){
+  var list=document.getElementById("dictlist");if(!list)return;
+  var rid="term:"+e.t;
+  LLAMAHELPERS[rid]={e:e,isLib:false};
+  list.insertAdjacentHTML("afterbegin",llamaHelperBoxHTML(rid));
+  wireLlamaHelper(list);
+}
+function libHelperAppend(libDiv,L){
+  var rid="lib:"+L.id;
+  LLAMAHELPERS[rid]={L:L,isLib:true};
+  libDiv.insertAdjacentHTML("beforeend",llamaHelperBoxHTML(rid));
+  wireLlamaHelper(libDiv);
 }
 
 /* ---------- AI ACCESS section wiring ---------- */
@@ -1845,6 +1990,7 @@ document.addEventListener('DOMContentLoaded', function () {
   wireToolLibrary();
   wireSectionLinks();
   wireLinkHelper();
+  wireFinder();
   wireAIAccess();
   var dp = document.getElementById('dlpatch');
   if (dp) dp.onclick = function () { window.location.href = 'patch/signature-llama-patch-v1.zip'; };
