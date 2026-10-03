@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script>try{if(localStorage.getItem("jah-theme")==="dark")document.documentElement.dataset.theme="dark";}catch(e){}</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Signature Llama: The Fully Cyber Utilizable AI</title>
@@ -10,7 +11,10 @@
 <meta property="og:description" content="Signature Llama v2 (SIGLLAMA-V2): a 4,056,768-parameter word-level chat model written and trained from scratch by Justin Addam Higgins. Runs in your browser, no keys, no fees. Independent model — not affiliated with Meta.">
 <meta property="og:url" content="https://justinahiggins614-cmyk.github.io/signature-llama/">
 <meta property="og:type" content="website">
+<meta property="og:site_name" content="Signature Llama: The Fully Cyber Utilizable AI">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Signature Llama: The Fully Cyber Utilizable AI">
+<meta name="twitter:description" content="Signature Llama v2 (SIGLLAMA-V2): a 4,056,768-parameter word-level chat model written and trained from scratch by Justin Addam Higgins. Runs in your browser, no keys, no fees. Independent model — not affiliated with Meta.">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -151,9 +155,22 @@ a.fcard .fgo{margin-top:8px;color:var(--gold);font-weight:700;font-size:.85em}
 .helper-input{flex:1;min-width:0;background:#0e1424;border:1px solid var(--line);color:var(--ink);padding:8px 10px;font:inherit;border-radius:6px}
 .helper-input:focus{outline:none;border-color:var(--gold)}
 .helper-send{background:var(--gold);border:none;color:#241a02;font:inherit;font-weight:700;padding:8px 14px;cursor:pointer;border-radius:6px;white-space:nowrap}
+/* UX-2026-10-03: opt-in dark mode via data-theme; default look unchanged */
+html[data-theme="dark"]{filter:invert(1) hue-rotate(180deg)}
+html[data-theme="dark"] img,html[data-theme="dark"] video,html[data-theme="dark"] canvas,html[data-theme="dark"] svg{filter:invert(1) hue-rotate(180deg)}
+#jah-theme-toggle{position:fixed;right:14px;bottom:14px;z-index:99999;width:40px;height:40px;border-radius:50%;border:1px solid var(--gold);background:#0a0f1e;color:var(--gold);font-size:20px;line-height:1;cursor:pointer;opacity:.7;box-shadow:0 2px 8px rgba(0,0,0,.4)}
+#jah-theme-toggle:hover{opacity:1}
 </style>
 </head>
 <body>
+<button id="jah-theme-toggle" type="button" title="Toggle dark mode" aria-label="Toggle dark mode">&#9681;</button>
+<script>
+/* UX-2026-10-03: dark-mode toggle wiring (opt-in; default look unchanged) */
+(function(){var b=document.getElementById("jah-theme-toggle");
+function paint(){try{b.innerHTML=(document.documentElement.dataset.theme==="dark")?"&#9728;":"&#9681;";}catch(e){}}
+b.addEventListener("click",function(){try{var d=document.documentElement;var dark=d.dataset.theme!=="dark";d.dataset.theme=dark?"dark":"";localStorage.setItem("jah-theme",dark?"dark":"light");}catch(e){}paint();});
+paint();})();
+</script>
 <div class="jahnet"><span class="jahnet-t">THE JAH NETWORK</span><a href="https://justinahiggins614-cmyk.github.io/jah-ai-models/">The Signature AI Phone Book</a><a href="https://justinahiggins614-cmyk.github.io/jah-calculator/">Calculator</a><a href="https://justinahiggins614-cmyk.github.io/jah-dictionary/">Dictionary</a><a href="https://justinahiggins614-cmyk.github.io/jah-wiki/">JAH Wiki</a><a href="https://justinahiggins614-cmyk.github.io/jah-n-wiki-leaks/">JAH-N Wiki</a><a href="https://justinahiggins614-cmyk.github.io/cyber-patent-catalog/">Patent Catalog</a><a href="https://justinahiggins614-cmyk.github.io/signature-one-archive/specs.html">Spec Catalog</a><a class="cur" href="https://justinahiggins614-cmyk.github.io/signature-llama/">Signature Llama</a><span class="cur">YOU ARE HERE: SIGNATURE LLAMA</span><a href="https://justinahiggins614-cmyk.github.io/jah-computer-systems/">PC Depository</a><a href="https://justinahiggins614-cmyk.github.io/signature-cyber-mega-mall/">Cyber Mega-Mall</a><a href="https://justinahiggins614-cmyk.github.io/signature-university/">Signature University</a><a href="https://justinahiggins614-cmyk.github.io/signature-books/">Book Depository</a><a href="https://justinahiggins614-cmyk.github.io/signature-comics/">Comic Store</a><a href="https://justinahiggins614-cmyk.github.io/signature-newspapers/">Global Newspaper Archive</a><a href="https://justinahiggins614-cmyk.github.io/signature-3d-print/">3D Print Depository</a><a href="https://justinahiggins614-cmyk.github.io/signature-backend/">Mad Scientist Lab</a><a href="https://justinahiggins614-cmyk.github.io/signature-boundless-generators/">Boundless Generator Archive</a><a href="https://justinahiggins614-cmyk.github.io/signature-ai-mixlab/">AI Mix Lab</a><a href="https://justinahiggins614-cmyk.github.io/signature-ai-olypics/">AI Olypics</a><a href="https://justinahiggins614-cmyk.github.io/signature-chip-maker/">Chip Maker and Archive</a><a href="https://justinahiggins614-cmyk.github.io/signature-app-archive/">App Archive</a><a href="https://justinahiggins614-cmyk.github.io/signature-ai-robot-matcher/">AI Robot Matcher</a><a href="https://justinahiggins614-cmyk.github.io/signature-experiment-solver/">Experiment Solver</a><a href="https://justinahiggins614-cmyk.github.io/signature-ai-image-video-maker/">Signature AI Pixel</a><a href="https://justinahiggins614-cmyk.github.io/signature-ai-song-maker/">Signature Music Studio</a></div>
 <nav class="bigmenu" aria-label="Site menu">
   <a href="#chat">💬 Talk</a>
@@ -2125,6 +2142,57 @@ document.addEventListener('DOMContentLoaded', function () {
   var dp = document.getElementById('dlpatch');
   if (dp) dp.onclick = function () { window.location.href = 'patch/signature-llama-patch-v1.zip'; };
 });
+})();
+</script>
+<script>
+/* UX-2026-10-03 session restore — localStorage only; nothing leaves this device.
+   (b) tab state: n/a on this page (no tab buttons). */
+(function(){
+try{
+var P=location.pathname;
+function sk(n){return "jah-sx:"+P+":"+n;}
+var recScrolled=false;
+function hasDeepLink(){try{var u=new URLSearchParams(location.search);return !!(u.get("term")||u.get("toollib")||u.get("ask"));}catch(e){return false;}}
+/* (a) scroll position: throttled save, restore after content settles */
+var st=null;
+window.addEventListener("scroll",function(){if(st)return;st=setTimeout(function(){st=null;try{localStorage.setItem(sk("y"),String(window.scrollY||window.pageYOffset||0));}catch(e){}},300);},{passive:true});
+function doScroll(){if(recScrolled||hasDeepLink())return;try{var y=parseInt(localStorage.getItem(sk("y"))||"0",10);if(y>0)window.scrollTo(0,y);}catch(e){}}
+/* (c) last-viewed record: ?term= / ?toollib= deep links; scroll into view on a bare page if present */
+try{
+  var u2=new URLSearchParams(location.search);
+  var rec=u2.get("term")?("term:"+u2.get("term")):(u2.get("toollib")?("toollib:"+u2.get("toollib")):null);
+  if(rec)localStorage.setItem(sk("rec"),rec);
+}catch(e){}
+function restoreRec(){
+  try{
+    if(hasDeepLink())return;
+    var rec=localStorage.getItem(sk("rec"));
+    if(!rec)return;
+    var i=rec.indexOf(":"),kind=rec.slice(0,i),val=rec.slice(i+1);
+    if(kind==="term"){
+      var terms=document.querySelectorAll(".dterm");
+      for(var k=0;k<terms.length;k++){
+        var h=terms[k].querySelector("h3");
+        if(h&&h.childNodes[0]&&h.childNodes[0].nodeValue===val){
+          terms[k].scrollIntoView();recScrolled=true;return;
+        }
+      }
+    }else if(kind==="toollib"){
+      var sec=document.getElementById("toollib");
+      if(sec){sec.scrollIntoView();recScrolled=true;}
+    }
+  }catch(e){}
+}
+var tries=0;
+var iv=setInterval(function(){
+  tries++;
+  if(document.querySelector(".dterm")||tries>40){
+    clearInterval(iv);
+    setTimeout(function(){restoreRec();doScroll();},400);
+  }
+},250);
+window.addEventListener("load",function(){setTimeout(doScroll,900);});
+}catch(e){}
 })();
 </script>
 </body>
