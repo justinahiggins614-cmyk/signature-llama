@@ -74,7 +74,8 @@
         max_tokens: opts.maxTokens || 600,
         temperature: opts.temperature === undefined ? 0.7 : opts.temperature
       };
-      return fetch(ENDPOINT, {
+      var TIMEOUT_MS = opts.timeoutMs || 60000; /* a cloud call never hangs forever */
+      var req = fetch(ENDPOINT, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + key },
         body: JSON.stringify(body)
@@ -92,6 +93,14 @@
         if (e && e.code) throw e;
         throw err('NETWORK', 'Could not reach the cloud (' + String((e && e.message) || e).slice(0, 120) + '). Check your connection — v1 still works offline.');
       });
+      return Promise.race([
+        req,
+        new Promise(function (_, rej) {
+          setTimeout(function () {
+            rej(err('TIMEOUT', 'The cloud did not answer within ' + Math.round(TIMEOUT_MS / 1000) + ' seconds — try again, or switch back to v1.'));
+          }, TIMEOUT_MS);
+        })
+      ]);
     }
   };
   window.IndustryLlama = api;

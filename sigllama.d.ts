@@ -40,12 +40,24 @@ export interface SigLlamaModelInfo {
   layers: number; heads: number; seq: number;
 }
 
+/** Load options for SigLlama.load() — progress + integrity. */
+export interface SigLlamaLoadOptions {
+  /** Expected full-file SHA-256 of the weights (hex). Mismatch rejects with
+   *  a named MODEL_CORRUPT. Skipped when WebCrypto is unavailable. */
+  verifySha256?: string;
+  /** Known total bytes (from model-status.json) for the progress percent
+   *  when the server omits Content-Length. */
+  totalBytes?: number;
+  /** Called roughly every 64 KB: (bytesLoaded, bytesTotal or 0). */
+  onProgress?: (bytesLoaded: number, bytesTotal: number) => void;
+}
+
 /** The pure-JS inference engine (sigllama.js). Global `SigLlama`. */
 export interface SigLlamaEngine {
   /** Load weights+vocab from a base URL. Defaults: vocabFile 'vocab.json',
    *  binFile 'sigllama-v1.bin' — pass 'vocab2.json' / 'sigllama-v2.bin'
    *  for SIGLLAMA-V2. Rejects with a named SigLlamaError. */
-  load(baseUrl: string, vocabFile?: string, binFile?: string): Promise<SigLlamaModelInfo>;
+  load(baseUrl: string, vocabFile?: string, binFile?: string, opts?: SigLlamaLoadOptions): Promise<SigLlamaModelInfo>;
   /** True when weights are parsed and the model is ready. */
   loaded(): boolean;
   /** Model facts, or null before load(). */
@@ -183,7 +195,7 @@ export interface IndustryLlamaApi {
   setChoice(c: 'v1' | 'industry'): void;
   ready(): boolean;
   chat(messages: Array<{ role: 'system' | 'user' | 'assistant'; content: string }>,
-       opts?: { maxTokens?: number; temperature?: number }): Promise<string>;
+       opts?: { maxTokens?: number; temperature?: number; timeoutMs?: number }): Promise<string>;
 }
 
 declare global {

@@ -13,7 +13,7 @@ MODEL FACTS (current: SIGLLAMA-V2)
   hidden size 192, context 96 words, vocab 2879 (word-level)
 - Weights: int8 per-row scales, SGLL v1 binary, 4,137,675 bytes
 - Weights SHA-256: e351a9e1133a1774782d9f6f0e77f6ab756ca769af59fbbe763f6321e32d7049
-- Engine: sigllama.js (pure JavaScript, zero dependencies), SHA-256 d387c26e4531838fbf07b860804bd27e01a6e4688f4675a33ba32108155d2bf1
+- Engine: sigllama.js (pure JavaScript, zero dependencies), SHA-256 611464f719fd6fa67c96352039a57e3c314f7264ca36908e5baa02a8ba9989a6
 - Vocab: vocab2.json (2,879 word tokens), SHA-256 94a6847481fe2344ff1f6dd732a8bc790279eb0edd3bfd0ea0b0678240fafe9c
 - Training: 7,200 steps on 28,737 persona-dialogue examples (~1.88M
   tokens) distilled from the phone book's 270 AI profiles; validation loss

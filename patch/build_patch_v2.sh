@@ -64,7 +64,7 @@ WHAT IS WHERE
 VERIFY
   sha256sum -c <(grep -v '^#' /dev/null)  # or compare each file's hash to MANIFEST.json
   The v2 weights hash must be e351a9e1133a1774782d9f6f0e77f6ab756ca769af59fbbe763f6321e32d7049
-  and the v2 engine hash d387c26e4531838fbf07b860804bd27e01a6e4688f4675a33ba32108155d2bf1.
+  and the v2 engine hash 611464f719fd6fa67c96352039a57e3c314f7264ca36908e5baa02a8ba9989a6.
 
 QUICK START
   See patch/embed-snippet.html, or the Developers section on the site.

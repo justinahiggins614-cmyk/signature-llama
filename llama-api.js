@@ -58,7 +58,7 @@
   var PINNED = {
     model_id: 'SIGLLAMA-V2',
     model_version: '2.0',
-    engine_sha256: 'd387c26e4531838fbf07b860804bd27e01a6e4688f4675a33ba32108155d2bf1',
+    engine_sha256: '611464f719fd6fa67c96352039a57e3c314f7264ca36908e5baa02a8ba9989a6',
     weights_sha256: 'e351a9e1133a1774782d9f6f0e77f6ab756ca769af59fbbe763f6321e32d7049',
     vocab_sha256: '94a6847481fe2344ff1f6dd732a8bc790279eb0edd3bfd0ea0b0678240fafe9c',
     vocab_tokens: 2879,

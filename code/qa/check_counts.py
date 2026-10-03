@@ -27,11 +27,11 @@ EXPECTED = {
     "dict_terms": 312,
     "tool_libraries": 120,
     "kb_entries": 28,
-    "params": 2983488,
-    "weights_size": 3042035,
-    "weights_sha256": "b2dfc0d05add95786797e596559f3e86de9b3a9c9dbce6818814ad05d6317b58",
-    "engine_sha256": "6188cb269e07a134e865de4f7b68ee8c5dcfd1bde8771ad2c7b574a2edb4355a",
-    "vocab_sha256": "53363d3fc2ca692de59c1b311f5dcfef29555e41295adb7fb40d8e10a79b6406",
+    "params": 4056768,
+    "weights_size": 4137675,
+    "weights_sha256": "e351a9e1133a1774782d9f6f0e77f6ab756ca769af59fbbe763f6321e32d7049",
+    "engine_sha256": "611464f719fd6fa67c96352039a57e3c314f7264ca36908e5baa02a8ba9989a6",
+    "vocab_sha256": "94a6847481fe2344ff1f6dd732a8bc790279eb0edd3bfd0ea0b0678240fafe9c",
 }
 
 
@@ -77,7 +77,7 @@ def main():
         fails.append("explainer KB: %d entries, expected %d" % (n_kb, EXPECTED["kb_entries"]))
     print("  explainer KB entries:", n_kb)
 
-    params, err = sgll_params(os.path.join(ROOT, "sigllama/sigllama-v1.bin"))
+    params, err = sgll_params(os.path.join(ROOT, "sigllama/sigllama-v2.bin"))
     if err or params != EXPECTED["params"]:
         fails.append("weights header: %s, expected %d params" % (err or params, EXPECTED["params"]))
     print("  SGLL params:", params)
@@ -88,9 +88,9 @@ def main():
     if ms["weights"]["size_bytes"] != EXPECTED["weights_size"]:
         fails.append("model-status.json weights size_bytes != %d" % EXPECTED["weights_size"])
 
-    for key, rel, expect in [("weights", "sigllama/sigllama-v1.bin", EXPECTED["weights_sha256"]),
+    for key, rel, expect in [("weights", "sigllama/sigllama-v2.bin", EXPECTED["weights_sha256"]),
                             ("engine", "sigllama/sigllama.js", EXPECTED["engine_sha256"]),
-                            ("vocab", "sigllama/vocab.json", EXPECTED["vocab_sha256"])]:
+                            ("vocab", "sigllama/vocab2.json", EXPECTED["vocab_sha256"])]:
         raw = open(os.path.join(ROOT, rel), "rb").read()
         h = hashlib.sha256(raw).hexdigest()
         if h != expect:
@@ -109,7 +109,7 @@ def main():
 
     # llms.txt carries the same key numbers
     llms = open(os.path.join(ROOT, "llms.txt"), encoding="utf-8").read()
-    for token in ["2,983,488", "312", "120"]:
+    for token in ["4,056,768", "312", "120"]:
         if token not in llms:
             fails.append("llms.txt missing token '%s'" % token)
 
