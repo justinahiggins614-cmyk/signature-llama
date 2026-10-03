@@ -1097,11 +1097,12 @@ function initChat(base) {
   renderStatusCard();
   addMsg(log, 's', 'Waking the Llama up…');
   loadScript(base + FILES.js).then(function () {
-    /* the full ~3MB weights fetch can also catch a transient edge hiccup: one retry */
-    return SigLlama.load(base).catch(function (e) {
+    /* SigLlama v2 = the chat model (word-level, trained on persona dialogues).
+       One retry on transient edge hiccups. */
+    return SigLlama.load(base, 'vocab2.json', 'sigllama-v2.bin').catch(function (e) {
       noteFailureDetail('SigLlama.load first attempt: ' + String((e && e.message) || e) + ' - retrying once');
       return new Promise(function (res, rej) {
-        setTimeout(function () { SigLlama.load(base).then(res, rej); }, 800);
+        setTimeout(function () { SigLlama.load(base, 'vocab2.json', 'sigllama-v2.bin').then(res, rej); }, 800);
       });
     });
   }).then(function () {
