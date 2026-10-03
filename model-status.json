@@ -27,8 +27,8 @@
   },
   "engine": {
     "file": "sigllama.js",
-    "sha256": "6188cb269e07a134e865de4f7b68ee8c5dcfd1bde8771ad2c7b574a2edb4355a",
-    "size_bytes": 11683,
+    "sha256": "d387c26e4531838fbf07b860804bd27e01a6e4688f4675a33ba32108155d2bf1",
+    "size_bytes": 12893,
     "url": "https://justinahiggins614-cmyk.github.io/signature-backend/sigllama/sigllama.js",
     "version": "1.0",
     "created": "2026-09-30"

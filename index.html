@@ -276,7 +276,7 @@ a.fcard .fgo{margin-top:8px;color:var(--gold);font-weight:700;font-size:.85em}
     <pre id="embedcode">&lt;script src="https://justinahiggins614-cmyk.github.io/signature-backend/sigllama/sigllama.js"&gt;&lt;/script&gt;
 &lt;script type="module"&gt;
 // type="module" is REQUIRED: only a module script allows the top-level await below.
-// First load needs internet (engine + ~3 MB weights). Failures surface by name —
+// First load needs internet (engine + ~4 MB weights). Failures surface by name —
 // see llama-manifest.json "failure_states" (ENGINE_LOAD_FAILED, MODEL_NOT_FOUND, ...).
 await SigLlama.load('https://justinahiggins614-cmyk.github.io/signature-backend/sigllama/');
 const reply = await SigLlama.generate('Hello, Llama.', { maxTokens: 60 });
@@ -312,9 +312,9 @@ document.body.insertAdjacentHTML('beforeend', '&lt;p&gt;' + reply + '&lt;/p&gt;'
     <p style="color:var(--dim);font-size:.9em;margin-top:0" id="dlstate">Checking model status…</p>
     <p style="color:var(--dim);font-size:.78em;margin:.2em 0">Independent Signature implementation — not affiliated with, endorsed by, or related to Meta or the LLaMA models.</p>
     <div style="display:flex;gap:10px;flex-wrap:wrap">
-      <button type="button" id="dl-bin" disabled>⤓ Weights (sigllama-v1.bin)</button>
+      <button type="button" id="dl-bin" disabled>⤓ Weights (sigllama-v2.bin)</button>
       <button type="button" id="dl-js" disabled>⤓ Engine (sigllama.js)</button>
-      <button type="button" id="dl-vocab" disabled>⤓ Vocab (vocab.json)</button>
+      <button type="button" id="dl-vocab" disabled>⤓ Vocab (vocab2.json)</button>
     </div>
     <div id="assetmeta" style="font-size:.82em;color:var(--dim);margin-top:10px"></div>
   </div>
@@ -325,7 +325,7 @@ document.body.insertAdjacentHTML('beforeend', '&lt;p&gt;' + reply + '&lt;/p&gt;'
     <div class="kv"><b>Browser</b><span>Any modern browser with JavaScript. The engine is one dependency-free file; unsupported browsers get a named failure (BROWSER_UNSUPPORTED) instead of silence.</span></div>
     <div class="kv"><b>Desktop</b><span>Yes — anything that runs a modern browser, any OS.</span></div>
     <div class="kv"><b>Mobile</b><span>Yes — the same page; read-aloud is chunked so long replies are not cut off on phones.</span></div>
-    <div class="kv"><b>Online</b><span>Required for first load: the engine (~12 KB) plus the weights (~3 MB) download from signature-backend.</span></div>
+    <div class="kv"><b>Online</b><span>Required for first load: the engine (~13 KB) plus the weights (~4 MB) download from signature-backend.</span></div>
     <div class="kv"><b>Offline</b><span>After the first load, your browser's HTTP cache can serve the files offline. Offline use is not guaranteed and has not been lab-tested — it depends on your browser's cache.</span></div>
     <div class="kv"><b>Model limits</b><span>The model itself does local text generation only — no network, no files, no device access. Tool libraries are optional plug-ins; only the ones you load run, and only as ordinary page JavaScript.</span></div>
   </div>
@@ -566,7 +566,7 @@ function llamaFallbackReply(text) {
 (function () {
 'use strict';
 var BACKEND = 'https://justinahiggins614-cmyk.github.io/signature-backend/sigllama/';
-var FILES = { bin: 'sigllama-v1.bin', js: 'sigllama.js', vocab: 'vocab.json' };
+var FILES = { bin: 'sigllama-v2.bin', js: 'sigllama.js', vocab: 'vocab2.json' };
 var modelLive = false;
 
 /* ---------- single authoritative model state (model-status.json) ---------- */
@@ -581,8 +581,8 @@ var MODEL_STATUS = {
     sha256: 'e351a9e1133a1774782d9f6f0e77f6ab756ca769af59fbbe763f6321e32d7049',
     size_bytes: 4137675 },
   engine: { file: 'sigllama.js',
-    sha256: '6188cb269e07a134e865de4f7b68ee8c5dcfd1bde8771ad2c7b574a2edb4355a',
-    size_bytes: 11683, version: '1.0' },
+    sha256: 'd387c26e4531838fbf07b860804bd27e01a6e4688f4675a33ba32108155d2bf1',
+    size_bytes: 12893, version: '1.0' },
   vocab: { file: 'vocab2.json',
     sha256: '94a6847481fe2344ff1f6dd732a8bc790279eb0edd3bfd0ea0b0678240fafe9c',
     size_bytes: 74180, tokens: 2879, version: '2.0' }
@@ -596,7 +596,7 @@ function loadModelStatus() {
 /* ---------- named failure states (never a bare "Llama failed") ---------- */
 var FAILURES = {
   ENGINE_LOAD_FAILED: 'The engine script sigllama.js could not be downloaded or parsed.',
-  MODEL_NOT_FOUND: 'vocab.json or sigllama-v1.bin returned 404 at the model base URL.',
+  MODEL_NOT_FOUND: 'vocab2.json or sigllama-v2.bin returned 404 at the model base URL.',
   MODEL_CORRUPT: "The weight binary failed its header check (magic 'SGLL', format version 1) or failed to parse.",
   BROWSER_UNSUPPORTED: 'This browser is missing APIs the engine needs (fetch, Blob, URL, typed arrays).',
   OUT_OF_MEMORY: 'The browser ran out of memory while allocating the model (~3 MB of weights expand to tens of MB of Float32 tensors).',
@@ -611,7 +611,7 @@ function classifyError(err, phase) {
   var m = String((err && err.message) || err || '');
   if (/out of memory|allocation failed|RangeError/i.test(m)) return 'OUT_OF_MEMORY';
   if (/bad magic|bad version|parse/i.test(m)) return 'MODEL_CORRUPT';
-  if (/vocab\.json not found|fetch failed|404|Failed to fetch|NetworkError/i.test(m)) {
+  if (/vocab2?\.json not found|fetch failed|404|Failed to fetch|NetworkError/i.test(m)) {
     if (phase === 'script') return 'ENGINE_LOAD_FAILED';
     return 'MODEL_NOT_FOUND';
   }
@@ -1345,7 +1345,7 @@ function downloadAllZip(base) {
     end.setUint16(10, files.length, true); end.setUint32(12, cdSize, true);
     end.setUint32(16, off, true);
     chunks.push(end.buffer);
-    saveBlob('signature-llama-v1.zip', new Blob(chunks, { type: 'application/zip' }));
+    saveBlob('signature-llama-v2.zip', new Blob(chunks, { type: 'application/zip' }));
     btn.disabled = false; btn.textContent = '⤓ Download everything (.zip)';
   }).catch(function () {
     btn.disabled = false; btn.textContent = '⤓ Download everything (.zip)';
