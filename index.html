@@ -50,6 +50,24 @@
 body{margin:0;background:var(--bg);color:var(--txt);font-family:Georgia,'Times New Roman',serif;line-height:1.55}
 .jahnet{background:#0a0f1e;color:#9aa4b2;font-size:.76em;padding:7px 10px;text-align:center;line-height:2;letter-spacing:.02em;border-bottom:1px solid var(--line)}
 .jahnet-t{color:var(--gold);font-weight:700;letter-spacing:.25em;margin-right:10px}
+/* NETWORK 10-FIX consistency layer (additive, 2026-10-03) */
+.sitekicker{display:inline-block;color:var(--gold);font-weight:700;letter-spacing:.2em;font-size:.85em;
+  border:1px solid var(--gold);border-radius:3px;padding:1px 8px;margin:0 0 10px;white-space:nowrap}
+.jahstatus{display:inline-block;font-size:.72em;letter-spacing:.18em;font-weight:700;color:#0a0f1e;
+  background:var(--gold);border-radius:3px;padding:2px 9px;margin:6px 8px 6px 0}
+.jahstatus.gen{background:#9fc2ff;color:#0a1424}
+.jahstatus.sim{background:#b48cff;color:#141021}
+.jahstatus.pub{background:#7fe0c3;color:#0a1a14}
+.jahprov{font-size:.78em;color:var(--dim);margin:8px 0 2px;letter-spacing:.02em}
+.jahrecord{border:1px solid var(--line);border-radius:8px;padding:8px 12px;margin:10px 0;background:#0b1120;font-size:.8em;color:var(--txt)}
+.jahrecord .jrp-meta{color:var(--dim);margin:4px 0 8px;font-size:.92em}
+.jahrecord .jrp-meta b{color:var(--amber2);font-weight:700;letter-spacing:.08em}
+.jahrecord .jrp-row{display:flex;flex-wrap:wrap;gap:6px}
+.jrp-btn{background:#1a2340;border:1px solid var(--amber);color:var(--amber2);border-radius:6px;
+  padding:7px 12px;font-size:.85em;cursor:pointer;text-decoration:none;display:inline-block}
+.jrp-btn:hover{background:#232c52}
+.jah-aiid{border-left:3px solid var(--amber);background:#0d1424;padding:8px 12px;margin:8px 0;font-size:.82em;color:var(--txt)}
+.jah-aiid b{color:var(--amber2);letter-spacing:.06em;font-weight:700}
 .jahnet a{color:#9fc2ff;text-decoration:none;margin:0 7px;white-space:nowrap}
 .jahnet a:hover{text-decoration:underline}
 .jahnet .cur{color:var(--gold);font-weight:700;margin:0 7px}
@@ -149,6 +167,7 @@ a.fcard .fgo{margin-top:8px;color:var(--gold);font-weight:700;font-size:.85em}
 </nav>
 
 <div class="hero">
+  <p class="sitekicker">SITE 8 OF 25 · THE JAH NETWORK</p>
   <h1>Signature Llama</h1>
   <p class="offname">The Fully Cyber Utilizable AI</p>
   <p>Welcome to the home of Signature Llama — a baseline AI, a tiny language model written and trained from scratch on the IWB Dictionary and Signature spec text. No big-tech API, no keys, no fees: it runs right in your browser, currently free for all internet tasks.</p>
@@ -211,6 +230,7 @@ a.fcard .fgo{margin-top:8px;color:var(--gold);font-weight:700;font-size:.85em}
       <p id="llamastatusdetail" style="margin:.3em 0;font-size:.9em">Loading model status…</p>
       <p id="llamastatushash" style="margin:.3em 0;font-size:.78em;color:var(--dim)"></p>
     </div>
+    <div class="jah-aiid" role="note" aria-label="AI identity card"><b>AI IDENTITY</b> · <b>Name:</b> Signature Llama · <b>Duties:</b> answers your questions · the talking brain inside every AI in the Signature AI Telephone Book · <b>Engine:</b> sigllama.js + SIGLLAMA-V2 weights, on-device (✦ local); cloud API for ⬢ Llama · Industry Standard</div>
     <p style="color:var(--dim);font-size:.9em;margin-top:.6em" id="chatstate">Loading the trained model…</p>
     <div class="chatrow" style="margin-bottom:8px;align-items:center">
       <label for="modelpick" style="color:var(--dim);font-size:.85em;flex:none">Model&nbsp;</label>
@@ -440,6 +460,7 @@ Signature Llama is an independent model by Justin Addam Higgins, not affiliated 
   <div class="panel" id="guide">
     <h2><span class="tick">●</span> THE EXPLAINER — YOUR ON-SITE GUIDE</h2>
     <p style="color:var(--dim);font-size:.9em;margin-top:0">An AI whose whole job is explaining. Ask it about Signature Llama itself — what it is, how it was built, how to use it — or about LLM and AI files, libraries, and tools: what each file does, what each library is for, what each tool runs. It answers from a real knowledge base on this page. <i>The ✦ Ask Llama button hands your question to the trained model itself — and every answer is labeled with which engine wrote it.</i></p>
+    <div class="jah-aiid" role="note" aria-label="AI identity card"><b>AI IDENTITY</b> · <b>Name:</b> The Explainer · <b>Duties:</b> explains Signature Llama, LLM/AI files, libraries and tools from the on-page knowledge base · <b>Engine:</b> on-page knowledge-base responder; ✦ Ask Llama hands off to the trained model, engine labeled per answer</div>
     <div class="chatlog" id="guidelog" aria-live="polite" style="height:170px"></div>
     <div class="chatrow">
       <input type="text" id="guideinput" placeholder="Ask the guide, e.g. “what does the quantizer do?”" autocomplete="off" aria-label="Ask the on-site guide">
@@ -510,7 +531,7 @@ Signature Llama is an independent model by Justin Addam Higgins, not affiliated 
     <h3 style="color:var(--amber2);font-size:1em;margin:1em 0 .4em">SGLL weights format</h3>
     <p style="font-size:.9em;margin:.4em 0">Weights ship as a <b>SGLL v1 binary</b> file (<code>sigllama-v2.bin</code>, 4,137,675 bytes): the full 4,056,768 parameters in <b>int8 with per-row scales</b> — each row of the weight matrices is stored as 8-bit integers plus one scale value, so the whole model downloads in seconds and runs in a few megabytes of memory. The matching engine is <code>sigllama.js</code> (11,683 bytes, pure JavaScript, zero dependencies) with <code>vocab2.json</code> (2,879 word tokens).</p>
     <h3 style="color:var(--amber2);font-size:1em;margin:1em 0 .4em">Hash verification</h3>
-    <p style="font-size:.9em;margin:.4em 0">The official weights hash is <code>e351a9e1133a1774782d9f6f0e77f6ab756ca769af59fbbe763f6321e32d7049</code> (SHA-256) and the official engine hash is <code>6188cb269e07a134e865de4f7b68ee8c5dcfd1bde8771ad2c7b574a2edb4355a</code>. To verify a copy: download the file, compute its SHA-256 (for example <code>sha256sum sigllama-v2.bin</code> on a computer, or any SHA-256 tool), and compare to the hash above — they must match exactly. The page's Downloads panel checks the hashes automatically at runtime and names the failure if a file does not match (MODEL_CORRUPT).</p>
+    <p style="font-size:.9em;margin:.4em 0">The official weights hash (official within the Signature/JAH system) is <code>e351a9e1133a1774782d9f6f0e77f6ab756ca769af59fbbe763f6321e32d7049</code> (SHA-256) and the official engine hash (official within the Signature/JAH system) is <code>6188cb269e07a134e865de4f7b68ee8c5dcfd1bde8771ad2c7b574a2edb4355a</code>. To verify a copy: download the file, compute its SHA-256 (for example <code>sha256sum sigllama-v2.bin</code> on a computer, or any SHA-256 tool), and compare to the hash above — they must match exactly. The page's Downloads panel checks the hashes automatically at runtime and names the failure if a file does not match (MODEL_CORRUPT).</p>
     <h3 style="color:var(--amber2);font-size:1em;margin:1em 0 .4em">Local vs Industry Standard</h3>
     <div class="kv"><b>✦ Signature Llama v2 (LOCAL)</b><span>The trained 4,056,768-parameter word-level chat model, running on your device in the browser. No keys, no fees, no network calls — local text generation only, 96-word context.</span></div>
     <div class="kv"><b>⬢ Llama · Industry Standard (CLOUD)</b><span>The full-scale Llama the industry runs (default Llama 3.3 70B; Llama 4 Maverick / Llama 4 Scout selectable, 128k context), served live from the cloud by Groq. Needs a free API key (bring-your-own, stored only in your browser). Llama weights are by Meta; this site is independent, not affiliated with Meta.</span></div>
@@ -1429,6 +1450,21 @@ function buildDictCat() {
     box.appendChild(b);
   });
 }
+/* ============ NETWORK 10-FIX CONSISTENCY LAYER (additive, 2026-10-03) ============
+   Canonical record-status badge (exactly one of the network set), record action
+   panels (OPEN.SOURCE.ID.VERSION.SHARE.COPY.DOWNLOAD.READ ALOUD), provenance
+   lines, AI identity cards. ES5-safe. */
+function jahStatusBadge(status){
+  var cls = status === "SIMULATION" ? " sim" : (status === "GENERATED" ? " gen" : (status === "PUBLIC RECORD" ? " pub" : ""));
+  return '<span class="jahstatus' + cls + '" title="Network record status — one canonical status per record">' + escHtml(status) + "</span>";
+}
+function jahProvenance(txt){ return '<div class="jahprov">PROVENANCE · ' + escHtml(txt) + "</div>"; }
+function jahAiCard(name, duties, engine){
+  var d = (duties && duties.slice) ? duties.slice(0, 3).join(" · ") : "";
+  return '<div class="jah-aiid" role="note" aria-label="AI identity card"><b>AI IDENTITY</b> · ' +
+    "<b>Name:</b> " + escHtml(name) + " · <b>Duties:</b> " + escHtml(d || "answers from its own record") +
+    " · <b>Engine:</b> " + escHtml(engine || "On-page responder — no external model") + "</div>";
+}
 function renderDict(q) {
   q = (q || '').toLowerCase();
   var list = document.getElementById('dictlist'), shown = 0;
@@ -1444,19 +1480,29 @@ function renderDict(q) {
     var cat = document.createElement('span'); cat.className = 'cat'; cat.textContent = e.c;
     h.appendChild(cat); d.appendChild(h);
     var p = document.createElement('p'); p.textContent = e.d; d.appendChild(p);
-    var row = document.createElement('div'); row.className = 'row';
-    var b1 = document.createElement('button'); b1.textContent = '🔊 Read';
-    b1.onclick = function () { speak(e.t + '. ' + e.d); };
-    var b2 = document.createElement('button'); b2.textContent = '⧉ Copy';
-    b2.onclick = function () { copyText(e.t + ' — ' + e.d, 'Copied.'); };
-    var b3 = document.createElement('button'); b3.textContent = '⤓ .txt';
-    b3.onclick = function () {
-      saveBlob(e.t.replace(/[^a-z0-9]+/gi, '-').toLowerCase() + '.txt',
-        new Blob([e.t + '\n[' + e.c + ']\n\n' + e.d + '\n'], { type: 'text/plain' }));
-    };
-    var b4 = document.createElement('button'); b4.textContent = '⧉ Link';
-    b4.onclick = function () { copyText(pageURL() + '?term=' + encodeURIComponent(e.t), 'Word link copied — it opens this page on "' + e.t + '".'); };
-    row.appendChild(b1); row.appendChild(b2); row.appendChild(b3); row.appendChild(b4); d.appendChild(row);
+    var panel = document.createElement('div'); panel.className = 'jahrecord';
+    var termUrl = pageURL() + '?term=' + encodeURIComponent(e.t);
+    panel.innerHTML =
+      jahStatusBadge('GENERATED') +
+      '<div class="jrp-meta"><b>ID</b> ' + escHtml(e.t) + ' · <b>VERSION</b> LLM-DICT/1.0 · <b>SOURCE</b> LLM/AI Dictionary — Signature-authored</div>' +
+      '<div class="jrp-row">' +
+      '<a class="jrp-btn" href="' + escHtml(termUrl) + '">OPEN</a>' +
+      '<button type="button" class="jrp-btn" data-act="share">SHARE</button>' +
+      '<button type="button" class="jrp-btn" data-act="copy">COPY</button>' +
+      '<button type="button" class="jrp-btn" data-act="dl">DOWNLOAD</button>' +
+      '<button type="button" class="jrp-btn" data-act="read">READ ALOUD</button></div>' +
+      jahProvenance('Signature-authored definition · LLM/AI Dictionary wing');
+    d.appendChild(panel);
+    (function (pn) {
+      function act(sel, fn){ var b = pn.querySelector(sel); if (b) b.onclick = fn; }
+      act('[data-act="share"]', function () { copyText(termUrl, 'Term link copied — it opens this page on "' + e.t + '".'); });
+      act('[data-act="copy"]', function () { copyText(e.t + ' — ' + e.d, 'Copied.'); });
+      act('[data-act="dl"]', function () {
+        saveBlob(e.t.replace(/[^a-z0-9]+/gi, '-').toLowerCase() + '.txt',
+          new Blob([e.t + '\n[' + e.c + ']\n\n' + e.d + '\n'], { type: 'text/plain' }));
+      });
+      act('[data-act="read"]', function () { speak(e.t + '. ' + e.d); });
+    })(panel);
     list.appendChild(d);
   });
   var total = DICT.length;
@@ -1820,7 +1866,7 @@ function renderOptimal() {
   var s = o.sampling;
   box.innerHTML =
     '<div class="dterm" style="border:2px solid var(--gold);margin:0 0 12px">' +
-    '<h3 style="margin:.2em 0;color:var(--gold)">★ ' + escHtml(o.name).toUpperCase() + '</h3>' +
+    '<h3 style="margin:.2em 0;color:var(--gold)">★ ' + escHtml(o.name).toUpperCase() + '</h3>' + jahStatusBadge('GENERATED') +
     '<p style="margin:.3em 0">' + escHtml(o.tagline) + '</p>' +
     (o.optimizes_for ? '<p style="margin:.3em 0">' + escHtml(o.optimizes_for) + '</p>' : '') +
     '<p style="margin:.3em 0"><b>Sampling:</b> temperature ' + s.temperature + ' · topK ' + s.topK + ' · maxTokens ' + s.maxTokens + '</p>' +
@@ -1907,16 +1953,26 @@ function renderTools(q) {
       + '<br><b style="color:var(--amber2)">Status</b> — ' + escHtml(l.status || '')
       + '<br><span style="color:var(--amber2)">⚠</span> Tool results are untrusted external data until you verify them.';
     d.appendChild(perm);
-    var row = document.createElement('div'); row.className = 'row';
-    var b1 = document.createElement('button'); b1.textContent = '⧉ Copy code';
-    b1.onclick = function () { copyText(l.code, 'Library code copied — paste it next to llama-api.js.'); };
-    var b2 = document.createElement('button'); b2.textContent = '⤓ Download .js';
-    b2.onclick = function () { saveBlob(l.id + '.js', new Blob([l.code], { type: 'text/javascript' })); };
-    var b3 = document.createElement('button'); b3.textContent = '⧉ Network snippet';
-    b3.onclick = function () { copyText(toolNetSnippet(l), 'Network snippet copied — loads this library on any of your sites.'); };
-    var b4 = document.createElement('button'); b4.textContent = '⧉ Link';
-    b4.onclick = function () { copyText(pageURL() + '?toollib=' + l.id, 'Library link copied — it opens this page on "' + l.name + '".'); };
-    row.appendChild(b1); row.appendChild(b2); row.appendChild(b3); row.appendChild(b4); d.appendChild(row);
+    var tpanel = document.createElement('div'); tpanel.className = 'jahrecord';
+    var libUrl = pageURL() + '?toollib=' + l.id;
+    tpanel.innerHTML =
+      jahStatusBadge('GENERATED') +
+      '<div class="jrp-meta"><b>ID</b> ' + escHtml(l.id) + ' · <b>VERSION</b> v' + escHtml(l.version || '?') + ' · <b>SOURCE</b> Tool Library — Signature-built</div>' +
+      '<div class="jrp-row">' +
+      '<a class="jrp-btn" href="' + escHtml(libUrl) + '">OPEN</a>' +
+      '<button type="button" class="jrp-btn" data-act="share">SHARE</button>' +
+      '<button type="button" class="jrp-btn" data-act="copy">COPY</button>' +
+      '<button type="button" class="jrp-btn" data-act="dl">DOWNLOAD</button>' +
+      '<button type="button" class="jrp-btn" data-act="read">READ ALOUD</button></div>' +
+      jahProvenance('Signature-built tool library · updated ' + (TOOLIBS.updated || ''));
+    d.appendChild(tpanel);
+    (function (pn) {
+      function act(sel, fn){ var b = pn.querySelector(sel); if (b) b.onclick = fn; }
+      act('[data-act="share"]', function () { copyText(libUrl, 'Library link copied — it opens this page on "' + l.name + '".'); });
+      act('[data-act="copy"]', function () { copyText(l.code, 'Library code copied — paste it next to llama-api.js.'); });
+      act('[data-act="dl"]', function () { saveBlob(l.id + '.js', new Blob([l.code], { type: 'text/javascript' })); });
+      act('[data-act="read"]', function () { speak(l.name + '. ' + l.desc); });
+    })(tpanel);
     list.appendChild(d);
     if (toolDeep) libHelperAppend(d, l);
   });
