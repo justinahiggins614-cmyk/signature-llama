@@ -7,7 +7,7 @@
 <meta name="description" content="Signature Llama: Justin Addam Higgins' own tiny AI model, trained from scratch, running in the browser, currently free for all internet tasks. Independent model, not affiliated with Meta.">
 <link rel="canonical" href="https://justinahiggins614-cmyk.github.io/signature-llama/">
 <meta property="og:title" content="Signature Llama: The Fully Cyber Utilizable AI">
-<meta property="og:description" content="Signature Llama v1 (SIGLLAMA-V1): a 2,983,488-parameter language model written and trained from scratch by Justin Addam Higgins. Runs in your browser, no keys, no fees. Independent model — not affiliated with Meta.">
+<meta property="og:description" content="Signature Llama v2 (SIGLLAMA-V2): a 4,056,768-parameter word-level chat model written and trained from scratch by Justin Addam Higgins. Runs in your browser, no keys, no fees. Independent model — not affiliated with Meta.">
 <meta property="og:url" content="https://justinahiggins614-cmyk.github.io/signature-llama/">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary">
@@ -15,30 +15,30 @@
 {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
-  "name": "Signature Llama v1",
-  "alternateName": "SIGLLAMA-V1",
+  "name": "Signature Llama v2",
+  "alternateName": "SIGLLAMA-V2",
   "url": "https://justinahiggins614-cmyk.github.io/signature-llama/",
   "applicationCategory": "AI language model",
   "operatingSystem": "Any web browser",
-  "softwareVersion": "1.0",
+  "softwareVersion": "2.0",
   "author": {"@type": "Person", "name": "Justin Addam Higgins"},
-  "description": "A 2,983,488-parameter decoder-only transformer language model written and trained from scratch by Justin Addam Higgins on the IWB Dictionary and Signature spec text. Runs entirely in the browser, no keys, no fees. Independent model — not affiliated with, endorsed by, or related to Meta or the LLaMA models.",
+  "description": "A 4,056,768-parameter word-level decoder-only transformer language model written and trained from scratch by Justin Addam Higgins on 28,737 persona-dialogue examples distilled from the Signature AI Telephone Book's AI profiles. Runs entirely in the browser, no keys, no fees. Independent model — not affiliated with, endorsed by, or related to Meta or the LLaMA models.",
   "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
   "license": "https://justinahiggins614-cmyk.github.io/signature-llama/llms.txt",
   "additionalProperty": [
-    {"@type": "PropertyValue", "name": "modelId", "value": "SIGLLAMA-V1"},
-    {"@type": "PropertyValue", "name": "parameterCount", "value": 2983488},
+    {"@type": "PropertyValue", "name": "modelId", "value": "SIGLLAMA-V2"},
+    {"@type": "PropertyValue", "name": "parameterCount", "value": 4056768},
     {"@type": "PropertyValue", "name": "layers", "value": 5},
     {"@type": "PropertyValue", "name": "attentionHeads", "value": 8},
     {"@type": "PropertyValue", "name": "hiddenSize", "value": 192},
-    {"@type": "PropertyValue", "name": "contextLengthTokens", "value": 128},
-    {"@type": "PropertyValue", "name": "tokenizer", "value": "character-level, 84 tokens"},
+    {"@type": "PropertyValue", "name": "contextLengthTokens", "value": 96},
+    {"@type": "PropertyValue", "name": "tokenizer", "value": "word-level, 2879 tokens"},
     {"@type": "PropertyValue", "name": "weightsFormat", "value": "SGLL v1 binary, int8 per-row scales"},
-    {"@type": "PropertyValue", "name": "weightsSizeBytes", "value": 3042035},
-    {"@type": "PropertyValue", "name": "weightsSHA256", "value": "b2dfc0d05add95786797e596559f3e86de9b3a9c9dbce6818814ad05d6317b58"},
+    {"@type": "PropertyValue", "name": "weightsSizeBytes", "value": 4137675},
+    {"@type": "PropertyValue", "name": "weightsSHA256", "value": "e351a9e1133a1774782d9f6f0e77f6ab756ca769af59fbbe763f6321e32d7049"},
     {"@type": "PropertyValue", "name": "engineSHA256", "value": "6188cb269e07a134e865de4f7b68ee8c5dcfd1bde8771ad2c7b574a2edb4355a"},
-    {"@type": "PropertyValue", "name": "trainingSteps", "value": 12890},
-    {"@type": "PropertyValue", "name": "datePublished", "value": "2026-09-30"},
+    {"@type": "PropertyValue", "name": "trainingSteps", "value": 7200},
+    {"@type": "PropertyValue", "name": "datePublished", "value": "2026-10-03"},
     {"@type": "PropertyValue", "name": "runsLocally", "value": true},
     {"@type": "PropertyValue", "name": "requiresAPIKey", "value": false}
   ]
@@ -153,7 +153,7 @@ a.fcard .fgo{margin-top:8px;color:var(--gold);font-weight:700;font-size:.85em}
   <p class="offname">The Fully Cyber Utilizable AI</p>
   <p>Welcome to the home of Signature Llama — a baseline AI, a tiny language model written and trained from scratch on the IWB Dictionary and Signature spec text. No big-tech API, no keys, no fees: it runs right in your browser, currently free for all internet tasks.</p>
   <p>This site is where the Llama lives. Talk to it in the chat below, look up AI terms in the dictionary, learn how language models work in the explainers and the inventory, plug in tool libraries to make it smarter, and copy the whole thing into your own websites, apps, and projects with 3 lines of code. This same Llama is the talking brain inside every AI in the Signature AI Telephone Book.</p>
-  <p style="font-size:.85em;color:var(--dim);max-width:640px">Two ways to talk, pick in the chat box below: <b>✦ Signature Llama v1</b> runs on your device — no keys, no fees. <b>⬢ Llama · Industry Standard</b> is the full-scale cloud version and needs a free API key (grab one free in the setup box).</p>
+  <p style="font-size:.85em;color:var(--dim);max-width:640px">Two ways to talk, pick in the chat box below: <b>✦ Signature Llama v2</b> runs on your device (LOCAL) — no keys, no fees, 96-word context. <b>⬢ Llama · Industry Standard</b> is the full-scale cloud version (CLOUD, 128k context) and needs a free API key (grab one free in the setup box).</p>
   <div><span class="pill live" id="statuspill">● LIVE</span></div>
   <p style="font-size:.8em;max-width:640px">Signature Llama is an independent model by Justin Addam Higgins. It is not affiliated with, endorsed by, or related to Meta or the LLaMA models.</p>
 </div>
@@ -166,7 +166,7 @@ a.fcard .fgo{margin-top:8px;color:var(--gold);font-weight:700;font-size:.85em}
     <div class="dterm" style="text-align:left;border-color:var(--grn)">
       <h3>Runtime proof <span class="cat">same engine · same weights · same voice</span></h3>
       <p style="font-size:.85em;margin:.3em 0"><b>ENGINE</b> — <code>sigllama.js</code> from <code>signature-backend/sigllama/</code>, SHA-256 <code id="pbenginehash">6188cb26…2edb4355a</code>. The book and this site load the identical file.</p>
-      <p style="font-size:.85em;margin:.3em 0"><b>MODEL</b> — <code>sigllama-v1.bin</code> (SIGLLAMA-V1), SHA-256 <code id="pbmodelhash">b2dfc0d0…05d6317b58</code>, <span id="pbmodelparams">2,983,488</span> parameters. Same binary, both sites.</p>
+      <p style="font-size:.85em;margin:.3em 0"><b>MODEL</b> — <code>sigllama-v2.bin</code> (SIGLLAMA-V2), SHA-256 <code id="pbmodelhash">e351a9e1…f6321e32d</code>, <span id="pbmodelparams">4,056,768</span> parameters. Same binary, both sites.</p>
       <p style="font-size:.85em;margin:.3em 0"><b>AI PROFILE</b> — each book AI brings its profile (name, kind, mentality, abilities, domain, tone, mission; word AIs add their word; fusions add their parents) into the prompt.</p>
       <p style="font-size:.85em;margin:.3em 0"><b>PROMPT / CONFIG</b> — the book's persona prompt builder + <code>{maxTokens: 100, temperature: 0.75, topK: 40}</code>; each AI answers in its own voice, in a few sentences.</p>
     </div>
@@ -179,14 +179,14 @@ a.fcard .fgo{margin-top:8px;color:var(--gold);font-weight:700;font-size:.85em}
   <div class="panel" id="facts">
     <h2><span class="tick">●</span> FACTS AT A GLANCE</h2>
     <p style="color:var(--dim);font-size:.85em;margin-top:0">Static facts, readable by search engines and AI crawlers without JavaScript. Counts grow; the "as of" date marks the last count.</p>
-    <div class="kv"><b>Model</b><span>Signature Llama v1 (SIGLLAMA-V1) — 2,983,488 parameters · 5 layers · 8 attention heads · hidden size 192 · context 128 tokens · character-level tokenizer, 84 tokens</span></div>
+    <div class="kv"><b>Model</b><span>Signature Llama v2 (SIGLLAMA-V2) — 4,056,768 parameters · 5 layers · 8 attention heads · hidden size 192 · context 96 words · word-level tokenizer, 2,879 tokens · chat-tuned on the phone book's AI profiles</span></div>
     <div class="kv"><b>Status</b><span>● LIVE (as of 2026-10-01) — trained 12,890 steps; weights published 2026-09-30</span></div>
     <div class="kv"><b>Weights hash</b><span>SHA-256 <code>b2dfc0d05add95786797e596559f3e86de9b3a9c9dbce6818814ad05d6317b58</code> · SGLL v1 binary, int8 per-row scales, 3,042,035 bytes</span></div>
     <div class="kv"><b>Engine hash</b><span>SHA-256 <code>6188cb269e07a134e865de4f7b68ee8c5dcfd1bde8771ad2c7b574a2edb4355a</code> · sigllama.js, pure JavaScript, zero dependencies</span></div>
     <div class="kv"><b>LLM / AI dictionary</b><span>312 original terms (as of 2026-10-02)</span></div>
     <div class="kv"><b>Tool libraries</b><span>120 runnable plug-ins (as of 2026-10-02)</span></div>
     <div class="kv"><b>Explainer guide</b><span>28 knowledge entries (as of 2026-10-02)</span></div>
-    <div class="kv"><b>Two ways to talk</b><span>✦ Signature Llama v1 runs LOCAL, on your device — no key, no fee. ⬢ Llama · Industry Standard is the full-scale CLOUD version via Groq and needs a free API key. They are never confused: every answer is labeled.</span></div>
+    <div class="kv"><b>Two ways to talk</b><span>✦ Signature Llama v2 runs LOCAL, on your device — no key, no fee, 96-word context. ⬢ Llama · Industry Standard is the full-scale CLOUD version via Groq (128k context) and needs a free API key. They are never confused: every answer is labeled.</span></div>
     <div class="kv"><b>Independence</b><span>Signature Llama is an independent model by Justin Addam Higgins — not affiliated with, endorsed by, or related to Meta or the LLaMA models.</span></div>
   </div>
 
@@ -197,7 +197,7 @@ a.fcard .fgo{margin-top:8px;color:var(--gold);font-weight:700;font-size:.85em}
     <div class="kv"><b>Tokenizer</b><span>Character-level, trained on the IWB Dictionary and Signature spec text</span></div>
     <div class="kv"><b>Trained on</b><span>The IWB Dictionary + Signature spec corpus — original words, original inventions</span></div>
     <div class="kv"><b>Weights</b><span>int8-quantized, a few megabytes — downloads in seconds</span></div>
-    <div class="kv"><b>Status</b><span id="modelcardstatus">● LIVE — Signature Llama v1 · 2,983,488 parameters</span></div>
+    <div class="kv"><b>Status</b><span id="modelcardstatus">● LIVE — Signature Llama v2 · 4,056,768 parameters</span></div>
     <div class="kv"><b>Runs where</b><span>In your browser, pure JavaScript, no servers. First load needs internet (engine + ~3&nbsp;MB weights); afterwards your browser's cache can serve the files offline — offline use is not guaranteed and has not been lab-tested.</span></div>
     <div class="kv"><b>Cost</b><span>Currently free for all internet tasks. No API keys, no accounts.</span></div>
     <div class="kv"><b>What the model does</b><span>Local text generation only — no network, no files, no device access. Tool libraries are optional plug-ins; only the ones you load run, and only as ordinary page JavaScript.</span></div>
@@ -207,22 +207,25 @@ a.fcard .fgo{margin-top:8px;color:var(--gold);font-weight:700;font-size:.85em}
   <div class="panel" id="chat">
     <h2><span class="tick">●</span> TALK TO LLAMA</h2>
     <div class="dterm" id="llamastatuscard" style="border-color:var(--grn)">
-      <h3>Signature Llama V1 <span class="cat">STATUS: <b id="llamastatusval" style="color:var(--grn)">● LIVE</b></span></h3>
+      <h3>Signature Llama v2 <span class="cat">STATUS: <b id="llamastatusval" style="color:var(--grn)">● LIVE</b></span></h3>
       <p id="llamastatusdetail" style="margin:.3em 0;font-size:.9em">Loading model status…</p>
       <p id="llamastatushash" style="margin:.3em 0;font-size:.78em;color:var(--dim)"></p>
     </div>
     <p style="color:var(--dim);font-size:.9em;margin-top:.6em" id="chatstate">Loading the trained model…</p>
     <div class="chatrow" style="margin-bottom:8px;align-items:center">
       <label for="modelpick" style="color:var(--dim);font-size:.85em;flex:none">Model&nbsp;</label>
-      <select id="modelpick" aria-label="Choose the model: on-device Signature Llama v1 or cloud Llama Industry Standard" style="font-size:1em;padding:10px;flex:1;min-width:0">
-        <option value="v1">✦ Signature Llama v1 · on-device</option>
-        <option value="industry">⬢ Llama · Industry Standard · full-scale cloud</option>
+      <select id="modelpick" aria-label="Choose the model: on-device Signature Llama v2 (LOCAL, 96-word context) or cloud Llama Industry Standard (CLOUD, 128k context)" style="font-size:1em;padding:10px;flex:1;min-width:0">
+        <option value="v1">✦ Signature Llama v2 · on-device · LOCAL · 96-word context</option>
+        <option value="industry">⬢ Llama · Industry Standard · CLOUD · 128k context</option>
       </select>
+      <button type="button" id="testllama" title="Run a real generation probe and see which engine answers">⚗ Test Llama</button>
       <button type="button" id="savechat" title="Download this chat as a text file">⤓ Save chat</button>
     </div>
+    <p id="testllamaresult" style="font-size:.85em;color:var(--dim);margin:.3em 0 8px;min-height:1.2em" aria-live="polite"></p>
+    <p style="font-size:.78em;color:var(--dim);margin:.2em 0 8px">Signature Llama is an independent implementation by Justin Addam Higgins — not affiliated with, endorsed by, or related to Meta or the LLaMA models.</p>
     <div id="industrybox" style="display:none;border:1px solid var(--amber);border-radius:8px;padding:.7em .9em;margin-bottom:8px">
       <b style="color:var(--amber2)">⬢ Llama · Industry Standard</b>
-      <p style="font-size:.88em;margin:.4em 0">The full-scale Llama the industry runs — 70-billion-parameter class, 128k context, instruction-tuned — served live from the cloud. The same standard brain, with Signature extras on top: read-aloud on every reply, save and copy your chat, 12-turn memory, and instant fallback to the on-device v1. A touch better.</p>
+      <p style="font-size:.88em;margin:.4em 0">The full-scale Llama the industry runs — 70-billion-parameter class, 128k context, instruction-tuned — served live from the cloud. The same standard brain, with Signature extras on top: read-aloud on every reply, save and copy your chat, 12-turn memory, and instant fallback to the on-device v2. A touch better.</p>
       <p style="font-size:.85em;margin:.4em 0">Needs a free API key — <a href="https://console.groq.com/keys" target="_blank" rel="noopener" style="color:var(--amber2)">get one free here</a> (no credit card). Your key stays in this browser; it is only ever sent to api.groq.com.</p>
       <div class="chatrow">
         <input type="password" id="industrykey" placeholder="Paste your key (gsk_…)" autocomplete="off" aria-label="Groq API key">
@@ -238,7 +241,7 @@ a.fcard .fgo{margin-top:8px;color:var(--gold);font-weight:700;font-size:.85em}
       <button type="button" id="llamasend" disabled>Send</button>
       <button type="button" id="llamareset" title="Clear conversation history">Reset</button>
     </div>
-    <p style="color:var(--dim);font-size:.8em;margin:.4em 0 0">Every reply is labeled with the engine that wrote it: <b style="color:var(--amber2)">✦ Trained Llama v1</b> or <b style="color:var(--dim)">Guide</b> — or <b style="color:var(--amber2)">⬢ Industry Standard</b> when that model is picked in the selector above. History keeps your last 12 turns; the 128-token window always drops the oldest text first.</p>
+    <p style="color:var(--dim);font-size:.8em;margin:.4em 0 0">Every reply is labeled with the engine that wrote it: <b style="color:var(--amber2)">✦ Trained Llama v2 · LOCAL</b> or <b style="color:var(--dim)">Guide</b> — or <b style="color:var(--amber2)">⬢ Industry Standard · CLOUD</b> when that model is picked in the selector above. History keeps your last 12 turns; the 96-word context window always drops the oldest text first.</p>
   </div>
 
   <div class="panel" style="border:2px solid var(--amber)" id="creations">
@@ -287,6 +290,7 @@ document.body.insertAdjacentHTML('beforeend', '&lt;p&gt;' + reply + '&lt;/p&gt;'
   <div class="panel" id="downloads">
     <h2><span class="tick">●</span> DOWNLOADS</h2>
     <p style="color:var(--dim);font-size:.9em;margin-top:0" id="dlstate">Checking model status…</p>
+    <p style="color:var(--dim);font-size:.78em;margin:.2em 0">Independent Signature implementation — not affiliated with, endorsed by, or related to Meta or the LLaMA models.</p>
     <div style="display:flex;gap:10px;flex-wrap:wrap">
       <button type="button" id="dl-bin" disabled>⤓ Weights (sigllama-v1.bin)</button>
       <button type="button" id="dl-js" disabled>⤓ Engine (sigllama.js)</button>
@@ -308,7 +312,7 @@ document.body.insertAdjacentHTML('beforeend', '&lt;p&gt;' + reply + '&lt;/p&gt;'
 
   <div class="panel docs" id="developers">
     <h2><span class="tick">●</span> DEVELOPERS</h2>
-    <p style="color:var(--dim);font-size:.9em;margin-top:0">Drop the engine into any page. Same spirit as the backend's dial/chat calls: <code>load</code>, then <code>generate</code>.</p>
+    <p style="color:var(--dim);font-size:.9em;margin-top:0">Drop the engine into any page. Same spirit as the backend's dial/chat calls: <code>load</code>, then <code>generate</code>. Independent Signature implementation — not affiliated with, endorsed by, or related to Meta or the LLaMA models.</p>
     <ul>
       <li><b>1 · Include the engine</b>
         <pre id="snip1">&lt;script src="https://justinahiggins614-cmyk.github.io/signature-backend/sigllama/sigllama.js"&gt;&lt;/script&gt;</pre>
@@ -342,10 +346,10 @@ async function chat(userText) {
       <li><b>5 · Sampling, honestly</b>
         <pre id="snip5">// temperature: any real number, default 0.8. Typical 0–1.5.
 //   temperature &lt;= 0 → greedy argmax: NO randomness, same prompt → same output.
-// topK: integer ≥ 1, default 40. Only applies when 1 ≤ topK &lt; 84 (vocab size).
+// topK: integer ≥ 1, default 40. Only applies when 1 ≤ topK &lt; 2879 (vocab size).
 // maxTokens: integer ≥ 1, default 120. stopAtEos: default true.
-// CONTEXT: 128 tokens. Your prompt is LEFT-TRUNCATED to (128 − maxTokens − 2)
-// tokens — a bigger maxTokens leaves less room for the prompt.
+// CONTEXT: 96 words. Your prompt is LEFT-TRUNCATED to (96 − maxTokens − 2)
+// words — a bigger maxTokens leaves less room for the prompt.
 // Deterministic (site-level LlamaRuntime): { deterministic: true } forces
 // temperature 0; { seed: 1234 } seeds the sampler. Both give byte-identical
 // output for the same prompt.</pre>
@@ -412,7 +416,7 @@ models:
 6. OPEN A DICTIONARY WORD DIRECTLY:
    SITE_URL?term=transformer
 
-7. INDUSTRY STANDARD (the cloud option, NOT the on-device v1):
+7. INDUSTRY STANDARD (the cloud option, NOT the on-device v2):
    Include industry-llama.js too, then
    SignatureLlama.askIndustry("What is a token?") answers with the full-scale
    cloud Llama — replies labeled "⬢ Industry Standard".
@@ -497,20 +501,20 @@ Signature Llama is an independent model by Justin Addam Higgins, not affiliated 
 
   <div class="panel" id="methodology">
     <h2><span class="tick">●</span> DATA &amp; METHODOLOGY</h2>
-    <p style="color:var(--dim);font-size:.85em;margin-top:0">How Signature Llama v1 was built, what the files are, how to check them, and what is local versus cloud. Nothing here is a metaphor: the numbers below are the actual model facts.</p>
+    <p style="color:var(--dim);font-size:.85em;margin-top:0">How Signature Llama v2 was built, what the files are, how to check them, and what is local versus cloud. Nothing here is a metaphor: the numbers below are the actual model facts.</p>
     <h3 style="color:var(--amber2);font-size:1em;margin:1em 0 .4em">Model card summary</h3>
     <div class="kv"><b>Architecture</b><span>Decoder-only transformer, hand-written from scratch — no borrowed code, no pretrained weights.</span></div>
-    <div class="kv"><b>Scale</b><span>2,983,488 parameters (~3M): 5 layers, 8 attention heads, hidden size 192, context 128 tokens, 84-token character-level tokenizer.</span></div>
-    <div class="kv"><b>Training</b><span>12,890 steps on a 135,340-line / 23.2 MB creator-authored corpus (IWB Dictionary definitions + Signature spec text, seed 614); finished 2026-09-30; weights published 2026-09-30 22:39 EDT.</span></div>
-    <div class="kv"><b>Honesty</b><span>v1 is small, lively and a little quirky — like a bright intern. It can invent facts — verify anything important.</span></div>
+    <div class="kv"><b>Scale</b><span>4,056,768 parameters (~4M): 5 layers, 8 attention heads, hidden size 192, context 96 words, 2,879-token word-level tokenizer.</span></div>
+    <div class="kv"><b>Training</b><span>7,200 steps on 28,737 persona-dialogue examples (~1.88M tokens) distilled from the phone book's 270 AI profiles; trained to validation loss 0.064 (~3.2 epochs); weights published 2026-10-03.</span></div>
+    <div class="kv"><b>Honesty</b><span>v2 is small and lively. Coherent replies pass the on-page coherence gates about a third of the time on generic chat — it can mix abilities across the 270 AIs. The human JAHtalk fallback guarantees every answer stays coherent. It can invent facts — verify anything important.</span></div>
     <h3 style="color:var(--amber2);font-size:1em;margin:1em 0 .4em">SGLL weights format</h3>
-    <p style="font-size:.9em;margin:.4em 0">Weights ship as a <b>SGLL v1 binary</b> file (<code>sigllama-v1.bin</code>, 3,042,035 bytes): the full 2,983,488 parameters in <b>int8 with per-row scales</b> — each row of the weight matrices is stored as 8-bit integers plus one scale value, so the whole model downloads in seconds and runs in a few megabytes of memory. The matching engine is <code>sigllama.js</code> (11,683 bytes, pure JavaScript, zero dependencies) with <code>vocab.json</code> (84 characters).</p>
+    <p style="font-size:.9em;margin:.4em 0">Weights ship as a <b>SGLL v1 binary</b> file (<code>sigllama-v2.bin</code>, 4,137,675 bytes): the full 4,056,768 parameters in <b>int8 with per-row scales</b> — each row of the weight matrices is stored as 8-bit integers plus one scale value, so the whole model downloads in seconds and runs in a few megabytes of memory. The matching engine is <code>sigllama.js</code> (11,683 bytes, pure JavaScript, zero dependencies) with <code>vocab2.json</code> (2,879 word tokens).</p>
     <h3 style="color:var(--amber2);font-size:1em;margin:1em 0 .4em">Hash verification</h3>
-    <p style="font-size:.9em;margin:.4em 0">The official weights hash is <code>b2dfc0d05add95786797e596559f3e86de9b3a9c9dbce6818814ad05d6317b58</code> (SHA-256) and the official engine hash is <code>6188cb269e07a134e865de4f7b68ee8c5dcfd1bde8771ad2c7b574a2edb4355a</code>. To verify a copy: download the file, compute its SHA-256 (for example <code>sha256sum sigllama-v1.bin</code> on a computer, or any SHA-256 tool), and compare to the hash above — they must match exactly. The page's Downloads panel checks the hashes automatically at runtime and names the failure if a file does not match (MODEL_CORRUPT).</p>
+    <p style="font-size:.9em;margin:.4em 0">The official weights hash is <code>e351a9e1133a1774782d9f6f0e77f6ab756ca769af59fbbe763f6321e32d7049</code> (SHA-256) and the official engine hash is <code>6188cb269e07a134e865de4f7b68ee8c5dcfd1bde8771ad2c7b574a2edb4355a</code>. To verify a copy: download the file, compute its SHA-256 (for example <code>sha256sum sigllama-v2.bin</code> on a computer, or any SHA-256 tool), and compare to the hash above — they must match exactly. The page's Downloads panel checks the hashes automatically at runtime and names the failure if a file does not match (MODEL_CORRUPT).</p>
     <h3 style="color:var(--amber2);font-size:1em;margin:1em 0 .4em">Local vs Industry Standard</h3>
-    <div class="kv"><b>✦ Signature Llama v1 (LOCAL)</b><span>The trained 2,983,488-parameter model, running on your device in the browser. No keys, no fees, no network calls — local text generation only.</span></div>
-    <div class="kv"><b>⬢ Llama · Industry Standard (CLOUD)</b><span>The full-scale Llama the industry runs (default Llama 3.3 70B; Llama 4 Maverick / Llama 4 Scout selectable), served live from the cloud by Groq. Needs a free API key (bring-your-own, stored only in your browser). Llama weights are by Meta; this site is independent, not affiliated with Meta.</span></div>
-    <div class="kv"><b>Never confused</b><span>The chat box has a model picker; every reply is labeled with which engine answered — ✦ Trained Llama v1 or ⬢ Industry Standard.</span></div>
+    <div class="kv"><b>✦ Signature Llama v2 (LOCAL)</b><span>The trained 4,056,768-parameter word-level chat model, running on your device in the browser. No keys, no fees, no network calls — local text generation only, 96-word context.</span></div>
+    <div class="kv"><b>⬢ Llama · Industry Standard (CLOUD)</b><span>The full-scale Llama the industry runs (default Llama 3.3 70B; Llama 4 Maverick / Llama 4 Scout selectable, 128k context), served live from the cloud by Groq. Needs a free API key (bring-your-own, stored only in your browser). Llama weights are by Meta; this site is independent, not affiliated with Meta.</span></div>
+    <div class="kv"><b>Never confused</b><span>The chat box has a model picker; every reply is labeled with which engine answered — ✦ Trained Llama v2 · LOCAL or ⬢ Industry Standard · CLOUD.</span></div>
   </div>
 
 <div class="footer"><span class="sig">A SIGNATURE SYSTEM</span><br>Signature Llama — the baseline AI, currently free for all internet tasks.<br><span style="font-size:.8em">Independent model by Justin Addam Higgins · Not affiliated with Meta</span><br><span id="lastupdated" style="font-size:.78em;color:var(--dim)"></span></div>
@@ -526,7 +530,7 @@ Signature Llama is an independent model by Justin Addam Higgins, not affiliated 
    in human words instead. */
 var LLAMA_PROFILE = {name: 'Signature Llama', id: 'JAH-AI-SIG-LLAMA-1', kind: 'system',
   domain: 'language models',
-  description: 'Signature Llama v1: a tiny transformer trained from scratch on the Signature corpus, running live in this browser. I chat, explain AI, and answer questions about the Llama project.',
+  description: 'Signature Llama v2: a word-level chat model trained from scratch on the phone book AI profiles, running live in this browser. I chat, explain AI, and answer questions about the Llama project.',
   abilities: ['Chat in plain human words', 'Explain AI and language models clearly',
     'Answer questions about the Signature Llama project', 'Point you to the right file, library, or tool']};
 function llamaHuman(text) {
@@ -546,21 +550,21 @@ var modelLive = false;
 
 /* ---------- single authoritative model state (model-status.json) ---------- */
 var MODEL_STATUS = {
-  MODEL_ID: 'SIGLLAMA-V1', MODEL_STATUS: 'live', MODEL_VERSION: '1.0',
-  updated: '2026-10-01',
+  MODEL_ID: 'SIGLLAMA-V2', MODEL_STATUS: 'live', MODEL_VERSION: '2.0',
+  updated: '2026-10-03',
   WEIGHTS_AVAILABLE: true, GUIDE_AVAILABLE: true, API_AVAILABLE: true,
   ENGINE_MIN_VERSION: '1.0', ENGINE_MAX_VERSION: '1.x', MODEL_FORMAT_VERSION: 1,
-  architecture: { type: 'decoder-only transformer', parameters: 2983488, layers: 5,
-    attention_heads: 8, context_length: 128 },
-  weights: { file: 'sigllama-v1.bin',
-    sha256: 'b2dfc0d05add95786797e596559f3e86de9b3a9c9dbce6818814ad05d6317b58',
-    size_bytes: 3042035 },
+  architecture: { type: 'decoder-only transformer (chat-tuned on phone-book AI profiles)', parameters: 4056768, layers: 5,
+    attention_heads: 8, context_length: 96 },
+  weights: { file: 'sigllama-v2.bin',
+    sha256: 'e351a9e1133a1774782d9f6f0e77f6ab756ca769af59fbbe763f6321e32d7049',
+    size_bytes: 4137675 },
   engine: { file: 'sigllama.js',
     sha256: '6188cb269e07a134e865de4f7b68ee8c5dcfd1bde8771ad2c7b574a2edb4355a',
     size_bytes: 11683, version: '1.0' },
-  vocab: { file: 'vocab.json',
-    sha256: '53363d3fc2ca692de59c1b311f5dcfef29555e41295adb7fb40d8e10a79b6406',
-    size_bytes: 1265, tokens: 84, version: '1.0' }
+  vocab: { file: 'vocab2.json',
+    sha256: '94a6847481fe2344ff1f6dd732a8bc790279eb0edd3bfd0ea0b0678240fafe9c',
+    size_bytes: 74180, tokens: 2879, version: '2.0' }
 };
 function loadModelStatus() {
   return fetch('model-status.json').then(function (r) { return r.ok ? r.json() : null; })
@@ -660,7 +664,7 @@ function shortHash(h) { return h ? h.slice(0, 8) + '…' + h.slice(-10) : '?'; }
 function renderLastUpdated() {
   var u = document.getElementById('lastupdated');
   if (!u) return;
-  u.textContent = 'Last updated ' + (MODEL_STATUS.updated || '?') + ' · Signature Llama v1';
+  u.textContent = 'Last updated ' + (MODEL_STATUS.updated || '?') + ' · Signature Llama v' + String(MODEL_STATUS.MODEL_VERSION || '1.0').split('.')[0];
 }
 function renderStatusCard() {
   var v = document.getElementById('llamastatusval'),
@@ -814,9 +818,8 @@ function checkEngine() {
 }
 
 /* ---------- LLAMA CHAT COHERENCE: curated replies + quality gate + Guide fallback ----------
-   Signature Llama v1 is a tiny (~3M) model trained on dictionary + spec prose. It is
-   a continuer of that style — it cannot do open chat, and no sampling tweak changes
-   that (verified against the real weights). So the chat pipeline is:
+   Signature Llama v2 is a small (~4M) word-level chat model trained on phone-book
+   AI persona dialogues. The chat pipeline is:
    1. curated replies for greetings / identity / common questions — deterministic,
       warm, in the maker's voice; labeled Guide: (curated on-site content, never
       model output);
@@ -828,7 +831,7 @@ var LLAMA_CURATED = [
   { re: /(who made you|who created you|who built you|who trained you|your maker|your creator)/,
     text: 'Justin Addam Higgins made me — trained from scratch on original dictionary and spec text, as an independent project. Not affiliated with any big AI lab.' },
   { re: /(what are you|who are you|your name|about yourself|introduce yourself|what model are you)/,
-    text: "I'm Signature Llama v1 — a small AI, just under 3 million parameters, trained from scratch on the Signature dictionary and spec writings. I live entirely in this page: no servers, no API keys, nothing to pay." },
+    text: "I'm Signature Llama v2 — a small word-level chat AI, just over 4 million parameters, trained from scratch on the Signature phone book's AI profiles. I live entirely in this page: no servers, no API keys, nothing to pay." },
   { re: /(^| )(hi|hello|hey|howdy|hiya|greetings|good morning|good afternoon|good evening)( |$)/,
     text: "Hello! Good to see you. I'm the Signature Llama, running right here in your browser — ask me anything, or look through the dictionary, tools, and model card on this page." },
   { re: /(how are you|how is it going|how do you feel|how are things)/,
@@ -923,7 +926,7 @@ function guideAnswerFor(text) {
 /* ---------- TALK TO LLAMA (single seam, mode-labeled, context-managed) ----------
    Max history: 12 turns (24 entries). Truncation policy: oldest turns are
    dropped first; the engine additionally left-truncates the prompt to fit the
-   128-token window. Reset: LlamaChat.reset() / the Reset button. */
+   96-word context window. Reset: LlamaChat.reset() / the Reset button. */
 var LlamaChat = {
   ready: false, history: [], MAX_TURNS: 12,
   reset: function () {
@@ -981,7 +984,7 @@ var LlamaChat = {
 };
 
 /* ---------- Industry Standard mode: full-scale Llama, cloud-served ---------- */
-var INDUSTRY_SYSTEM = 'You are Llama, chatting on the Signature Llama site in "Industry Standard" mode — the full-scale, instruction-tuned Llama the industry runs. Be warm, personal, and genuinely helpful, like a bright friend. Keep answers focused; use plain language. Never claim to be the small on-device Signature Llama v1 — you are the full-scale cloud model. If asked who made you: the Llama weights are by Meta; this site and its Signature extras are an independent project by Justin Addam Higgins, not affiliated with Meta.';
+var INDUSTRY_SYSTEM = 'You are Llama, chatting on the Signature Llama site in "Industry Standard" mode — the full-scale, instruction-tuned Llama the industry runs. Be warm, personal, and genuinely helpful, like a bright friend. Keep answers focused; use plain language. Never claim to be the small on-device Signature Llama v2 — you are the full-scale cloud model. If asked who made you: the Llama weights are by Meta; this site and its Signature extras are an independent project by Justin Addam Higgins, not affiliated with Meta.';
 var industryHistory = []; /* [{role, content}] — user/assistant turns, 12-turn cap */
 function industryPush(role, content) {
   industryHistory.push({ role: role, content: content });
@@ -989,11 +992,11 @@ function industryPush(role, content) {
 }
 function sendIndustry(text) {
   if (!window.IndustryLlama) {
-    return Promise.resolve({ text: 'Industry Standard mode could not start (engine file missing). v1 still works — switch the model picker back.',
+    return Promise.resolve({ text: 'Industry Standard mode could not start (engine file missing). v2 still works — switch the model picker back.',
       engine: 'none', mode: 'failed', code: 'ENGINE_MISSING' });
   }
   if (!IndustryLlama.ready()) {
-    return Promise.resolve({ text: 'Industry Standard needs your free API key first — paste it in the box above the chat, hit Connect, then send again. v1 keeps working meanwhile.',
+    return Promise.resolve({ text: 'Industry Standard needs your free API key first — paste it in the box above the chat, hit Connect, then send again. v2 keeps working meanwhile.',
       engine: 'none', mode: 'failed', code: 'MISSING_KEY' });
   }
   industryPush('user', text);
@@ -1006,7 +1009,7 @@ function sendIndustry(text) {
   }).catch(function (e) {
     industryHistory.pop(); /* don't keep the failed turn */
     var code = (e && e.code) || 'FAILED';
-    return { text: String((e && e.message) || e) + ' — v1 still works: switch the model picker back any time.',
+    return { text: String((e && e.message) || e) + ' — v2 still works: switch the model picker back any time.',
       engine: 'none', mode: 'failed', code: code };
   });
 }
@@ -1110,7 +1113,7 @@ function initChat(base) {
     LlamaRuntime.mode = 'trained'; LlamaRuntime.lastFailure = null;
     inp.disabled = false; btn.disabled = false;
     renderStatusCard();
-    state.textContent = '● Live — you are talking to the real trained Signature Llama v1 (SIGLLAMA-V1), running in your browser.';
+    state.textContent = '● Live — you are talking to the real trained Signature Llama v2 (SIGLLAMA-V2), running in your browser.';
     addMsg(log, 'a', 'Llama is here. Say hello.');
     var askBtn = document.getElementById('guideaskllama');
     if (askBtn) askBtn.disabled = false;
@@ -1141,7 +1144,7 @@ function wireChatBox() {
     addMsg(log, 's', '…');
     LlamaChat.send(t).then(function (reply) {
       var s = log.querySelector('.s:last-child'); if (s) s.remove();
-      var tag = reply.mode === 'trained_model' ? '✦ Trained Llama v1: '
+      var tag = reply.mode === 'trained_model' ? '✦ Trained Llama v2 · LOCAL: '
         : reply.mode === 'industry' ? '⬢ Industry Standard · ' + (reply.model_version || 'Llama') + ': '
         : reply.mode === 'guide' ? 'Guide: '
         : '⚠ ' + (reply.code || 'failed') + ': ';
@@ -1152,6 +1155,52 @@ function wireChatBox() {
   btn.onclick = go;
   inp.onkeydown = function (e) { if (e.key === 'Enter') go(); };
   if (rst) rst.onclick = function () { LlamaChat.reset(); };
+}
+
+/* ---------- Test Llama: real generation probe, honest engine label ----------
+   Probes whichever engine the model picker has selected. Shows the reply,
+   the round-trip latency, and which engine answered. Read-only: it never
+   touches chat history or the engine itself. */
+function wireTestLlama() {
+  var btn = document.getElementById('testllama'), out = document.getElementById('testllamaresult');
+  if (!btn || !out) return;
+  function say(html) { out.innerHTML = html; }
+  btn.onclick = function () {
+    var choice = (window.IndustryLlama && IndustryLlama.getChoice) ? IndustryLlama.getChoice() : 'v1';
+    if (choice === 'industry') {
+      if (!(window.IndustryLlama && IndustryLlama.ready())) {
+        say('⬢ Industry Standard · CLOUD — no API key connected yet. Paste your free key above, hit Connect, then test.');
+        return;
+      }
+      say('Probing ⬢ Industry Standard (CLOUD)…');
+      var t0 = Date.now();
+      IndustryLlama.chat([{ role: 'user', content: 'Say hello in one short sentence.' }], { maxTokens: 60 })
+        .then(function (text) {
+          var ms = Date.now() - t0;
+          say('⬢ Industry Standard · CLOUD answered in ' + ms + ' ms:<br><b style="color:var(--txt)">' + esc(String(text)) + '</b>');
+        }, function (e) {
+          say('⬢ Industry Standard · CLOUD probe failed: ' + esc((e && e.code) || 'ERROR') + ' — ' + esc((e && e.message) || e));
+        });
+      return;
+    }
+    if (!LlamaChat.ready || !window.SigLlama || !SigLlama.loaded()) {
+      say('✦ Signature Llama v2 · LOCAL — the model is still loading. Wait for ● LIVE, then test.');
+      return;
+    }
+    say('Probing ✦ Signature Llama v2 (LOCAL)…');
+    var t1 = Date.now();
+    llamaModelAttempt('Hello. Say hello back in one short sentence.', { maxTokens: 60, temperature: 0.5, topK: 24, stopAtEos: true, timeoutMs: 60000 })
+      .then(function (q) {
+        var ms = Date.now() - t1;
+        if (q.ok) {
+          say('✦ Signature Llama v2 · LOCAL answered in ' + ms + ' ms:<br><b style="color:var(--txt)">' + esc(llamaHuman(q.text)) + '</b>');
+        } else {
+          say('✦ Signature Llama v2 · LOCAL probe was not clean (' + esc(q.reason) + ') — in real chat this answer would be routed to the human fallback. No gibberish is ever shown.');
+        }
+      }, function (e) {
+        say('✦ Signature Llama v2 · LOCAL probe failed: ' + esc(String((e && e.message) || e)));
+      });
+  };
 }
 
 /* ---------- downloads ---------- */
@@ -1436,7 +1485,7 @@ var ExplainerAI = {
   identityAnswer: function () {
     if (LlamaRuntime.mode === 'trained' && window.SigLlama && SigLlama.loaded && SigLlama.loaded()) {
       return { title: 'Yes — the trained model',
-        text: 'Yes. I am the on-site guide, and the trained Signature Llama v1 (SIGLLAMA-V1, 2,983,488 parameters) is loaded in this page right now. Press ✦ Ask Llama and your question goes to the real model running in your browser.',
+        text: 'Yes. I am the on-site guide, and the trained Signature Llama v2 (SIGLLAMA-V2, 4,056,768 parameters) is loaded in this page right now. Press ✦ Ask Llama and your question goes to the real model running in your browser.',
         kind: 'concept', engine: 'guide', mode: 'trained_model' };
     }
     if (LlamaRuntime.mode === 'failed') {
@@ -1445,7 +1494,7 @@ var ExplainerAI = {
         kind: 'concept', engine: 'guide', mode: 'guide' };
     }
     return { title: 'Guide mode',
-      text: 'I am the on-site guide, answering from the knowledge base on this page — not the trained model. The trained Signature Llama v1 is published and loads automatically; press ✦ Ask Llama to talk to it directly.',
+      text: 'I am the on-site guide, answering from the knowledge base on this page — not the trained model. The trained Signature Llama v2 is published and loads automatically; press ✦ Ask Llama to talk to it directly.',
       kind: 'concept', engine: 'guide', mode: 'guide' };
   },
   answer: function (q) {
@@ -1499,7 +1548,7 @@ window.SignatureLlama = {
   },
   ask: function (question) {
     return ExplainerAI.askLlama(question).then(function (r) {
-      if (r) return '✦ Trained Llama v1: ' + llamaHuman(r.text);
+      if (r) return '✦ Trained Llama v2 · LOCAL: ' + llamaHuman(r.text);
       var a = ExplainerAI.answer(question);
       return 'Guide: ' + llamaHuman(a.title + ': ' + a.text);
     });
@@ -1560,7 +1609,7 @@ function wireGuide() {
       addMsg(log, 's', 'Asking the trained Llama…');
       ExplainerAI.askLlama(t).then(function (r) {
         var s = log.querySelector('.s:last-child'); if (s) s.remove();
-        if (r) { addMsg(log, 'a', '✦ Trained Llama v1: ' + llamaHuman(r.text)); speak(llamaHuman(r.text)); }
+        if (r) { addMsg(log, 'a', '✦ Trained Llama v2 · LOCAL: ' + llamaHuman(r.text)); speak(llamaHuman(r.text)); }
         else showAns(ExplainerAI.answer(t), 'Guide: ');
       });
       return;
@@ -2006,6 +2055,7 @@ document.addEventListener('DOMContentLoaded', function () {
   renderLastUpdated();
   loadModelStatus().then(function () { renderLastUpdated(); });
   wireChatBox();
+  wireTestLlama();
   wireModelPicker();
   wireCopyButtons();
   wireDictionary();
