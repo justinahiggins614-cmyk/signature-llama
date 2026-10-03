@@ -41,7 +41,8 @@ const exportHook = ';global.__t={classifyError:typeof classifyError!=="undefined
   'failureText:failureText,fmtMB:fmtMB,fallbackReasonFor:fallbackReasonFor,updateCtxCount:updateCtxCount,' +
   'wireTTSButtons:wireTTSButtons,wireChatBox:wireChatBox,speechStop:speechStop,speechPause:speechPause,' +
   'speechResume:speechResume,LlamaChat:LlamaChat,' +
-  'TOUR_STEPS:TOUR_STEPS,Tour:Tour,tourCard:tourCard,tourStart:tourStart,tourShow:tourShow,tourEnd:tourEnd,tourKeys:tourKeys,wireTour:wireTour};';
+  'TOUR_STEPS:TOUR_STEPS,Tour:Tour,tourCard:tourCard,tourStart:tourStart,tourShow:tourShow,tourEnd:tourEnd,tourKeys:tourKeys,wireTour:wireTour,' +
+  'setTOOLIBS:function(v){TOOLIBS=v;}};';
 const hookable = main.replace(/\}\)\(\);\s*$/, exportHook + '\n})();');
 eval(hookable);
 const { classifyError, failureText, fmtMB, fallbackReasonFor, updateCtxCount,

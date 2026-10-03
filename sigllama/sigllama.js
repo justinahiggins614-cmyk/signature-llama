@@ -279,6 +279,7 @@ var SigLlama = (function () {
       var reader = r.body.getReader(), chunks = [], got = 0, last = 0;
       function pump(res) {
         if (res.done) {
+          try { opts.onProgress(got, total); } catch (e) {} /* final tick: never stall at 99% */
           var buf = new Uint8Array(got), off = 0, i;
           for (i = 0; i < chunks.length; i++) { buf.set(chunks[i], off); off += chunks[i].length; }
           return buf.buffer;
