@@ -541,6 +541,16 @@
     "vocab.json"
    ],
    "license": "Free for any website, app, or project. No API key, no fee."
+  },
+  "patch_zip_v2": {
+   "filename": "signature-llama-patch-v2.zip",
+   "sha256": "0dea5ab67bedd75861f20b8cbdfc767b3dacfe503e1e6bb6aac4e5ed6120154b",
+   "size_bytes": 7003756,
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "url": "https://justinahiggins614-cmyk.github.io/signature-llama/patch/signature-llama-patch-v2.zip",
+   "version": "2.0",
+   "description": "Complete reproducible release package: pinned v2 engine/weights/vocab, preserved v1 files, sources, data, APIs, manifest, model card, README, MANIFEST.json with per-file hashes. The .sha256 file beside it holds the ZIP's own hash.",
+   "sha256_url": "https://justinahiggins614-cmyk.github.io/signature-llama/patch/signature-llama-patch-v2.zip.sha256"
   }
  },
  "limitations": [
@@ -668,7 +678,8 @@
   "dictionary_csv": "https://justinahiggins614-cmyk.github.io/signature-llama/data/llm-dictionary.csv",
   "tool_libraries": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
   "explainer_kb": "https://justinahiggins614-cmyk.github.io/signature-llama/data/explainer-kb.json",
-  "ai_access": "https://justinahiggins614-cmyk.github.io/signature-llama/#ai-access"
+  "ai_access": "https://justinahiggins614-cmyk.github.io/signature-llama/#ai-access",
+  "patch_zip_v2": "https://justinahiggins614-cmyk.github.io/signature-llama/patch/signature-llama-patch-v2.zip"
  },
  "llms_txt_derivation": "llms.txt is generated from this manifest plus model-status.json by build_llms.py (repo root). Do not hand-edit llms.txt; regenerate it."
 }

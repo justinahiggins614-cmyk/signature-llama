@@ -484,6 +484,8 @@ Signature Llama is an independent model by Justin Addam Higgins, not affiliated 
       <button type="button" class="copybtn" data-copy="aiblock">⧉ Copy instructions</button>
       <button type="button" data-copylink="llms.txt">⧉ Copy llms.txt link</button>
       <button type="button" data-copylink="llama-manifest.json">⧉ Copy manifest link</button>
+      <button type="button" data-copylink="llama-model-card.json">⧉ Copy model card link</button>
+      <button type="button" data-copylink="sigllama.d.ts">⧉ Copy TypeScript defs link</button>
       <button type="button" data-copylink="llama-api.js">⧉ Copy llama-api.js link</button>
     </div>
   </div>
@@ -2420,7 +2422,7 @@ document.addEventListener('DOMContentLoaded', function () {
   wireFinder();
   wireAIAccess();
   var dp = document.getElementById('dlpatch');
-  if (dp) dp.onclick = function () { window.location.href = 'patch/signature-llama-patch-v1.zip'; };
+  if (dp) dp.onclick = function () { window.location.href = 'patch/signature-llama-patch-v2.zip'; };
 });
 })();
 </script>
