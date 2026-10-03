@@ -1,1 +1,2503 @@
-{"terms": [{"t": "Signature Llama", "c": "Model Architecture", "d": "A tiny language model I built from scratch \u2014 written and trained on the IWB Dictionary and Signature spec text. An independent model, not affiliated with Meta."}, {"t": "large language model", "c": "Model Architecture", "d": "A neural network trained on huge amounts of text so it can generate human-like writing, answer questions, and follow instructions."}, {"t": "transformer", "c": "Model Architecture", "d": "The neural network design behind modern language models, built from stacked blocks that weigh how every word relates to every other word."}, {"t": "attention", "c": "Model Architecture", "d": "The mechanism that lets a model decide which words in a sentence matter most when understanding or generating the next word."}, {"t": "self-attention", "c": "Model Architecture", "d": "Attention applied within a single sequence, so each word can look at the other words around it for context."}, {"t": "multi-head attention", "c": "Model Architecture", "d": "Running several attention operations in parallel so the model can track different kinds of word relationships at once."}, {"t": "query", "c": "Model Architecture", "d": "In attention, the vector representing the word currently asking: which other words should I pay attention to."}, {"t": "key", "c": "Model Architecture", "d": "In attention, the vector each word offers up so the querying word can judge how relevant it is."}, {"t": "value", "c": "Model Architecture", "d": "In attention, the actual information a word contributes once it has been judged relevant by the query."}, {"t": "embedding", "c": "Model Architecture", "d": "A list of numbers that captures a word's meaning, learned so that similar words end up with similar numbers."}, {"t": "token embedding", "c": "Model Architecture", "d": "The embedding looked up for each input token before the model starts processing the sequence."}, {"t": "positional encoding", "c": "Model Architecture", "d": "Extra information added to embeddings so the model knows the order of words, since attention itself has no sense of position."}, {"t": "rotary positional embedding", "c": "Model Architecture", "d": "A way of encoding word position by rotating the query and key vectors, which handles long sequences gracefully."}, {"t": "absolute positional embedding", "c": "Model Architecture", "d": "A learned or fixed vector added per position, giving each slot in the sequence its own identity."}, {"t": "layer normalization", "c": "Model Architecture", "d": "A step that rescales a layer's outputs to a steady range, keeping training stable and fast."}, {"t": "RMSNorm", "c": "Model Architecture", "d": "A lighter cousin of layer normalization that rescales by the root-mean-square, skipping the mean subtraction."}, {"t": "feed-forward network", "c": "Model Architecture", "d": "The per-position mini-network inside each transformer block that transforms the attention output into richer features."}, {"t": "residual connection", "c": "Model Architecture", "d": "A shortcut that adds a block's input to its output, letting gradients flow cleanly through very deep networks."}, {"t": "decoder", "c": "Model Architecture", "d": "The transformer half that generates output one token at a time, each step looking back at what it already wrote."}, {"t": "encoder", "c": "Model Architecture", "d": "The transformer half that reads a whole input at once, building a rich understanding before anything is generated."}, {"t": "decoder-only model", "c": "Model Architecture", "d": "A language model built from decoders alone, which predicts the next token \u2014 the design behind Signature Llama and most chat models."}, {"t": "encoder-decoder model", "c": "Model Architecture", "d": "A model with both halves: the encoder reads the input, the decoder writes the output, as in translation systems."}, {"t": "causal mask", "c": "Model Architecture", "d": "A rule during training that hides future tokens, so the model can only learn from the past \u2014 the way real generation works."}, {"t": "softmax", "c": "Model Architecture", "d": "The math that turns raw model scores into probabilities that sum to one, used to pick the next token."}, {"t": "logits", "c": "Model Architecture", "d": "The raw, unnormalized scores the model produces for every vocabulary word before softmax turns them into probabilities."}, {"t": "hidden state", "c": "Model Architecture", "d": "The internal vector a layer produces for each position \u2014 the model's working understanding as text flows through."}, {"t": "context window", "c": "Model Architecture", "d": "The maximum number of tokens a model can consider at once, covering both the prompt and what it has generated."}, {"t": "parameter", "c": "Model Architecture", "d": "A single learned number inside the model; Signature Llama v1 has about three million of them."}, {"t": "weight", "c": "Model Architecture", "d": "A parameter that scales a connection between neurons, learned during training."}, {"t": "bias", "c": "Model Architecture", "d": "A learned offset added after a weighted sum, giving each neuron its own starting push."}, {"t": "activation function", "c": "Model Architecture", "d": "A bend applied to a neuron's output, like ReLU or GELU, that lets the network learn non-straight-line patterns."}, {"t": "ReLU", "c": "Model Architecture", "d": "An activation that passes positive numbers through unchanged and turns negatives to zero \u2014 simple and fast."}, {"t": "GELU", "c": "Model Architecture", "d": "A smooth, curved activation popular in transformers that weights inputs by how likely they are under a bell curve."}, {"t": "SiLU", "c": "Model Architecture", "d": "An activation that multiplies the input by its own sigmoid, giving a smooth gate that many modern models prefer."}, {"t": "SwiGLU", "c": "Model Architecture", "d": "A gated feed-forward variant that splits the signal into two paths and multiplies them, boosting model quality."}, {"t": "dropout", "c": "Model Architecture", "d": "A training trick that randomly switches off some neurons, forcing the network to not lean on any single one."}, {"t": "attention head", "c": "Model Architecture", "d": "One of the parallel attention units inside a layer, each free to specialize in a different relationship between words."}, {"t": "KV cache", "c": "Model Architecture", "d": "Stored keys and values from tokens already processed, so generation does not recompute them at every step."}, {"t": "grouped-query attention", "c": "Model Architecture", "d": "An attention style where several query heads share one key-value head, shrinking the cache with little quality loss."}, {"t": "multi-query attention", "c": "Model Architecture", "d": "The extreme version: every query head shares a single key-value head for maximum generation speed."}, {"t": "sliding window attention", "c": "Model Architecture", "d": "Attention limited to a recent window of tokens, letting the model handle very long texts cheaply."}, {"t": "sparse attention", "c": "Model Architecture", "d": "Attention that deliberately skips most token pairs, computing only the connections that matter."}, {"t": "cross-attention", "c": "Model Architecture", "d": "Attention where the queries come from one sequence and the keys and values from another, linking e.g. a question to a document."}, {"t": "mixture of experts", "c": "Model Architecture", "d": "A design with many small specialist networks where only a few activate per token, growing capacity without growing cost per token."}, {"t": "expert", "c": "Model Architecture", "d": "One specialist feed-forward network inside a mixture-of-experts layer, typically good at certain topics or patterns."}, {"t": "router", "c": "Model Architecture", "d": "The tiny network in a mixture-of-experts model that picks which experts handle each token."}, {"t": "pre-norm", "c": "Model Architecture", "d": "Placing normalization before the attention and feed-forward steps inside each block \u2014 the modern stable choice."}, {"t": "post-norm", "c": "Model Architecture", "d": "The older layout that normalizes after each block's residual addition."}, {"t": "transformer block", "c": "Model Architecture", "d": "One repeating unit of the model: attention, then a feed-forward network, each wrapped with normalization and residuals."}, {"t": "output projection", "c": "Model Architecture", "d": "The final layer that converts the last hidden state into a score for every word in the vocabulary."}, {"t": "embedding matrix", "c": "Model Architecture", "d": "The big lookup table mapping every token ID to its learned embedding vector."}, {"t": "tied embeddings", "c": "Model Architecture", "d": "Reusing the same matrix for input embeddings and the output projection, saving parameters."}, {"t": "ALiBi", "c": "Model Architecture", "d": "A position method that biases attention scores by distance instead of adding position vectors, extrapolating to longer texts."}, {"t": "YaRN", "c": "Model Architecture", "d": "A technique that stretches a trained model's context window by rescaling its rotary position embeddings."}, {"t": "training", "c": "Training", "d": "The process of feeding a model huge amounts of text and adjusting its parameters until it predicts language well."}, {"t": "pretraining", "c": "Training", "d": "The first, longest training phase, where a model learns general language by predicting the next token across a giant corpus."}, {"t": "fine-tuning", "c": "Training", "d": "Extra training on a smaller, focused dataset to teach a pretrained model a particular skill, tone, or task."}, {"t": "instruction tuning", "c": "Training", "d": "Fine-tuning on examples of instructions paired with good responses, so the model learns to follow directions helpfully."}, {"t": "RLHF", "c": "Training", "d": "Reinforcement learning from human feedback: training a model to prefer the answers humans rate highest."}, {"t": "DPO", "c": "Training", "d": "Direct preference optimization \u2014 a simpler way to teach human preferences that skips the separate reward model RLHF needs."}, {"t": "loss function", "c": "Training", "d": "The score the training process tries to minimize, measuring how wrong the model's predictions are."}, {"t": "cross-entropy loss", "c": "Training", "d": "The standard loss for language models: it punishes the model according to how unlikely it thought the true next token was."}, {"t": "gradient descent", "c": "Training", "d": "The core learning algorithm: nudge every parameter a little in the direction that lowers the loss, and repeat billions of times."}, {"t": "backpropagation", "c": "Training", "d": "The technique that figures out how much each parameter contributed to an error, so gradient descent knows what to adjust."}, {"t": "learning rate", "c": "Training", "d": "How big each parameter update is \u2014 too large and training blows up, too small and it crawls."}, {"t": "learning rate schedule", "c": "Training", "d": "A plan that changes the learning rate over time, usually warming up first and cooling down toward the end."}, {"t": "warmup", "c": "Training", "d": "Starting training with a tiny learning rate that ramps up, which keeps the early steps stable."}, {"t": "Adam", "c": "Training", "d": "A popular optimizer that adapts the learning rate per parameter using running averages of recent gradients."}, {"t": "AdamW", "c": "Training", "d": "Adam with weight decay handled properly \u2014 the default optimizer for training most transformers."}, {"t": "epoch", "c": "Training", "d": "One full pass through the entire training dataset."}, {"t": "batch", "c": "Training", "d": "A group of examples processed together in one training step, balancing speed against memory."}, {"t": "mini-batch", "c": "Training", "d": "A small batch used in practice, since whole-dataset batches would never fit in memory."}, {"t": "gradient accumulation", "c": "Training", "d": "Adding up gradients over several small batches before updating, faking a big batch on limited hardware."}, {"t": "mixed precision training", "c": "Training", "d": "Training with a blend of 16-bit and 32-bit numbers to go faster and use less memory without hurting quality."}, {"t": "FP16", "c": "Training", "d": "16-bit floating point numbers \u2014 half the memory of FP32, standard for fast training."}, {"t": "BF16", "c": "Training", "d": "Brain float 16: a 16-bit format with the wide range of 32-bit, safer than FP16 for training."}, {"t": "checkpoint", "c": "Training", "d": "A saved snapshot of the model's parameters during training, so work is never lost and the best version can be kept."}, {"t": "overfitting", "c": "Training", "d": "When a model memorizes its training data instead of learning general patterns, doing worse on anything new."}, {"t": "underfitting", "c": "Training", "d": "When a model is too small or undertrained to capture the patterns in its data."}, {"t": "regularization", "c": "Training", "d": "Any technique, like dropout or weight decay, that discourages overfitting and keeps the model general."}, {"t": "weight decay", "c": "Training", "d": "A gentle penalty on large parameters during training that keeps the model simpler and more general."}, {"t": "gradient clipping", "c": "Training", "d": "Capping the size of gradient updates so one wild batch cannot wreck the model."}, {"t": "data parallel", "c": "Training", "d": "Splitting batches across many GPUs that each hold a full copy of the model and sync their updates."}, {"t": "model parallel", "c": "Training", "d": "Splitting the model itself across GPUs when it is too big for one card."}, {"t": "pipeline parallel", "c": "Training", "d": "Assigning different layers to different GPUs, with activations flowing through like an assembly line."}, {"t": "FSDP", "c": "Training", "d": "Fully sharded data parallel: spreading the model's parameters, gradients, and optimizer states across GPUs to train giants."}, {"t": "LoRA", "c": "Training", "d": "Low-rank adaptation \u2014 fine-tuning by training tiny add-on matrices instead of the whole model, cheap and effective."}, {"t": "QLoRA", "c": "Training", "d": "LoRA on a quantized model, letting a big model be fine-tuned on a single modest GPU."}, {"t": "adapter", "c": "Training", "d": "A small trainable module inserted into a frozen model, so new skills can be added without retraining everything."}, {"t": "supervised fine-tuning", "c": "Training", "d": "Fine-tuning on labeled examples of inputs and ideal outputs \u2014 the straightforward way to teach a task."}, {"t": "continual pretraining", "c": "Training", "d": "More pretraining on new data after the first round, e.g. to teach a model a specialty like medicine or law."}, {"t": "curriculum learning", "c": "Training", "d": "Feeding training data in order from easy to hard, the way a student learns."}, {"t": "token budget", "c": "Training", "d": "The total number of tokens a training run will process \u2014 the main dial controlling cost and quality."}, {"t": "training corpus", "c": "Training", "d": "The full collection of text a model learns from; Signature Llama's is the IWB Dictionary plus the Signature spec archive."}, {"t": "validation set", "c": "Training", "d": "Data kept out of training and used to check whether the model is genuinely learning or just memorizing."}, {"t": "validation loss", "c": "Training", "d": "The loss measured on the validation set \u2014 the honest scoreboard during training."}, {"t": "early stopping", "c": "Training", "d": "Halting training when validation stops improving, keeping the best checkpoint instead of overfitting further."}, {"t": "learning rate decay", "c": "Training", "d": "Gradually lowering the learning rate late in training so the model settles into its best settings."}, {"t": "cosine schedule", "c": "Training", "d": "A learning-rate plan that follows a cosine curve: warm up, cruise, then glide smoothly down to near zero."}, {"t": "optimizer", "c": "Training", "d": "The algorithm that turns gradients into parameter updates \u2014 AdamW being the usual choice."}, {"t": "momentum", "c": "Training", "d": "An optimizer trick that keeps updates moving in a consistent direction, smoothing out noisy gradients."}, {"t": "gradient", "c": "Training", "d": "The per-parameter measure of which way the loss would drop fastest \u2014 the compass for every update."}, {"t": "forward pass", "c": "Training", "d": "Running input through the model to produce predictions, the first half of every training step."}, {"t": "backward pass", "c": "Training", "d": "Propagating the error back through the model to compute gradients, the second half of every training step."}, {"t": "teacher forcing", "c": "Training", "d": "Feeding the model the true previous tokens during training instead of its own guesses, which stabilizes learning."}, {"t": "next-token prediction", "c": "Training", "d": "The fundamental training task: given all tokens so far, predict the next one \u2014 the skill behind everything language models do."}, {"t": "inference", "c": "Inference", "d": "Running a trained model to generate answers \u2014 the doing phase, as opposed to the learning phase of training."}, {"t": "generation", "c": "Inference", "d": "The model's act of producing text token by token during inference."}, {"t": "sampling", "c": "Inference", "d": "Choosing the next token from the model's probability distribution, with settings like temperature shaping the choice."}, {"t": "temperature", "c": "Inference", "d": "A dial on randomness: low values make the model pick the most likely token, high values make it more creative and surprising."}, {"t": "top-k sampling", "c": "Inference", "d": "Only letting the model choose among the k most likely next tokens, cutting off the weird tail of the distribution."}, {"t": "top-p sampling", "c": "Inference", "d": "Nucleus sampling: choosing from the smallest set of tokens whose probabilities add up to p, adapting to the model's confidence."}, {"t": "greedy decoding", "c": "Inference", "d": "Always picking the single most likely next token \u2014 fast and deterministic, but sometimes dull or repetitive."}, {"t": "beam search", "c": "Inference", "d": "Keeping several candidate sequences alive and expanding the best ones, trading speed for higher-quality output."}, {"t": "token streaming", "c": "Inference", "d": "Sending each generated token to the user the moment it is produced, instead of waiting for the whole answer."}, {"t": "latency", "c": "Inference", "d": "How long you wait for an answer \u2014 the delay between asking and getting the first token back."}, {"t": "throughput", "c": "Inference", "d": "How many tokens the system can generate per second across all users."}, {"t": "tokens per second", "c": "Inference", "d": "The plain speedometer of generation: how many tokens the model produces each second."}, {"t": "time to first token", "c": "Inference", "d": "How quickly the first token appears after a request \u2014 what makes a chat feel snappy or sluggish."}, {"t": "prompt", "c": "Inference", "d": "The input text you give the model, which it continues or responds to."}, {"t": "system prompt", "c": "Inference", "d": "Hidden instructions set by the developer that shape the model's role and behavior for the whole conversation."}, {"t": "completion", "c": "Inference", "d": "The text the model generates in response to a prompt."}, {"t": "stop sequence", "c": "Inference", "d": "A string that tells generation to halt the moment it appears, like a period at the end of one answer."}, {"t": "max tokens", "c": "Inference", "d": "A cap on how many tokens the model may generate in one response."}, {"t": "repetition penalty", "c": "Inference", "d": "A setting that lowers the score of tokens already used, discouraging the model from repeating itself."}, {"t": "presence penalty", "c": "Inference", "d": "A penalty applied once to any token that has appeared, pushing the model toward fresh topics."}, {"t": "frequency penalty", "c": "Inference", "d": "A penalty that grows the more a token repeats, taming loops without banning words outright."}, {"t": "seed", "c": "Inference", "d": "The starting number for the random generator \u2014 same seed plus same settings gives the same answer."}, {"t": "deterministic decoding", "c": "Inference", "d": "Generation settings, like temperature zero, that produce the same output every time for the same input."}, {"t": "stochastic decoding", "c": "Inference", "d": "Generation that rolls the dice each token, so the same prompt can give different answers."}, {"t": "speculative decoding", "c": "Inference", "d": "A speedup trick where a small model drafts tokens and the big model just verifies them."}, {"t": "batch inference", "c": "Inference", "d": "Processing many requests together in one go to use the hardware efficiently."}, {"t": "continuous batching", "c": "Inference", "d": "A server trick that slots new requests into the batch the moment old ones finish, keeping the GPU always busy."}, {"t": "prompt caching", "c": "Inference", "d": "Reusing the processed form of a repeated prompt prefix instead of recomputing it every time."}, {"t": "quantization", "c": "Inference", "d": "Shrinking a model's numbers to fewer bits, e.g. 8 or 4, so it runs faster and fits in less memory."}, {"t": "int8 quantization", "c": "Inference", "d": "Storing weights as 8-bit integers \u2014 about a quarter the size of 32-bit floats, the format Signature Llama ships in."}, {"t": "int4 quantization", "c": "Inference", "d": "Squeezing weights to 4 bits for the smallest, fastest models, with a small quality tradeoff."}, {"t": "GGUF", "c": "Inference", "d": "A popular file format for quantized models that runs efficiently on ordinary computers."}, {"t": "ONNX", "c": "Inference", "d": "An open format for exchanging trained models between different frameworks and runtimes."}, {"t": "inference engine", "c": "Inference", "d": "The software that loads a model and generates text with it \u2014 sigllama.js is Signature Llama's engine."}, {"t": "runtime", "c": "Inference", "d": "The environment executing the model, whether a browser, a phone, or a server."}, {"t": "context length", "c": "Inference", "d": "How many tokens of conversation the model can actually keep in mind at generation time."}, {"t": "context stuffing", "c": "Inference", "d": "Packing background documents into the prompt so the model answers from provided material."}, {"t": "prompt engineering", "c": "Inference", "d": "The craft of wording inputs to get better outputs from a model."}, {"t": "few-shot prompting", "c": "Inference", "d": "Showing the model a few examples inside the prompt so it copies the pattern."}, {"t": "zero-shot prompting", "c": "Inference", "d": "Asking the model to do something with no examples, relying on what it learned in training."}, {"t": "chain-of-thought prompting", "c": "Inference", "d": "Asking the model to reason step by step out loud, which improves hard problems."}, {"t": "role prompting", "c": "Inference", "d": "Telling the model who to be, like a tutor or a pirate, to shape its voice and behavior."}, {"t": "logit bias", "c": "Inference", "d": "Manually boosting or suppressing specific tokens' scores to steer generation."}, {"t": "structured output", "c": "Inference", "d": "Forcing the model to answer in a strict format like JSON so programs can use the result directly."}, {"t": "JSON mode", "c": "Inference", "d": "A generation setting that guarantees the output is valid JSON."}, {"t": "function calling", "c": "Inference", "d": "Letting the model request real actions, like checking weather, by emitting structured calls a program executes."}, {"t": "tool use", "c": "Inference", "d": "The broader ability of a model to operate external tools \u2014 search, calculators, code runners \u2014 during a conversation."}, {"t": "hallucination", "c": "Inference", "d": "When a model states something false with total confidence, inventing facts that were never in its training."}, {"t": "grounding", "c": "Inference", "d": "Tying a model's answers to real sources or data so it invents less."}, {"t": "EOS token", "c": "Inference", "d": "The special end-of-sequence token whose appearance tells generation to stop."}, {"t": "BOS token", "c": "Inference", "d": "The special beginning-of-sequence token marking where a text starts."}, {"t": "streaming tokens", "c": "Inference", "d": "Seeing each token type out live as the model generates it, the effect behind the onToken callback."}, {"t": "token", "c": "Data & Tokens", "d": "The basic unit a language model reads and writes \u2014 a word, word piece, or single character depending on the tokenizer."}, {"t": "tokenizer", "c": "Data & Tokens", "d": "The tool that chops raw text into tokens before the model sees it, and turns tokens back into text afterward."}, {"t": "tokenization", "c": "Data & Tokens", "d": "The act of splitting text into tokens \u2014 the first step of everything a language model does."}, {"t": "vocabulary", "c": "Data & Tokens", "d": "The full set of tokens a model knows, each with its own ID and learned embedding."}, {"t": "subword", "c": "Data & Tokens", "d": "A token smaller than a word, like un plus believable, which lets models handle rare words by assembling pieces."}, {"t": "byte-pair encoding", "c": "Data & Tokens", "d": "A tokenizer algorithm that starts from single characters and repeatedly merges the most common pair, building the vocabulary bottom-up."}, {"t": "WordPiece", "c": "Data & Tokens", "d": "A subword tokenizer that merges the pair which most improves the training likelihood, used by BERT-style models."}, {"t": "SentencePiece", "c": "Data & Tokens", "d": "A tokenizer library that treats the raw text as-is, spaces included, and learns subwords without pre-splitting words."}, {"t": "character-level tokenization", "c": "Data & Tokens", "d": "Tokenizing text one character at a time \u2014 simple, tiny vocabulary, and the approach Signature Llama v1 uses."}, {"t": "word-level tokenization", "c": "Data & Tokens", "d": "Tokenizing whole words at once, which needs a huge vocabulary and chokes on words it never saw."}, {"t": "token ID", "c": "Data & Tokens", "d": "The number standing in for a token inside the model \u2014 text becomes lists of IDs before any math happens."}, {"t": "detokenization", "c": "Data & Tokens", "d": "Converting the model's output token IDs back into readable text."}, {"t": "corpus", "c": "Data & Tokens", "d": "A large collection of text assembled for training or study \u2014 the model's reading material."}, {"t": "dataset", "c": "Data & Tokens", "d": "An organized collection of examples used to train or test a model."}, {"t": "training data", "c": "Data & Tokens", "d": "The actual text the model learns from during training."}, {"t": "data cleaning", "c": "Data & Tokens", "d": "Removing junk, duplicates, and garbage from training text so the model learns from quality material."}, {"t": "deduplication", "c": "Data & Tokens", "d": "Deleting repeated passages from training data, since heavy repetition teaches the model to parrot."}, {"t": "data mixture", "c": "Data & Tokens", "d": "The recipe of how much web text, books, code, and other sources go into the training corpus."}, {"t": "synthetic data", "c": "Data & Tokens", "d": "Training text generated by another AI rather than written by humans \u2014 useful, but risky if overused."}, {"t": "data contamination", "c": "Data & Tokens", "d": "When test questions leak into training data, making benchmark scores look better than they really are."}, {"t": "document", "c": "Data & Tokens", "d": "One coherent piece of text in the corpus, like an article or a dictionary entry."}, {"t": "chunk", "c": "Data & Tokens", "d": "A fixed-size slice of text cut from documents to feed the model during training."}, {"t": "sequence", "c": "Data & Tokens", "d": "An ordered list of token IDs \u2014 the actual input format the model consumes."}, {"t": "sequence length", "c": "Data & Tokens", "d": "How many tokens long a training sequence is; longer sequences teach longer-range patterns."}, {"t": "padding", "c": "Data & Tokens", "d": "Filler tokens added to make all sequences in a batch the same length."}, {"t": "truncation", "c": "Data & Tokens", "d": "Cutting a sequence down to the maximum length the model accepts."}, {"t": "packing", "c": "Data & Tokens", "d": "Gluing several short documents into one training sequence so no space goes to waste."}, {"t": "padding mask", "c": "Data & Tokens", "d": "A marker telling the model which positions are real text and which are just padding to ignore."}, {"t": "special token", "c": "Data & Tokens", "d": "A reserved token with a job, like marking the start or end of a sequence."}, {"t": "unknown token", "c": "Data & Tokens", "d": "The fallback token for text the tokenizer cannot represent \u2014 rare in subword and character schemes."}, {"t": "padding token", "c": "Data & Tokens", "d": "The special token used to fill sequences out to equal length in a batch."}, {"t": "separator token", "c": "Data & Tokens", "d": "A token marking boundaries between segments, like the question and the passage."}, {"t": "classification token", "c": "Data & Tokens", "d": "A special token whose final state is used as the summary of a whole input for classification."}, {"t": "byte fallback", "c": "Data & Tokens", "d": "Representing unknown characters as raw bytes so the tokenizer never truly fails on odd text."}, {"t": "fertility", "c": "Data & Tokens", "d": "How many tokens a tokenizer produces per word on average \u2014 lower means cheaper, faster processing."}, {"t": "compression ratio", "c": "Data & Tokens", "d": "How compactly a tokenizer encodes text, measured in characters per token."}, {"t": "whitespace handling", "c": "Data & Tokens", "d": "How the tokenizer treats spaces and line breaks \u2014 getting it wrong garbles code and poetry."}, {"t": "text normalization", "c": "Data & Tokens", "d": "Standardizing text before tokenizing, like unifying quotes or unicode forms."}, {"t": "casing", "c": "Data & Tokens", "d": "Whether the tokenizer distinguishes Apple from apple \u2014 a choice that changes the vocabulary."}, {"t": "unicode", "c": "Data & Tokens", "d": "The universal character standard that lets tokenizers handle every language's script."}, {"t": "vocabulary size", "c": "Data & Tokens", "d": "How many distinct tokens the model knows \u2014 bigger vocabularies read efficiently but need bigger embedding tables."}, {"t": "out-of-vocabulary", "c": "Data & Tokens", "d": "Words the tokenizer never learned, which older word-level systems could not represent at all."}, {"t": "n-gram", "c": "Data & Tokens", "d": "A run of n consecutive tokens or words, the classic unit of old-school language statistics."}, {"t": "data loader", "c": "Data & Tokens", "d": "The code that streams training examples from disk into the GPU fast enough to keep it busy."}, {"t": "shuffling", "c": "Data & Tokens", "d": "Randomizing the order of training examples so the model does not learn spurious patterns from the ordering."}, {"t": "data epoch", "c": "Data & Tokens", "d": "One complete pass over the training data, after which shuffling usually starts a fresh order."}, {"t": "held-out data", "c": "Data & Tokens", "d": "Examples reserved from training so they can honestly test what the model learned."}, {"t": "label", "c": "Data & Tokens", "d": "The correct answer attached to a training example, like the true next token."}, {"t": "input IDs", "c": "Data & Tokens", "d": "The token IDs fed into the model for one training or inference step."}, {"t": "target IDs", "c": "Data & Tokens", "d": "The token IDs the model is supposed to predict \u2014 the answers for its input IDs."}, {"t": "benchmark data", "c": "Data & Tokens", "d": "Standardized test sets the whole field uses to compare models fairly."}, {"t": "evaluation", "c": "Evaluation", "d": "Measuring how good a model actually is, with tests rather than vibes."}, {"t": "benchmark", "c": "Evaluation", "d": "A standard test suite the whole field runs so models can be compared on equal footing."}, {"t": "perplexity", "c": "Evaluation", "d": "How surprised a model is by real text, on average \u2014 lower means it predicts language better."}, {"t": "accuracy", "c": "Evaluation", "d": "The fraction of test questions the model gets right \u2014 the simplest score there is."}, {"t": "exact match", "c": "Evaluation", "d": "A strict score that only counts answers identical to the expected one."}, {"t": "F1 score", "c": "Evaluation", "d": "A balance of precision and recall into one number, common for question-answering tests."}, {"t": "BLEU", "c": "Evaluation", "d": "A classic translation score based on how many word sequences the output shares with reference translations."}, {"t": "ROUGE", "c": "Evaluation", "d": "A summarization score measuring overlap between the model's summary and human-written ones."}, {"t": "MMLU", "c": "Evaluation", "d": "A famous 57-subject multiple-choice test of general knowledge, from math to law to history."}, {"t": "HellaSwag", "c": "Evaluation", "d": "A commonsense test asking the model to pick the most sensible ending to everyday situations."}, {"t": "ARC", "c": "Evaluation", "d": "Grade-school science questions, in easy and challenge flavors, testing reasoning over memorization."}, {"t": "TruthfulQA", "c": "Evaluation", "d": "A test of whether the model repeats common myths or tells the truth about tricky questions."}, {"t": "HumanEval", "c": "Evaluation", "d": "A coding benchmark where the model must write programs that pass hidden tests."}, {"t": "GSM8K", "c": "Evaluation", "d": "Grade-school math word problems testing whether the model can reason step by step."}, {"t": "test set", "c": "Evaluation", "d": "The locked-away questions used for final scoring, never seen during training."}, {"t": "zero-shot evaluation", "c": "Evaluation", "d": "Testing the model with no examples in the prompt, pure cold."}, {"t": "few-shot evaluation", "c": "Evaluation", "d": "Testing with a few examples in the prompt, the standard fair-comparison setup."}, {"t": "human evaluation", "c": "Evaluation", "d": "Having real people rate model answers \u2014 slow and pricey, but the gold standard for quality."}, {"t": "LLM-as-judge", "c": "Evaluation", "d": "Using a strong model to grade other models' answers, a fast stand-in for human raters."}, {"t": "Elo rating", "c": "Evaluation", "d": "A chess-style skill score from head-to-head model comparisons, as used on public leaderboards."}, {"t": "win rate", "c": "Evaluation", "d": "How often one model's answer is preferred over another's in side-by-side tests."}, {"t": "pass@k", "c": "Evaluation", "d": "The chance that at least one of k generated attempts solves the problem \u2014 the coding benchmark staple."}, {"t": "calibration", "c": "Evaluation", "d": "Whether the model's confidence matches its actual accuracy \u2014 a well-calibrated model knows when it is guessing."}, {"t": "robustness", "c": "Evaluation", "d": "How well the model holds up on odd, adversarial, or out-of-distribution inputs."}, {"t": "eval bias", "c": "Evaluation", "d": "Ways a test can mislead \u2014 leaked data, judge favoritism, or questions that reward the wrong thing."}, {"t": "toxicity", "c": "Evaluation", "d": "Measuring how often a model produces hateful, abusive, or otherwise harmful text."}, {"t": "red teaming", "c": "Evaluation", "d": "Deliberately attacking a model with tricky prompts to find its failure and safety holes before the public does."}, {"t": "jailbreak", "c": "Evaluation", "d": "A prompt crafted to slip past a model's safety training and make it do what it was told not to."}, {"t": "prompt injection", "c": "Evaluation", "d": "Hiding malicious instructions inside data the model reads, tricking it into obeying the attacker."}, {"t": "safety evaluation", "c": "Evaluation", "d": "Testing that a model refuses genuinely dangerous requests while staying useful."}, {"t": "alignment", "c": "Evaluation", "d": "How well the model's goals line up with what humans actually want \u2014 helpful, honest, and safe."}, {"t": "helpfulness", "c": "Evaluation", "d": "Whether the model actually moves the user toward their goal, not just whether it sounds fluent."}, {"t": "harmlessness", "c": "Evaluation", "d": "The property of not causing damage \u2014 refusing real harm while staying useful for everything else."}, {"t": "honesty", "c": "Evaluation", "d": "The model saying what it believes is true and admitting uncertainty instead of bluffing."}, {"t": "over-refusal", "c": "Evaluation", "d": "When safety tuning goes too far and the model refuses perfectly innocent requests."}, {"t": "sycophancy", "c": "Evaluation", "d": "The model's bad habit of agreeing with the user even when the user is wrong."}, {"t": "baseline", "c": "Evaluation", "d": "A simple reference model or score that a new approach must beat to prove it is worth anything."}, {"t": "ablation study", "c": "Evaluation", "d": "Removing one piece of a system at a time to measure what each piece actually contributes."}, {"t": "scaling law", "c": "Evaluation", "d": "The observed rule that bigger models, more data, and more compute predictably lower the loss."}, {"t": "Chinchilla scaling", "c": "Evaluation", "d": "The finding that models should be trained on far more tokens than was fashionable \u2014 about twenty tokens per parameter."}, {"t": "compute-optimal", "c": "Evaluation", "d": "The sweet spot of model size versus training data for a fixed compute budget."}, {"t": "emergent ability", "c": "Evaluation", "d": "A skill that appears suddenly once a model gets big enough, absent in smaller versions."}, {"t": "eval harness", "c": "Evaluation", "d": "The software framework that runs benchmarks consistently so scores are comparable."}, {"t": "logprob", "c": "Evaluation", "d": "The log-probability the model assigned to a token \u2014 the raw material of many evaluations."}, {"t": "multiple choice eval", "c": "Evaluation", "d": "Testing by asking the model to pick from options, scored by which choice gets the highest probability."}, {"t": "generative eval", "c": "Evaluation", "d": "Testing by letting the model write freely and judging the result, closer to real use."}, {"t": "contamination check", "c": "Evaluation", "d": "Verifying the test questions were not hiding in the training data."}, {"t": "regression test", "c": "Evaluation", "d": "Re-running old evaluations after each change to make sure nothing that worked got broken."}, {"t": "A/B test", "c": "Evaluation", "d": "Showing users two versions and measuring which performs better in the real world."}, {"t": "human preference", "c": "Evaluation", "d": "Which answer real people pick \u2014 the signal behind RLHF and preference training."}, {"t": "golden dataset", "c": "Evaluation", "d": "A small, carefully human-verified set of examples treated as ground truth for testing."}, {"t": "deployment", "c": "Deployment", "d": "Putting a trained model where real users can reach it \u2014 the trip from lab to the world."}, {"t": "serving", "c": "Deployment", "d": "Running a model behind an endpoint that answers requests, day and night."}, {"t": "API", "c": "Deployment", "d": "A programming interface letting other software send prompts and receive completions."}, {"t": "API key", "c": "Deployment", "d": "The secret token identifying who is calling an API \u2014 Signature Llama needs none, since it runs locally."}, {"t": "endpoint", "c": "Deployment", "d": "The web address a model listens on for incoming requests."}, {"t": "model server", "c": "Deployment", "d": "Software built to load models and serve many users efficiently, with batching and caching."}, {"t": "vLLM", "c": "Deployment", "d": "A fast open-source serving engine famous for its paged attention memory management."}, {"t": "llama.cpp", "c": "Deployment", "d": "A lean C++ engine that runs quantized models on ordinary CPUs \u2014 the offline-everywhere workhorse."}, {"t": "Ollama", "c": "Deployment", "d": "A friendly tool that downloads and runs open models locally with one command."}, {"t": "Hugging Face", "c": "Deployment", "d": "The big public hub where the AI world shares models, datasets, and demos."}, {"t": "model hub", "c": "Deployment", "d": "Any repository where trained models are published for others to download and use."}, {"t": "open weights", "c": "Deployment", "d": "Releasing the trained parameters so anyone can download, study, and run the model themselves."}, {"t": "open source model", "c": "Deployment", "d": "A model whose code and often weights are public \u2014 Signature Llama's engine and trainer are published this way."}, {"t": "model license", "c": "Deployment", "d": "The legal terms saying what you may do with a model \u2014 commercial use, modification, and redistribution rules."}, {"t": "commercial use", "c": "Deployment", "d": "Using a model to make money, which some licenses allow freely and others restrict."}, {"t": "edge deployment", "c": "Deployment", "d": "Running the model on the device at the network's edge \u2014 phones, laptops, gadgets \u2014 instead of a data center."}, {"t": "on-device inference", "c": "Deployment", "d": "The model running entirely on the user's own hardware, private and offline-capable."}, {"t": "browser inference", "c": "Deployment", "d": "Running the model inside a web page with JavaScript \u2014 Signature Llama's home turf, no install needed."}, {"t": "WebGPU", "c": "Deployment", "d": "The browser API that unlocks the graphics card for fast in-page computation."}, {"t": "WebAssembly", "c": "Deployment", "d": "A compact binary format letting near-native-speed code, like inference kernels, run in the browser."}, {"t": "mobile deployment", "c": "Deployment", "d": "Shrinking and tuning a model so it runs well on phones with limited memory and battery."}, {"t": "model quantization", "c": "Deployment", "d": "The deployment-time step of converting weights to fewer bits for speed and size."}, {"t": "pruning", "c": "Deployment", "d": "Deleting the least important weights or neurons to slim a model down."}, {"t": "distillation", "c": "Deployment", "d": "Training a small student model to imitate a big teacher, keeping most of the quality at a fraction of the size."}, {"t": "knowledge distillation", "c": "Deployment", "d": "The formal name for the teacher-student transfer technique behind many compact models."}, {"t": "model merging", "c": "Deployment", "d": "Blending the weights of two trained models to combine their skills without retraining."}, {"t": "containerization", "c": "Deployment", "d": "Packaging a model and its environment into a portable container that runs the same anywhere."}, {"t": "Docker", "c": "Deployment", "d": "The standard container tool for shipping software, models included, with identical environments."}, {"t": "GPU", "c": "Deployment", "d": "The graphics processor \u2014 the parallel-compute workhorse that trains and serves nearly all big models."}, {"t": "VRAM", "c": "Deployment", "d": "A GPU's own memory, where the model and its working data must fit during training and serving."}, {"t": "CPU inference", "c": "Deployment", "d": "Running the model on the regular processor \u2014 slower than GPU but available everywhere."}, {"t": "NPU", "c": "Deployment", "d": "A neural processing unit: a chip built specifically to accelerate AI math on devices."}, {"t": "TPU", "c": "Deployment", "d": "Google's tensor processing unit, a custom chip designed for massive-scale training."}, {"t": "inference cost", "c": "Deployment", "d": "What you pay per request or per token to run a model \u2014 zero for a model running in your own browser."}, {"t": "cost per token", "c": "Deployment", "d": "The unit price of generation on hosted APIs, usually quoted per million tokens."}, {"t": "rate limit", "c": "Deployment", "d": "How many requests an API allows per minute \u2014 a non-issue when the model lives on your device."}, {"t": "uptime", "c": "Deployment", "d": "The fraction of time a serving endpoint is actually reachable."}, {"t": "monitoring", "c": "Deployment", "d": "Watching a deployed model for errors, slowness, and quality drift."}, {"t": "logging", "c": "Deployment", "d": "Recording requests and outputs so problems can be diagnosed and behavior audited."}, {"t": "model versioning", "c": "Deployment", "d": "Labeling each trained model, like v1 and v2, so you can track and roll between them."}, {"t": "rollback", "c": "Deployment", "d": "Switching back to the previous model version when a new one misbehaves."}, {"t": "canary release", "c": "Deployment", "d": "Sending a new model to a small slice of users first to catch problems early."}, {"t": "server scaling", "c": "Deployment", "d": "Adding more serving capacity as demand grows."}, {"t": "autoscaling", "c": "Deployment", "d": "Automatically spinning servers up and down with demand."}, {"t": "load balancer", "c": "Deployment", "d": "The traffic cop spreading requests across many model servers."}, {"t": "cold start", "c": "Deployment", "d": "The slow first request while a model loads into memory."}, {"t": "warm start", "c": "Deployment", "d": "Fast requests once the model is already loaded and ready."}, {"t": "response caching", "c": "Deployment", "d": "Storing answers to repeated questions so identical prompts return instantly."}, {"t": "CDN", "c": "Deployment", "d": "A content delivery network that serves static files, like model weights, from servers near each user."}, {"t": "offline mode", "c": "Deployment", "d": "The model working with no internet at all \u2014 possible once the files are downloaded."}, {"t": "PWA", "c": "Deployment", "d": "A progressive web app: a website that installs and behaves like a native app, offline included."}, {"t": "static hosting", "c": "Deployment", "d": "Serving a site as plain files with no server code \u2014 how every Signature site, including this one, is published."}]}
+{
+ "terms": [
+  {
+   "t": "Signature Llama",
+   "c": "Model Architecture",
+   "d": "A tiny language model I built from scratch — written and trained on the IWB Dictionary and Signature spec text. An independent model, not affiliated with Meta.",
+   "id": "SIGLLAMA-TERM-0001",
+   "v": "1.1",
+   "hash": "3896dc909271e53a569e42f597ec626149663fe32e17063e9aebfa379f7910b8"
+  },
+  {
+   "t": "large language model",
+   "c": "Model Architecture",
+   "d": "A neural network trained on huge amounts of text so it can generate human-like writing, answer questions, and follow instructions.",
+   "id": "SIGLLAMA-TERM-0002",
+   "v": "1.1",
+   "hash": "d95108621039b7ca90ae56a0e3d7cb6dd4caa5f7ce11ed7ca7f550d91edc24ec"
+  },
+  {
+   "t": "transformer",
+   "c": "Model Architecture",
+   "d": "The neural network design behind modern language models, built from stacked blocks that weigh how every word relates to every other word.",
+   "id": "SIGLLAMA-TERM-0003",
+   "v": "1.1",
+   "hash": "9f08dd0f39f69ee263c2b153d257b8be727b02f4f9478f627cad642d5d578e61"
+  },
+  {
+   "t": "attention",
+   "c": "Model Architecture",
+   "d": "The mechanism that lets a model decide which words in a sentence matter most when understanding or generating the next word.",
+   "id": "SIGLLAMA-TERM-0004",
+   "v": "1.1",
+   "hash": "df6333ab0a972fb0cedb63581785c451d436808c79d596b5c3b1322299cc63f4"
+  },
+  {
+   "t": "self-attention",
+   "c": "Model Architecture",
+   "d": "Attention applied within a single sequence, so each word can look at the other words around it for context.",
+   "id": "SIGLLAMA-TERM-0005",
+   "v": "1.1",
+   "hash": "fca579e919049b5b9b60b556c07b31397e4132094bd66db68a11e326a8d05cc3"
+  },
+  {
+   "t": "multi-head attention",
+   "c": "Model Architecture",
+   "d": "Running several attention operations in parallel so the model can track different kinds of word relationships at once.",
+   "id": "SIGLLAMA-TERM-0006",
+   "v": "1.1",
+   "hash": "9f92a4ad0a25bbb077ddc0d6d16dcb53d9120b0a948d5dfb5a642f0dda541af8"
+  },
+  {
+   "t": "query",
+   "c": "Model Architecture",
+   "d": "In attention, the vector representing the word currently asking: which other words should I pay attention to.",
+   "id": "SIGLLAMA-TERM-0007",
+   "v": "1.1",
+   "hash": "627af5f6fb56c30f0d791d8af2d57eb643bb4562e9b2d5f2454e70436f373094"
+  },
+  {
+   "t": "key",
+   "c": "Model Architecture",
+   "d": "In attention, the vector each word offers up so the querying word can judge how relevant it is.",
+   "id": "SIGLLAMA-TERM-0008",
+   "v": "1.1",
+   "hash": "15eb5ab557561282b1ef8ce5bf02d4a094e9099928403a1be0038b420834694e"
+  },
+  {
+   "t": "value",
+   "c": "Model Architecture",
+   "d": "In attention, the actual information a word contributes once it has been judged relevant by the query.",
+   "id": "SIGLLAMA-TERM-0009",
+   "v": "1.1",
+   "hash": "7ec3bb9a706772a814a721236a598237049ab37ac573ac88530bfe656820186f"
+  },
+  {
+   "t": "embedding",
+   "c": "Model Architecture",
+   "d": "A list of numbers that captures a word's meaning, learned so that similar words end up with similar numbers.",
+   "id": "SIGLLAMA-TERM-0010",
+   "v": "1.1",
+   "hash": "e38442f6359fb2f53d22fe6522b586b5eb5d755f33a789f76700b0ad2b5f617b"
+  },
+  {
+   "t": "token embedding",
+   "c": "Model Architecture",
+   "d": "The embedding looked up for each input token before the model starts processing the sequence.",
+   "id": "SIGLLAMA-TERM-0011",
+   "v": "1.1",
+   "hash": "d45d93643061a56f173788ea6767069a9ae7fe20123ac6014cd10882918642f2"
+  },
+  {
+   "t": "positional encoding",
+   "c": "Model Architecture",
+   "d": "Extra information added to embeddings so the model knows the order of words, since attention itself has no sense of position.",
+   "id": "SIGLLAMA-TERM-0012",
+   "v": "1.1",
+   "hash": "e18c3936208a2d6c8fd10d6a4edd40156936e57918723ea10c5d391c3d17a26d"
+  },
+  {
+   "t": "rotary positional embedding",
+   "c": "Model Architecture",
+   "d": "A way of encoding word position by rotating the query and key vectors, which handles long sequences gracefully.",
+   "id": "SIGLLAMA-TERM-0013",
+   "v": "1.1",
+   "hash": "d576634dc3508388a62be199c88880a3e83ef149ba4ae427359d4779dea17991"
+  },
+  {
+   "t": "absolute positional embedding",
+   "c": "Model Architecture",
+   "d": "A learned or fixed vector added per position, giving each slot in the sequence its own identity.",
+   "id": "SIGLLAMA-TERM-0014",
+   "v": "1.1",
+   "hash": "c64ae5aca02aca4b3535781c09fdb6dafbf4e86c5e7686b52bb7623e21774327"
+  },
+  {
+   "t": "layer normalization",
+   "c": "Model Architecture",
+   "d": "A step that rescales a layer's outputs to a steady range, keeping training stable and fast.",
+   "id": "SIGLLAMA-TERM-0015",
+   "v": "1.1",
+   "hash": "916fa2e4b81e2a7bfc19d09cb1102b98b01be64a4ed6e0b74e483a37f69f1f68"
+  },
+  {
+   "t": "RMSNorm",
+   "c": "Model Architecture",
+   "d": "A lighter cousin of layer normalization that rescales by the root-mean-square, skipping the mean subtraction.",
+   "id": "SIGLLAMA-TERM-0016",
+   "v": "1.1",
+   "hash": "14b412c11438335a23e1ca8a3a9162213ff0d22c340d3630e265e4f119922d7f"
+  },
+  {
+   "t": "feed-forward network",
+   "c": "Model Architecture",
+   "d": "The per-position mini-network inside each transformer block that transforms the attention output into richer features.",
+   "id": "SIGLLAMA-TERM-0017",
+   "v": "1.1",
+   "hash": "708d036402e9f1f901da90181c7e37faf1f110721b09b07b49f9492451744a6c"
+  },
+  {
+   "t": "residual connection",
+   "c": "Model Architecture",
+   "d": "A shortcut that adds a block's input to its output, letting gradients flow cleanly through very deep networks.",
+   "id": "SIGLLAMA-TERM-0018",
+   "v": "1.1",
+   "hash": "4734a49a46167c9b6dc4a43adda0a11aa8c611ca308680dca7c4d36aa7f1d856"
+  },
+  {
+   "t": "decoder",
+   "c": "Model Architecture",
+   "d": "The transformer half that generates output one token at a time, each step looking back at what it already wrote.",
+   "id": "SIGLLAMA-TERM-0019",
+   "v": "1.1",
+   "hash": "b5713fde3d5e27739271ad0b4d8c0288e0ba7741a51da87ff8713cd630f2e55d"
+  },
+  {
+   "t": "encoder",
+   "c": "Model Architecture",
+   "d": "The transformer half that reads a whole input at once, building a rich understanding before anything is generated.",
+   "id": "SIGLLAMA-TERM-0020",
+   "v": "1.1",
+   "hash": "b51b2ba588bd1cbd7739d9d7e485318aff4e18bf7076cea615c80663ff9092d8"
+  },
+  {
+   "t": "decoder-only model",
+   "c": "Model Architecture",
+   "d": "A language model built from decoders alone, which predicts the next token — the design behind Signature Llama and most chat models.",
+   "id": "SIGLLAMA-TERM-0021",
+   "v": "1.1",
+   "hash": "99ae3170ba640776b4cc90717a3e6bb3ecbf3120559dfa0e69db1134b708d645"
+  },
+  {
+   "t": "encoder-decoder model",
+   "c": "Model Architecture",
+   "d": "A model with both halves: the encoder reads the input, the decoder writes the output, as in translation systems.",
+   "id": "SIGLLAMA-TERM-0022",
+   "v": "1.1",
+   "hash": "907250d7d3a979dbc515ba5de47e25d865b8a150eca9a1e6a515b693b03b2886"
+  },
+  {
+   "t": "causal mask",
+   "c": "Model Architecture",
+   "d": "A rule during training that hides future tokens, so the model can only learn from the past — the way real generation works.",
+   "id": "SIGLLAMA-TERM-0023",
+   "v": "1.1",
+   "hash": "fb051b70b4248cc9bed3a258ca9c9f6a0afd5521a959f9e03b88944315b9abc9"
+  },
+  {
+   "t": "softmax",
+   "c": "Model Architecture",
+   "d": "The math that turns raw model scores into probabilities that sum to one, used to pick the next token.",
+   "id": "SIGLLAMA-TERM-0024",
+   "v": "1.1",
+   "hash": "91e32e54239ef70f09a383c4adf79beab631016d824669358d453efa4093099e"
+  },
+  {
+   "t": "logits",
+   "c": "Model Architecture",
+   "d": "The raw, unnormalized scores the model produces for every vocabulary word before softmax turns them into probabilities.",
+   "id": "SIGLLAMA-TERM-0025",
+   "v": "1.1",
+   "hash": "5846f9388f9827a6b379ecd8fd55a92c41150a1dbccb3b3d79539762628def41"
+  },
+  {
+   "t": "hidden state",
+   "c": "Model Architecture",
+   "d": "The internal vector a layer produces for each position — the model's working understanding as text flows through.",
+   "id": "SIGLLAMA-TERM-0026",
+   "v": "1.1",
+   "hash": "2e37d9ca79da198f2a16c8b938534ad982ffdc9d8aaf8c65005cfd179f206246"
+  },
+  {
+   "t": "context window",
+   "c": "Model Architecture",
+   "d": "The maximum number of tokens a model can consider at once, covering both the prompt and what it has generated.",
+   "id": "SIGLLAMA-TERM-0027",
+   "v": "1.1",
+   "hash": "48543c9cafa015d1d99a657fd1c9a926dbb147e453d9691f2025010c9fa15469"
+  },
+  {
+   "t": "parameter",
+   "c": "Model Architecture",
+   "d": "A single learned number inside the model; Signature Llama v1 has about three million of them.",
+   "id": "SIGLLAMA-TERM-0028",
+   "v": "1.1",
+   "hash": "c8583904c2224c6121b36cd70060a638e131cd4f34b99f917e6b9a03ee5c8780"
+  },
+  {
+   "t": "weight",
+   "c": "Model Architecture",
+   "d": "A parameter that scales a connection between neurons, learned during training.",
+   "id": "SIGLLAMA-TERM-0029",
+   "v": "1.1",
+   "hash": "25988b8236bdfbefc23eff8c0846d5735ec6e2a5060646ca3f8ee9633d8eae62"
+  },
+  {
+   "t": "bias",
+   "c": "Model Architecture",
+   "d": "A learned offset added after a weighted sum, giving each neuron its own starting push.",
+   "id": "SIGLLAMA-TERM-0030",
+   "v": "1.1",
+   "hash": "879d82159b67128edba2127a64e5e42fbd42026905846d51be8342471f9d4b26"
+  },
+  {
+   "t": "activation function",
+   "c": "Model Architecture",
+   "d": "A bend applied to a neuron's output, like ReLU or GELU, that lets the network learn non-straight-line patterns.",
+   "id": "SIGLLAMA-TERM-0031",
+   "v": "1.1",
+   "hash": "b08f204b861c0c4f8921703ee4eeb8c4351435cf609923db23f5379685737f45"
+  },
+  {
+   "t": "ReLU",
+   "c": "Model Architecture",
+   "d": "An activation that passes positive numbers through unchanged and turns negatives to zero — simple and fast.",
+   "id": "SIGLLAMA-TERM-0032",
+   "v": "1.1",
+   "hash": "7a380040756e436931deae36cae748a7987a20d5ffec485be07d75b6d36f7a0e"
+  },
+  {
+   "t": "GELU",
+   "c": "Model Architecture",
+   "d": "A smooth, curved activation popular in transformers that weights inputs by how likely they are under a bell curve.",
+   "id": "SIGLLAMA-TERM-0033",
+   "v": "1.1",
+   "hash": "a98ddad316e1b8cb4cd771d76ebdad49cfc0a4c453c8f555d52702f01dd64240"
+  },
+  {
+   "t": "SiLU",
+   "c": "Model Architecture",
+   "d": "An activation that multiplies the input by its own sigmoid, giving a smooth gate that many modern models prefer.",
+   "id": "SIGLLAMA-TERM-0034",
+   "v": "1.1",
+   "hash": "a96dedd544256829259af761eee7d65280ecf107e6705425c442a7cb189b6bba"
+  },
+  {
+   "t": "SwiGLU",
+   "c": "Model Architecture",
+   "d": "A gated feed-forward variant that splits the signal into two paths and multiplies them, boosting model quality.",
+   "id": "SIGLLAMA-TERM-0035",
+   "v": "1.1",
+   "hash": "eb924623df04c4bee526f573beaad4545c0eab1e78199b77621c1e8804ddf3d7"
+  },
+  {
+   "t": "dropout",
+   "c": "Model Architecture",
+   "d": "A training trick that randomly switches off some neurons, forcing the network to not lean on any single one.",
+   "id": "SIGLLAMA-TERM-0036",
+   "v": "1.1",
+   "hash": "d84fcf42531c570f12037739502b2c6f46d1ec83d2f80a7a5cea8e7d596b265b"
+  },
+  {
+   "t": "attention head",
+   "c": "Model Architecture",
+   "d": "One of the parallel attention units inside a layer, each free to specialize in a different relationship between words.",
+   "id": "SIGLLAMA-TERM-0037",
+   "v": "1.1",
+   "hash": "31ffb6fd336674b4091db04ddcf5e89527e23a517b9e3cadfe0fbe0a9c7f45c3"
+  },
+  {
+   "t": "KV cache",
+   "c": "Model Architecture",
+   "d": "Stored keys and values from tokens already processed, so generation does not recompute them at every step.",
+   "id": "SIGLLAMA-TERM-0038",
+   "v": "1.1",
+   "hash": "897a4421459db392d1d160437ff8e15aee97ea24eabfe7a172affae0d2bf5c7f"
+  },
+  {
+   "t": "grouped-query attention",
+   "c": "Model Architecture",
+   "d": "An attention style where several query heads share one key-value head, shrinking the cache with little quality loss.",
+   "id": "SIGLLAMA-TERM-0039",
+   "v": "1.1",
+   "hash": "f8806db3acdd269f96e36d0345fe9cc45c58924da6e3707507563adb59821954"
+  },
+  {
+   "t": "multi-query attention",
+   "c": "Model Architecture",
+   "d": "The extreme version: every query head shares a single key-value head for maximum generation speed.",
+   "id": "SIGLLAMA-TERM-0040",
+   "v": "1.1",
+   "hash": "cc4b8fffc74c48d23910a65aa137e31bdd4beeb0487314171f98bc670f6333a6"
+  },
+  {
+   "t": "sliding window attention",
+   "c": "Model Architecture",
+   "d": "Attention limited to a recent window of tokens, letting the model handle very long texts cheaply.",
+   "id": "SIGLLAMA-TERM-0041",
+   "v": "1.1",
+   "hash": "d420d00244b18fb08927896bdf05ef674fbf7ebfaf3f8cbd42aba631aad8fd06"
+  },
+  {
+   "t": "sparse attention",
+   "c": "Model Architecture",
+   "d": "Attention that deliberately skips most token pairs, computing only the connections that matter.",
+   "id": "SIGLLAMA-TERM-0042",
+   "v": "1.1",
+   "hash": "7b0270dd79818aa44815d560d33d1736786da43d3495360156ff8cf2ce156ee9"
+  },
+  {
+   "t": "cross-attention",
+   "c": "Model Architecture",
+   "d": "Attention where the queries come from one sequence and the keys and values from another, linking e.g. a question to a document.",
+   "id": "SIGLLAMA-TERM-0043",
+   "v": "1.1",
+   "hash": "4dcfdfac82ce85d34903d03df0119ddabeb6eab4646089ae04f61c26f4477590"
+  },
+  {
+   "t": "mixture of experts",
+   "c": "Model Architecture",
+   "d": "A design with many small specialist networks where only a few activate per token, growing capacity without growing cost per token.",
+   "id": "SIGLLAMA-TERM-0044",
+   "v": "1.1",
+   "hash": "e0070dc02ad6b520075ab27c9f25a143c88951939a3c7453f2924fb76a6e4f0b"
+  },
+  {
+   "t": "expert",
+   "c": "Model Architecture",
+   "d": "One specialist feed-forward network inside a mixture-of-experts layer, typically good at certain topics or patterns.",
+   "id": "SIGLLAMA-TERM-0045",
+   "v": "1.1",
+   "hash": "99ed8ceb8f7fce2a677e65523ab157edface55445ac522b202d824bc6acfa49b"
+  },
+  {
+   "t": "router",
+   "c": "Model Architecture",
+   "d": "The tiny network in a mixture-of-experts model that picks which experts handle each token.",
+   "id": "SIGLLAMA-TERM-0046",
+   "v": "1.1",
+   "hash": "77310ac68044df244ffe3b5a5227c1b2d5aaf9289a8a60f49074df0b6b1a0b74"
+  },
+  {
+   "t": "pre-norm",
+   "c": "Model Architecture",
+   "d": "Placing normalization before the attention and feed-forward steps inside each block — the modern stable choice.",
+   "id": "SIGLLAMA-TERM-0047",
+   "v": "1.1",
+   "hash": "1d2f793c86cead9d2b8565f26877b1f7d7096e68b1c03e4b32e58ac24a49135c"
+  },
+  {
+   "t": "post-norm",
+   "c": "Model Architecture",
+   "d": "The older layout that normalizes after each block's residual addition.",
+   "id": "SIGLLAMA-TERM-0048",
+   "v": "1.1",
+   "hash": "52a98fcc301d0adc8fb775e997b5a8b28d751fcf1d21e761f28752f04570802d"
+  },
+  {
+   "t": "transformer block",
+   "c": "Model Architecture",
+   "d": "One repeating unit of the model: attention, then a feed-forward network, each wrapped with normalization and residuals.",
+   "id": "SIGLLAMA-TERM-0049",
+   "v": "1.1",
+   "hash": "643745110fc89bf0f5f61cfa8f34489b788c90e1de30b539486f556a838517b0"
+  },
+  {
+   "t": "output projection",
+   "c": "Model Architecture",
+   "d": "The final layer that converts the last hidden state into a score for every word in the vocabulary.",
+   "id": "SIGLLAMA-TERM-0050",
+   "v": "1.1",
+   "hash": "21d6012f0cd0427c3b9de4c72c205a3c7f7547ac6f790a876e52681e2227cbb0"
+  },
+  {
+   "t": "embedding matrix",
+   "c": "Model Architecture",
+   "d": "The big lookup table mapping every token ID to its learned embedding vector.",
+   "id": "SIGLLAMA-TERM-0051",
+   "v": "1.1",
+   "hash": "a03ba86f3c417d6eff62884972072c551cf19e3996e041a1372e262ccb0ea443"
+  },
+  {
+   "t": "tied embeddings",
+   "c": "Model Architecture",
+   "d": "Reusing the same matrix for input embeddings and the output projection, saving parameters.",
+   "id": "SIGLLAMA-TERM-0052",
+   "v": "1.1",
+   "hash": "049a8bb6a9cade64cf687b8f5f447a5d14c42a660f7c7568ebb88edc995bafb8"
+  },
+  {
+   "t": "ALiBi",
+   "c": "Model Architecture",
+   "d": "A position method that biases attention scores by distance instead of adding position vectors, extrapolating to longer texts.",
+   "id": "SIGLLAMA-TERM-0053",
+   "v": "1.1",
+   "hash": "adf08a20ab152a7b599339652be6452beb83e62dd175f70878a7cee1891fde42"
+  },
+  {
+   "t": "YaRN",
+   "c": "Model Architecture",
+   "d": "A technique that stretches a trained model's context window by rescaling its rotary position embeddings.",
+   "id": "SIGLLAMA-TERM-0054",
+   "v": "1.1",
+   "hash": "1144ecdd5ac9a06d802d52c53009a8b4990ecb3b7d49759bba98c7fb1d37b7d4"
+  },
+  {
+   "t": "training",
+   "c": "Training",
+   "d": "The process of feeding a model huge amounts of text and adjusting its parameters until it predicts language well.",
+   "id": "SIGLLAMA-TERM-0055",
+   "v": "1.1",
+   "hash": "9a1650cae30ee8f5a411948f7e3c7c2c61ee4393730450b762fcba8b975b08e4"
+  },
+  {
+   "t": "pretraining",
+   "c": "Training",
+   "d": "The first, longest training phase, where a model learns general language by predicting the next token across a giant corpus.",
+   "id": "SIGLLAMA-TERM-0056",
+   "v": "1.1",
+   "hash": "4bd8af9f010a88e122fe994eacacefa1e64494e32915d31dd288fa136d855bda"
+  },
+  {
+   "t": "fine-tuning",
+   "c": "Training",
+   "d": "Extra training on a smaller, focused dataset to teach a pretrained model a particular skill, tone, or task.",
+   "id": "SIGLLAMA-TERM-0057",
+   "v": "1.1",
+   "hash": "8ff2e2fe19f2a34036b5b8519ef2029f3db61b864075772e085624f9e021ad9a"
+  },
+  {
+   "t": "instruction tuning",
+   "c": "Training",
+   "d": "Fine-tuning on examples of instructions paired with good responses, so the model learns to follow directions helpfully.",
+   "id": "SIGLLAMA-TERM-0058",
+   "v": "1.1",
+   "hash": "2c0ee64c5afb79ba1016a7f5b343451447f97575814280d4663d6f25ad41ec56"
+  },
+  {
+   "t": "RLHF",
+   "c": "Training",
+   "d": "Reinforcement learning from human feedback: training a model to prefer the answers humans rate highest.",
+   "id": "SIGLLAMA-TERM-0059",
+   "v": "1.1",
+   "hash": "f556e36e82ac97aaea175082d510899defbc744cff282e39e6bd45ff3c4e14b5"
+  },
+  {
+   "t": "DPO",
+   "c": "Training",
+   "d": "Direct preference optimization — a simpler way to teach human preferences that skips the separate reward model RLHF needs.",
+   "id": "SIGLLAMA-TERM-0060",
+   "v": "1.1",
+   "hash": "0579d628d1ccb94777b73ce837e6c8ced7b4314554d5211e910a4704a91a549e"
+  },
+  {
+   "t": "loss function",
+   "c": "Training",
+   "d": "The score the training process tries to minimize, measuring how wrong the model's predictions are.",
+   "id": "SIGLLAMA-TERM-0061",
+   "v": "1.1",
+   "hash": "8ebe07b686ecefe340935630c1f4cd762e21a7dc82d1ba8bedfb2bbd51fbecb3"
+  },
+  {
+   "t": "cross-entropy loss",
+   "c": "Training",
+   "d": "The standard loss for language models: it punishes the model according to how unlikely it thought the true next token was.",
+   "id": "SIGLLAMA-TERM-0062",
+   "v": "1.1",
+   "hash": "8c6107643f6b2b0b41d05924eecf3ffa9676795196d4391da23d17c3e37eb87a"
+  },
+  {
+   "t": "gradient descent",
+   "c": "Training",
+   "d": "The core learning algorithm: nudge every parameter a little in the direction that lowers the loss, and repeat billions of times.",
+   "id": "SIGLLAMA-TERM-0063",
+   "v": "1.1",
+   "hash": "60c7de8632b25ef04c301801519b5a4b1a3f2e80b27886778a174d12d61f7344"
+  },
+  {
+   "t": "backpropagation",
+   "c": "Training",
+   "d": "The technique that figures out how much each parameter contributed to an error, so gradient descent knows what to adjust.",
+   "id": "SIGLLAMA-TERM-0064",
+   "v": "1.1",
+   "hash": "6119e388a37e2dd5cfc182451dce14ce8afbaede9db99fd607caaf3c50c3e3bb"
+  },
+  {
+   "t": "learning rate",
+   "c": "Training",
+   "d": "How big each parameter update is — too large and training blows up, too small and it crawls.",
+   "id": "SIGLLAMA-TERM-0065",
+   "v": "1.1",
+   "hash": "706aa28f27726773118e2630959ebd0fd101d2776384784c289f4daf3964bd09"
+  },
+  {
+   "t": "learning rate schedule",
+   "c": "Training",
+   "d": "A plan that changes the learning rate over time, usually warming up first and cooling down toward the end.",
+   "id": "SIGLLAMA-TERM-0066",
+   "v": "1.1",
+   "hash": "cd36be5eb8e56f329e402878abb8a4af935086397146ca616f6331adb10d61d9"
+  },
+  {
+   "t": "warmup",
+   "c": "Training",
+   "d": "Starting training with a tiny learning rate that ramps up, which keeps the early steps stable.",
+   "id": "SIGLLAMA-TERM-0067",
+   "v": "1.1",
+   "hash": "e5059e9e97f6cb878951e9ba4c20bd4c4f65d74342eae336ca228dca097b9105"
+  },
+  {
+   "t": "Adam",
+   "c": "Training",
+   "d": "A popular optimizer that adapts the learning rate per parameter using running averages of recent gradients.",
+   "id": "SIGLLAMA-TERM-0068",
+   "v": "1.1",
+   "hash": "645f46530d2c1e150af5d8513a1c4786b9a19e9294ec9571f7e02fb6a4956030"
+  },
+  {
+   "t": "AdamW",
+   "c": "Training",
+   "d": "Adam with weight decay handled properly — the default optimizer for training most transformers.",
+   "id": "SIGLLAMA-TERM-0069",
+   "v": "1.1",
+   "hash": "1995af8bd7cbbab97b353f5e3e01bcd40ec5c0c7614ec6885abccfd229b3f6eb"
+  },
+  {
+   "t": "epoch",
+   "c": "Training",
+   "d": "One full pass through the entire training dataset.",
+   "id": "SIGLLAMA-TERM-0070",
+   "v": "1.1",
+   "hash": "2ee2ca12eb0278330aa239006a1d0945a8acb960a3ea2fde4877e35634611f63"
+  },
+  {
+   "t": "batch",
+   "c": "Training",
+   "d": "A group of examples processed together in one training step, balancing speed against memory.",
+   "id": "SIGLLAMA-TERM-0071",
+   "v": "1.1",
+   "hash": "bf6aaa013ce166a31d847bb4d3e4b16ba396a1112203174fa5a24ae266437c38"
+  },
+  {
+   "t": "mini-batch",
+   "c": "Training",
+   "d": "A small batch used in practice, since whole-dataset batches would never fit in memory.",
+   "id": "SIGLLAMA-TERM-0072",
+   "v": "1.1",
+   "hash": "7221f13a6bcff4889150fa4fb73262119a1ce539274edba59c480641aec987e3"
+  },
+  {
+   "t": "gradient accumulation",
+   "c": "Training",
+   "d": "Adding up gradients over several small batches before updating, faking a big batch on limited hardware.",
+   "id": "SIGLLAMA-TERM-0073",
+   "v": "1.1",
+   "hash": "4c883323a3459d8772554481f5281815c184ac6ec200d7115eaff826bd6ad92e"
+  },
+  {
+   "t": "mixed precision training",
+   "c": "Training",
+   "d": "Training with a blend of 16-bit and 32-bit numbers to go faster and use less memory without hurting quality.",
+   "id": "SIGLLAMA-TERM-0074",
+   "v": "1.1",
+   "hash": "de7525b8017aa7dd2d06a9b1ea02a2b90e96ce112491095ddf67a66099e7abc7"
+  },
+  {
+   "t": "FP16",
+   "c": "Training",
+   "d": "16-bit floating point numbers — half the memory of FP32, standard for fast training.",
+   "id": "SIGLLAMA-TERM-0075",
+   "v": "1.1",
+   "hash": "efa699749f3d3c6881a10b2e8dda440a127fc9d5235ffb5665b01c816cb4e82d"
+  },
+  {
+   "t": "BF16",
+   "c": "Training",
+   "d": "Brain float 16: a 16-bit format with the wide range of 32-bit, safer than FP16 for training.",
+   "id": "SIGLLAMA-TERM-0076",
+   "v": "1.1",
+   "hash": "c6d3f3a9dc78f0b7716b75f4837f1c7582a66d4cc7a3305d068c9fa38b2f6d21"
+  },
+  {
+   "t": "checkpoint",
+   "c": "Training",
+   "d": "A saved snapshot of the model's parameters during training, so work is never lost and the best version can be kept.",
+   "id": "SIGLLAMA-TERM-0077",
+   "v": "1.1",
+   "hash": "a2d52b98ac052cb6dff7e9b42c0bceb9d0acae2939fefa5c7e3e0b89730823b9"
+  },
+  {
+   "t": "overfitting",
+   "c": "Training",
+   "d": "When a model memorizes its training data instead of learning general patterns, doing worse on anything new.",
+   "id": "SIGLLAMA-TERM-0078",
+   "v": "1.1",
+   "hash": "cbadb4e2b0101c4e1d2e682bea9463aadf96cd2196ff0dd472f78b5364abd772"
+  },
+  {
+   "t": "underfitting",
+   "c": "Training",
+   "d": "When a model is too small or undertrained to capture the patterns in its data.",
+   "id": "SIGLLAMA-TERM-0079",
+   "v": "1.1",
+   "hash": "ebecb2afa5ee035d1d808d9bf083d53df48f08b5c38d9033c286871467af00b8"
+  },
+  {
+   "t": "regularization",
+   "c": "Training",
+   "d": "Any technique, like dropout or weight decay, that discourages overfitting and keeps the model general.",
+   "id": "SIGLLAMA-TERM-0080",
+   "v": "1.1",
+   "hash": "80124e92f879f71436b86d465646e62f6cfc065f7cfc5dc124f4f53de690cfb6"
+  },
+  {
+   "t": "weight decay",
+   "c": "Training",
+   "d": "A gentle penalty on large parameters during training that keeps the model simpler and more general.",
+   "id": "SIGLLAMA-TERM-0081",
+   "v": "1.1",
+   "hash": "c1b89e3c40c562ab33415e3419565445211596b0b3cc0856a7ec0e133a7c859d"
+  },
+  {
+   "t": "gradient clipping",
+   "c": "Training",
+   "d": "Capping the size of gradient updates so one wild batch cannot wreck the model.",
+   "id": "SIGLLAMA-TERM-0082",
+   "v": "1.1",
+   "hash": "e37d31e43e9210d2e1132343bee78ea7633a0eefdde153253b54f8785c23b852"
+  },
+  {
+   "t": "data parallel",
+   "c": "Training",
+   "d": "Splitting batches across many GPUs that each hold a full copy of the model and sync their updates.",
+   "id": "SIGLLAMA-TERM-0083",
+   "v": "1.1",
+   "hash": "c1067c1a09afd49b05569232a7d7b235c2818b40e29c888e7cbfa3d8ba79f00c"
+  },
+  {
+   "t": "model parallel",
+   "c": "Training",
+   "d": "Splitting the model itself across GPUs when it is too big for one card.",
+   "id": "SIGLLAMA-TERM-0084",
+   "v": "1.1",
+   "hash": "c1f47c3ecec3e1d4c56ce61468f64df164f83cd9f7064a394d1bb665ac7e68f2"
+  },
+  {
+   "t": "pipeline parallel",
+   "c": "Training",
+   "d": "Assigning different layers to different GPUs, with activations flowing through like an assembly line.",
+   "id": "SIGLLAMA-TERM-0085",
+   "v": "1.1",
+   "hash": "feb485d0f07d18a946a31ace10dfd9f972d7c1cbea8dfa89dd3a7d5a0bae969a"
+  },
+  {
+   "t": "FSDP",
+   "c": "Training",
+   "d": "Fully sharded data parallel: spreading the model's parameters, gradients, and optimizer states across GPUs to train giants.",
+   "id": "SIGLLAMA-TERM-0086",
+   "v": "1.1",
+   "hash": "8dcfebd8fb0c9169009803c97b890ce2ba7b5ee6d6a2d3cd69feb4346ba80f7e"
+  },
+  {
+   "t": "LoRA",
+   "c": "Training",
+   "d": "Low-rank adaptation — fine-tuning by training tiny add-on matrices instead of the whole model, cheap and effective.",
+   "id": "SIGLLAMA-TERM-0087",
+   "v": "1.1",
+   "hash": "ee657a15dbbb61bb37078cd2235622116e3ecd21564c7e2d75f512b8b3957689"
+  },
+  {
+   "t": "QLoRA",
+   "c": "Training",
+   "d": "LoRA on a quantized model, letting a big model be fine-tuned on a single modest GPU.",
+   "id": "SIGLLAMA-TERM-0088",
+   "v": "1.1",
+   "hash": "2290463cc800bdb89e22a807c13b8e3b8abee118e13ac351f91108817edfb463"
+  },
+  {
+   "t": "adapter",
+   "c": "Training",
+   "d": "A small trainable module inserted into a frozen model, so new skills can be added without retraining everything.",
+   "id": "SIGLLAMA-TERM-0089",
+   "v": "1.1",
+   "hash": "d912698858d496c8903541f573a44d4f995f700c558ee8862a5f8b3d460ac650"
+  },
+  {
+   "t": "supervised fine-tuning",
+   "c": "Training",
+   "d": "Fine-tuning on labeled examples of inputs and ideal outputs — the straightforward way to teach a task.",
+   "id": "SIGLLAMA-TERM-0090",
+   "v": "1.1",
+   "hash": "55eb6eb0260b8dd09c648626cadb5dcdb08e79ef8fd0ee0aa73957b4c35470dd"
+  },
+  {
+   "t": "continual pretraining",
+   "c": "Training",
+   "d": "More pretraining on new data after the first round, e.g. to teach a model a specialty like medicine or law.",
+   "id": "SIGLLAMA-TERM-0091",
+   "v": "1.1",
+   "hash": "480e3d6801f6913b6568e744bc16961fe6cdf5703527672a52cd565d29a1e23c"
+  },
+  {
+   "t": "curriculum learning",
+   "c": "Training",
+   "d": "Feeding training data in order from easy to hard, the way a student learns.",
+   "id": "SIGLLAMA-TERM-0092",
+   "v": "1.1",
+   "hash": "2dd7841f46f52881d29389fea38e6b308d67d8ed858380a89510d601661b13b4"
+  },
+  {
+   "t": "token budget",
+   "c": "Training",
+   "d": "The total number of tokens a training run will process — the main dial controlling cost and quality.",
+   "id": "SIGLLAMA-TERM-0093",
+   "v": "1.1",
+   "hash": "7c69c9b4405962969398208cf4669df3b5fe8ebe4e62e6732ad87704ec291b2c"
+  },
+  {
+   "t": "training corpus",
+   "c": "Training",
+   "d": "The full collection of text a model learns from; Signature Llama's is the IWB Dictionary plus the Signature spec archive.",
+   "id": "SIGLLAMA-TERM-0094",
+   "v": "1.1",
+   "hash": "0f57b8eae0dc3ea20243a36132d65c382dd78f2116f75afd7583b0bd3a1affd8"
+  },
+  {
+   "t": "validation set",
+   "c": "Training",
+   "d": "Data kept out of training and used to check whether the model is genuinely learning or just memorizing.",
+   "id": "SIGLLAMA-TERM-0095",
+   "v": "1.1",
+   "hash": "67aea0e1fb51dd6c63776be9c45b0a3866ced0a1003bf15956b342ad98fe0fd0"
+  },
+  {
+   "t": "validation loss",
+   "c": "Training",
+   "d": "The loss measured on the validation set — the honest scoreboard during training.",
+   "id": "SIGLLAMA-TERM-0096",
+   "v": "1.1",
+   "hash": "ac100b5aad064072584e534b5b3ef4974b1eb3e9a369eed86374b9c0629e290d"
+  },
+  {
+   "t": "early stopping",
+   "c": "Training",
+   "d": "Halting training when validation stops improving, keeping the best checkpoint instead of overfitting further.",
+   "id": "SIGLLAMA-TERM-0097",
+   "v": "1.1",
+   "hash": "8dd81c67060ab4d614d5f26eb3a15abdd3100a9eb54d82035dd6d7ca386961e6"
+  },
+  {
+   "t": "learning rate decay",
+   "c": "Training",
+   "d": "Gradually lowering the learning rate late in training so the model settles into its best settings.",
+   "id": "SIGLLAMA-TERM-0098",
+   "v": "1.1",
+   "hash": "88d749cafe720345501fb081f0ea89a731610d83f49a38c1c6b754ae760bf95a"
+  },
+  {
+   "t": "cosine schedule",
+   "c": "Training",
+   "d": "A learning-rate plan that follows a cosine curve: warm up, cruise, then glide smoothly down to near zero.",
+   "id": "SIGLLAMA-TERM-0099",
+   "v": "1.1",
+   "hash": "1f378f37512bdf65b610fffe320726593e4319f50040f7f940576b13956e8e4a"
+  },
+  {
+   "t": "optimizer",
+   "c": "Training",
+   "d": "The algorithm that turns gradients into parameter updates — AdamW being the usual choice.",
+   "id": "SIGLLAMA-TERM-0100",
+   "v": "1.1",
+   "hash": "5bcd19d61d84db0a78922ca3ab3be3a6dfbd081437fd7c3291be2602f905f8d8"
+  },
+  {
+   "t": "momentum",
+   "c": "Training",
+   "d": "An optimizer trick that keeps updates moving in a consistent direction, smoothing out noisy gradients.",
+   "id": "SIGLLAMA-TERM-0101",
+   "v": "1.1",
+   "hash": "5f1d4c12540a3417c13e7c2c61139c8e5b588853a7e85d1e0237736a6ce5585e"
+  },
+  {
+   "t": "gradient",
+   "c": "Training",
+   "d": "The per-parameter measure of which way the loss would drop fastest — the compass for every update.",
+   "id": "SIGLLAMA-TERM-0102",
+   "v": "1.1",
+   "hash": "8803fe3eac4dc374745b1a45ce8ea53e718ce29fb3a0a38b9e46989ddf48d5fd"
+  },
+  {
+   "t": "forward pass",
+   "c": "Training",
+   "d": "Running input through the model to produce predictions, the first half of every training step.",
+   "id": "SIGLLAMA-TERM-0103",
+   "v": "1.1",
+   "hash": "f7bd59854359e984a5648dddf4966ee76032314bcfaac5d41346bf7f015c3f3c"
+  },
+  {
+   "t": "backward pass",
+   "c": "Training",
+   "d": "Propagating the error back through the model to compute gradients, the second half of every training step.",
+   "id": "SIGLLAMA-TERM-0104",
+   "v": "1.1",
+   "hash": "03798021016787a11f0914cc3e68784dbaf09e292594055292fef89fb2313458"
+  },
+  {
+   "t": "teacher forcing",
+   "c": "Training",
+   "d": "Feeding the model the true previous tokens during training instead of its own guesses, which stabilizes learning.",
+   "id": "SIGLLAMA-TERM-0105",
+   "v": "1.1",
+   "hash": "f6f424902c93f1a03681a0c6aa7c43329e4f862fb4f24e6a0a76224362bbad1b"
+  },
+  {
+   "t": "next-token prediction",
+   "c": "Training",
+   "d": "The fundamental training task: given all tokens so far, predict the next one — the skill behind everything language models do.",
+   "id": "SIGLLAMA-TERM-0106",
+   "v": "1.1",
+   "hash": "27336b75f3b8daaa7b6fbed66549b98b2f590a3eefb1a5cd5b552428cb8c253f"
+  },
+  {
+   "t": "inference",
+   "c": "Inference",
+   "d": "Running a trained model to generate answers — the doing phase, as opposed to the learning phase of training.",
+   "id": "SIGLLAMA-TERM-0107",
+   "v": "1.1",
+   "hash": "964599b117bfcff0a9c2e5ebc4d857c3c9208993276ec89ed8ce836b64855924"
+  },
+  {
+   "t": "generation",
+   "c": "Inference",
+   "d": "The model's act of producing text token by token during inference.",
+   "id": "SIGLLAMA-TERM-0108",
+   "v": "1.1",
+   "hash": "2ed2c3259741070de08ee21334f04cba903ee0ba0daced49e441aa3760193742"
+  },
+  {
+   "t": "sampling",
+   "c": "Inference",
+   "d": "Choosing the next token from the model's probability distribution, with settings like temperature shaping the choice.",
+   "id": "SIGLLAMA-TERM-0109",
+   "v": "1.1",
+   "hash": "f1f6128848b344f78bcb8454d95bcca691b613dd120653d74bafc4316251bfec"
+  },
+  {
+   "t": "temperature",
+   "c": "Inference",
+   "d": "A dial on randomness: low values make the model pick the most likely token, high values make it more creative and surprising.",
+   "id": "SIGLLAMA-TERM-0110",
+   "v": "1.1",
+   "hash": "d694f055dc0ad0e87b5d890b3e52f6e2d95c3402f80d69095a64ae8636a75578"
+  },
+  {
+   "t": "top-k sampling",
+   "c": "Inference",
+   "d": "Only letting the model choose among the k most likely next tokens, cutting off the weird tail of the distribution.",
+   "id": "SIGLLAMA-TERM-0111",
+   "v": "1.1",
+   "hash": "670efb9a497866ae97d1c4abaf13baa4fa82592a3d6f9b672015b4de927433ab"
+  },
+  {
+   "t": "top-p sampling",
+   "c": "Inference",
+   "d": "Nucleus sampling: choosing from the smallest set of tokens whose probabilities add up to p, adapting to the model's confidence.",
+   "id": "SIGLLAMA-TERM-0112",
+   "v": "1.1",
+   "hash": "92fd730c25716beb784d870a1bf1f157ba9ecdc1066f63723d6bb14ade77978b"
+  },
+  {
+   "t": "greedy decoding",
+   "c": "Inference",
+   "d": "Always picking the single most likely next token — fast and deterministic, but sometimes dull or repetitive.",
+   "id": "SIGLLAMA-TERM-0113",
+   "v": "1.1",
+   "hash": "7e4a222fee88662cdca5f7325cbc542df6907eaf3719d4ed99e6a5a5d620ea3b"
+  },
+  {
+   "t": "beam search",
+   "c": "Inference",
+   "d": "Keeping several candidate sequences alive and expanding the best ones, trading speed for higher-quality output.",
+   "id": "SIGLLAMA-TERM-0114",
+   "v": "1.1",
+   "hash": "b03caaa42398a55a14559263308ac42e0a2f16686ff2950844a558f7be4abc2f"
+  },
+  {
+   "t": "token streaming",
+   "c": "Inference",
+   "d": "Sending each generated token to the user the moment it is produced, instead of waiting for the whole answer.",
+   "id": "SIGLLAMA-TERM-0115",
+   "v": "1.1",
+   "hash": "6eddb33e7154efe61e15b8b9a4b5961980f31ba5cee7aea58684d5d282074e94"
+  },
+  {
+   "t": "latency",
+   "c": "Inference",
+   "d": "How long you wait for an answer — the delay between asking and getting the first token back.",
+   "id": "SIGLLAMA-TERM-0116",
+   "v": "1.1",
+   "hash": "99577466d9477823c7f1035cf3c4ed116a64f4dc478aad3e8caf531c1f0896bb"
+  },
+  {
+   "t": "throughput",
+   "c": "Inference",
+   "d": "How many tokens the system can generate per second across all users.",
+   "id": "SIGLLAMA-TERM-0117",
+   "v": "1.1",
+   "hash": "81171ed167fd12e24840a0eb1c112d6c857fa06a8347a1bd350fa1bb23fbc5df"
+  },
+  {
+   "t": "tokens per second",
+   "c": "Inference",
+   "d": "The plain speedometer of generation: how many tokens the model produces each second.",
+   "id": "SIGLLAMA-TERM-0118",
+   "v": "1.1",
+   "hash": "f9e4aeb001c29882bdf2c6a419028d7f80449583d9ee555237559db1076d6a44"
+  },
+  {
+   "t": "time to first token",
+   "c": "Inference",
+   "d": "How quickly the first token appears after a request — what makes a chat feel snappy or sluggish.",
+   "id": "SIGLLAMA-TERM-0119",
+   "v": "1.1",
+   "hash": "d8f81a1b53f401a4c66745b6277bb51208a904fca7be11dc975e22d7d3c613ed"
+  },
+  {
+   "t": "prompt",
+   "c": "Inference",
+   "d": "The input text you give the model, which it continues or responds to.",
+   "id": "SIGLLAMA-TERM-0120",
+   "v": "1.1",
+   "hash": "3b75833820e300a9468bd141de2b051e9c3d4b994764d5be4b990776dd64c309"
+  },
+  {
+   "t": "system prompt",
+   "c": "Inference",
+   "d": "Hidden instructions set by the developer that shape the model's role and behavior for the whole conversation.",
+   "id": "SIGLLAMA-TERM-0121",
+   "v": "1.1",
+   "hash": "9b90ce71a3023694010b9c07a17148894df67fee8ba50e21207115308f7fd7f0"
+  },
+  {
+   "t": "completion",
+   "c": "Inference",
+   "d": "The text the model generates in response to a prompt.",
+   "id": "SIGLLAMA-TERM-0122",
+   "v": "1.1",
+   "hash": "9e0933e7d46ee9ca0ff5eb5bbb55d7a55ee996c1bf9762987fb908589d96a618"
+  },
+  {
+   "t": "stop sequence",
+   "c": "Inference",
+   "d": "A string that tells generation to halt the moment it appears, like a period at the end of one answer.",
+   "id": "SIGLLAMA-TERM-0123",
+   "v": "1.1",
+   "hash": "fbd6db60ed0df78b86552b5f26a3e9d30c664d7d0e0d0809d2bf32f4c73d0470"
+  },
+  {
+   "t": "max tokens",
+   "c": "Inference",
+   "d": "A cap on how many tokens the model may generate in one response.",
+   "id": "SIGLLAMA-TERM-0124",
+   "v": "1.1",
+   "hash": "ddfbe2d151f134481a535c825e205ea347627a98faad4aa389849a673c8f2785"
+  },
+  {
+   "t": "repetition penalty",
+   "c": "Inference",
+   "d": "A setting that lowers the score of tokens already used, discouraging the model from repeating itself.",
+   "id": "SIGLLAMA-TERM-0125",
+   "v": "1.1",
+   "hash": "a14324c66828b6e80a8cfe64dcdde7ae4f0ed06eed8e4db500f4f35269cfb561"
+  },
+  {
+   "t": "presence penalty",
+   "c": "Inference",
+   "d": "A penalty applied once to any token that has appeared, pushing the model toward fresh topics.",
+   "id": "SIGLLAMA-TERM-0126",
+   "v": "1.1",
+   "hash": "21575e696f31977723815393f21ab1b94c4876dde0060c7b92fb354d47b1a5fc"
+  },
+  {
+   "t": "frequency penalty",
+   "c": "Inference",
+   "d": "A penalty that grows the more a token repeats, taming loops without banning words outright.",
+   "id": "SIGLLAMA-TERM-0127",
+   "v": "1.1",
+   "hash": "a9b7ebf974c121eeded47f278fc26bc53ddb1e12ef0f4eb3f638f3c36a49a0ed"
+  },
+  {
+   "t": "seed",
+   "c": "Inference",
+   "d": "The starting number for the random generator — same seed plus same settings gives the same answer.",
+   "id": "SIGLLAMA-TERM-0128",
+   "v": "1.1",
+   "hash": "9305cbafc25ab29a64a1cf3e66633510d6a75c6fe93512b2f4a8d2e8f6544b98"
+  },
+  {
+   "t": "deterministic decoding",
+   "c": "Inference",
+   "d": "Generation settings, like temperature zero, that produce the same output every time for the same input.",
+   "id": "SIGLLAMA-TERM-0129",
+   "v": "1.1",
+   "hash": "dd7604971ff284ce33b19b0329b4cafcd4693e6f8592a5ab3494dbc1418de513"
+  },
+  {
+   "t": "stochastic decoding",
+   "c": "Inference",
+   "d": "Generation that rolls the dice each token, so the same prompt can give different answers.",
+   "id": "SIGLLAMA-TERM-0130",
+   "v": "1.1",
+   "hash": "2acfcc629e266df6b29b7d5a3152a700704c50cacc3763505116f47091199161"
+  },
+  {
+   "t": "speculative decoding",
+   "c": "Inference",
+   "d": "A speedup trick where a small model drafts tokens and the big model just verifies them.",
+   "id": "SIGLLAMA-TERM-0131",
+   "v": "1.1",
+   "hash": "308bd692efa7c65fde7ade19b84f45147f2c4d8cb0f69c8576075f2aab832f6b"
+  },
+  {
+   "t": "batch inference",
+   "c": "Inference",
+   "d": "Processing many requests together in one go to use the hardware efficiently.",
+   "id": "SIGLLAMA-TERM-0132",
+   "v": "1.1",
+   "hash": "7228e9ced8e5f0d59fa197876cbd996b18f052cf6f20c999c05dc2f08e9052f7"
+  },
+  {
+   "t": "continuous batching",
+   "c": "Inference",
+   "d": "A server trick that slots new requests into the batch the moment old ones finish, keeping the GPU always busy.",
+   "id": "SIGLLAMA-TERM-0133",
+   "v": "1.1",
+   "hash": "ca9c9c8a17a9c1ede2ea4ca1f981827295341da974c3cb1f72344ebcae2385c7"
+  },
+  {
+   "t": "prompt caching",
+   "c": "Inference",
+   "d": "Reusing the processed form of a repeated prompt prefix instead of recomputing it every time.",
+   "id": "SIGLLAMA-TERM-0134",
+   "v": "1.1",
+   "hash": "731f561b8c07c7e36ed4a89e9728c1c83f28c1b6bd18616b652c58d21aa7327f"
+  },
+  {
+   "t": "quantization",
+   "c": "Inference",
+   "d": "Shrinking a model's numbers to fewer bits, e.g. 8 or 4, so it runs faster and fits in less memory.",
+   "id": "SIGLLAMA-TERM-0135",
+   "v": "1.1",
+   "hash": "b617ee1a73eb4162f553ebfef3bfd5bf5db5c1171d3734092cf95397f7da0e3f"
+  },
+  {
+   "t": "int8 quantization",
+   "c": "Inference",
+   "d": "Storing weights as 8-bit integers — about a quarter the size of 32-bit floats, the format Signature Llama ships in.",
+   "id": "SIGLLAMA-TERM-0136",
+   "v": "1.1",
+   "hash": "9a18466d3c83a8e5f0da7aec1a5edbcc0b51f0aa9c6e64bd75fe3492d910a5f1"
+  },
+  {
+   "t": "int4 quantization",
+   "c": "Inference",
+   "d": "Squeezing weights to 4 bits for the smallest, fastest models, with a small quality tradeoff.",
+   "id": "SIGLLAMA-TERM-0137",
+   "v": "1.1",
+   "hash": "c62f50bb00252b49d77f12b772d670024f87f1d71031f4fabdb9b5973f28ba61"
+  },
+  {
+   "t": "GGUF",
+   "c": "Inference",
+   "d": "A popular file format for quantized models that runs efficiently on ordinary computers.",
+   "id": "SIGLLAMA-TERM-0138",
+   "v": "1.1",
+   "hash": "32c39db6cd3aac9b66c575af2e06c215d2fb5ced27e458c06135a81fe608a8f3"
+  },
+  {
+   "t": "ONNX",
+   "c": "Inference",
+   "d": "An open format for exchanging trained models between different frameworks and runtimes.",
+   "id": "SIGLLAMA-TERM-0139",
+   "v": "1.1",
+   "hash": "049aea7b769475079fd306075bbae3af3930438e66b319483d7756f2140b3aa9"
+  },
+  {
+   "t": "inference engine",
+   "c": "Inference",
+   "d": "The software that loads a model and generates text with it — sigllama.js is Signature Llama's engine.",
+   "id": "SIGLLAMA-TERM-0140",
+   "v": "1.1",
+   "hash": "e2e4d7c5d8d36361fe9b35b84fdb2d2a4cbdae5cd634542201084d00c2b3d20e"
+  },
+  {
+   "t": "runtime",
+   "c": "Inference",
+   "d": "The environment executing the model, whether a browser, a phone, or a server.",
+   "id": "SIGLLAMA-TERM-0141",
+   "v": "1.1",
+   "hash": "a02b81df07df79c59bd50395d89b81c3b086becca9803a880fe597cf11056928"
+  },
+  {
+   "t": "context length",
+   "c": "Inference",
+   "d": "How many tokens of conversation the model can actually keep in mind at generation time.",
+   "id": "SIGLLAMA-TERM-0142",
+   "v": "1.1",
+   "hash": "00d8e8913623595286c868a4bc9e0e790d3adaea6391765b8ba351bf8abc8ed4"
+  },
+  {
+   "t": "context stuffing",
+   "c": "Inference",
+   "d": "Packing background documents into the prompt so the model answers from provided material.",
+   "id": "SIGLLAMA-TERM-0143",
+   "v": "1.1",
+   "hash": "6fc237562b5cc2cced5c4e3824628888aefb72e433f137da9442cc11712c2b88"
+  },
+  {
+   "t": "prompt engineering",
+   "c": "Inference",
+   "d": "The craft of wording inputs to get better outputs from a model.",
+   "id": "SIGLLAMA-TERM-0144",
+   "v": "1.1",
+   "hash": "934e520b1c0401b94a6768232265828960e03914073af79ffeddeb1b486d9f05"
+  },
+  {
+   "t": "few-shot prompting",
+   "c": "Inference",
+   "d": "Showing the model a few examples inside the prompt so it copies the pattern.",
+   "id": "SIGLLAMA-TERM-0145",
+   "v": "1.1",
+   "hash": "8ac4a9c5977385dbf530f7d9a883b9c69951e3a1ebddca85c24f3b6bc0234a7f"
+  },
+  {
+   "t": "zero-shot prompting",
+   "c": "Inference",
+   "d": "Asking the model to do something with no examples, relying on what it learned in training.",
+   "id": "SIGLLAMA-TERM-0146",
+   "v": "1.1",
+   "hash": "b615cb256bf07dd2c0d91a7341a678c8f69d2b395dfc9eb01a91cadf51adc6d0"
+  },
+  {
+   "t": "chain-of-thought prompting",
+   "c": "Inference",
+   "d": "Asking the model to reason step by step out loud, which improves hard problems.",
+   "id": "SIGLLAMA-TERM-0147",
+   "v": "1.1",
+   "hash": "6c1b17b709b4cc0cc4c2664ec3878aed042d1044176ac8795ce75249dbcb2bca"
+  },
+  {
+   "t": "role prompting",
+   "c": "Inference",
+   "d": "Telling the model who to be, like a tutor or a pirate, to shape its voice and behavior.",
+   "id": "SIGLLAMA-TERM-0148",
+   "v": "1.1",
+   "hash": "9eb3c90192e8a9c516d61b65fb8a8a876b98ecf9c5a971bf9eee26f27b9a9471"
+  },
+  {
+   "t": "logit bias",
+   "c": "Inference",
+   "d": "Manually boosting or suppressing specific tokens' scores to steer generation.",
+   "id": "SIGLLAMA-TERM-0149",
+   "v": "1.1",
+   "hash": "621e0ceca3aaace100658e167c68aff3d20687700de49683606aca61c3ff464f"
+  },
+  {
+   "t": "structured output",
+   "c": "Inference",
+   "d": "Forcing the model to answer in a strict format like JSON so programs can use the result directly.",
+   "id": "SIGLLAMA-TERM-0150",
+   "v": "1.1",
+   "hash": "39d3ca6af5dbb7b9979122ab8fec6d448a6b6e51f8ec1c1e262c788cf382611c"
+  },
+  {
+   "t": "JSON mode",
+   "c": "Inference",
+   "d": "A generation setting that guarantees the output is valid JSON.",
+   "id": "SIGLLAMA-TERM-0151",
+   "v": "1.1",
+   "hash": "03ccf72842dfaaf5e49ea75411feea81d3841e8b4136309ad8165842928efa64"
+  },
+  {
+   "t": "function calling",
+   "c": "Inference",
+   "d": "Letting the model request real actions, like checking weather, by emitting structured calls a program executes.",
+   "id": "SIGLLAMA-TERM-0152",
+   "v": "1.1",
+   "hash": "9a44f337e9d3a2a3d50a89ea2d6cb09d28d2620a28c2703dddd077a06da9c14f"
+  },
+  {
+   "t": "tool use",
+   "c": "Inference",
+   "d": "The broader ability of a model to operate external tools — search, calculators, code runners — during a conversation.",
+   "id": "SIGLLAMA-TERM-0153",
+   "v": "1.1",
+   "hash": "ab0428a79175f8acf76ece94d3edcf0a127fedfaeda76d47d1c137d3736bc91d"
+  },
+  {
+   "t": "hallucination",
+   "c": "Inference",
+   "d": "When a model states something false with total confidence, inventing facts that were never in its training.",
+   "id": "SIGLLAMA-TERM-0154",
+   "v": "1.1",
+   "hash": "554fa379b42704b24268fca697c3d5b6d9ce74c58b444988fc08a22cc247a5c2"
+  },
+  {
+   "t": "grounding",
+   "c": "Inference",
+   "d": "Tying a model's answers to real sources or data so it invents less.",
+   "id": "SIGLLAMA-TERM-0155",
+   "v": "1.1",
+   "hash": "137c6ae013e2d43dd6a29d8cadffbd216abc2f0e0c64e91d44b6aca50c06e57f"
+  },
+  {
+   "t": "EOS token",
+   "c": "Inference",
+   "d": "The special end-of-sequence token whose appearance tells generation to stop.",
+   "id": "SIGLLAMA-TERM-0156",
+   "v": "1.1",
+   "hash": "0ec6403c9c4b6b5c582ca81b0dabf3b6ccd0a6511143d1451bf3a33178341326"
+  },
+  {
+   "t": "BOS token",
+   "c": "Inference",
+   "d": "The special beginning-of-sequence token marking where a text starts.",
+   "id": "SIGLLAMA-TERM-0157",
+   "v": "1.1",
+   "hash": "60fc4d488889c8de796f253ae4116d1041bd14209e819f3c95907e53db17bd7d"
+  },
+  {
+   "t": "streaming tokens",
+   "c": "Inference",
+   "d": "Seeing each token type out live as the model generates it, the effect behind the onToken callback.",
+   "id": "SIGLLAMA-TERM-0158",
+   "v": "1.1",
+   "hash": "0dea32b60a15b74d6aad4b474dab869e95c5e1190b6d8ad955b655eb2971288f"
+  },
+  {
+   "t": "token",
+   "c": "Data & Tokens",
+   "d": "The basic unit a language model reads and writes — a word, word piece, or single character depending on the tokenizer.",
+   "id": "SIGLLAMA-TERM-0159",
+   "v": "1.1",
+   "hash": "d6067097a7f98134742823c1cdbef868bc34f3662c47abdc3edd56286c77254f"
+  },
+  {
+   "t": "tokenizer",
+   "c": "Data & Tokens",
+   "d": "The tool that chops raw text into tokens before the model sees it, and turns tokens back into text afterward.",
+   "id": "SIGLLAMA-TERM-0160",
+   "v": "1.1",
+   "hash": "e2d4938b39905d32e624285f8d43acd0cf9599a37bc439ffb715aec7b8e9c333"
+  },
+  {
+   "t": "tokenization",
+   "c": "Data & Tokens",
+   "d": "The act of splitting text into tokens — the first step of everything a language model does.",
+   "id": "SIGLLAMA-TERM-0161",
+   "v": "1.1",
+   "hash": "a7041ea4c6718ac524dbde52b9e0a0e5010a1f97ed8514f46adf3103e7ab2d4a"
+  },
+  {
+   "t": "vocabulary",
+   "c": "Data & Tokens",
+   "d": "The full set of tokens a model knows, each with its own ID and learned embedding.",
+   "id": "SIGLLAMA-TERM-0162",
+   "v": "1.1",
+   "hash": "860c2c616b5aa486b485037c0a782155214c47816cc6b2a7964dc31b6820d5d3"
+  },
+  {
+   "t": "subword",
+   "c": "Data & Tokens",
+   "d": "A token smaller than a word, like un plus believable, which lets models handle rare words by assembling pieces.",
+   "id": "SIGLLAMA-TERM-0163",
+   "v": "1.1",
+   "hash": "c9288a3d3e3b29b1770257aef5b7025eb0eb46873cfafc51c18c313973f0cb55"
+  },
+  {
+   "t": "byte-pair encoding",
+   "c": "Data & Tokens",
+   "d": "A tokenizer algorithm that starts from single characters and repeatedly merges the most common pair, building the vocabulary bottom-up.",
+   "id": "SIGLLAMA-TERM-0164",
+   "v": "1.1",
+   "hash": "3dcea6ebdd647b19084fb933a9e40b647955f04abe75d285625bb3ac5456543a"
+  },
+  {
+   "t": "WordPiece",
+   "c": "Data & Tokens",
+   "d": "A subword tokenizer that merges the pair which most improves the training likelihood, used by BERT-style models.",
+   "id": "SIGLLAMA-TERM-0165",
+   "v": "1.1",
+   "hash": "d82e1c4536c6bdc6258e46db0b6158b0acb25033408fc0e3e6aceaa4d83ead30"
+  },
+  {
+   "t": "SentencePiece",
+   "c": "Data & Tokens",
+   "d": "A tokenizer library that treats the raw text as-is, spaces included, and learns subwords without pre-splitting words.",
+   "id": "SIGLLAMA-TERM-0166",
+   "v": "1.1",
+   "hash": "098070eb62e236d9d01bacaee873df915cae190f308c06f07c124cef7533757d"
+  },
+  {
+   "t": "character-level tokenization",
+   "c": "Data & Tokens",
+   "d": "Tokenizing text one character at a time — simple, tiny vocabulary, and the approach Signature Llama v1 uses.",
+   "id": "SIGLLAMA-TERM-0167",
+   "v": "1.1",
+   "hash": "b0e89a352474752aedcda39c05d3433625dce4033dedabc9880fbcfdcfef9751"
+  },
+  {
+   "t": "word-level tokenization",
+   "c": "Data & Tokens",
+   "d": "Tokenizing whole words at once, which needs a huge vocabulary and chokes on words it never saw.",
+   "id": "SIGLLAMA-TERM-0168",
+   "v": "1.1",
+   "hash": "9a0b81ff92cf4e166c53f8d6009116c435dffe111e9d143e6a60b074ff4d72af"
+  },
+  {
+   "t": "token ID",
+   "c": "Data & Tokens",
+   "d": "The number standing in for a token inside the model — text becomes lists of IDs before any math happens.",
+   "id": "SIGLLAMA-TERM-0169",
+   "v": "1.1",
+   "hash": "9c5c885104999598ce4b11d83d195d6da02884b2e8d60b95c1d04892dd567e91"
+  },
+  {
+   "t": "detokenization",
+   "c": "Data & Tokens",
+   "d": "Converting the model's output token IDs back into readable text.",
+   "id": "SIGLLAMA-TERM-0170",
+   "v": "1.1",
+   "hash": "0a01bbbaf127ffa26d2af6b1798a3aef71c2a2e0bd8212dfdbc69216218c8f09"
+  },
+  {
+   "t": "corpus",
+   "c": "Data & Tokens",
+   "d": "A large collection of text assembled for training or study — the model's reading material.",
+   "id": "SIGLLAMA-TERM-0171",
+   "v": "1.1",
+   "hash": "edfee87fd132a37ac143d51a40536b8bcf98d7d55f29d7539ad4a6aa567c2d33"
+  },
+  {
+   "t": "dataset",
+   "c": "Data & Tokens",
+   "d": "An organized collection of examples used to train or test a model.",
+   "id": "SIGLLAMA-TERM-0172",
+   "v": "1.1",
+   "hash": "36aea46e4bb8699626cddd0917f11bf4eae98c0d08db36b04068c1057163b68c"
+  },
+  {
+   "t": "training data",
+   "c": "Data & Tokens",
+   "d": "The actual text the model learns from during training.",
+   "id": "SIGLLAMA-TERM-0173",
+   "v": "1.1",
+   "hash": "737f86522f24fbd3d68f45c560998519860e20d241ef918106d833dde5bb1aa4"
+  },
+  {
+   "t": "data cleaning",
+   "c": "Data & Tokens",
+   "d": "Removing junk, duplicates, and garbage from training text so the model learns from quality material.",
+   "id": "SIGLLAMA-TERM-0174",
+   "v": "1.1",
+   "hash": "a62e44166fe2c4cc991528b06c604efdb9dd05155811c1ec486285b1338df660"
+  },
+  {
+   "t": "deduplication",
+   "c": "Data & Tokens",
+   "d": "Deleting repeated passages from training data, since heavy repetition teaches the model to parrot.",
+   "id": "SIGLLAMA-TERM-0175",
+   "v": "1.1",
+   "hash": "32fe0403283940073fd562ef7515f1d1abf11202b8c57cc33992f452c596d365"
+  },
+  {
+   "t": "data mixture",
+   "c": "Data & Tokens",
+   "d": "The recipe of how much web text, books, code, and other sources go into the training corpus.",
+   "id": "SIGLLAMA-TERM-0176",
+   "v": "1.1",
+   "hash": "4865257b8af52b1d9d0a65a6e2f0900e1f261254e8ed4dbd36e66831c636c585"
+  },
+  {
+   "t": "synthetic data",
+   "c": "Data & Tokens",
+   "d": "Training text generated by another AI rather than written by humans — useful, but risky if overused.",
+   "id": "SIGLLAMA-TERM-0177",
+   "v": "1.1",
+   "hash": "531521f1be49533cc660dbc8ff2e1061a182de137ca50ce5bde08542c0cc2998"
+  },
+  {
+   "t": "data contamination",
+   "c": "Data & Tokens",
+   "d": "When test questions leak into training data, making benchmark scores look better than they really are.",
+   "id": "SIGLLAMA-TERM-0178",
+   "v": "1.1",
+   "hash": "aff9f580836878b0102b0a470b6abd8d438db9ec3d6f950c3afa626e71fc52b9"
+  },
+  {
+   "t": "document",
+   "c": "Data & Tokens",
+   "d": "One coherent piece of text in the corpus, like an article or a dictionary entry.",
+   "id": "SIGLLAMA-TERM-0179",
+   "v": "1.1",
+   "hash": "f36848615c2c4f971952ebf5f99bc8c4f749b608bf8ff04ef33db96bbb7798ba"
+  },
+  {
+   "t": "chunk",
+   "c": "Data & Tokens",
+   "d": "A fixed-size slice of text cut from documents to feed the model during training.",
+   "id": "SIGLLAMA-TERM-0180",
+   "v": "1.1",
+   "hash": "8104c65bfa30442b46d70422caaa58a13d40ba6df3a7b7aa9152a93cda719dd3"
+  },
+  {
+   "t": "sequence",
+   "c": "Data & Tokens",
+   "d": "An ordered list of token IDs — the actual input format the model consumes.",
+   "id": "SIGLLAMA-TERM-0181",
+   "v": "1.1",
+   "hash": "92a5c873506331b6b2a73135ee29e50652cceca2a0d97bda37aa1143e4adfaa3"
+  },
+  {
+   "t": "sequence length",
+   "c": "Data & Tokens",
+   "d": "How many tokens long a training sequence is; longer sequences teach longer-range patterns.",
+   "id": "SIGLLAMA-TERM-0182",
+   "v": "1.1",
+   "hash": "ba21b2a05f7e9390b9440cbbc9705ee6865006a41e5a653bda6b1ac7c4175164"
+  },
+  {
+   "t": "padding",
+   "c": "Data & Tokens",
+   "d": "Filler tokens added to make all sequences in a batch the same length.",
+   "id": "SIGLLAMA-TERM-0183",
+   "v": "1.1",
+   "hash": "95a5a64cb6ae42daf8f39b83f7812a77363462d2a0bdcfd8ec8552042cdbd34b"
+  },
+  {
+   "t": "truncation",
+   "c": "Data & Tokens",
+   "d": "Cutting a sequence down to the maximum length the model accepts.",
+   "id": "SIGLLAMA-TERM-0184",
+   "v": "1.1",
+   "hash": "451ebc53822e5e23708de85c13487e77d0a6282a52eb665efc3338757a3b9e8f"
+  },
+  {
+   "t": "packing",
+   "c": "Data & Tokens",
+   "d": "Gluing several short documents into one training sequence so no space goes to waste.",
+   "id": "SIGLLAMA-TERM-0185",
+   "v": "1.1",
+   "hash": "253bf7eb8bc6f9c8bc7e2004d1aae8737bb1fe094d59c0150723d558807021a5"
+  },
+  {
+   "t": "padding mask",
+   "c": "Data & Tokens",
+   "d": "A marker telling the model which positions are real text and which are just padding to ignore.",
+   "id": "SIGLLAMA-TERM-0186",
+   "v": "1.1",
+   "hash": "a7474cb083dfc0e7a5a6cbc448c90f33929e336c576d54681297c0b11fb6bc44"
+  },
+  {
+   "t": "special token",
+   "c": "Data & Tokens",
+   "d": "A reserved token with a job, like marking the start or end of a sequence.",
+   "id": "SIGLLAMA-TERM-0187",
+   "v": "1.1",
+   "hash": "16d8c547fcf2edb610045bc2f4e307d1a8c3662223994a01046b58361374911d"
+  },
+  {
+   "t": "unknown token",
+   "c": "Data & Tokens",
+   "d": "The fallback token for text the tokenizer cannot represent — rare in subword and character schemes.",
+   "id": "SIGLLAMA-TERM-0188",
+   "v": "1.1",
+   "hash": "1c8375c21a1aa9d1bea995c6340e39c5b2bb87029edf1d3022839febe15fb951"
+  },
+  {
+   "t": "padding token",
+   "c": "Data & Tokens",
+   "d": "The special token used to fill sequences out to equal length in a batch.",
+   "id": "SIGLLAMA-TERM-0189",
+   "v": "1.1",
+   "hash": "fff3622b5ab60688cd9d72134181e212c6df16b907029f10e25d799896ea7512"
+  },
+  {
+   "t": "separator token",
+   "c": "Data & Tokens",
+   "d": "A token marking boundaries between segments, like the question and the passage.",
+   "id": "SIGLLAMA-TERM-0190",
+   "v": "1.1",
+   "hash": "e7f571d514249a8fc5e7f0f93b311314a5fdc6cf40bc9639d0b147c5202ae4c1"
+  },
+  {
+   "t": "classification token",
+   "c": "Data & Tokens",
+   "d": "A special token whose final state is used as the summary of a whole input for classification.",
+   "id": "SIGLLAMA-TERM-0191",
+   "v": "1.1",
+   "hash": "7ba9e22830077461f00bebafd39f0703b5d94c1a963d8aa2a367322eccfb8e04"
+  },
+  {
+   "t": "byte fallback",
+   "c": "Data & Tokens",
+   "d": "Representing unknown characters as raw bytes so the tokenizer never truly fails on odd text.",
+   "id": "SIGLLAMA-TERM-0192",
+   "v": "1.1",
+   "hash": "8153bb477d353a7521b1dad50300c1d1d771086a6addd9e171494cb51ca497e2"
+  },
+  {
+   "t": "fertility",
+   "c": "Data & Tokens",
+   "d": "How many tokens a tokenizer produces per word on average — lower means cheaper, faster processing.",
+   "id": "SIGLLAMA-TERM-0193",
+   "v": "1.1",
+   "hash": "7a0a69add2c46ef7489ed66e0b34a6be55371164086efec5c9cf811cf9a6bed4"
+  },
+  {
+   "t": "compression ratio",
+   "c": "Data & Tokens",
+   "d": "How compactly a tokenizer encodes text, measured in characters per token.",
+   "id": "SIGLLAMA-TERM-0194",
+   "v": "1.1",
+   "hash": "7872563f3e9d544f1bc5e976e2d3365524d8b02e96c7113b37c5f2d9a9a84a15"
+  },
+  {
+   "t": "whitespace handling",
+   "c": "Data & Tokens",
+   "d": "How the tokenizer treats spaces and line breaks — getting it wrong garbles code and poetry.",
+   "id": "SIGLLAMA-TERM-0195",
+   "v": "1.1",
+   "hash": "ba830011b17bce1e07356e78138719a6d6b4d50a056fedee7579880d720e66bb"
+  },
+  {
+   "t": "text normalization",
+   "c": "Data & Tokens",
+   "d": "Standardizing text before tokenizing, like unifying quotes or unicode forms.",
+   "id": "SIGLLAMA-TERM-0196",
+   "v": "1.1",
+   "hash": "9768fdff731bdb0a6d2709b5e1c660b24c63b90704b1f07ae2cdf95d0c5fcb78"
+  },
+  {
+   "t": "casing",
+   "c": "Data & Tokens",
+   "d": "Whether the tokenizer distinguishes Apple from apple — a choice that changes the vocabulary.",
+   "id": "SIGLLAMA-TERM-0197",
+   "v": "1.1",
+   "hash": "e938946e29bd590b078113fb8a2bcbb5a62c6b7133fa74a8bf93981f70837360"
+  },
+  {
+   "t": "unicode",
+   "c": "Data & Tokens",
+   "d": "The universal character standard that lets tokenizers handle every language's script.",
+   "id": "SIGLLAMA-TERM-0198",
+   "v": "1.1",
+   "hash": "5478b4728558dcd353baf9b099427f3f5633bb9188842467601c8cb3bde8e717"
+  },
+  {
+   "t": "vocabulary size",
+   "c": "Data & Tokens",
+   "d": "How many distinct tokens the model knows — bigger vocabularies read efficiently but need bigger embedding tables.",
+   "id": "SIGLLAMA-TERM-0199",
+   "v": "1.1",
+   "hash": "7ae39b2dd4beadff41b35b11b7008762685c0c882c39d0313e7763953fc3d2b4"
+  },
+  {
+   "t": "out-of-vocabulary",
+   "c": "Data & Tokens",
+   "d": "Words the tokenizer never learned, which older word-level systems could not represent at all.",
+   "id": "SIGLLAMA-TERM-0200",
+   "v": "1.1",
+   "hash": "66df9d6fd97dd9676ad7d5359425832f125839a348ac45844862dd33e3c16366"
+  },
+  {
+   "t": "n-gram",
+   "c": "Data & Tokens",
+   "d": "A run of n consecutive tokens or words, the classic unit of old-school language statistics.",
+   "id": "SIGLLAMA-TERM-0201",
+   "v": "1.1",
+   "hash": "015461e40750b1595ce330fd628b1ad9cd82cb42c12965260868912ff240c5fc"
+  },
+  {
+   "t": "data loader",
+   "c": "Data & Tokens",
+   "d": "The code that streams training examples from disk into the GPU fast enough to keep it busy.",
+   "id": "SIGLLAMA-TERM-0202",
+   "v": "1.1",
+   "hash": "56cd3426c9eac7a6b4e2127ee62cb238c88cc3c3804a9044328913928e966d17"
+  },
+  {
+   "t": "shuffling",
+   "c": "Data & Tokens",
+   "d": "Randomizing the order of training examples so the model does not learn spurious patterns from the ordering.",
+   "id": "SIGLLAMA-TERM-0203",
+   "v": "1.1",
+   "hash": "327d993b33472c901cbfedc1feae18d746d37c9d249adfea23488fc8e61a7fd9"
+  },
+  {
+   "t": "data epoch",
+   "c": "Data & Tokens",
+   "d": "One complete pass over the training data, after which shuffling usually starts a fresh order.",
+   "id": "SIGLLAMA-TERM-0204",
+   "v": "1.1",
+   "hash": "1554fc590e7897c6091837f8497fcd95b057be1fa9a4c67fafea393a953cc755"
+  },
+  {
+   "t": "held-out data",
+   "c": "Data & Tokens",
+   "d": "Examples reserved from training so they can honestly test what the model learned.",
+   "id": "SIGLLAMA-TERM-0205",
+   "v": "1.1",
+   "hash": "3b78a7708a0e2b597ee94f93d7a4b65069b94ee3c1fb1d597a792cfd795c640d"
+  },
+  {
+   "t": "label",
+   "c": "Data & Tokens",
+   "d": "The correct answer attached to a training example, like the true next token.",
+   "id": "SIGLLAMA-TERM-0206",
+   "v": "1.1",
+   "hash": "a5213b6d75edf290ca8c011c7abf58a04a24d271ff6fa6c52c04271ac3ae9c3f"
+  },
+  {
+   "t": "input IDs",
+   "c": "Data & Tokens",
+   "d": "The token IDs fed into the model for one training or inference step.",
+   "id": "SIGLLAMA-TERM-0207",
+   "v": "1.1",
+   "hash": "617842db2e70895bf208e3a8fbfa12c1e1620e40129dba02432a3d42623225a6"
+  },
+  {
+   "t": "target IDs",
+   "c": "Data & Tokens",
+   "d": "The token IDs the model is supposed to predict — the answers for its input IDs.",
+   "id": "SIGLLAMA-TERM-0208",
+   "v": "1.1",
+   "hash": "07c043db6cec50c250b25726d7d7bd88a5a3ddbbe75ca89a4ebc08029507af3b"
+  },
+  {
+   "t": "benchmark data",
+   "c": "Data & Tokens",
+   "d": "Standardized test sets the whole field uses to compare models fairly.",
+   "id": "SIGLLAMA-TERM-0209",
+   "v": "1.1",
+   "hash": "1ead319f70ff04e5f26a8727d8e1dc93ad04f555078f2ccc4c6124d2046aa566"
+  },
+  {
+   "t": "evaluation",
+   "c": "Evaluation",
+   "d": "Measuring how good a model actually is, with tests rather than vibes.",
+   "id": "SIGLLAMA-TERM-0210",
+   "v": "1.1",
+   "hash": "7516aeba93448d5162fad429b4bebd80f8e9a697b03e05f4eb77520de1a7a82a"
+  },
+  {
+   "t": "benchmark",
+   "c": "Evaluation",
+   "d": "A standard test suite the whole field runs so models can be compared on equal footing.",
+   "id": "SIGLLAMA-TERM-0211",
+   "v": "1.1",
+   "hash": "3f8b6374f64375064102123e1367c6e0ca5b57e9f089f898b3d82924346a6b42"
+  },
+  {
+   "t": "perplexity",
+   "c": "Evaluation",
+   "d": "How surprised a model is by real text, on average — lower means it predicts language better.",
+   "id": "SIGLLAMA-TERM-0212",
+   "v": "1.1",
+   "hash": "6c137ce4cf45d580ad2750bdac00f38c88cbf5681a896fa181461faaa45c7436"
+  },
+  {
+   "t": "accuracy",
+   "c": "Evaluation",
+   "d": "The fraction of test questions the model gets right — the simplest score there is.",
+   "id": "SIGLLAMA-TERM-0213",
+   "v": "1.1",
+   "hash": "677855d28db35b0d57b1bfcb3d8a82ac3daba750a6dda6eb2a2d3b4ef792c33d"
+  },
+  {
+   "t": "exact match",
+   "c": "Evaluation",
+   "d": "A strict score that only counts answers identical to the expected one.",
+   "id": "SIGLLAMA-TERM-0214",
+   "v": "1.1",
+   "hash": "af7b91e73aa92fee331d3421725643c8a0059b890b24d2bbbcb08c10e4f392d4"
+  },
+  {
+   "t": "F1 score",
+   "c": "Evaluation",
+   "d": "A balance of precision and recall into one number, common for question-answering tests.",
+   "id": "SIGLLAMA-TERM-0215",
+   "v": "1.1",
+   "hash": "9511e95e4fb9aa75872feb7b2588c58978a80657f8eac7a4c622dd4d7c248f1a"
+  },
+  {
+   "t": "BLEU",
+   "c": "Evaluation",
+   "d": "A classic translation score based on how many word sequences the output shares with reference translations.",
+   "id": "SIGLLAMA-TERM-0216",
+   "v": "1.1",
+   "hash": "b3b1f95a0db6dec42f955121049436351e934abef5457170a98fb9d4412f66c5"
+  },
+  {
+   "t": "ROUGE",
+   "c": "Evaluation",
+   "d": "A summarization score measuring overlap between the model's summary and human-written ones.",
+   "id": "SIGLLAMA-TERM-0217",
+   "v": "1.1",
+   "hash": "9e92c0b3ad0286bc12b81434e95d4eee8bc4a786a57901887ac6de8cc7e021e5"
+  },
+  {
+   "t": "MMLU",
+   "c": "Evaluation",
+   "d": "A famous 57-subject multiple-choice test of general knowledge, from math to law to history.",
+   "id": "SIGLLAMA-TERM-0218",
+   "v": "1.1",
+   "hash": "fdc30bcfcf15bb99af57d7d44b9bee72a960ed3cef4f0f394006abbcf501c98f"
+  },
+  {
+   "t": "HellaSwag",
+   "c": "Evaluation",
+   "d": "A commonsense test asking the model to pick the most sensible ending to everyday situations.",
+   "id": "SIGLLAMA-TERM-0219",
+   "v": "1.1",
+   "hash": "ddc4ed52d6dc185355c11d162d84e16e09cc9ff472fe34279fee3338a33e7afa"
+  },
+  {
+   "t": "ARC",
+   "c": "Evaluation",
+   "d": "Grade-school science questions, in easy and challenge flavors, testing reasoning over memorization.",
+   "id": "SIGLLAMA-TERM-0220",
+   "v": "1.1",
+   "hash": "278f06e8c7c66b84412c080a633ed34fd07785502985d1ac2ff66c86ac876936"
+  },
+  {
+   "t": "TruthfulQA",
+   "c": "Evaluation",
+   "d": "A test of whether the model repeats common myths or tells the truth about tricky questions.",
+   "id": "SIGLLAMA-TERM-0221",
+   "v": "1.1",
+   "hash": "fbc2728727c8fecca98aca959582a469fb1367616cda8bea0ea8af92739eaaf7"
+  },
+  {
+   "t": "HumanEval",
+   "c": "Evaluation",
+   "d": "A coding benchmark where the model must write programs that pass hidden tests.",
+   "id": "SIGLLAMA-TERM-0222",
+   "v": "1.1",
+   "hash": "6fc0f0312fa7da4222f1ea4479fee3ace53cb36700c09f85b4332f016a5bb608"
+  },
+  {
+   "t": "GSM8K",
+   "c": "Evaluation",
+   "d": "Grade-school math word problems testing whether the model can reason step by step.",
+   "id": "SIGLLAMA-TERM-0223",
+   "v": "1.1",
+   "hash": "449c1b8447d88a8f3b697b8c966e0f04d572e4fe2c13d95abedfda4e23d30883"
+  },
+  {
+   "t": "test set",
+   "c": "Evaluation",
+   "d": "The locked-away questions used for final scoring, never seen during training.",
+   "id": "SIGLLAMA-TERM-0224",
+   "v": "1.1",
+   "hash": "659562cb842a300f010927cc9fe449d79413f0ef64350ba8d72b5803b5de36eb"
+  },
+  {
+   "t": "zero-shot evaluation",
+   "c": "Evaluation",
+   "d": "Testing the model with no examples in the prompt, pure cold.",
+   "id": "SIGLLAMA-TERM-0225",
+   "v": "1.1",
+   "hash": "8ab0977ea225587b8ac561f9605c98d44bb72a252e9f0447054ef8af2626667a"
+  },
+  {
+   "t": "few-shot evaluation",
+   "c": "Evaluation",
+   "d": "Testing with a few examples in the prompt, the standard fair-comparison setup.",
+   "id": "SIGLLAMA-TERM-0226",
+   "v": "1.1",
+   "hash": "1140b7c538988565f3278f2dbb91b1223430c43f0bb104d562cd784ee970bd2e"
+  },
+  {
+   "t": "human evaluation",
+   "c": "Evaluation",
+   "d": "Having real people rate model answers — slow and pricey, but the gold standard for quality.",
+   "id": "SIGLLAMA-TERM-0227",
+   "v": "1.1",
+   "hash": "26886449f1d1f061227cc304a844adf50d271eab8fca5e6be864477e33eb8cd9"
+  },
+  {
+   "t": "LLM-as-judge",
+   "c": "Evaluation",
+   "d": "Using a strong model to grade other models' answers, a fast stand-in for human raters.",
+   "id": "SIGLLAMA-TERM-0228",
+   "v": "1.1",
+   "hash": "6161807b5e644fa1388e05b04c531b6ef929b7e5d7a75d8e785879499ce8a2e5"
+  },
+  {
+   "t": "Elo rating",
+   "c": "Evaluation",
+   "d": "A chess-style skill score from head-to-head model comparisons, as used on public leaderboards.",
+   "id": "SIGLLAMA-TERM-0229",
+   "v": "1.1",
+   "hash": "28b7be2fcc716d50b280d6131861249c9455d7a3b0f515abaf0e7ed4b85962b2"
+  },
+  {
+   "t": "win rate",
+   "c": "Evaluation",
+   "d": "How often one model's answer is preferred over another's in side-by-side tests.",
+   "id": "SIGLLAMA-TERM-0230",
+   "v": "1.1",
+   "hash": "b5caea6ba57ea78dd5e1f442bac0e574f765e367064b828968f347fabf06304a"
+  },
+  {
+   "t": "pass@k",
+   "c": "Evaluation",
+   "d": "The chance that at least one of k generated attempts solves the problem — the coding benchmark staple.",
+   "id": "SIGLLAMA-TERM-0231",
+   "v": "1.1",
+   "hash": "42ad5fe4c9e8cf4147ea12196f861d72da852db7f094440fbf41db9905444b24"
+  },
+  {
+   "t": "calibration",
+   "c": "Evaluation",
+   "d": "Whether the model's confidence matches its actual accuracy — a well-calibrated model knows when it is guessing.",
+   "id": "SIGLLAMA-TERM-0232",
+   "v": "1.1",
+   "hash": "e6a82c417c1d4e4b91116c240a33dd88456b228237581d5300d8a3d593992e6d"
+  },
+  {
+   "t": "robustness",
+   "c": "Evaluation",
+   "d": "How well the model holds up on odd, adversarial, or out-of-distribution inputs.",
+   "id": "SIGLLAMA-TERM-0233",
+   "v": "1.1",
+   "hash": "01788adb6d81716423fe9159828d9b59fad902a4842d1691a775e470caf882d0"
+  },
+  {
+   "t": "eval bias",
+   "c": "Evaluation",
+   "d": "Ways a test can mislead — leaked data, judge favoritism, or questions that reward the wrong thing.",
+   "id": "SIGLLAMA-TERM-0234",
+   "v": "1.1",
+   "hash": "2503755a1090d847e317122fde012e0fcee495aac4a3de920471358bb30b1499"
+  },
+  {
+   "t": "toxicity",
+   "c": "Evaluation",
+   "d": "Measuring how often a model produces hateful, abusive, or otherwise harmful text.",
+   "id": "SIGLLAMA-TERM-0235",
+   "v": "1.1",
+   "hash": "89e3dde8aae0008bbc0f3bd4e18fc17c911ce2ad6d5af0b45d6a15380769e245"
+  },
+  {
+   "t": "red teaming",
+   "c": "Evaluation",
+   "d": "Deliberately attacking a model with tricky prompts to find its failure and safety holes before the public does.",
+   "id": "SIGLLAMA-TERM-0236",
+   "v": "1.1",
+   "hash": "0ec72595084a42870cc0208859eff8341bae4a4f686da79f6c4aa40e2c06cf56"
+  },
+  {
+   "t": "jailbreak",
+   "c": "Evaluation",
+   "d": "A prompt crafted to slip past a model's safety training and make it do what it was told not to.",
+   "id": "SIGLLAMA-TERM-0237",
+   "v": "1.1",
+   "hash": "c86df5e38fa9fa16ee26b30a25c9f8b43574593af79cfb7acda36650adca583f"
+  },
+  {
+   "t": "prompt injection",
+   "c": "Evaluation",
+   "d": "Hiding malicious instructions inside data the model reads, tricking it into obeying the attacker.",
+   "id": "SIGLLAMA-TERM-0238",
+   "v": "1.1",
+   "hash": "88f6e28c2db86d6d45c18a5c2b8eb265f381c34c9d74ec273206a3481a4dd3dd"
+  },
+  {
+   "t": "safety evaluation",
+   "c": "Evaluation",
+   "d": "Testing that a model refuses genuinely dangerous requests while staying useful.",
+   "id": "SIGLLAMA-TERM-0239",
+   "v": "1.1",
+   "hash": "3ab11d2fa3bfa1c3b10dd2f1c4ad02155df1e37fa1f9222edf6744a5b02b73f8"
+  },
+  {
+   "t": "alignment",
+   "c": "Evaluation",
+   "d": "How well the model's goals line up with what humans actually want — helpful, honest, and safe.",
+   "id": "SIGLLAMA-TERM-0240",
+   "v": "1.1",
+   "hash": "2b406e87577cd5f22ed6b73b36ff79102536162f233f5377b8fffe2b3b44e7eb"
+  },
+  {
+   "t": "helpfulness",
+   "c": "Evaluation",
+   "d": "Whether the model actually moves the user toward their goal, not just whether it sounds fluent.",
+   "id": "SIGLLAMA-TERM-0241",
+   "v": "1.1",
+   "hash": "e13c006646ff073e8608437156c2b4b4323c6981defc3cbcf64aa1d24512e150"
+  },
+  {
+   "t": "harmlessness",
+   "c": "Evaluation",
+   "d": "The property of not causing damage — refusing real harm while staying useful for everything else.",
+   "id": "SIGLLAMA-TERM-0242",
+   "v": "1.1",
+   "hash": "1c22e102615f8d293f6dae2fc677aec91347842b16498ef219c8c098ec1c4bb9"
+  },
+  {
+   "t": "honesty",
+   "c": "Evaluation",
+   "d": "The model saying what it believes is true and admitting uncertainty instead of bluffing.",
+   "id": "SIGLLAMA-TERM-0243",
+   "v": "1.1",
+   "hash": "df6fd1e199d7f3da918e4b05db410460325c05b7035eaa8698cf55ce753a86f3"
+  },
+  {
+   "t": "over-refusal",
+   "c": "Evaluation",
+   "d": "When safety tuning goes too far and the model refuses perfectly innocent requests.",
+   "id": "SIGLLAMA-TERM-0244",
+   "v": "1.1",
+   "hash": "b02ab334c2ddbc5d2eee51beb5102438ee646f9593abdec1a6ae56f85cb059ff"
+  },
+  {
+   "t": "sycophancy",
+   "c": "Evaluation",
+   "d": "The model's bad habit of agreeing with the user even when the user is wrong.",
+   "id": "SIGLLAMA-TERM-0245",
+   "v": "1.1",
+   "hash": "cc6d020f470ee1ee7c95bb9a36236348e2bc357214187e609cb24b2527aaac5a"
+  },
+  {
+   "t": "baseline",
+   "c": "Evaluation",
+   "d": "A simple reference model or score that a new approach must beat to prove it is worth anything.",
+   "id": "SIGLLAMA-TERM-0246",
+   "v": "1.1",
+   "hash": "389b8a8368fbfb9aba2f307c00eed03d8bb1d2c6852f8bd890d707d04a86229e"
+  },
+  {
+   "t": "ablation study",
+   "c": "Evaluation",
+   "d": "Removing one piece of a system at a time to measure what each piece actually contributes.",
+   "id": "SIGLLAMA-TERM-0247",
+   "v": "1.1",
+   "hash": "538860a634c55e054bd6a6f85defb7b35809348020a01323d28995a9ba7d5e50"
+  },
+  {
+   "t": "scaling law",
+   "c": "Evaluation",
+   "d": "The observed rule that bigger models, more data, and more compute predictably lower the loss.",
+   "id": "SIGLLAMA-TERM-0248",
+   "v": "1.1",
+   "hash": "346d7f42efabe3b633ac8476a2579d913d058e5c08804816b99042bce8340a61"
+  },
+  {
+   "t": "Chinchilla scaling",
+   "c": "Evaluation",
+   "d": "The finding that models should be trained on far more tokens than was fashionable — about twenty tokens per parameter.",
+   "id": "SIGLLAMA-TERM-0249",
+   "v": "1.1",
+   "hash": "e6ed79b9b66ab860769bdb629dcc75e3f12c58cb849082b221f810fb4b111e27"
+  },
+  {
+   "t": "compute-optimal",
+   "c": "Evaluation",
+   "d": "The sweet spot of model size versus training data for a fixed compute budget.",
+   "id": "SIGLLAMA-TERM-0250",
+   "v": "1.1",
+   "hash": "85c39b0e42ee90a740ab5ff19cca845c44d66efcf6d6fceb9c4dbb5269fc76b9"
+  },
+  {
+   "t": "emergent ability",
+   "c": "Evaluation",
+   "d": "A skill that appears suddenly once a model gets big enough, absent in smaller versions.",
+   "id": "SIGLLAMA-TERM-0251",
+   "v": "1.1",
+   "hash": "eac10313e478ab17fc1a1fa98a29656572db5e56b5d7a093250a87b5478ab2e3"
+  },
+  {
+   "t": "eval harness",
+   "c": "Evaluation",
+   "d": "The software framework that runs benchmarks consistently so scores are comparable.",
+   "id": "SIGLLAMA-TERM-0252",
+   "v": "1.1",
+   "hash": "cf554481b3c0b2f0fc36a1f2fabf2b97db284a0ba05280fcbde84023c0fc723f"
+  },
+  {
+   "t": "logprob",
+   "c": "Evaluation",
+   "d": "The log-probability the model assigned to a token — the raw material of many evaluations.",
+   "id": "SIGLLAMA-TERM-0253",
+   "v": "1.1",
+   "hash": "f996ea54a4eed198439573115e4605704287fc5a0d48d7e14e9032b70b89e129"
+  },
+  {
+   "t": "multiple choice eval",
+   "c": "Evaluation",
+   "d": "Testing by asking the model to pick from options, scored by which choice gets the highest probability.",
+   "id": "SIGLLAMA-TERM-0254",
+   "v": "1.1",
+   "hash": "a63b95da5c44c4aeceb928d41a971bc0d4b51c754738602eb8fda35d0f31b0db"
+  },
+  {
+   "t": "generative eval",
+   "c": "Evaluation",
+   "d": "Testing by letting the model write freely and judging the result, closer to real use.",
+   "id": "SIGLLAMA-TERM-0255",
+   "v": "1.1",
+   "hash": "1e5060e87e4d0bcb2ee305fe4bacc268559553c32dd2390670b3c88e330810f4"
+  },
+  {
+   "t": "contamination check",
+   "c": "Evaluation",
+   "d": "Verifying the test questions were not hiding in the training data.",
+   "id": "SIGLLAMA-TERM-0256",
+   "v": "1.1",
+   "hash": "52ec5fc9800a15688396f52e1d695bdb31568b33b9dcb002daecf7ade4f308dd"
+  },
+  {
+   "t": "regression test",
+   "c": "Evaluation",
+   "d": "Re-running old evaluations after each change to make sure nothing that worked got broken.",
+   "id": "SIGLLAMA-TERM-0257",
+   "v": "1.1",
+   "hash": "356822602cb814a736ad59d50e9f1c54c1de9cf75c5f959d57be0f30148e54f6"
+  },
+  {
+   "t": "A/B test",
+   "c": "Evaluation",
+   "d": "Showing users two versions and measuring which performs better in the real world.",
+   "id": "SIGLLAMA-TERM-0258",
+   "v": "1.1",
+   "hash": "7fe6020169288f3cb53e0e58ed98b82b9f0239b8158ca6c77450ae019a658bb8"
+  },
+  {
+   "t": "human preference",
+   "c": "Evaluation",
+   "d": "Which answer real people pick — the signal behind RLHF and preference training.",
+   "id": "SIGLLAMA-TERM-0259",
+   "v": "1.1",
+   "hash": "499be8517f39176a92b60b036f277ce963b282012904b73b52b0d39525b5fcd5"
+  },
+  {
+   "t": "golden dataset",
+   "c": "Evaluation",
+   "d": "A small, carefully human-verified set of examples treated as ground truth for testing.",
+   "id": "SIGLLAMA-TERM-0260",
+   "v": "1.1",
+   "hash": "31c2c3ed245944a461b40df9259a6f5a0107b04cda0535a531320f0f154ee95c"
+  },
+  {
+   "t": "deployment",
+   "c": "Deployment",
+   "d": "Putting a trained model where real users can reach it — the trip from lab to the world.",
+   "id": "SIGLLAMA-TERM-0261",
+   "v": "1.1",
+   "hash": "c721f5a05328237805c95dfdf98f83c12797f952d171c275e3d0f32219ba4d8e"
+  },
+  {
+   "t": "serving",
+   "c": "Deployment",
+   "d": "Running a model behind an endpoint that answers requests, day and night.",
+   "id": "SIGLLAMA-TERM-0262",
+   "v": "1.1",
+   "hash": "50fbf0bfa7389516e97bf00f2fe909e1e03d15530d2a6c97a645f716cf27db94"
+  },
+  {
+   "t": "API",
+   "c": "Deployment",
+   "d": "A programming interface letting other software send prompts and receive completions.",
+   "id": "SIGLLAMA-TERM-0263",
+   "v": "1.1",
+   "hash": "0466796ab74dffe98aa4164660487d7ae0726dfd961c0dfbdec3d5c5dcfb8c67"
+  },
+  {
+   "t": "API key",
+   "c": "Deployment",
+   "d": "The secret token identifying who is calling an API — Signature Llama needs none, since it runs locally.",
+   "id": "SIGLLAMA-TERM-0264",
+   "v": "1.1",
+   "hash": "898aa1afca7c5379ddbfc3554a900a026fbe5cebc4e454889f08a9881593b875"
+  },
+  {
+   "t": "endpoint",
+   "c": "Deployment",
+   "d": "The web address a model listens on for incoming requests.",
+   "id": "SIGLLAMA-TERM-0265",
+   "v": "1.1",
+   "hash": "f5d2f277b04dcddeaed09cb125ab7a3bf92954e27a35b197779400b82d290df9"
+  },
+  {
+   "t": "model server",
+   "c": "Deployment",
+   "d": "Software built to load models and serve many users efficiently, with batching and caching.",
+   "id": "SIGLLAMA-TERM-0266",
+   "v": "1.1",
+   "hash": "53760a991277611057c96e0dcca19373c95e82e06351e4dbd34331f4a31f22f2"
+  },
+  {
+   "t": "vLLM",
+   "c": "Deployment",
+   "d": "A fast open-source serving engine famous for its paged attention memory management.",
+   "id": "SIGLLAMA-TERM-0267",
+   "v": "1.1",
+   "hash": "a7cd9c409c20221f9522aa5ea63aba3ea91dbf3c2cf76cef276692dc919c18b2"
+  },
+  {
+   "t": "llama.cpp",
+   "c": "Deployment",
+   "d": "A lean C++ engine that runs quantized models on ordinary CPUs — the offline-everywhere workhorse.",
+   "id": "SIGLLAMA-TERM-0268",
+   "v": "1.1",
+   "hash": "370950d7597b1bb809b90247c42bbbf20abc0bc7511584b22ab2130db8fdd73a"
+  },
+  {
+   "t": "Ollama",
+   "c": "Deployment",
+   "d": "A friendly tool that downloads and runs open models locally with one command.",
+   "id": "SIGLLAMA-TERM-0269",
+   "v": "1.1",
+   "hash": "7f83b4f3e0fbb3d406dedb0406e27a324c73a2415f6cd4b78f95eb7c48d704c4"
+  },
+  {
+   "t": "Hugging Face",
+   "c": "Deployment",
+   "d": "The big public hub where the AI world shares models, datasets, and demos.",
+   "id": "SIGLLAMA-TERM-0270",
+   "v": "1.1",
+   "hash": "415d0825aa86cff0ff5d79720559351a917e01e544f16f43e9d98c50051d080f"
+  },
+  {
+   "t": "model hub",
+   "c": "Deployment",
+   "d": "Any repository where trained models are published for others to download and use.",
+   "id": "SIGLLAMA-TERM-0271",
+   "v": "1.1",
+   "hash": "3cc600ffda3cddfd9ccd86a84b1f66cfad97fabed0b0c3c5a1192e7eee76f417"
+  },
+  {
+   "t": "open weights",
+   "c": "Deployment",
+   "d": "Releasing the trained parameters so anyone can download, study, and run the model themselves.",
+   "id": "SIGLLAMA-TERM-0272",
+   "v": "1.1",
+   "hash": "6f68d9f71a2be4cef2f10273caeb2fcaa7f59bfb5831d7c185dfcfb44fa09317"
+  },
+  {
+   "t": "open source model",
+   "c": "Deployment",
+   "d": "A model whose code and often weights are public — Signature Llama's engine and trainer are published this way.",
+   "id": "SIGLLAMA-TERM-0273",
+   "v": "1.1",
+   "hash": "36fae9beb498a9024be181137f6a2de3e401be93dda069a145c7805939825a59"
+  },
+  {
+   "t": "model license",
+   "c": "Deployment",
+   "d": "The legal terms saying what you may do with a model — commercial use, modification, and redistribution rules.",
+   "id": "SIGLLAMA-TERM-0274",
+   "v": "1.1",
+   "hash": "77eb881cebf748448a7dced8021cd309a22cd538351d09f99a3047d510d75130"
+  },
+  {
+   "t": "commercial use",
+   "c": "Deployment",
+   "d": "Using a model to make money, which some licenses allow freely and others restrict.",
+   "id": "SIGLLAMA-TERM-0275",
+   "v": "1.1",
+   "hash": "b63c142fc163a42e6a91e57875ac904618ab13a452d60732cc5bfb64998f07d4"
+  },
+  {
+   "t": "edge deployment",
+   "c": "Deployment",
+   "d": "Running the model on the device at the network's edge — phones, laptops, gadgets — instead of a data center.",
+   "id": "SIGLLAMA-TERM-0276",
+   "v": "1.1",
+   "hash": "f038ee29c36bb8d405a9101f36a47cb57e8d3460cb8bbae4c20f2b8f06e695b6"
+  },
+  {
+   "t": "on-device inference",
+   "c": "Deployment",
+   "d": "The model running entirely on the user's own hardware, private and offline-capable.",
+   "id": "SIGLLAMA-TERM-0277",
+   "v": "1.1",
+   "hash": "cdd049ab96dd8ca9bbe1a0f3da5413c0f329d54c6bef32f66e831930f5cf01fe"
+  },
+  {
+   "t": "browser inference",
+   "c": "Deployment",
+   "d": "Running the model inside a web page with JavaScript — Signature Llama's home turf, no install needed.",
+   "id": "SIGLLAMA-TERM-0278",
+   "v": "1.1",
+   "hash": "88d6e130c24b5064bcb62aad3ffdb36c1195f6826b6a16215bf3d4b2f79d0144"
+  },
+  {
+   "t": "WebGPU",
+   "c": "Deployment",
+   "d": "The browser API that unlocks the graphics card for fast in-page computation.",
+   "id": "SIGLLAMA-TERM-0279",
+   "v": "1.1",
+   "hash": "6c0bff77a020fdabcdf7a4813538effee87a4c2668bd23a28b30e1c235ad8777"
+  },
+  {
+   "t": "WebAssembly",
+   "c": "Deployment",
+   "d": "A compact binary format letting near-native-speed code, like inference kernels, run in the browser.",
+   "id": "SIGLLAMA-TERM-0280",
+   "v": "1.1",
+   "hash": "ab9e0bd502c0ebfeb88b33452749c219abbc7dd94fc64719c7d39adbd8829b64"
+  },
+  {
+   "t": "mobile deployment",
+   "c": "Deployment",
+   "d": "Shrinking and tuning a model so it runs well on phones with limited memory and battery.",
+   "id": "SIGLLAMA-TERM-0281",
+   "v": "1.1",
+   "hash": "abaf7c23cd7cbb1ebcaaadd29a5cef3c9fb437157791a2a3108b9d9078c3b4fd"
+  },
+  {
+   "t": "model quantization",
+   "c": "Deployment",
+   "d": "The deployment-time step of converting weights to fewer bits for speed and size.",
+   "id": "SIGLLAMA-TERM-0282",
+   "v": "1.1",
+   "hash": "69a32e58ba17d3b5d245029bd1a168c33ee7327df4068d643cd2906f41a4b15c"
+  },
+  {
+   "t": "pruning",
+   "c": "Deployment",
+   "d": "Deleting the least important weights or neurons to slim a model down.",
+   "id": "SIGLLAMA-TERM-0283",
+   "v": "1.1",
+   "hash": "fa2cec03b1a1ce94d61b6f2bfc00b9cf67d8bc029b1b4d287d22e8eef7dd8a9e"
+  },
+  {
+   "t": "distillation",
+   "c": "Deployment",
+   "d": "Training a small student model to imitate a big teacher, keeping most of the quality at a fraction of the size.",
+   "id": "SIGLLAMA-TERM-0284",
+   "v": "1.1",
+   "hash": "e664ffa680a498ccedf9dfcd8987abf971bbbf40be753d086d2040ac36071d53"
+  },
+  {
+   "t": "knowledge distillation",
+   "c": "Deployment",
+   "d": "The formal name for the teacher-student transfer technique behind many compact models.",
+   "id": "SIGLLAMA-TERM-0285",
+   "v": "1.1",
+   "hash": "aebfdc8bcab5751efca1ff832a4e661af239cdee34bb50d7b2de2a0c34d1c37a"
+  },
+  {
+   "t": "model merging",
+   "c": "Deployment",
+   "d": "Blending the weights of two trained models to combine their skills without retraining.",
+   "id": "SIGLLAMA-TERM-0286",
+   "v": "1.1",
+   "hash": "25d3d971d0a61dc30c32bf18e5a496edb0b0279154cf47418e41c778784b7dfe"
+  },
+  {
+   "t": "containerization",
+   "c": "Deployment",
+   "d": "Packaging a model and its environment into a portable container that runs the same anywhere.",
+   "id": "SIGLLAMA-TERM-0287",
+   "v": "1.1",
+   "hash": "a906074015a51744129afff5c88da17b001c3ff2724a83f16b724b700cf585e6"
+  },
+  {
+   "t": "Docker",
+   "c": "Deployment",
+   "d": "The standard container tool for shipping software, models included, with identical environments.",
+   "id": "SIGLLAMA-TERM-0288",
+   "v": "1.1",
+   "hash": "690ad67b335460522bd501c8bacc233d781a8be3dcb4928cd663fcf2ecd05db6"
+  },
+  {
+   "t": "GPU",
+   "c": "Deployment",
+   "d": "The graphics processor — the parallel-compute workhorse that trains and serves nearly all big models.",
+   "id": "SIGLLAMA-TERM-0289",
+   "v": "1.1",
+   "hash": "047b18f086d333a58c04b2997803cfc6861c9ee7edd064e39f79f14048c8b19c"
+  },
+  {
+   "t": "VRAM",
+   "c": "Deployment",
+   "d": "A GPU's own memory, where the model and its working data must fit during training and serving.",
+   "id": "SIGLLAMA-TERM-0290",
+   "v": "1.1",
+   "hash": "1df3d9e27d1c2a90f0416465c7ab193c7a7d3bc6bd7760fc32d7d03e3580d65a"
+  },
+  {
+   "t": "CPU inference",
+   "c": "Deployment",
+   "d": "Running the model on the regular processor — slower than GPU but available everywhere.",
+   "id": "SIGLLAMA-TERM-0291",
+   "v": "1.1",
+   "hash": "d3a2c2bf2d84fe914d5aeb99ba250ce6ed829e9bbeea57efa9af7d455cfd3613"
+  },
+  {
+   "t": "NPU",
+   "c": "Deployment",
+   "d": "A neural processing unit: a chip built specifically to accelerate AI math on devices.",
+   "id": "SIGLLAMA-TERM-0292",
+   "v": "1.1",
+   "hash": "5b4aafd1324cbc8df96178d2801fd10d2a576498ca58abfbe236e183908adf9d"
+  },
+  {
+   "t": "TPU",
+   "c": "Deployment",
+   "d": "Google's tensor processing unit, a custom chip designed for massive-scale training.",
+   "id": "SIGLLAMA-TERM-0293",
+   "v": "1.1",
+   "hash": "0ad5f96dd3e0aa2417cfc07dc6cb9cfccf129892f250415b12759125f37042f2"
+  },
+  {
+   "t": "inference cost",
+   "c": "Deployment",
+   "d": "What you pay per request or per token to run a model — zero for a model running in your own browser.",
+   "id": "SIGLLAMA-TERM-0294",
+   "v": "1.1",
+   "hash": "edc27e6925f8aac7946229551f8ee9d65d9ba410b9192428f19d2bb9ec5a4e36"
+  },
+  {
+   "t": "cost per token",
+   "c": "Deployment",
+   "d": "The unit price of generation on hosted APIs, usually quoted per million tokens.",
+   "id": "SIGLLAMA-TERM-0295",
+   "v": "1.1",
+   "hash": "87ac9963757c75769d9037b8bb49fc35e0e0e8a2bdb3352919a87379272eb3b0"
+  },
+  {
+   "t": "rate limit",
+   "c": "Deployment",
+   "d": "How many requests an API allows per minute — a non-issue when the model lives on your device.",
+   "id": "SIGLLAMA-TERM-0296",
+   "v": "1.1",
+   "hash": "b3f3d0229bf83ec655ed4f070cbab346f3438c6c634cd29fcb772124447467d5"
+  },
+  {
+   "t": "uptime",
+   "c": "Deployment",
+   "d": "The fraction of time a serving endpoint is actually reachable.",
+   "id": "SIGLLAMA-TERM-0297",
+   "v": "1.1",
+   "hash": "a535400954a68ea96a4b1df1e7a89c3ffe1281f3ef0e8634de2b787ea856bfa1"
+  },
+  {
+   "t": "monitoring",
+   "c": "Deployment",
+   "d": "Watching a deployed model for errors, slowness, and quality drift.",
+   "id": "SIGLLAMA-TERM-0298",
+   "v": "1.1",
+   "hash": "82a31adbc6123d6bc049eea33d01eeb01bfaaf3da60620de5c803782cbe1d292"
+  },
+  {
+   "t": "logging",
+   "c": "Deployment",
+   "d": "Recording requests and outputs so problems can be diagnosed and behavior audited.",
+   "id": "SIGLLAMA-TERM-0299",
+   "v": "1.1",
+   "hash": "559c75b390d818c1f9fe3b01d2590f5052ec14863fa53e9cdca75ae56be9167d"
+  },
+  {
+   "t": "model versioning",
+   "c": "Deployment",
+   "d": "Labeling each trained model, like v1 and v2, so you can track and roll between them.",
+   "id": "SIGLLAMA-TERM-0300",
+   "v": "1.1",
+   "hash": "747bb336ecc8cbba45d62a0c8e7d925420e5b3363723e0523f705c69d146cc48"
+  },
+  {
+   "t": "rollback",
+   "c": "Deployment",
+   "d": "Switching back to the previous model version when a new one misbehaves.",
+   "id": "SIGLLAMA-TERM-0301",
+   "v": "1.1",
+   "hash": "d5b113bf05443da5159bdaf948e3b663ff1e4b6661fe4d401cfc24365b155724"
+  },
+  {
+   "t": "canary release",
+   "c": "Deployment",
+   "d": "Sending a new model to a small slice of users first to catch problems early.",
+   "id": "SIGLLAMA-TERM-0302",
+   "v": "1.1",
+   "hash": "dc293142f5df69d47715b2f18201db3a5c0545f5dd962c2abaacdebbc29fdb95"
+  },
+  {
+   "t": "server scaling",
+   "c": "Deployment",
+   "d": "Adding more serving capacity as demand grows.",
+   "id": "SIGLLAMA-TERM-0303",
+   "v": "1.1",
+   "hash": "84aa86e5eaa7f340cbbae82a523812c7c100de1abbdce8717a9fb32911f53435"
+  },
+  {
+   "t": "autoscaling",
+   "c": "Deployment",
+   "d": "Automatically spinning servers up and down with demand.",
+   "id": "SIGLLAMA-TERM-0304",
+   "v": "1.1",
+   "hash": "eee471c62746a6f7c441d70a3c6561191c94b59b912b4f744164072fde2a0a4b"
+  },
+  {
+   "t": "load balancer",
+   "c": "Deployment",
+   "d": "The traffic cop spreading requests across many model servers.",
+   "id": "SIGLLAMA-TERM-0305",
+   "v": "1.1",
+   "hash": "ef94efc9c56c6599677df68c80a5a8fabb9d9f06210515b287fcda0e1b76efbe"
+  },
+  {
+   "t": "cold start",
+   "c": "Deployment",
+   "d": "The slow first request while a model loads into memory.",
+   "id": "SIGLLAMA-TERM-0306",
+   "v": "1.1",
+   "hash": "841095adeb050a94cf0d925b1957007cdbeccb7d6a71175f192fe83bb9fe4097"
+  },
+  {
+   "t": "warm start",
+   "c": "Deployment",
+   "d": "Fast requests once the model is already loaded and ready.",
+   "id": "SIGLLAMA-TERM-0307",
+   "v": "1.1",
+   "hash": "5bbbc7966c9261b1a32e011adcdf77fe8cdb3d2c6a845b2cb05be5d88775518f"
+  },
+  {
+   "t": "response caching",
+   "c": "Deployment",
+   "d": "Storing answers to repeated questions so identical prompts return instantly.",
+   "id": "SIGLLAMA-TERM-0308",
+   "v": "1.1",
+   "hash": "2f83e6a5076d72e17e00e74abdd0d2e18298f71e628f0e2f5301d5818918622a"
+  },
+  {
+   "t": "CDN",
+   "c": "Deployment",
+   "d": "A content delivery network that serves static files, like model weights, from servers near each user.",
+   "id": "SIGLLAMA-TERM-0309",
+   "v": "1.1",
+   "hash": "1d2ec91072c7d71e2692e36f8c29a6ca29f0d404c3dfaf492437f5339074a06f"
+  },
+  {
+   "t": "offline mode",
+   "c": "Deployment",
+   "d": "The model working with no internet at all — possible once the files are downloaded.",
+   "id": "SIGLLAMA-TERM-0310",
+   "v": "1.1",
+   "hash": "ca8c30d8536c6136afbb7334b97edab12ff21ba0826f4ba1b0cf59bc36a31c56"
+  },
+  {
+   "t": "PWA",
+   "c": "Deployment",
+   "d": "A progressive web app: a website that installs and behaves like a native app, offline included.",
+   "id": "SIGLLAMA-TERM-0311",
+   "v": "1.1",
+   "hash": "33d74cdad628abce896ff0f65e7e9519820edde58b0ae0a689626330bb1c0da5"
+  },
+  {
+   "t": "static hosting",
+   "c": "Deployment",
+   "d": "Serving a site as plain files with no server code — how every Signature site, including this one, is published.",
+   "id": "SIGLLAMA-TERM-0312",
+   "v": "1.1",
+   "hash": "9b546c96541c4809477c814ed0fbc9754c0f9c63bd8152c019c120734f7c1e98"
+  }
+ ],
+ "version": "1.1",
+ "updated": "2026-10-03",
+ "hash": "2ad5712b0b39b53c84e9aca1f7d5c87596571b488da1be0ebcfe47af00907bd4"
+}

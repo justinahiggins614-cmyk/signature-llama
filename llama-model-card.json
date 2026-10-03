@@ -1,0 +1,147 @@
+{
+ "model_card_version": "1.0",
+ "updated": "2026-10-03",
+ "current_model": "SIGLLAMA-V2",
+ "models": {
+  "SIGLLAMA-V2": {
+   "model_id": "SIGLLAMA-V2",
+   "name": "Signature Llama v2",
+   "version": "2.0",
+   "status": "live",
+   "released": "2026-10-03T03:30:00-04:00",
+   "architecture": {
+    "type": "decoder-only transformer (chat-tuned on phone-book AI profiles)",
+    "layers": 5,
+    "attention_heads": 8,
+    "hidden_size": 192,
+    "mlp_size": 768,
+    "rope_theta": 10000.0
+   },
+   "parameters": 4056768,
+   "tokenizer": {
+    "type": "word-level",
+    "vocabulary_size": 2879,
+    "file": "vocab2.json",
+    "sha256": "94a6847481fe2344ff1f6dd732a8bc790279eb0edd3bfd0ea0b0678240fafe9c"
+   },
+   "context_length": 96,
+   "quantization": "int8, per-row scales",
+   "weight_format": "SGLL v1 binary, int8 per-row scales",
+   "hashes": {
+    "weights_sha256": "e351a9e1133a1774782d9f6f0e77f6ab756ca769af59fbbe763f6321e32d7049",
+    "engine_sha256": "d387c26e4531838fbf07b860804bd27e01a6e4688f4675a33ba32108155d2bf1",
+    "vocab_sha256": "94a6847481fe2344ff1f6dd732a8bc790279eb0edd3bfd0ea0b0678240fafe9c"
+   },
+   "training_data": {
+    "description": "chat-tuned on phone-book AI profiles",
+    "detail": "not documented in the repository — see manifest training.v2",
+    "training_steps": null,
+    "corpus_id": null,
+    "corpus_hash": null
+   },
+   "evaluation": {
+    "determinism": "deterministic:true replays byte-identical output (tested with published weights)",
+    "note": "no formal benchmark suite has been run against v2; scores are not published"
+   },
+   "intended_use": "On-device chat, explanations, and demos in the browser; a talking brain for Signature site AIs.",
+   "non_intended_use": "Anything needing guaranteed factual accuracy, medical/legal/financial advice, or safety-critical decisions.",
+   "limitations": [
+    "Small (~4M parameters): can invent facts; verify anything important.",
+    "96-token context: long conversations lose their oldest turns first.",
+    "HALLUCINATION_RISK = PRESENT; FACTUALITY_NOT_GUARANTEED = TRUE; VERIFY_IMPORTANT_INFORMATION = TRUE."
+   ],
+   "safety": "Model output is plain text only and never executed. Tool libraries are shipped code, never model-generated.",
+   "license": "Free for any website, app, or project. No API key, no fee. By Justin Addam Higgins.",
+   "canonical_url": "https://justinahiggins614-cmyk.github.io/signature-llama/"
+  },
+  "SIGLLAMA-V1": {
+   "model_id": "SIGLLAMA-V1",
+   "name": "Signature Llama v1",
+   "version": "1.0",
+   "status": "superseded — preserved, still downloadable",
+   "released": "2026-09-30T22:39:00-04:00",
+   "parameters": 2983488,
+   "architecture": {
+    "type": "decoder-only transformer",
+    "layers": 5,
+    "attention_heads": 8,
+    "hidden_size": 192,
+    "mlp_size": 768,
+    "rope_theta": 10000.0
+   },
+   "tokenizer": {
+    "type": "character-level",
+    "vocabulary_size": 84,
+    "file": "vocab.json",
+    "sha256": "53363d3fc2ca692de59c1b311f5dcfef29555e41295adb7fb40d8e10a79b6406"
+   },
+   "context_length": 128,
+   "quantization": "int8, per-row scales",
+   "weight_format": "SGLL v1 binary (magic 'SGLL', format version 1)",
+   "hashes": {
+    "weights_sha256": "b2dfc0d05add95786797e596559f3e86de9b3a9c9dbce6818814ad05d6317b58",
+    "engine_sha256": "6188cb269e07a134e865de4f7b68ee8c5dcfd1bde8771ad2c7b574a2edb4355a",
+    "vocab_sha256": "53363d3fc2ca692de59c1b311f5dcfef29555e41295adb7fb40d8e10a79b6406"
+   },
+   "training_data": {
+    "corpus": {
+     "built": "2026-09-30",
+     "bytes": 23241092,
+     "lines": 135340,
+     "sanitization": "URLs stripped, whitespace collapsed, lines kept only if 20-420 chars and >=60% letters/spaces, deduped, shuffled with seed 614",
+     "sources": [
+      {
+       "path": "jah-dictionary/data/definitions/all.jsonl",
+       "snapshot": "2026-09-30",
+       "what": "IWB Dictionary definitions, formatted as '<word> (<pos>): <definition>'"
+      },
+      {
+       "path": "signature-one-archive/data/volumes/specs-c*.jsonl.gz",
+       "snapshot": "2026-09-30 (668 volumes sampled evenly)",
+       "what": "Signature spec abstracts, autoread blocks, AI explainer text"
+      }
+     ]
+    },
+    "run": {
+     "best_val_loss": 0.365084271132946,
+     "config": {
+      "batch": 20,
+      "checkpoints_every": 1000,
+      "cosine_lr_schedule": true,
+      "lr": 0.0004,
+      "optimizer": "AdamW",
+      "target_tokens": 33000000,
+      "time_cap_s": 16200.0,
+      "warmup": 500
+     },
+     "elapsed_s": 11179.3,
+     "finished": "2026-09-30T18:44:00-04:00",
+     "params": 2983488,
+     "steps": 12890,
+     "vocab": 84
+    },
+    "training_corpus_version": "corpus.txt 2026-09-30, seed 614, 135,340 lines / ~23.2 MB",
+    "weights_published": "2026-09-30T22:39:00-04:00"
+   },
+   "evaluation": {
+    "determinism": "tested 2026-10-01: identical prompt twice -> byte-identical output"
+   },
+   "intended_use": "On-device chat and demos in the browser.",
+   "non_intended_use": "Anything needing guaranteed factual accuracy.",
+   "limitations": [
+    "v1 is small (~3M parameters), lively, and a little quirky — like a bright intern. It can invent facts; verify anything important.",
+    "Context window is 128 tokens: the prompt is left-truncated to fit, so long conversations lose their oldest turns first.",
+    "Character-level tokenizer: spelling is fine, but long words cost many tokens.",
+    "No tools run by default: the model only generates text. Tool libraries run only when you load them.",
+    "Sampling with temperature > 0 is intentionally non-deterministic unless you pass deterministic:true or seed.",
+    "Offline use after first load depends on the browser's HTTP cache and has not been lab-tested."
+   ],
+   "license": "Free for any website, app, or project. No API key, no fee. By Justin Addam Higgins.",
+   "canonical_url": "https://justinahiggins614-cmyk.github.io/signature-llama/",
+   "pinned_files": {
+    "engine": "https://justinahiggins614-cmyk.github.io/signature-llama/sigllama/v1/sigllama.js",
+    "vocab": "https://justinahiggins614-cmyk.github.io/signature-llama/sigllama/v1/vocab.json"
+   }
+  }
+ }
+}

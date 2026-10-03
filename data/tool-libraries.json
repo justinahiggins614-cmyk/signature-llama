@@ -1,6 +1,6 @@
 {
- "updated": "2026-09-30",
- "version": "1.0",
+ "updated": "2026-10-03",
+ "version": "1.1",
  "optimal": {
   "name": "Optimal All-Purpose Setting",
   "tagline": "The recommended default setup — sensible sampling plus the essential tool libraries, one click.",
@@ -40,7 +40,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "shorten(text, maxWords); firstSentence(text)",
    "output": "the shortened text, or the first sentence (string)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "6ac6422593cbf29a6642a1fdcd995ba10fb053df4b5a802c1e2498f234d1301b",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "text-count",
@@ -67,7 +85,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "count(text)",
    "output": "{chars, words, sentences, readingMinutes}",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "afa3fbc234c100074d8f01a3140b08d7a3f815fdf3c0e45ddc1b143b3403d5b7",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "text-clean",
@@ -95,7 +131,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "clean(text); slugify(text)",
    "output": "cleaned text, or a URL slug (string)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "a0525b2d0ed0f66d8239e8935a33ff204bb18059dbb46de1d61876e81fa8fc60",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "text-keywords",
@@ -122,7 +176,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "keywords(text, n)",
    "output": "the top n keywords (array of strings)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "a6ac62e1b49d2643627b75aff618bc349bd4311b37d13555c60e3be44832eed6",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "text-summarize",
@@ -149,7 +221,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "summarize(text, n)",
    "output": "an extractive summary of the first n sentences (string)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "ab690480efc08d2b8002a3cc547bc63ea46b15dc8ee528ef4478bd4bfa60d895",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "text-template",
@@ -176,7 +266,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "fill(template, vars)",
    "output": "the template with placeholders filled (string)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "7ec0473b65d9657aed8253a9b2dc755ff1ef3965585a89013e1d43674c4d959c",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "text-diff",
@@ -203,7 +311,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "diffWords(a, b)",
    "output": "{added, removed} word lists",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "d6e4e11c2c8150c69b85178874713a38b5b938fb5c9f74fd3ddfff1adf538c88",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "text-wrap",
@@ -230,7 +356,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "wrap(text, width)",
    "output": "text wrapped to the line width (string)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "3d2bb4ac35900ec848f114365d7f39e5485c9e6a6262f4c107e989210f877b3c",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "text-tone",
@@ -257,7 +401,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "expandContractions(text)",
    "output": "text with contractions expanded (string)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "235e7cb10bb5b79e7104cbbf973eb2f084cc88c029a5c6f46a38e8d5117043ad",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "text-bullets",
@@ -285,7 +447,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "toBullets(text); fromBullets(text)",
    "output": "lines as bullet points, or bullets back to lines (string)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "e882f57cf6bab769993ad15350894dc83b2937976aa2aeb4fe2161e295a09adc",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "think-steps",
@@ -313,7 +493,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "steps(goal, n); thinkPrompt(question)",
    "output": "numbered steps, or a step-by-step prompt frame (string)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "416fcb2c657cab2a2c808691b437f6d45bc5b52c6008adc96b33d4a02ce95a96",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "think-proscons",
@@ -341,7 +539,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "split(text); frame(topic)",
    "output": "{pros, cons} lists; a blank decision frame (string)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "a47029647dc1bc31691f024d0232f8198abe130de45cb89d9f0f8a35352573b3",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "think-decide",
@@ -368,7 +584,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "score(options)",
    "output": "the options ranked with their scores shown",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "58abbed6fe6432d4346a36bbc09e0303cdc58e5df7f3599b073e1e6f21991269",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "think-why",
@@ -395,7 +629,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "fiveWhys(statement)",
    "output": "a five-whys root-cause chain (string)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "11f889b6dd513da929b7da8691986b69e29456a97e039ee893db7f2ddcb50f58",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "think-socratic",
@@ -422,7 +674,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "questions(topic)",
    "output": "five idea-testing questions",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "8a1c3515bf09c67b3184f1db619ea8485caa5188bad107ea79d560120fa45f91",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "think-fermi",
@@ -449,7 +719,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "breakdown(question, factors)",
    "output": "a Fermi estimate frame with guessable factors (string)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "af229756de070a693ecb8763af4370a2c0023aa3f92a67f6d3456c84c9a18560",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "think-invert",
@@ -476,7 +764,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "invert(goal)",
    "output": "the goal inverted — how to fail at it (string)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "5dd52bc9948590773f0f686f441d9df9fb2fa717f8a08a219f066682bfaff06f",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "think-analogy",
@@ -503,7 +809,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "frame(a, b)",
    "output": "an analogy frame: what maps across, what breaks (string)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "56a61349b3d425cea51253aea024f386618308e5a38298f23809e1998a04f2e7",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "think-assume",
@@ -530,7 +854,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "find(text)",
    "output": "the assumption phrases found in the text",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "8fec9e942cae24504886e0b6435455d2844c6228f5eda3286f20c21221056772",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "think-checklist",
@@ -558,7 +900,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "make(goal, items); check(list, i)",
    "output": "a checklist; the checked-off list",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "b091aefc5a99991e33b447942e0c33d2813f184374a2650b20579ad7f81a60c8",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "mem-note",
@@ -587,7 +947,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "set(key, value); get(key); forget(key)",
    "output": "the stored note on get(); nothing on set()/forget()",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "41f2fc4e1a768deefeff7f6885dde606f039361f8c1e33b415787542d62ccff8",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": true,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "mem-facts",
@@ -616,7 +994,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "add(topic, fact); about(topic); clear(topic)",
    "output": "the facts list for a topic (about())",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "4681e9c322e8a6f6ebf940f8f2812c5c63aab01ba365407f8cf7c7e66dc6c70b",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": true,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "mem-pin",
@@ -645,7 +1041,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "pin(item); pinned(); unpin(i)",
    "output": "the pinned-items board (pinned())",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "a1c8937d4225be2bdf3cde48a485b12264b9ddb60a27b3b8a95f70761b2e7fd6",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": true,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "mem-timeline",
@@ -673,7 +1087,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "add(when, what); all()",
    "output": "the timeline in date order (all())",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "42da41e5b646d2725cf29ceb9672414270efdf7733531b6c9b99266dcd243891",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": true,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "mem-review",
@@ -701,7 +1133,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "nextReview(level); plan(topic)",
    "output": "the next review date; a review plan (string)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "a7deac0ac66bd41ba4afd7a7a6ee8579aa23e9b63d48d535499ddbebac2e0c9d",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "mem-context",
@@ -728,7 +1178,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "pack(items, maxChars)",
    "output": "the items packed into the character budget (string)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "3a69b3804fb2500b9e96520d6c32b460e36468b583a74dfc9acb6bdf4ee793db",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "mem-session",
@@ -757,7 +1225,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "log(who, text); get(); clear()",
    "output": "the logged session turns (get())",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "e82de58cf738658e456cda8c22837145cf6a20192311617fee9c2200049b9646",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "mem-export",
@@ -785,7 +1271,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "exportAll(); importAll(json)",
    "output": "all stored memories as JSON (exportAll())",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "2164453ce2a8d523c264da20972051d04ea59a2685a71c0d2c18763c120769c8",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": true,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "mem-digest",
@@ -812,7 +1316,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "digest(items, n)",
    "output": "a short bullet digest (string)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "f18a98e23bfc0df20b0921afcf8d4a9add85b958285a3e8e0eef90a6730e3982",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "mem-search",
@@ -839,7 +1361,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "search(query)",
    "output": "the memory keys mentioning the word",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "93c1c827895898b92377e354eb59014776ece56e6db52099cfa0c8cf7fb35ffe",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": true,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "chat-persona",
@@ -866,7 +1406,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "make(name, traits)",
    "output": "a personality prompt (string)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "a7cf798b5193faf8edccb9797e0ab10ebff81f627f31818ad791ef8b9a1bec18",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "chat-greet",
@@ -893,7 +1451,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "greet(name)",
    "output": "a time-of-day greeting (string)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "5765cd89fb0343f38aaa63d19faff1deba5d792dbb35141e94cd1b039e5737eb",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "chat-farewell",
@@ -920,7 +1496,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "farewell(name)",
    "output": "a friendly goodbye (string)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "3488411192b49e620593ac02ee6f6c83a72d111293ec9083e1ce06f31331484c",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "chat-frames",
@@ -949,7 +1543,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "like5(question); expert(question); teacher(question)",
    "output": "a ready-made prompt frame (string)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "05fcbbdb68473c08b8b1e18d1b43f46dfdb1fd0a17df9bd047a1e451fbfa0527",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "chat-history",
@@ -978,7 +1590,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "create(budget); push(h, who, text); prompt(h)",
    "output": "the history store; one model-ready prompt (prompt())",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "e3ff72fa09bfbe41c20ab672a04b4b51a63df6c40947126750e867decc2797b0",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "chat-suggest",
@@ -1005,7 +1635,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "suggest()",
    "output": "suggested follow-up replies",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "f28af41944b2617ed5f48a36281cbcb9cf0fa4979d08251ba095c9bc6b2216aa",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "chat-recap",
@@ -1032,7 +1680,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "recap(turns)",
    "output": "a short recap of the turns (string)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "5a0d83a77a3f0a38b36b530877fff7f134d96d731bb74a7c1adb861d70dd21b7",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "chat-emoji",
@@ -1059,7 +1725,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "forMood(mood)",
    "output": "an emoji for the mood (string)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "e60ef626b2b646ae21f1f4bbb57dc4de3e71aeaafe4eaf3808a4e3f62ece508c",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "chat-opener",
@@ -1086,7 +1770,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "opener(topic)",
    "output": "a welcoming first line (string)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "2f8e7176641ef5a504a3542ab31b0b0a04b0eeb354a33663e5ad2e544485fa20",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "chat-closer",
@@ -1113,7 +1815,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "wrapUp(topic)",
    "output": "a one-line send-off (string)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "7c78f2fe26f9b8838124fbc4ea3c8b8b1fec98ea21a1fe2757cee596b9a4aa00",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "search-score",
@@ -1140,7 +1860,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "score(text, query)",
    "output": "a relevance score (number)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "3bd06c6077795d14a0a8d1a7179501578761781112477bf996e00eb4ebbce7d6",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "search-highlight",
@@ -1167,7 +1905,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "highlight(text, query)",
    "output": "text with matches wrapped in <mark> tags (string)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "c30d9be4550ce59a4bbb4dfc06c0dff48f5166beeec5c09794fda4c8cc1e5266",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "search-filter",
@@ -1194,7 +1950,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "filter(items, query, keyFn)",
    "output": "the matching items, best first (array)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "0be89448f5d0f2671a3861c749cad811dd9731d017698b89c6d1416bcd00542c",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "search-suggest",
@@ -1221,7 +1995,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "suggest(prefix, words, n)",
    "output": "up to n completions (array)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "ed88fb1b9dc750657af9732850fe1fe6b13fc7e91d0393441aa03f37277f35c9",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "search-rank",
@@ -1248,7 +2040,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "rank(items, query, keyFn)",
    "output": "the items ranked by relevance (array)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "f410647dbeef638e08cde4c4cde0b4cc8c2ef6d5923bcbe4eeb32f669f21d022",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "search-snippet",
@@ -1275,7 +2085,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "snippet(text, query, radius)",
    "output": "a readable snippet around the match (string)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "8857f1c052d1a76c2b95d6c5b6b74c8c56cd27f0e32cadefa2188d889157cb04",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "search-dedupe",
@@ -1302,7 +2130,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "dedupe(items)",
    "output": "the items with duplicates removed (array)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "5a13cc166d04676c4e1153c59b1def8f09da4348c31a266e42cc300c121771ed",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "search-group",
@@ -1329,7 +2175,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "groupBy(items, keyFn)",
    "output": "the items grouped into buckets (object)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "4a9d373c3739207314aabfe50a1d1f5bf3505a31c956a4ed9952f6f80dd18caa",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "search-page",
@@ -1356,7 +2220,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "page(items, page, perPage)",
    "output": "one page of items plus page counts",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "63dd8b9a4f31deb1207af1a0fcb2ff27273e7c9965ed366c9d8132db1fc06b24",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "search-recent",
@@ -1385,7 +2267,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "add(query); list(); clear()",
    "output": "the recent-searches list (list())",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "398d299b7d328055ccffe4d14ef35bf408f88cff9ba231ef7ad0a21d88ea6fa5",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": true,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "math-calc",
@@ -1412,7 +2312,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "calc(expr)",
    "output": "the value of the expression (number)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "ba0787e34fe359fa382639ca418544545b1b96dc823ff44a61d0ecdcf4212baa",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "math-stats",
@@ -1441,7 +2359,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "mean(a); median(a); stddev(a)",
    "output": "the mean, median, or standard deviation (number)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "d82031dbddeb07a6b40960228e43902fc69b5ffb28081c0f2cd20628371d60f5",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "math-percent",
@@ -1469,7 +2405,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "of(part, whole); change(oldV, newV)",
    "output": "a percentage (number)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "228ecebe0519895bf6c792cfd85366e18e79af38ea5c7bf59d2943c2e6b66eee",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "math-convert",
@@ -1496,7 +2450,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "convert(value, from, to)",
    "output": "the converted value (number)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "fe82aa99b1e428e230d138b69b8767d4194866f855fb17a1dee71c5b156ec542",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "math-geometry",
@@ -1526,7 +2498,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "circleArea(r); rectArea(w,h); boxVolume(w,h,d); hypotenuse(a,b)",
    "output": "the area, volume, or hypotenuse (number)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "17436e1930a269efee3c555f752dd1a341e0a4e8f74d72cbdbc653d7d7d5acc5",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "math-finance",
@@ -1554,7 +2544,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "compound(principal, rate, years); loanPayment(principal, annualRate, years)",
    "output": "the grown amount, or the loan payment (number)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "b9beab4841924a854afb2a49e02d97f911b61f033c8a85ed6f35689adc34600d",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "math-random",
@@ -1583,7 +2591,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "int(min, max); pick(arr); shuffle(arr)",
    "output": "a random integer, a random pick, or a shuffled array",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "17d132af4c2b0d1c54be31a8528fa1ed599e98c6beed958bcccbec1989ace464",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "math-seq",
@@ -1611,7 +2637,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "fib(n); range(a, b, step)",
    "output": "the Fibonacci number, or a numeric range (array)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "c7a7379b765cfce5374979b568c68b60f064bf2c88d73c5133c9ebb2eded6ee7",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "math-clamp",
@@ -1640,7 +2684,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "clamp(v, lo, hi); roundTo(v, d); lerp(a, b, t)",
    "output": "the clamped, rounded, or blended number",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "ef521ee194808032d2e67f316af0ef5ee44e5cf0a58b58bb7911071aa4bef565",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "math-logic",
@@ -1671,7 +2733,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "AND(a,b); OR(a,b); NOT(a); XOR(a,b); implies(a,b)",
    "output": "true or false",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "39038e5ae1ed59a57ff02b7de500cbec572a2716eb50d56f78d9e75f2841df1a",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "web-query",
@@ -1699,7 +2779,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "stringify(obj); parse(qs)",
    "output": "a query string, or the parsed pairs (object)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "0bdfabea72c7050d9c23a084a3d08ed82110f5c6c6fba4a253d34a73806916a1",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "web-url",
@@ -1727,7 +2825,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "join(base, path); isExternal(url)",
    "output": "the joined URL (string), or true/false",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "9fa4308064b6d332587cccaad29bfda465fe49100efce9f32e55e4b3e803d259",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "web-share",
@@ -1754,7 +2870,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "links(url, text)",
    "output": "share links for X, Facebook, and email",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "9fd08504811db2d37d4c8a3083a3da76b9a8ba1b48a08f313017ad39947ebb15",
+   "permissions": {
+    "NETWORK": true,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "web-meta",
@@ -1781,7 +2915,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "tags(title, desc)",
    "output": "title/description meta tag HTML (string)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "ee60ae5d73a78503cb82cb6ef47394b0706e05e333818fe2e103bfe32db87535",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "web-ping",
@@ -1808,7 +2960,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "ping(url)",
    "output": "a Promise resolving true/false",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "b0e08fac3be816df1bc92d26a6af1d8887b438cd5b9abacabb9941eb416c509e",
+   "permissions": {
+    "NETWORK": true,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "web-get",
@@ -1835,7 +3005,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "getJSON(url)",
    "output": "a Promise resolving the parsed JSON",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "b3adb1594ae7b098ae984a9f3d39f0b40035e9d13484d06a986c2527b7981ab0",
+   "permissions": {
+    "NETWORK": true,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "web-retry",
@@ -1862,7 +3050,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "retry(fn, times, ms)",
    "output": "a Promise resolving the function's result",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "a2f4e319a3a985fc65e3158aa9d9fabcfba4c89ab241d6ad21e836bc429afdbc",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "web-cache",
@@ -1889,7 +3095,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "cached(key, fn, ttlMs)",
    "output": "the cached (or freshly computed) result",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "bea4ebe5e75c291034760f49fe92fe1e6f404302f27442046e23883314a5bfa6",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "web-embed",
@@ -1917,7 +3141,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "scriptTag(src); cssLink(href)",
    "output": "<script> / <link> tag HTML (string)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "bf3997ff062d9ea072d7f49990d1cc260f9b58eb807589aa543b9a8bbea7264b",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "web-sitemap",
@@ -1944,7 +3186,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "xml(urls)",
    "output": "a sitemap.xml document (string)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "2cc975eded0d9319e33cd2d4b5c873bd3a58597ca6413da64645328ab1721a76",
+   "permissions": {
+    "NETWORK": true,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "data-json",
@@ -1972,7 +3232,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "pretty(obj); safeParse(text)",
    "output": "pretty JSON (string), or the safely parsed object",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "fbb04145b958612e126db779a78c6b80f6b70e8d4d642ff142b6600f11034bb3",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "data-csv",
@@ -2000,7 +3278,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "toCSV(rows); fromCSV(text)",
    "output": "CSV text, or parsed rows",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "2bfc03c433b14adf953706fa9e7e305da0cd4235900cb72182fba04b4c07f8ad",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "data-table",
@@ -2027,7 +3323,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "md(rows)",
    "output": "a Markdown table (string)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "00e4ace02fd3e3a07b4363247c8f1bd703e74f912f40d04ef8fbbeef9f0e06d7",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "data-sort",
@@ -2054,7 +3368,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "by(arr, key, dir)",
    "output": "a sorted copy of the array",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "95039ef9d999692f488d5bc07088898fe0ac7f83f2492d54f0238d0c5146a942",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "data-chunk",
@@ -2081,7 +3413,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "chunk(arr, n)",
    "output": "the array split into chunks (array of arrays)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "51d2aae98be6d937816b4099582a1217fdfe5b9a909f9fb3e1d4664f12ecfc80",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "data-flatten",
@@ -2108,7 +3458,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "flatten(obj, prefix)",
    "output": "the flattened object with dot-path keys (object)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "45f47f3d64977ef55aa21d5e528fbb903b490f7a8fa48ac10a47a979db8a17af",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "data-hash",
@@ -2136,7 +3504,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "djb2(str); uid(prefix)",
    "output": "a hash number, or a unique ID (string)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "40bb8f4b8e5ff813b49fa0ec3934269e59f84e7abcca021ac153ad43e3090f6b",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "data-validate",
@@ -2164,7 +3550,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "isEmail(s); isURL(s)",
    "output": "true or false",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "7c3b9f915a1f5113efcff37f2705f3cb4bd4a260ac07759d68fde6c5df238e5f",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "data-download",
@@ -2191,7 +3595,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "text(filename, content)",
    "output": "triggers a file download in the browser",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "d98fce98c26971c76ad52f0bb336b7223db715d1458a0772f0bff06dbeaa875b",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": true,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": true,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "data-lines",
@@ -2218,7 +3640,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "lines(text)",
    "output": "clean, non-empty, trimmed lines (array)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "005dde9bb5e870816d2773acdaf3eb08597f9abb12f1f79f89ad1db866a96921",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "voice-speak",
@@ -2245,7 +3685,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "speak(text, opts)",
    "output": "starts reading the text aloud",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "989242adcf30710f8431f3b74783019b30c4c3f0c1992e9aba1792c9e15800ad",
+   "permissions": {
+    "NETWORK": true,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": true,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "voice-stop",
@@ -2272,7 +3730,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "stop()",
    "output": "stops any speech immediately",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "7579ce834c8cba5d80245e63200e79d5d162085a535e9fd70415b94658c83475",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": true,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "voice-chunk",
@@ -2299,7 +3775,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "chunk(text, max)",
    "output": "speakable chunks (array)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "15fc2b2a40fd3301c419f88c3395b8d32f927bc06d66ebde614e2a07cdd318b2",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "voice-presets",
@@ -2326,7 +3820,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "forPersona(name)",
    "output": "rate and pitch settings for the persona (object)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "d234371cd10a941180d279b45d9f78443c4a8ff4c64fda2e7e3c8a5b77c6cf6d",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "voice-queue",
@@ -2354,7 +3866,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "queue(text); clear()",
    "output": "queues the text to be read aloud, in order",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "f066a5d8ca298bfe4d22c447e64070065ff77c1262f16c7f148c0d38478fc58d",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": true,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "voice-buttons",
@@ -2381,7 +3911,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "html(text, id)",
    "output": "Read/Stop button HTML (string)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "d09cb8bd194d0f32b1757398947a452b5709332f7d0f9e31443375b92a793b37",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "voice-announce",
@@ -2408,7 +3956,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "announce(msg)",
    "output": "posts the message to a screen-reader live region",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "9cc5cdd390f92f7cf0b170021cccf7ec063a462c4f62026ef8233b5c6c598e38",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": true,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "voice-captions",
@@ -2435,7 +4001,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "srt(segments)",
    "output": "SRT caption text (string)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "964b70add7d8d042aa414055ecf5686727322c2a01b5d01eedfb316e50617ee9",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "voice-clean",
@@ -2462,7 +4046,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "cleanTranscript(text)",
    "output": "the cleaned transcript (string)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "91996dbd79baf03d9292e325cf2705d0b4bf1cb22aee87b437d0809b888c6387",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "voice-rate",
@@ -2489,7 +4091,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "minutes(text, wpm)",
    "output": "estimated read-aloud minutes (number)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "2f35c886229b582f7a6276933f1b76d310c7384173095abbf84170e53102b488",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "safe-honesty",
@@ -2516,7 +4136,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "note(kind)",
    "output": "an honesty stamp (string)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "e80fd142157d00ded16f9c4a7237e212e9ac32dbb7402eb66236ed7568e5d76a",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "safe-pii",
@@ -2543,7 +4181,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "redact(text)",
    "output": "text with emails and phone numbers redacted (string)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "d91672a4b5a77f310859d2359fc5fe7eeada134c6b4b21cb402d9a4ce3edfce5",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "safe-clamp",
@@ -2570,7 +4226,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "clamp(text, max)",
    "output": "text capped at the max length (string)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "7f218ad53399647dd4818ebc40f4c6cb147d7c206d7194a1745b103da37eb11c",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "safe-disclaimer",
@@ -2597,7 +4271,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "forKind(kind)",
    "output": "the caution text for the topic kind (string)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "8292d8deada64ca5c51f71a77274c9cc19373752a56466622a28a43086a840d1",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "safe-hedge",
@@ -2624,7 +4316,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "findHedges(text)",
    "output": "the hedge words found in the text",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "5e0208c521626b59887fc94340c52a4f148bd5985dbdac86fe449b683dcc6e30",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "safe-kid",
@@ -2651,7 +4361,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "filter(text)",
    "output": "text with harsh words swapped for kinder ones (string)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "4fe9c8862baf7b132f599448769a3854efe9782ae366eebbaffee146e2c91ee9",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "safe-guard",
@@ -2678,7 +4406,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "strip(text)",
    "output": "text with injection phrases stripped (string)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "26b5a73d70cc078748cf9c6750a351c1bdc294c5a9d8a22aa156006e4831f6c7",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "safe-ratelimit",
@@ -2705,7 +4451,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "limit(fn, ms)",
    "output": "a wrapped function that runs at most once per interval",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "951aa6618ce6a2322b928ddd2f8ae4d0b9e46583f622e4f2fa1e8d3f8eece018",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "safe-audit",
@@ -2734,7 +4498,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "log(action, detail); all(); clear()",
    "output": "the audit trail (all())",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "940113f26dad9c416924f7bf10039327dd29014ac0e664c3b426656b5da300d2",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "safe-license",
@@ -2761,7 +4543,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "text()",
    "output": "the free-use license text (string)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "5868f4289cab04461685fe5d819cd676f1a1d816ff0428ce476ba0e17e78b664",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "embed-snippet",
@@ -2788,7 +4588,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "code()",
    "output": "the 3-line embed snippet (string)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "2f07d96adf36915ccca10c79848cfe6493fcda5566e1d1fe0e13c9f40e598bc3",
+   "permissions": {
+    "NETWORK": true,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "embed-ask",
@@ -2815,7 +4633,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "askCode(question)",
    "output": "a ready-to-paste ask-the-Llama snippet (string)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "acb574c25b198ad7e14b5e184a74de469957b768e1582a7815be3258b79ae7fa",
+   "permissions": {
+    "NETWORK": true,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "embed-chatbox",
@@ -2842,7 +4678,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "html()",
    "output": "working chat-box HTML (string)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "91f739e4054ebbc6c43ac7f5861413e952f642466a803da49ad8e0d94828b296",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "embed-dictlink",
@@ -2869,7 +4723,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "link(word)",
    "output": "a deep link opening the dictionary word (string)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "4bc69946a6420efbd8c8665192933b552ae451637df1bd5e1aec33ecff14ee0e",
+   "permissions": {
+    "NETWORK": true,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "embed-sectionlink",
@@ -2896,7 +4768,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "link(sectionId)",
    "output": "a link to the site section (string)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "9d9116e577810068f96a53c531faee25ee03cb4949f921266b2b5cde51cb7c36",
+   "permissions": {
+    "NETWORK": true,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "embed-loader",
@@ -2923,7 +4813,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "loadLibrary(id)",
    "output": "a Promise resolving once the library is loaded",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "be681ef813a012f6fde663fc1daa9cc0b0e90660ec782f6626808454a258ecf6",
+   "permissions": {
+    "NETWORK": true,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "embed-optimal",
@@ -2951,7 +4859,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "current(); apply(libsIndex)",
    "output": "the current optimal settings; applies them (apply())",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "1952aa8a315f2d274f26e717aa381d8fbc115b00a1beff9d1270c9d58c73bc8c",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": true,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "embed-status",
@@ -2978,7 +4904,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "pill(live)",
    "output": "status pill HTML (string)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "883327cbb60fcf20b91cbf99a2e66f369ddd14cf3e3ed50866f65cb802d90243",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "embed-manifest",
@@ -3005,7 +4949,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "url()",
    "output": "the manifest URL (string)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "3942a6db2e35055616abadc81639830e743d56d442cc19b8a4a1f8d10fca7a99",
+   "permissions": {
+    "NETWORK": true,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "embed-copybtn",
@@ -3032,7 +4994,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "button(label, text)",
    "output": "copy-button HTML (string)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "4b718e2f969be159f27dcb727753147055c22ae2bbe6c25dec092da64ebbf636",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": true,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "fun-joke",
@@ -3059,7 +5039,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "setups()",
    "output": "family-friendly joke setups",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "61876479740c2362f00c7cffe4f4c7b24099a195dd80e4d0e5e6e5eefae1b392",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "fun-story",
@@ -3086,7 +5084,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "starter()",
    "output": "a story starter (string)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "634d975afa1c746659f49b4ffe6f4d2cb49a17f27bf9271450dba8e7fc5d6c18",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "fun-haiku",
@@ -3113,7 +5129,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "format(l1, l2, l3)",
    "output": "a formatted haiku (string)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "9ab84cacf33549de76e7233495ee15fcd42b04bd1ba9931cbd3671b7688a46ba",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "fun-riddle",
@@ -3141,7 +5175,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "all(); random()",
    "output": "riddles with answers; one random riddle",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "040cc826d569278da4ffec0c4e118adc2156cedbea9fa733449aea48f8faf9f6",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "fun-name",
@@ -3168,7 +5220,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "generate()",
    "output": "an invented AI name (string)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "b8263f9e241f921ebc54d3b5de998428be0a5cf1d340a6fde8f77ca67beeb905",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "fun-praise",
@@ -3195,7 +5265,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "praise(name)",
    "output": "a warm praise line (string)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "13469df0d41035fe08e8a6bcbf47292a1add90495e0df76dac74956c779fd69a",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "fun-quest",
@@ -3222,7 +5310,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "generate()",
    "output": "a mini quest with a goal and a twist",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "a7898f5a65fc120fe3cc8cea84bbb026bebfe5c16057348fc743dacc48e13fc1",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "fun-mashup",
@@ -3249,7 +5355,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "mash(a, b)",
    "output": "a mashed-up combination prompt (string)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "54eef6bc85490376ec1f5d286ef5d8564e5ebf408cef5240bfbf2852395972d6",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "fun-emoji",
@@ -3276,7 +5400,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "story(words)",
    "output": "an emoji-accented line (string)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "b5f2fc304555bba3311a9bb771aaeb77dec3a4760aa088df94ffbf443cf3b8d3",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   },
   {
    "id": "fun-banner",
@@ -3303,7 +5445,25 @@
    "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
    "input": "banner(text)",
    "output": "a code-comment banner (string)",
-   "status": "Library available"
+   "status": "Library available",
+   "hash": "41d843dba1ee5214a1abf528888b3f43b8f5d20df3ca505558cc0d2d3ceb7b43",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false,
+    "EXECUTION": true,
+    "READ_ONLY": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-03",
+   "updated": "2026-10-03"
   }
  ],
  "capability_declaration": {
@@ -3323,5 +5483,24 @@
    "network-fetch": "Makes network requests. The card names what it fetches.",
    "device-media": "Asks the browser for camera/microphone. The browser always asks you first."
   }
- }
+ },
+ "permission_model": {
+  "method": "static-scan",
+  "ran": "2026-10-03",
+  "flags": [
+   "READ_ONLY",
+   "NETWORK",
+   "STORAGE",
+   "DOM_WRITE",
+   "CLIPBOARD",
+   "AUDIO",
+   "MICROPHONE",
+   "CAMERA",
+   "LOCATION",
+   "FILE",
+   "EXECUTION"
+  ],
+  "note": "Each tool's shipped code was statically scanned for browser-API patterns; flags are booleans. READ_ONLY=true means the scan found no capability pattern. Scans can miss dynamically-built calls; treat flags as declared, not proven. Tools run only when loaded, and only as ordinary page JavaScript."
+ },
+ "hash": "f9bb051042e8b1b77f0854c3eb6d96473b534f73f3fb11c9dc92be719ba0c562"
 }
