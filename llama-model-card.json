@@ -34,10 +34,13 @@
    },
    "training_data": {
     "description": "chat-tuned on phone-book AI profiles",
-    "detail": "not documented in the repository — see manifest training.v2",
-    "training_steps": null,
-    "corpus_id": null,
-    "corpus_hash": null
+    "detail": "7,200 steps on 28,737 persona-dialogue examples (~1.88M tokens) distilled from the phone book's 270 AI profiles; trained to validation loss 0.064 (~3.2 epochs); weights published 2026-10-03 — as documented in the site's Data & Methodology section. Training corpus file and checkpoints are not preserved in the repo.",
+    "training_steps": 7200,
+    "corpus_id": "SIGLLAMA-CORPUS-2",
+    "corpus_hash": null,
+    "corpus_hash_note": "corpus file not in repo; no hash published",
+    "optimizer": null,
+    "optimizer_note": "not recorded in the repo; not invented here"
    },
    "evaluation": {
     "determinism": "deterministic:true replays byte-identical output (tested with published weights)",

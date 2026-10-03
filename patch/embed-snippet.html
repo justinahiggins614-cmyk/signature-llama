@@ -13,7 +13,10 @@
 /* The (async function(){ ... })() wrapper is REQUIRED: await is only legal
    inside an async function (or a type="module" script). */
 (async function () {
-  await SigLlama.load('https://justinahiggins614-cmyk.github.io/signature-backend/sigllama/');
+  /* Pinned to SIGLLAMA-V2 explicitly — never rely on the engine's built-in
+     defaults (they point at the old v1 files). */
+  await SigLlama.load('https://justinahiggins614-cmyk.github.io/signature-backend/sigllama/',
+    'vocab2.json', 'sigllama-v2.bin');
   var reply = await SigLlama.generate('Hello, Llama.', { maxTokens: 80, temperature: 0.8, topK: 40 });
   document.body.innerHTML += '<p>' + reply + '</p>';
 })();

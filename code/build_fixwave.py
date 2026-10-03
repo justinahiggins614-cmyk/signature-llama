@@ -362,19 +362,35 @@ def main():
         },
         "training": {
             "v2": {
-                "status": "not documented in the repository",
-                "note": ("SIGLLAMA-V2's training configuration (steps, corpus, optimizer, "
-                         "seed, environment) was not recorded in this repo. It is "
-                         "described only as 'chat-tuned on phone-book AI profiles'. "
-                         "No values are invented here; they will be added when recorded."),
-                "training_steps": None,
-                "corpus_id": None,
+                "status": "documented on-page; training artifacts not preserved in the repo",
+                "note": ("Values below are as documented in the site's Data & Methodology "
+                         "section. The training corpus file and checkpoints are not in "
+                         "this repository, so no corpus hash can be published; fields "
+                         "not documented there are null, never invented."),
+                "training_steps": 7200,
+                "epochs": "~3.2",
+                "best_val_loss": 0.064,
+                "corpus_id": "SIGLLAMA-CORPUS-2",
                 "corpus_hash": None,
+                "corpus_note": "corpus file not preserved in the repo; no hash published",
                 "optimizer": None,
+                "learning_rate": None,
+                "seed": None,
+                "environment": None,
             },
             "v1_documented": manifest_v1.get("training"),
         },
         "corpus_provenance": {
+            "SIGLLAMA-CORPUS-2": {
+                "corpus_id": "SIGLLAMA-CORPUS-2",
+                "used_by": "SIGLLAMA-V2",
+                "built": "2026-10-03",
+                "examples": 28737,
+                "tokens": "~1.88M",
+                "what": "persona-dialogue examples distilled from the phone book's 270 AI profiles",
+                "hash": None,
+                "hash_note": "corpus file not preserved in the repo; no hash can be published.",
+            },
             "SIGLLAMA-CORPUS-1": {
                 "corpus_id": "SIGLLAMA-CORPUS-1",
                 "used_by": "SIGLLAMA-V1",
@@ -589,8 +605,18 @@ def main():
                            "vocab_sha256": vocab.get("sha256")},
                 "training_data": {
                     "description": "chat-tuned on phone-book AI profiles",
-                    "detail": "not documented in the repository — see manifest training.v2",
-                    "training_steps": None, "corpus_id": None, "corpus_hash": None,
+                    "detail": ("7,200 steps on 28,737 persona-dialogue examples (~1.88M "
+                               "tokens) distilled from the phone book's 270 AI profiles; "
+                               "trained to validation loss 0.064 (~3.2 epochs); weights "
+                               "published 2026-10-03 — as documented in the site's Data "
+                               "& Methodology section. Training corpus file and "
+                               "checkpoints are not preserved in the repo."),
+                    "training_steps": 7200,
+                    "corpus_id": "SIGLLAMA-CORPUS-2",
+                    "corpus_hash": None,
+                    "corpus_hash_note": "corpus file not in repo; no hash published",
+                    "optimizer": None,
+                    "optimizer_note": "not recorded in the repo; not invented here",
                 },
                 "evaluation": {
                     "determinism": "deterministic:true replays byte-identical output (tested with published weights)",
