@@ -1,108 +1,133 @@
 # Signature Llama: The Fully Cyber Utilizable AI
 # Generated from llama-manifest.json + model-status.json by build_llms.py — do not hand-edit.
 
-Signature Llama v1 (SIGLLAMA-V1) is a tiny transformer language model built and
-trained from scratch by Justin Addam Higgins on the IWB Dictionary and Signature
-spec text. Independent model — not affiliated with Meta or the LLaMA family.
+Signature Llama v2 (SIGLLAMA-V2) is a tiny transformer language model built and
+trained from scratch by Justin Addam Higgins, chat-tuned on phone-book AI
+profiles. Independent model — not affiliated with Meta or the LLaMA family.
 
-STATUS: LIVE (see model-status.json: MODEL_STATUS=live, MODEL_VERSION=1.0,
+STATUS: LIVE (see model-status.json: MODEL_STATUS=live, MODEL_VERSION=2.0,
 WEIGHTS_AVAILABLE=True, GUIDE_AVAILABLE=True, API_AVAILABLE=True)
 
-MODEL FACTS
-- Parameters: 2,983,488 (~3M), 5 layers, 8 attention heads,
-  hidden size 192, context 128 tokens, vocab 84 (character-level)
-- Weights: int8 per-row scales, SGLL v1 binary, 3,042,035 bytes
-- Weights SHA-256: b2dfc0d05add95786797e596559f3e86de9b3a9c9dbce6818814ad05d6317b58
-- Engine: sigllama.js (pure JavaScript, zero dependencies), SHA-256 6188cb269e07a134e865de4f7b68ee8c5dcfd1bde8771ad2c7b574a2edb4355a
-- Training: 12,890 steps on a 135,340-line / 23.2 MB creator-authored corpus
-  (IWB Dictionary definitions + Signature spec text, seed 614), finished
-  2026-09-30; weights published 2026-09-30 22:39 EDT.
+MODEL FACTS (current: SIGLLAMA-V2)
+- Parameters: 4,056,768 (~4M), 5 layers, 8 attention heads,
+  hidden size 192, context 96 words, vocab 2879 (word-level)
+- Weights: int8 per-row scales, SGLL v1 binary, 4,137,675 bytes
+- Weights SHA-256: e351a9e1133a1774782d9f6f0e77f6ab756ca769af59fbbe763f6321e32d7049
+- Engine: sigllama.js (pure JavaScript, zero dependencies), SHA-256 d387c26e4531838fbf07b860804bd27e01a6e4688f4675a33ba32108155d2bf1
+- Vocab: vocab2.json (2,879 word tokens), SHA-256 94a6847481fe2344ff1f6dd732a8bc790279eb0edd3bfd0ea0b0678240fafe9c
+- Training: 7,200 steps on 28,737 persona-dialogue examples (~1.88M
+  tokens) distilled from the phone book's 270 AI profiles; validation loss
+  0.064 (~3.2 epochs); weights published 2026-10-03T03:30:00-04:00.
+  Corpus: SIGLLAMA-CORPUS-2 (hash not published — corpus file not preserved in repo).
+- Previous model: SIGLLAMA-V1 (2,983,488 params) — preserved, still
+  downloadable; see manifests/llama-manifest-v1.json.
 - License: free for any website, app, or project. No API key, no fee.
   Currently free for all internet tasks.
 
 CAPABILITY BOUNDARY
 - MODEL = local text generation only: no network, no files, no device access.
 - TOOLS = optional plug-in tool libraries (120); only the ones you load run,
-  only as ordinary page JavaScript, each with declared capabilities.
+  only as ordinary page JavaScript, each with a formal permission declaration.
 - DEFAULT = no network calls.
 
 ENGINE MODES — every answer is labeled
-- trained_model: the real SIGLLAMA-V1 weights running in the browser.
+- trained_model: the real SIGLLAMA-V2 weights running in the browser, labeled
+  "✦ Trained Llama v2 · SIGLLAMA-V2 · LOCAL · ON-DEVICE".
 - guide: the on-site knowledge-base guide (28 entries), used when you ask the
-  guide, or as fallback if the trained model cannot load. The site always says
-  which engine answered.
+  guide, or as fallback if the trained model cannot load. Always labeled
+  "Guide:" — never called a Llama model.
+- industry: the cloud option, labeled "⬢ Industry Standard · <model> · CLOUD ·
+  REMOTE (Groq)". NOT the on-device Signature Llama.
+- Every answer carries machine-readable provenance: ENGINE, MODEL_ID,
+  MODEL_VERSION, MODE, PROVIDER, LOCAL_OR_CLOUD, TEMPERATURE, TOP_K,
+  MAX_TOKENS, SEED, DETERMINISTIC, TIMESTAMP, PROVENANCE_STATUS,
+  FALLBACK_REASON. See SignatureLlama.askWithProvenance().
 
 DATA ON THIS SITE (counts read from the data files at generation time)
-- LLM/AI dictionary: 312 original terms (data/llm-dictionary.json)
-- Tool libraries: 120 runnable plug-ins, each with declared capabilities
-  (data/tool-libraries.json)
+- LLM/AI dictionary: 312 original terms with permanent IDs
+  (SIGLLAMA-TERM-0001..) — data/llm-dictionary.json (+ .csv)
+- Tool libraries: 120 runnable plug-ins, each with a formal permission
+  declaration and a SHA-256 of its code (data/tool-libraries.json)
 
 INDUSTRY STANDARD — the cloud option (NOT the on-device model)
-- The site chat has a model picker: "✦ Signature Llama v1 · on-device" (LOCAL,
-  no key) vs "⬢ Llama · Industry Standard · full-scale cloud" (CLOUD).
+- The site chat has a model picker: "✦ Signature Llama v2 · on-device"
+  (LOCAL · ON-DEVICE, no key) vs "⬢ Llama · Industry Standard" (CLOUD ·
+  REMOTE, via Groq).
 - Industry Standard = the full-scale Llama the industry runs (default Llama 3.3
   70B; Llama 4 Maverick / Llama 4 Scout selectable), served live from the cloud
   by Groq at https://api.groq.com/openai/v1/chat/completions.
 - NEEDS A FREE API KEY (bring-your-own, from https://console.groq.com/keys).
   The key lives only in the user's browser localStorage and is sent ONLY to
-  api.groq.com. Without a key, sending refuses clearly (MISSING_KEY) and v1
-  keeps working.
-- Every Industry Standard reply is labeled "⬢ Industry Standard · <model>:" —
-  impossible to confuse with ✦ Trained Llama v1. The cloud system prompt
-  forbids claiming to be the small on-device v1. Llama weights are by Meta;
-  the site is independent, not affiliated with Meta.
+  api.groq.com. Never in analytics, error logs, URLs, chat history, or saved
+  transcripts. A "Remove key" / "Clear all cloud credentials" button clears it.
+- Every Industry Standard reply is labeled "⬢ Industry Standard · <model> ·
+  CLOUD · REMOTE (Groq)" — impossible to confuse with the local model. The
+  cloud system prompt forbids claiming to be the small on-device v2. Llama
+  weights are by Meta; the site is independent, not affiliated with Meta.
 - Client: industry-llama.js. SignatureLlama.askIndustry(question) answers via
   the cloud; SignatureLlama.industryReady() reports whether a key is saved.
 
 NAMED FAILURE STATES (no silent failures)
-  - BROWSER_UNSUPPORTED: The browser is missing APIs the engine needs (fetch, Blob, URL, typed arrays).
   - ENGINE_LOAD_FAILED: The engine script sigllama.js could not be downloaded or parsed.
-  - GENERATION_TIMEOUT: Generation did not finish within the requested timeoutMs. The model is small; this usually means the tab is throttled or frozen.
+  - MODEL_NOT_FOUND: vocab2.json or sigllama-v2.bin returned 404 at the model base URL.
   - MODEL_CORRUPT: The weight binary failed its header check (magic 'SGLL', format version 1) or failed to parse.
-  - MODEL_NOT_FOUND: vocab.json or sigllama-v1.bin returned 404 at the model base URL.
+  - HASH_MISMATCH: A downloaded file's SHA-256 did not match the manifest. The file is refused and never loaded.
+  - INVALID_MODEL: The weights parsed but are not a compatible Signature Llama model (wrong parameter count or layout).
+  - INVALID_VOCAB: The vocabulary does not match the model (wrong token count or format).
+  - BROWSER_UNSUPPORTED: The browser is missing APIs the engine needs (fetch, Blob, URL, typed arrays, crypto.subtle).
+  - OUT_OF_MEMORY: The browser ran out of memory while allocating the model.
   - NETWORK_REQUIRED: The browser reports it is offline and the engine/weights are not cached yet. First load needs internet.
-  - OUT_OF_MEMORY: The browser ran out of memory while allocating the model (~3 MB weights expand to tens of MB of Float32 tensors).
+  - NETWORK_FAILED: A fetch failed after retries (not a 404).
+  - TIMEOUT: A load step exceeded its time budget.
+  - GENERATION_TIMEOUT: Generation did not finish within the requested timeoutMs.
+  - GENERATION_FAILED: The engine threw during generation.
+  - CONTEXT_TOO_LARGE: The prompt plus maxTokens exceeds the model's context length.
+  - INVALID_ARGUMENT: A sampling argument was rejected: NaN/Infinity temperature, negative maxTokens, or topK outside 1..vocab-1.
+  - MISSING_KEY: Industry Standard mode needs the user's free API key and none is saved.
+  - BAD_KEY: The cloud rejected the API key (401).
+  - RATE_LIMITED: The cloud rate limit was hit (429).
 
 USE IT
 1. Read the manifest first (machine-readable, start here):
    https://justinahiggins614-cmyk.github.io/signature-llama/llama-manifest.json
 2. Model state (single authority):
    https://justinahiggins614-cmyk.github.io/signature-llama/model-status.json
-3. Ask on demand (no model download needed):
+3. Model card (machine-readable):
+   https://justinahiggins614-cmyk.github.io/signature-llama/llama-model-card.json
+4. Ask on demand (no model download needed):
    <script src="https://justinahiggins614-cmyk.github.io/signature-llama/llama-api.js"></script>
    <script>
      SignatureLlama.ask("What is a token?").then(function(answer){
        console.log(answer);
      });
    </script>
-   SignatureLlama.askWithProvenance(question) also returns the engine, mode,
-   model version, and provenance. SignatureLlama.mode() reports the mode.
-4. Run the trained model yourself:
+   SignatureLlama.askWithProvenance(question, opts) returns the answer plus
+   the full provenance record. Options: allowFallback, requireModel,
+   deterministic, seed, temperature, topK, maxTokens, timeoutMs.
+   SignatureLlama.mode() reports the mode.
+   SignatureLlama.verifyIntegration() proves the same engine+weights
+   automatically (for the Telephone Book's hash check).
+5. Run the trained model yourself (pinned to SIGLLAMA-V2 explicitly):
    <script src="https://justinahiggins614-cmyk.github.io/signature-backend/sigllama/sigllama.js"></script>
    <script type="module">
      // type="module" is REQUIRED for the top-level await below.
-     await SigLlama.load("https://justinahiggins614-cmyk.github.io/signature-backend/sigllama/");
+     await SigLlama.load("https://justinahiggins614-cmyk.github.io/signature-backend/sigllama/", "vocab2.json", "sigllama-v2.bin");
      const text = await SigLlama.generate("Hello,", { maxTokens: 80, temperature: 0.8, topK: 40 });
    </script>
    Deterministic: pass deterministic:true (forces temperature 0) or seed:<n>.
-5. The same engine + weights are the talking brain inside every AI in the
-   Signature AI Telephone Book (same base URL, same SHA-256).
+   Sampling arguments are validated with named INVALID_ARGUMENT errors.
+6. The same engine + weights are the talking brain inside every AI in the
+   Signature AI Telephone Book — verified automatically by hash, not by claim.
 
 HONEST LIMITS
-- v1 is small, lively, and a little quirky — like a bright intern. It can
-  invent facts; verify anything important.
-- 128-token context: prompts are left-truncated to fit; long chats lose the
-  oldest turns first.
+- v2 is small and lively — like a bright intern. It can invent facts; verify
+  anything important. HALLUCINATION_RISK=PRESENT,
+  FACTUALITY_NOT_GUARANTEED=TRUE, VERIFY_IMPORTANT_INFORMATION=TRUE.
+- 96-word context: prompts are left-truncated to fit; long chats lose the
+  oldest turns first. CHAT HISTORY (12 turns kept) is not MODEL CONTEXT.
 - temperature <= 0 means greedy argmax (fully deterministic); otherwise
   sampling is intentionally non-deterministic unless deterministic:true/seed.
-- First load needs internet; offline afterwards depends on the browser cache.
-
-NETWORK MASTER INDEX (all 9 JAH sites, hosted here as data files only)
-- Machine-readable index: https://justinahiggins614-cmyk.github.io/signature-llama/network-index.json — the 9 sites with official
-  name, live URL, record type, live record count, last updated, and the
-  data/index file each count came from. Re-run code/build_network_index.py
-  to refresh; never hand-edit counts.
-- Ecosystem sitemap: https://justinahiggins614-cmyk.github.io/signature-llama/network-sitemap.xml — the 9 site roots plus the
-  index file above.
+- First load needs internet; offline afterwards depends on the browser cache
+  and has not been lab-tested.
 
 Independent model by Justin Addam Higgins. Not affiliated with Meta.
