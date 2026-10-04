@@ -54,6 +54,16 @@ code{background:#0b1120;border:1px solid var(--line);border-radius:4px;padding:1
 .azlist .bcat{font-size:.72em;letter-spacing:.08em;color:var(--dim);border:1px solid var(--line);border-radius:999px;padding:1px 8px;white-space:nowrap}
 .azloading{padding:10px;color:var(--dim);font-size:.85em;font-style:italic}
 .ans{background:#0b1120;border:1px solid var(--line);border-radius:8px;padding:10px;margin:8px 0}
+.bestpin{border:2px solid var(--gold);border-radius:10px;background:#141b31;padding:16px;margin-bottom:16px}
+.bestpin h2{margin:0 0 4px;font-size:1.15em;color:var(--gold);letter-spacing:1px}
+.bestpin .tagline{color:var(--amber2);font-size:.95em;margin:.2em 0 .6em}
+.bestpin details{margin-top:8px}
+.bestpin summary{cursor:pointer;color:var(--gold);font-weight:700;padding:8px 0}
+.bestpin h4{color:var(--gold);font-size:.92em;margin:.9em 0 .3em}
+.bestpin ul{margin:.3em 0;padding-left:1.3em;font-size:.92em}
+.bestpin li{margin:.3em 0}
+.brow{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.hl{outline:2px solid var(--gold);border-radius:6px}
 </style>
 </head>
 <body>
@@ -85,14 +95,19 @@ paint();})();
     </div>
     <div id="askres" style="margin-top:10px" aria-live="polite"></div>
   </div>
+  <div class="bestpin" id="bestpin">
+    <h2>&#9733; BEST OF THE BEST &mdash; THE AI&rsquo;S TOP PICK</h2>
+    <p class="sub" style="color:var(--dim);font-size:.88em;margin:0 0 8px">Pinned above everything: the one build the AI rates highest. Pop it open for the full picture.</p>
+    <div id="bestbody"><p class="dim">Loading the top pick&hellip;</p></div>
+  </div>
   <div class="panel" style="border:2px solid var(--gold)">
     <h2>&#9733; LLM / AI DICTIONARY &mdash; <span id="termn">&hellip;</span> ORIGINAL TERMS</h2>
-    <p class="sub">The Signature original definitions behind the Llama. Each term opens its full record on the main page.</p>
+    <p class="sub">The Signature original definitions behind the Llama. Tap any term to open its full record right here.</p>
     <div id="termaz"></div>
   </div>
   <div class="panel" style="border:2px solid var(--amber)">
     <h2>&#9733; TOOL LIBRARY &mdash; <span id="tooln">&hellip;</span> PLUG-IN LIBRARIES</h2>
-    <p class="sub">Every plug-in add-on &mdash; text, thinking, memory, chat, search, math, web, data, voice, safety, embedding and fun. Each opens its full record on the main page.</p>
+    <p class="sub">Every plug-in add-on &mdash; text, thinking, memory, chat, search, math, web, data, voice, safety, embedding and fun. Tap any add-on to open its full record right here — or take it to the Workshop.</p>
     <div id="toolaz"></div>
   </div>
   <div class="panel">
@@ -123,6 +138,50 @@ function letterOf(n){var c=String(n||"").trim().charAt(0).toUpperCase();return (
 function group(items,fn){var g={};items.forEach(function(it){var L=letterOf(fn(it));(g[L]=g[L]||[]).push(it);});
   Object.keys(g).forEach(function(L){g[L].sort(function(a,b){return fn(a).toLowerCase().localeCompare(fn(b).toLowerCase());});});return g;}
 var LETTERS="ABCDEFGHIJKLMNOPQRSTUVWXYZ#".split("");
+var FULLCACHE={terms:null, tools:null};
+function fullRec(kind, key){
+  // kind: 'term'|'tool' — lazy-load the full data file once, then find the record
+  function done(data){
+    if (kind==="term"){
+      var arr = data.terms || data;
+      for (var i=0;i<arr.length;i++) if (arr[i].t===key) return arr[i];
+    } else {
+      var libs = data.libraries || [];
+      for (var j=0;j<libs.length;j++) if (libs[j].id===key) return libs[j];
+    }
+    return null;
+  }
+  if (FULLCACHE[kind]) return Promise.resolve(done(FULLCACHE[kind]));
+  var url = kind==="term" ? "data/llm-dictionary.json" : "data/tool-libraries.json";
+  return fetch(url).then(function(r){ if(!r.ok) throw 0; return r.json(); })
+    .then(function(j){ FULLCACHE[kind]=j; return done(j); });
+}
+function speakRec(text){
+  try{
+    if (window.speechSynthesis) window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(new SpeechSynthesisUtterance(String(text).slice(0,1500)));
+  }catch(e){}
+}
+function recDetailHTML(rec, isTool){
+  var h = '<div class="ans" style="margin:6px 0">';
+  if (isTool){
+    h += '<p>'+esc(rec.desc||"")+'</p>';
+    h += '<p class="dim" style="font-size:.85em"><b>Functions:</b> <code>'+esc((rec.functions||[]).join("</code>, <code>"))+'</code></p>';
+    if (rec.example) h += '<p class="dim" style="font-size:.85em"><b>Example:</b> '+esc(rec.example)+'</p>';
+    var c = rec.capabilities||{};
+    h += '<p class="dim" style="font-size:.8em">Permissions \u2014 network: '+!!c.network+', camera: '+!!c.camera+', microphone: '+!!c.microphone+', storage: '+!!c.storage+'</p>';
+  } else {
+    h += '<p>'+esc(rec.d||"")+'</p>';
+    if (rec.e) h += '<p class="dim" style="font-size:.85em"><b>Example:</b> '+esc(rec.e)+'</p>';
+  }
+  var txt = (isTool?rec.name:rec.t) + ". " + (isTool?(rec.desc||""):(rec.d||""));
+  h += '<div class="brow">' +
+    '<button type="button" class="big" data-rread="'+esc(isTool?rec.id:rec.t)+'">\uD83D\uDD0A Read aloud</button>' +
+    '<button type="button" class="big" data-rcopy="'+esc(isTool?rec.id:rec.t)+'">\uD83D\uDCCB Copy</button>' +
+    (isTool ? '<a class="big" style="text-decoration:none;display:inline-block" href="compiler.html">\u2699\uFE0F Open in Workshop</a>' : '') +
+    '</div></div>';
+  return { html: h, text: txt };
+}
 function buildAZ(gridId, items, isTool){
   var grid=document.getElementById(gridId); if(!grid) return;
   var groups=group(items, function(it){return isTool?it.name:it.t;});
@@ -139,12 +198,133 @@ function buildAZ(gridId, items, isTool){
     d.addEventListener("toggle",function(){
       if(!d.open||filled)return;filled=true;
       body.innerHTML=list.map(function(it){
-        var name=isTool?it.name:it.t, cat=isTool?it.cat:it.c;
-        var link=isTool?("index.html?toollib="+encodeURIComponent(it.id)):("index.html?term="+encodeURIComponent(it.t));
-        return '<a class="bent" href="'+link+'"><span>'+esc(name)+'</span><span class="bcat">'+esc(cat||"")+'</span><span class="go">Open &rarr;</span></a>';
+        var name=isTool?it.name:it.t, cat=isTool?it.cat:it.c, key=isTool?it.id:it.t;
+        return '<details class="rec" data-key="'+esc(key)+'" data-isttool="'+(isTool?1:0)+'">' +
+          '<summary style="cursor:pointer;padding:8px 10px;display:flex;gap:8px;align-items:center">' +
+          '<span>'+esc(name)+'</span><span class="bcat">'+esc(cat||"")+'</span></summary>' +
+          '<div class="recbody"><p class="dim" style="font-size:.85em">Loading&hellip;</p></div></details>';
       }).join("")||'<div class="azloading">Nothing under this letter.</div>';
+      body.querySelectorAll("details.rec").forEach(function(rd){
+        rd.addEventListener("toggle", function(){
+          if (!rd.open || rd.getAttribute("data-done")) return;
+          rd.setAttribute("data-done","1");
+          var key = rd.getAttribute("data-key"), ist = rd.getAttribute("data-isttool")==="1";
+          var rb = rd.querySelector(".recbody");
+          fullRec(ist?"tool":"term", key).then(function(rec){
+            if (!rec){ rb.innerHTML = '<p class="dim">Record not found.</p>'; return; }
+            var out = recDetailHTML(rec, ist);
+            rb.innerHTML = out.html;
+            rb.setAttribute("data-text", out.text);
+            rb.setAttribute("data-key", key);
+          }).catch(function(){
+            rb.innerHTML = '<p class="dim">Could not load the record. Check your connection.</p>';
+          });
+        });
+      });
     });
   });
+  grid.addEventListener("click", function(e){
+    var b = e.target.closest ? e.target.closest("[data-rread],[data-rcopy]") : null;
+    if (!b) return;
+    var rb = b.closest(".recbody");
+    if (b.hasAttribute("data-rread")){ speakRec(rb.getAttribute("data-text")||""); return; }
+    var t = rb.getAttribute("data-text")||"";
+    if (navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(t).then(function(){ b.textContent="\u2713 Copied!"; });
+    }
+  });
+}
+/* ---- Best of the Best: pinned above the A-Z ---- */
+(function(){
+  var body = document.getElementById("bestbody");
+  function speak(text){
+    try{
+      if (window.speechSynthesis) window.speechSynthesis.cancel();
+      window.speechSynthesis.speak(new SpeechSynthesisUtterance(String(text).slice(0,1500)));
+    }catch(e){}
+  }
+  function copyText(t, btn){
+    function done(){ var o=btn.textContent; btn.textContent="\u2713 Copied!"; setTimeout(function(){btn.textContent=o;},1500); }
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(done, done);
+    else done();
+  }
+  fetch("data/best/best.json").then(function(r){ if(!r.ok) throw 0; return r.json(); }).then(function(b){
+    var tools = (b.components.tool_libraries||[]).map(function(t){ return t.name; });
+    var impl = [
+      "On-device engine: private \u2014 nothing leaves your device; no keys, no fees, runs right in the browser.",
+      "Cloud fallback: for hard questions it hands off to the full-scale Industry Standard Llama (needs a free API key you paste on the main page).",
+      "12 hand-picked tool libraries (" + tools.slice(0,6).join(", ") + ", and more) \u2014 smart out of the box: text, thinking, memory, persona, search, math, web, data, voice, safety.",
+      "Full v2 patch bundle included \u2014 every building block, copy-paste ready for your own sites.",
+      "Honest note: the model can invent facts \u2014 verify anything important before acting on it."
+    ];
+    var summaryText = b.title + "\n" + b.tagline + "\nWhy it wins:\n- " + b.why.join("\n- ") +
+      "\nImplications:\n- " + impl.join("\n- ") +
+      "\nStats: " + b.components.core_engine.name + "; " + b.components.cloud_option.name +
+      "; " + tools.length + " tool libraries; " + (b.stats.dictionary_terms||312) + " dictionary terms on site.";
+    body.innerHTML =
+      '<div class="tagline">'+esc(b.tagline)+'</div>' +
+      '<details><summary>\uD83D\uDC49 Pop open: what it does, implications, stats</summary>' +
+      '<h4>What it does</h4><ul>' + b.why.map(function(w){ return '<li>'+esc(w)+'</li>'; }).join("") + '</ul>' +
+      '<h4>Implications</h4><ul>' + impl.map(function(w){ return '<li>'+esc(w)+'</li>'; }).join("") + '</ul>' +
+      '<h4>Stats</h4><ul>' +
+      '<li>Core engine: '+esc(b.components.core_engine.name)+'</li>' +
+      '<li>Cloud option: '+esc(b.components.cloud_option.name)+'</li>' +
+      '<li>Tool libraries aboard: '+tools.length+' ('+esc(tools.join(", "))+')</li>' +
+      '<li>Dictionary terms on site: '+(b.stats.dictionary_terms||312)+' \u00B7 Tool libraries total: '+(b.stats.tool_libraries_total||120)+'</li>' +
+      '<li>Pick version: v'+esc(String(b.version||1))+' \u00B7 reviewed '+esc(b.built||"")+'</li>' +
+      '</ul>' +
+      '<div class="brow">' +
+      '<button type="button" class="big" id="bestCopy">\uD83D\uDCCB Copy the pick</button>' +
+      '<button type="button" class="big" id="bestDl">\u2913 Download (.json)</button>' +
+      '<button type="button" class="big" id="bestRead">\uD83D\uDD0A Read aloud</button>' +
+      '<a class="big" style="text-decoration:none;display:inline-block" href="showcase.html">\u2605 Full showcase</a>' +
+      '</div></details>';
+    document.getElementById("bestCopy").addEventListener("click", function(){ copyText(summaryText, this); });
+    document.getElementById("bestDl").addEventListener("click", function(){
+      var blob = new Blob([JSON.stringify(b,null,1)], {type:"application/json"});
+      var a = document.createElement("a"); a.href = URL.createObjectURL(blob);
+      a.download = "signature-llama-best.json"; document.body.appendChild(a); a.click();
+      setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 800);
+    });
+    document.getElementById("bestRead").addEventListener("click", function(){ speak(summaryText); });
+  }).catch(function(){
+    body.innerHTML = '<p class="dim">The top pick didn\u2019t load. See the <a href="showcase.html">full showcase</a>.</p>';
+  });
+})();
+
+/* ---- deep links (?term= / ?toollib=): open the right letter, highlight ---- */
+function openDeepLink(){
+  var m;
+  try{ m = new URLSearchParams(location.search); }catch(e){ return; }
+  var term = m.get("term"), lib = m.get("toollib");
+  if (!term && !lib) return;
+  var want = String(term || lib).toLowerCase();
+  var scope = document.getElementById(lib ? "toolaz" : "termaz");
+  if (!scope) return;
+  var grids = scope.querySelectorAll("details");
+  for (var i=0;i<grids.length;i++){
+    var d = grids[i];
+    if (d.classList.contains("rec")) continue;
+    var s = d.querySelector(":scope > summary");
+    if (!s) continue;
+    var letter = s.textContent.trim().charAt(0).toUpperCase();
+    var first = want.charAt(0).toUpperCase();
+    var isHash = first < "A" || first > "Z";
+    if (isHash ? letter !== "#" : letter !== first) continue;
+    if (!d.open) s.click();
+    setTimeout(function(){
+      var recs = d.querySelectorAll("details.rec");
+      for (var k=0;k<recs.length;k++){
+        if (String(recs[k].getAttribute("data-key")).toLowerCase() === want){
+          if (!recs[k].open) recs[k].querySelector("summary").click();
+          recs[k].classList.add("hl");
+          recs[k].scrollIntoView({block:"center"});
+          break;
+        }
+      }
+    }, 450);
+    break;
+  }
 }
 loadIdx().then(function(j){
   document.getElementById("termn").textContent=j.term_count;
@@ -152,6 +332,7 @@ loadIdx().then(function(j){
   document.getElementById("bcount").textContent=j.term_count+" AI terms \u00b7 "+j.tool_count+" tool libraries";
   buildAZ("termaz", j.terms, false);
   buildAZ("toolaz", j.tools, true);
+  setTimeout(openDeepLink, 400);
 }).catch(function(){
   document.getElementById("termaz").innerHTML='<p class="dim">Could not load the archive. Check your connection and reload.</p>';
 });
@@ -164,8 +345,8 @@ function fullDefs(){
     fetch("data/tool-libraries.json").then(function(r){return r.json();})
   ]).then(function(p){
     var terms=p[0].terms||[], libs=p[1].libraries||[];
-    FULL=terms.map(function(t){return {kind:"term",name:t.t,cat:t.c,text:t.d||"",link:"index.html?term="+encodeURIComponent(t.t)};})
-      .concat(libs.map(function(l){return {kind:"tool",name:l.name,cat:l.category||"",text:l.desc||"",link:"index.html?toollib="+encodeURIComponent(l.id)};}));
+    FULL=terms.map(function(t){return {kind:"term",name:t.t,cat:t.c,text:t.d||"",link:"archive.html?term="+encodeURIComponent(t.t)};})
+      .concat(libs.map(function(l){return {kind:"tool",name:l.name,cat:l.category||"",text:l.desc||"",link:"archive.html?toollib="+encodeURIComponent(l.id)};}));
     return FULL;
   });
 }
