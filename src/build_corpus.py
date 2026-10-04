@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Build SigLlama v1 training corpus from Manon's own data:
-- IWB Dictionary definitions (all.jsonl)
+- The Signature Dictionary definitions (all.jsonl)
 - Spec catalog volumes (abstracts, autoread blocks, AI explainer text)
 Target ~20MB of clean plain text, one record per line, deduped, shuffled.
 """

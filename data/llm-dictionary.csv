@@ -1,5 +1,5 @@
 id,term,definition,category
-SIGLLAMA-TERM-0001,"Signature Llama","A tiny language model I built from scratch — written and trained on the IWB Dictionary and Signature spec text. An independent model, not affiliated with Meta.","Model Architecture"
+SIGLLAMA-TERM-0001,"Signature Llama","A tiny language model I built from scratch — written and trained on the Signature Dictionary and Signature spec text. An independent model, not affiliated with Meta.","Model Architecture"
 SIGLLAMA-TERM-0002,"large language model","A neural network trained on huge amounts of text so it can generate human-like writing, answer questions, and follow instructions.","Model Architecture"
 SIGLLAMA-TERM-0003,"transformer","The neural network design behind modern language models, built from stacked blocks that weigh how every word relates to every other word.","Model Architecture"
 SIGLLAMA-TERM-0004,"attention","The mechanism that lets a model decide which words in a sentence matter most when understanding or generating the next word.","Model Architecture"
@@ -92,7 +92,7 @@ SIGLLAMA-TERM-0090,"supervised fine-tuning","Fine-tuning on labeled examples of 
 SIGLLAMA-TERM-0091,"continual pretraining","More pretraining on new data after the first round, e.g. to teach a model a specialty like medicine or law.","Training"
 SIGLLAMA-TERM-0092,"curriculum learning","Feeding training data in order from easy to hard, the way a student learns.","Training"
 SIGLLAMA-TERM-0093,"token budget","The total number of tokens a training run will process — the main dial controlling cost and quality.","Training"
-SIGLLAMA-TERM-0094,"training corpus","The full collection of text a model learns from; Signature Llama's is the IWB Dictionary plus the Signature spec archive.","Training"
+SIGLLAMA-TERM-0094,"training corpus","The full collection of text a model learns from; Signature Llama's is the Signature Dictionary plus the Signature spec archive.","Training"
 SIGLLAMA-TERM-0095,"validation set","Data kept out of training and used to check whether the model is genuinely learning or just memorizing.","Training"
 SIGLLAMA-TERM-0096,"validation loss","The loss measured on the validation set — the honest scoreboard during training.","Training"
 SIGLLAMA-TERM-0097,"early stopping","Halting training when validation stops improving, keeping the best checkpoint instead of overfitting further.","Training"

@@ -61,7 +61,7 @@
  "capability_boundary": "MODEL = local text generation only (no network, no files, no device access). TOOLS = optional plug-in tool libraries; only the ones you load run, and only as ordinary page JavaScript. DEFAULT = no network calls. Currently free for all internet tasks.",
  "created": "2026-09-30",
  "creator": "Justin Addam Higgins",
- "description": "A tiny transformer language model I built and trained from scratch on the IWB Dictionary and Signature spec text. Runs entirely in the browser: no API keys, no servers, no fees — currently free for all internet tasks.",
+ "description": "A tiny transformer language model I built and trained from scratch on the Signature Dictionary and Signature spec text. Runs entirely in the browser: no API keys, no servers, no fees — currently free for all internet tasks.",
  "determinism": {
   "deterministic_mode": "Pass deterministic:true (site-level LlamaRuntime.generate) to force temperature 0: greedy argmax, same prompt always gives the same output. Tested with the published weights: identical prompt twice -> byte-identical output.",
   "note": "Without deterministic:true or seed, temperature>0 sampling uses Math.random and is intentionally non-deterministic.",
@@ -283,7 +283,7 @@
   "runtime": "pure JavaScript, zero dependencies, runs in browser",
   "tokenizer": "character-level, 84 tokens, trained on creator's own text",
   "tokenizer_type": "character-level",
-  "training_data": "IWB Dictionary definitions + Signature spec text (creator-authored)",
+  "training_data": "The Signature Dictionary definitions + Signature spec text (creator-authored)",
   "version": "1.0",
   "vocabulary_size": 84,
   "weight_format": "SGLL v1 binary (magic 'SGLL', format version 1)",
@@ -377,7 +377,7 @@
     {
      "path": "jah-dictionary/data/definitions/all.jsonl",
      "snapshot": "2026-09-30",
-     "what": "IWB Dictionary definitions, formatted as '<word> (<pos>): <definition>'"
+     "what": "The Signature Dictionary definitions, formatted as '<word> (<pos>): <definition>'"
     },
     {
      "path": "signature-one-archive/data/volumes/specs-c*.jsonl.gz",

@@ -38,7 +38,7 @@
       {
        "path": "jah-dictionary/data/definitions/all.jsonl",
        "snapshot": "2026-09-30",
-       "what": "IWB Dictionary definitions, formatted as '<word> (<pos>): <definition>'"
+       "what": "The Signature Dictionary definitions, formatted as '<word> (<pos>): <definition>'"
       },
       {
        "path": "signature-one-archive/data/volumes/specs-c*.jsonl.gz",
@@ -163,7 +163,7 @@
      {
       "path": "jah-dictionary/data/definitions/all.jsonl",
       "snapshot": "2026-09-30",
-      "what": "IWB Dictionary definitions, formatted as '<word> (<pos>): <definition>'"
+      "what": "The Signature Dictionary definitions, formatted as '<word> (<pos>): <definition>'"
      },
      {
       "path": "signature-one-archive/data/volumes/specs-c*.jsonl.gz",
@@ -218,7 +218,7 @@
     {
      "path": "jah-dictionary/data/definitions/all.jsonl",
      "snapshot": "2026-09-30",
-     "what": "IWB Dictionary definitions, formatted as '<word> (<pos>): <definition>'"
+     "what": "The Signature Dictionary definitions, formatted as '<word> (<pos>): <definition>'"
     },
     {
      "path": "signature-one-archive/data/volumes/specs-c*.jsonl.gz",

@@ -3,7 +3,7 @@
   {
    "t": "Signature Llama",
    "c": "Model Architecture",
-   "d": "A tiny language model I built from scratch — written and trained on the IWB Dictionary and Signature spec text. An independent model, not affiliated with Meta.",
+   "d": "A tiny language model I built from scratch — written and trained on the Signature Dictionary and Signature spec text. An independent model, not affiliated with Meta.",
    "id": "SIGLLAMA-TERM-0001",
    "v": "1.1",
    "hash": "3896dc909271e53a569e42f597ec626149663fe32e17063e9aebfa379f7910b8"
@@ -747,7 +747,7 @@
   {
    "t": "training corpus",
    "c": "Training",
-   "d": "The full collection of text a model learns from; Signature Llama's is the IWB Dictionary plus the Signature spec archive.",
+   "d": "The full collection of text a model learns from; Signature Llama's is the Signature Dictionary plus the Signature spec archive.",
    "id": "SIGLLAMA-TERM-0094",
    "v": "1.1",
    "hash": "0f57b8eae0dc3ea20243a36132d65c382dd78f2116f75afd7583b0bd3a1affd8"

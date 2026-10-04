@@ -11,7 +11,7 @@
     "about",
     "overview"
    ],
-   "text": "Signature Llama is the baseline AI at the heart of this site — a tiny language model written and trained from scratch by Justin Addam Higgins. About 3 million parameters, a decoder-only transformer with a character-level tokenizer, trained on the IWB Dictionary and Signature spec text. It runs 100% in the browser in pure JavaScript, currently free for all internet tasks, no API keys. An independent model, not affiliated with Meta.",
+   "text": "Signature Llama is the baseline AI at the heart of this site — a tiny language model written and trained from scratch by Justin Addam Higgins. About 3 million parameters, a decoder-only transformer with a character-level tokenizer, trained on the Signature Dictionary and Signature spec text. It runs 100% in the browser in pure JavaScript, currently free for all internet tasks, no API keys. An independent model, not affiliated with Meta.",
    "title": "What is Signature Llama?"
   },
   {
@@ -27,7 +27,7 @@
     "process",
     "how"
    ],
-   "text": "From absolute scratch, in four stages: 1) the corpus builder gathered the IWB Dictionary definitions and spec text into one training file; 2) the tokenizer learned a character-level vocabulary; 3) the trainer ran a small transformer on it with PyTorch until the loss settled; 4) the exporter quantized the weights to int8 and packed them for the browser engine. Every line of model code was hand-written — no borrowed architecture code, no pretrained weights.",
+   "text": "From absolute scratch, in four stages: 1) the corpus builder gathered the Signature Dictionary definitions and spec text into one training file; 2) the tokenizer learned a character-level vocabulary; 3) the trainer ran a small transformer on it with PyTorch until the loss settled; 4) the exporter quantized the weights to int8 and packed them for the browser engine. Every line of model code was hand-written — no borrowed architecture code, no pretrained weights.",
    "title": "How was it built?"
   },
   {
@@ -99,7 +99,7 @@
     "spec",
     "dataset"
    ],
-   "text": "The IWB Dictionary's original definitions plus the Signature spec archive. Nothing scraped, nothing borrowed — the model only knows the text it was trained on.",
+   "text": "The Signature Dictionary's original definitions plus the Signature spec archive. Nothing scraped, nothing borrowed — the model only knows the text it was trained on.",
    "title": "What was it trained on?"
   },
   {
@@ -200,7 +200,7 @@
     "build_corpus",
     "data"
    ],
-   "text": "The corpus builder: gathers the IWB Dictionary definitions and Signature spec texts into one clean training file, ready for the tokenizer and trainer.",
+   "text": "The corpus builder: gathers the Signature Dictionary definitions and Signature spec texts into one clean training file, ready for the tokenizer and trainer.",
    "title": "build_corpus.py — what is it?"
   },
   {
