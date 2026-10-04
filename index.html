@@ -176,7 +176,7 @@ b.addEventListener("click",function(){try{var d=document.documentElement;var dar
 paint();})();
 </script>
 
-<nav class="jah-tabs" aria-label="Llama pages"><a class="tablink on" href="index.html" aria-current="page">&#127968; Main</a><a class="tablink" href="archive.html">&#128449; Archive</a><a class="tablink" href="compiler.html">&#9881;&#65039; Compiler</a><a class="tablink" href="showcase.html">&#9733; Best of the Best</a></nav>
+<nav class="jah-tabs" aria-label="Llama pages"><a class="tablink on" href="index.html" aria-current="page">&#127968; Main</a><a class="tablink" href="versions.html">&#128230; Versions</a><a class="tablink" href="compiler.html">&#9881;&#65039; Compiler</a><a class="tablink" href="archive.html">&#128449; 1 Million Archive</a><a class="tablink" href="showcase.html">&#9733; Best of the Best</a></nav>
 
 <nav class="bigmenu" aria-label="Site menu">
   <a href="#mission">🌟 Mission</a>
@@ -1082,12 +1082,20 @@ var LLAMA_CURATED = [
   { re: /(what can you do|help me|^help$|your abilities|your features)/,
     text: 'I can chat, explain terms from the LLM dictionary below, describe the tool libraries and files, and show developers how to put me in their own pages. Try asking what sigllama.js does.' },
   { re: /(bye|goodbye|good bye|see you|good night|farewell|talk later)/,
-    text: "Goodbye for now — I'll be right here in this page whenever you come back." }
+    text: "Goodbye for now — I'll be right here in this page whenever you come back." },
+  /* ecosystem-aware entries: answered live by the JAHtalk GuideTalk engine (v2) */
+  { re: /(which version|what version|versions|figurehead|best version|api key|offline.*online|online.*offline|no key needed)/,
+    fn: function (t) { return JAHtalk.reply(LLAMA_PROFILE, t); } },
+  { re: /(what.*sites|all.*(sites|site)|the network|jah network|ecosystem|take me to|where (is|can i find)|site [0-9]|phone book|music studio|flight school|game store|website creator|mr fix|fix.?it|mega.?mall|3d print|ai olympics|chip maker|app archive|robot matcher|experiment solver|ai pixel|song maker|mixlab|boundless|dossier|leaks|encyclopedia)/,
+    fn: function (t) { return JAHtalk.reply(LLAMA_PROFILE, t); } }
 ];
 function curatedReply(text) {
   var t = ' ' + String(text || '').toLowerCase().replace(/[^a-z0-9' ]/g, ' ').replace(/\s+/g, ' ').trim() + ' ';
   for (var i = 0; i < LLAMA_CURATED.length; i++) {
-    if (LLAMA_CURATED[i].re.test(t)) return LLAMA_CURATED[i].text;
+    if (LLAMA_CURATED[i].re.test(t)) {
+      if (LLAMA_CURATED[i].fn) { try { return LLAMA_CURATED[i].fn(text) || null; } catch (e) { return null; } }
+      return LLAMA_CURATED[i].text;
+    }
   }
   return null;
 }
@@ -1160,6 +1168,22 @@ function guideAnswerFor(text) {
     if (hit) return { title: hit.t + ' — from the LLM dictionary', text: hit.d,
       kind: 'dictionary', engine: 'guide', mode: 'guide',
       provenance: { kind: 'GUIDE_KB', tool: null, status: 'curated dictionary entry — not model output' } };
+  }
+  /* ecosystem + version questions go to the JAHtalk GuideTalk engine (v2),
+     which knows all 31 network sites, their tabs and options */
+  if (typeof JAHtalk !== 'undefined' && JAHtalk.findSite) {
+    try {
+      var jt = String(text || '').toLowerCase();
+      var jsite = JAHtalk.findSite(text);
+      var jver = /(which version|what version|versions|figurehead|best version|offline|online|api key|no key)/.test(jt);
+      var jeco = /(all .*sites|the network|jah network|ecosystem|how many sites|site list|full tour)/.test(jt);
+      if ((jsite && /(site|website|page|tab|where|take me|open|visit|tell me about|download)/.test(jt)) || jver || jeco) {
+        var jtext = JAHtalk.reply(LLAMA_PROFILE, text) || '';
+        if (jtext) return { title: jsite ? jsite.name + ' — site ' + jsite.n + ' of the JAH network' : 'The JAH network',
+          text: jtext, kind: 'site', engine: 'guide', mode: 'guide',
+          provenance: { kind: 'GUIDE_KB', tool: null, status: 'ecosystem knowledge — curated, not model output' } };
+      }
+    } catch (e) { /* fall through to the explainer */ }
   }
   return ExplainerAI.answer(text);
 }
@@ -2763,7 +2787,7 @@ window.addEventListener("load",function(){setTimeout(doScroll,900);});
 </div>
 
 <!-- JAH NETWORK: site list moved to page bottom, above footer -->
-<div class="jahnet"><span class="jahnet-t">THE JAH NETWORK</span><a href="https://justinahiggins614-cmyk.github.io/signature-math/">1 Signature Math</a><a href="https://justinahiggins614-cmyk.github.io/jah-calculator/">2 Signature Universal Paradox Immune Calculator</a><a href="https://justinahiggins614-cmyk.github.io/jah-dictionary/">3 The Signature Dictionary</a><a href="https://justinahiggins614-cmyk.github.io/jah-wiki/">4 JAH Wiki</a><a href="https://justinahiggins614-cmyk.github.io/jah-n-wiki-leaks/">5 Wiki Leaks</a><a href="https://justinahiggins614-cmyk.github.io/jah-ai-models/">7 The Signature AI Phone Book</a><a href="https://justinahiggins614-cmyk.github.io/cyber-patent-catalog/">8 Globally Rejustered Patent Catalog</a><a href="https://justinahiggins614-cmyk.github.io/signature-one-archive/specs.html">9 Signature Spec Catalog Pending Patents</a><a href="https://justinahiggins614-cmyk.github.io/jah-computer-systems/">10 The Signature PC System Depository</a><a href="https://justinahiggins614-cmyk.github.io/signature-books/">11 The Signature Book Depository</a><a href="https://justinahiggins614-cmyk.github.io/signature-comics/">12 The Signature Comic Store</a><a href="https://justinahiggins614-cmyk.github.io/signature-newspapers/">13 The Signature Global Newspaper Archive</a><a href="https://justinahiggins614-cmyk.github.io/signature-backend/">14 The Signature AI Mad Scientist Creation Lab</a><a href="https://justinahiggins614-cmyk.github.io/signature-boundless-generators/">15 The Signature Boundless Generator Archive</a><a href="https://justinahiggins614-cmyk.github.io/signature-ai-mixlab/">16 The Signature AI Mix Lab</a><a href="https://justinahiggins614-cmyk.github.io/signature-ai-olypics/">17 AI Olympics</a><a href="https://justinahiggins614-cmyk.github.io/signature-chip-maker/">18 The Signature Computer Chip Maker and Archive</a><a href="https://justinahiggins614-cmyk.github.io/signature-app-archive/">19 The Signature App Archive</a><a href="https://justinahiggins614-cmyk.github.io/signature-ai-robot-matcher/">20 The Signature AI Robot Matcher</a><a href="https://justinahiggins614-cmyk.github.io/signature-experiment-solver/">21 The Signature Experiment Solver</a><a href="https://justinahiggins614-cmyk.github.io/signature-ai-image-video-maker/">22 Signature AI Pixel</a><a href="https://justinahiggins614-cmyk.github.io/signature-ai-song-maker/">23 Signature Music Studio</a><a href="https://justinahiggins614-cmyk.github.io/signature-fixit/">24 The Signature Mr Fix-It</a><a href="https://justinahiggins614-cmyk.github.io/signature-university/">25 The Signature University</a><a href="https://justinahiggins614-cmyk.github.io/signature-cyber-mega-mall/">26 The Signature Cyber Mega-Mall</a><a href="https://justinahiggins614-cmyk.github.io/signature-3d-print/">27 The Signature 3D Print Mega Mall</a><span class="here">6 Signature Llama: The Fully Cyber Utilizable AI — YOU ARE HERE</span></div>
+<div class="jahnet"><span class="jahnet-t">THE JAH NETWORK</span><a href="https://justinahiggins614-cmyk.github.io/signature-math/">1 Signature Math</a><a href="https://justinahiggins614-cmyk.github.io/jah-calculator/">2 Signature Universal Paradox Immune Calculator</a><a href="https://justinahiggins614-cmyk.github.io/jah-dictionary/">3 The Signature Dictionary</a><a href="https://justinahiggins614-cmyk.github.io/jah-wiki/">4 JAH Wiki</a><a href="https://justinahiggins614-cmyk.github.io/jah-n-wiki-leaks/">5 JAH-N Wiki Leaks</a><a href="https://justinahiggins614-cmyk.github.io/jah-ai-models/">7 The Signature AI Phone Book</a><a href="https://justinahiggins614-cmyk.github.io/cyber-patent-catalog/">8 Globally Rejustered Patent Catalog</a><a href="https://justinahiggins614-cmyk.github.io/signature-one-archive/specs.html">9 Signature Spec Catalog Pending Patents</a><a href="https://justinahiggins614-cmyk.github.io/jah-computer-systems/">10 The Signature PC System Depository</a><a href="https://justinahiggins614-cmyk.github.io/signature-books/">11 The Signature Book Depository</a><a href="https://justinahiggins614-cmyk.github.io/signature-comics/">12 The Signature Comic Store</a><a href="https://justinahiggins614-cmyk.github.io/signature-newspapers/">13 The Signature Global Newspaper Archive</a><a href="https://justinahiggins614-cmyk.github.io/signature-backend/">14 The Signature AI Mix and Match Generator</a><a href="https://justinahiggins614-cmyk.github.io/signature-boundless-generators/">15 The Signature Boundless Generator Archive</a><a href="https://justinahiggins614-cmyk.github.io/signature-ai-mixlab/">16 The Signature AI Mix Lab</a><a href="https://justinahiggins614-cmyk.github.io/signature-ai-olypics/">17 AI Olympics</a><a href="https://justinahiggins614-cmyk.github.io/signature-chip-maker/">18 The Signature Computer Chip Maker and Archive</a><a href="https://justinahiggins614-cmyk.github.io/signature-app-archive/">19 The Signature App Archive</a><a href="https://justinahiggins614-cmyk.github.io/signature-ai-robot-matcher/">20 The Signature AI Robot Matcher</a><a href="https://justinahiggins614-cmyk.github.io/signature-experiment-solver/">21 The Signature Experiment Solver</a><a href="https://justinahiggins614-cmyk.github.io/signature-ai-image-video-maker/">22 Signature AI Pixel</a><a href="https://justinahiggins614-cmyk.github.io/signature-ai-song-maker/">23 Signature Music Studio</a><a href="https://justinahiggins614-cmyk.github.io/signature-fixit/">24 The Signature Mr Fix-It</a><a href="https://justinahiggins614-cmyk.github.io/signature-university/">25 The Signature University</a><a href="https://justinahiggins614-cmyk.github.io/signature-cyber-mega-mall/">26 The Signature Cyber Mega-Mall</a><a href="https://justinahiggins614-cmyk.github.io/signature-3d-print/">27 The Signature 3D Print Mega Mall</a><span class="here">6 Signature Llama: The Fully Cyber Utilizable AI — YOU ARE HERE</span></div>
 <div class="jah-stamp" style="margin-top:10px;text-align:center;"><img src="assets/signature-stamp.jpg" alt="Official Signature stamp" style="height:64px;width:auto;border-radius:4px;"><div style="font-size:.72em;opacity:.75;margin-top:4px;">Official Signature stamp</div></div>
 </body>
 

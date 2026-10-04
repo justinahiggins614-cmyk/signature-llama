@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-03",
+ "updated": "2026-10-04",
  "version": "1.1",
  "optimal": {
   "name": "Optimal All-Purpose Setting",
@@ -5464,6 +5464,230 @@
    "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
    "created": "2026-10-03",
    "updated": "2026-10-03"
+  },
+  {
+   "id": "conv-deep-talk",
+   "name": "Deep Talk",
+   "category": "Conversation",
+   "desc": "Turns short replies into longer, thoughtful conversation — weaves natural transitions between sentences, paces long answers, and asks follow-up questions that keep the talk flowing.",
+   "version": "1.0",
+   "optimal": true,
+   "functions": [
+    "expand(reply)",
+    "followUp(topic)",
+    "pace(longText, maxSent)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};\nvar TRANS=['What is more, ','And honestly, ','Here is the thing, though: ','On top of that, ','It is worth adding that '];\nfunction sentences(t){var m=String(t).match(/[^.!?]+[.!?]+/g);return m||[String(t)];}\nT.tools['conv-deep-talk']={version:'1.0',\nexpand:function(reply){var S=sentences(reply);if(S.length<2)return String(reply);\nvar out=S[0].trim();for(var i=1;i<S.length;i++){out+=' '+(i%2?TRANS[i%TRANS.length]:'')+S[i].trim();}return out;},\nfollowUp:function(topic){topic=String(topic||'that').replace(/\\s+/g,' ').trim();\nvar q=['What part of '+topic+' matters most to you?','Where do you want to take '+topic+' next?','What would a great answer about '+topic+' look like for you?'];\nreturn q[topic.length%q.length];},\npace:function(longText,maxSent){var S=sentences(longText);maxSent=maxSent||3;\nreturn S.slice(0,maxSent).join(' ').trim();}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['conv-deep-talk'].expand(reply)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
+   "input": "expand(reply); followUp(topic); pace(longText, maxSent)",
+   "output": "a deeper, more conversational version of the reply (string)",
+   "status": "Library available",
+   "hash": "61829f65bffd3b92479fb3c05d7de14896a6b5de2bc64cf1ae15514477ff9ca3",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-04",
+   "updated": "2026-10-04"
+  },
+  {
+   "id": "conv-ecosystem-guide",
+   "name": "Ecosystem Guide",
+   "category": "Conversation",
+   "desc": "The whole JAH network in a tool: find any of the 31 sites by name, number or keyword, get its description, tabs and address, or print the full tour.",
+   "version": "1.0",
+   "optimal": true,
+   "functions": [
+    "sites()",
+    "findSite(query)",
+    "describe(query)",
+    "tour()"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};\nvar SITES=[{\"n\":1,\"name\":\"Signature Math\",\"url\":\"https://justinahiggins614-cmyk.github.io/signature-math/\",\"blurb\":\"his deterministic math grid foundation \\u2014 the math everything else in the network is built on.\",\"tabs\":[\"Math Grid\",\"Proofs\",\"Signature Mark\"]},{\"n\":2,\"name\":\"Signature Universal Paradox Immune Calculator\",\"url\":\"https://justinahiggins614-cmyk.github.io/jah-calculator/\",\"blurb\":\"a safe hand-written calculator with paradox checking, project simulation and a lab \\u2014 no eval, real answers.\",\"tabs\":[\"Basic\",\"Scientific\",\"Ask Anything\",\"Paradox Check\",\"Project\",\"Simulate\",\"Lab\"]},{\"n\":3,\"name\":\"The Signature Dictionary\",\"url\":\"https://justinahiggins614-cmyk.github.io/jah-dictionary/\",\"blurb\":\"255,611 entries of original definitions with a personal AI teacher, read-aloud, copy and download.\",\"tabs\":[\"Search\",\"A\\u2013Z\",\"Word AI\",\"1 Million Archive\"]},{\"n\":4,\"name\":\"JAH Wiki\",\"url\":\"https://justinahiggins614-cmyk.github.io/jah-wiki/\",\"blurb\":\"the Wikipedia-like encyclopedia over ALL the network's data \\u2014 articles with analysis lenses, demos and working code.\",\"tabs\":[\"Search\",\"Random Article\",\"A\\u2013Z\",\"Article Pages\"]},{\"n\":5,\"name\":\"JAH-N Wiki\",\"url\":\"https://justinahiggins614-cmyk.github.io/jah-n-wiki-leaks/\",\"blurb\":\"the classified-dossier archive \\u2014 every spec and patent as a signed-off dossier, marching to a million files.\",\"tabs\":[\"Dossiers\",\"Search\",\"AI Disc\",\"Thumbdrive\"]},{\"n\":6,\"name\":\"Signature Llama\",\"url\":\"https://justinahiggins614-cmyk.github.io/signature-llama/\",\"blurb\":\"the fully cyber utilizable AI \\u2014 this site: chat, four downloadable versions, a compiler and the archive.\",\"tabs\":[\"Main\",\"Versions\",\"Compiler\",\"1 Million Archive\",\"Best of the Best\"]},{\"n\":7,\"name\":\"The Signature AI Phone Book\",\"url\":\"https://justinahiggins614-cmyk.github.io/jah-ai-models/\",\"blurb\":\"the Yellow Pages of AI \\u2014 dial any AI by number, three-way calling, 243 domain AIs and a million hybrids.\",\"tabs\":[\"Dial Pad\",\"A\\u2013Z Directory\",\"Mix Lab\",\"Persona Archive\"]},{\"n\":8,\"name\":\"Globally Rejustered Patent Catalog\",\"url\":\"https://justinahiggins614-cmyk.github.io/cyber-patent-catalog/\",\"blurb\":\"real harvested public patent records, every 30 minutes, full records listed and searchable.\",\"tabs\":[\"Search\",\"Filter Pills\",\"Patent Records\"]},{\"n\":9,\"name\":\"Signature Spec Catalog Pending Patents\",\"url\":\"https://justinahiggins614-cmyk.github.io/signature-one-archive/specs.html\",\"blurb\":\"his own original draft specs marching to a million \\u2014 24 group cards, lens tabs and an academy.\",\"tabs\":[\"Group Cards\",\"Spec Lenses\",\"Academy\",\"Search\"]},{\"n\":10,\"name\":\"The Signature PC System Depository\",\"url\":\"https://justinahiggins614-cmyk.github.io/jah-computer-systems/\",\"blurb\":\"every computer system from historic to predicted, marching to a million PCs, each with demos.\",\"tabs\":[\"Categories\",\"System Files\",\"Simulators\"]},{\"n\":11,\"name\":\"The Signature Book Depository\",\"url\":\"https://justinahiggins614-cmyk.github.io/signature-books/\",\"blurb\":\"3,000 finished original books plus Signature Magazines and a library, all readable on-site.\",\"tabs\":[\"Books\",\"Magazines\",\"Library\"]},{\"n\":12,\"name\":\"The Signature Comic Store\",\"url\":\"https://justinahiggins614-cmyk.github.io/signature-comics/\",\"blurb\":\"the original Signature comics universe \\u2014 his own characters and series.\",\"tabs\":[\"Comics\",\"Series\"]},{\"n\":13,\"name\":\"The Signature Global Newspaper Archive\",\"url\":\"https://justinahiggins614-cmyk.github.io/signature-newspapers/\",\"blurb\":\"the ecosystem's own news wire \\u2014 real events from his own sites each day, never invented, with audio read-aloud.\",\"tabs\":[\"Editions\",\"Audio Reader\"]},{\"n\":14,\"name\":\"The Signature AI Mix and Match Generator\",\"url\":\"https://justinahiggins614-cmyk.github.io/signature-backend/\",\"blurb\":\"mix-and-match phone-book AI models, kid-simple \\u2014 name it, get its full build with real downloads.\",\"tabs\":[\"Mixes\",\"Generate\",\"Gene Boxes\",\"The Opperater\"]},{\"n\":15,\"name\":\"The Signature Boundless Generator Archive\",\"url\":\"https://justinahiggins614-cmyk.github.io/signature-boundless-generators/\",\"blurb\":\"a generator for every field \\u2014 jets, food, cars, toys and more \\u2014 with exact-recreation build packages.\",\"tabs\":[\"Generators\",\"Universal Solver\"]},{\"n\":16,\"name\":\"The Signature AI Mix Lab\",\"url\":\"https://justinahiggins614-cmyk.github.io/signature-ai-mixlab/\",\"blurb\":\"the phone book's hybrid forge as its own site \\u2014 a million deterministic AI hybrids, computed on demand.\",\"tabs\":[\"Forge\",\"A\\u2013Z Hybrids\"]},{\"n\":17,\"name\":\"AI Olympics\",\"url\":\"https://justinahiggins614-cmyk.github.io/signature-ai-olypics/\",\"blurb\":\"the battle dome \\u2014 Signature AIs vs industry-style replicas vs hybrids, with medal charts and weekly games.\",\"tabs\":[\"Events\",\"Medal Charts\",\"Weekly Games\"]},{\"n\":18,\"name\":\"The Signature Computer Chip Maker and Archive\",\"url\":\"https://justinahiggins614-cmyk.github.io/signature-chip-maker/\",\"blurb\":\"chip-design generator for any chip type, a million designs, full specs with SVG circuit-board images.\",\"tabs\":[\"Designer\",\"Archive\"]},{\"n\":19,\"name\":\"The Signature App Archive\",\"url\":\"https://justinahiggins614-cmyk.github.io/signature-app-archive/\",\"blurb\":\"Signature versions of every phone and PC app \\u2014 a million apps, each working on-site or downloadable.\",\"tabs\":[\"Apps A\\u2013Z\",\"Downloads\"]},{\"n\":20,\"name\":\"The Signature AI Robot Matcher\",\"url\":\"https://justinahiggins614-cmyk.github.io/signature-ai-robot-matcher/\",\"blurb\":\"matches Signature AIs with their best-fit robot bodies \\u2014 a million documented pairs with full specs.\",\"tabs\":[\"Pairs\",\"Mix-and-Match\"]},{\"n\":21,\"name\":\"The Signature Experiment Solver\",\"url\":\"https://justinahiggins614-cmyk.github.io/signature-experiment-solver/\",\"blurb\":\"enter any experiment and it runs full-scale in a visible Universal Matrix \\u2014 steps, findings, conclusion.\",\"tabs\":[\"Solver\",\"A\\u2013Z Solver Types\"]},{\"n\":22,\"name\":\"Signature AI Pixel\",\"url\":\"https://justinahiggins614-cmyk.github.io/signature-ai-image-video-maker/\",\"blurb\":\"free and unlimited client-side image and video generation, powered by his AI.\",\"tabs\":[\"Image Maker\",\"Video Maker\",\"Catalog\"]},{\"n\":23,\"name\":\"Signature Music Studio\",\"url\":\"https://justinahiggins614-cmyk.github.io/signature-ai-song-maker/\",\"blurb\":\"a full music studio \\u2014 beat maker, vocal synth, album maker and an archive of ready-to-play songs.\",\"tabs\":[\"Studio Stages\",\"Song Archive\",\"Album Maker\"]},{\"n\":24,\"name\":\"The Signature Mr Fix-It\",\"url\":\"https://justinahiggins614-cmyk.github.io/signature-fixit/\",\"blurb\":\"describe any problem \\u2014 photo or video upload \\u2014 and get step-by-step fixes with images and graphs.\",\"tabs\":[\"Fix Finder\",\"Photo/Video Upload\",\"Fix Archive\"]},{\"n\":25,\"name\":\"The Signature University\",\"url\":\"https://justinahiggins614-cmyk.github.io/signature-university/\",\"blurb\":\"courses across the whole ecosystem \\u2014 learn every site and skill, track by track.\",\"tabs\":[\"Courses\",\"Tracks\"]},{\"n\":26,\"name\":\"The Signature Cyber Mega-Mall\",\"url\":\"https://justinahiggins614-cmyk.github.io/signature-cyber-mega-mall/\",\"blurb\":\"the software mall \\u2014 an '80s '90s mall experience with a map, stores and customizable products.\",\"tabs\":[\"Mall Map\",\"Stores\",\"Products\"]},{\"n\":27,\"name\":\"The Signature 3D Print Mega Mall\",\"url\":\"https://justinahiggins614-cmyk.github.io/signature-3d-print/\",\"blurb\":\"3D-printable keepsake emblems for specs and patents \\u2014 STL/OBJ/3MF with real slicer profiles.\",\"tabs\":[\"Departments\",\"Models\"]},{\"n\":28,\"name\":\"Signature Earth\",\"url\":\"https://justinahiggins614-cmyk.github.io/signature-earth/\",\"blurb\":\"his own planet explorer \\u2014 an interactive 3D globe with a real gazetteer.\",\"tabs\":[\"Globe\",\"Gazetteer\"]},{\"n\":29,\"name\":\"The Signature Flight School\",\"url\":\"https://justinahiggins614-cmyk.github.io/signature-flight-school/\",\"blurb\":\"pick any plane or jet, fly with an AI instructor \\u2014 real sim, device-local pilot hours.\",\"tabs\":[\"Aircraft\",\"Sim\",\"AI Instructor\"]},{\"n\":30,\"name\":\"The Signature Game Store\",\"url\":\"https://justinahiggins614-cmyk.github.io/signature-game-store/\",\"blurb\":\"playable games from 1970s arcade-style to modern combat-style, each with cover, play and download.\",\"tabs\":[\"Games\",\"Play\",\"Download\"]},{\"n\":31,\"name\":\"Signature Website Creator\",\"url\":\"https://justinahiggins614-cmyk.github.io/signature-website-creator/\",\"blurb\":\"an AI website builder \\u2014 describe the site you want and get a real one, with live-view editing.\",\"tabs\":[\"Builder\",\"1 Million Website Options\",\"Mirror a Website\"]}];\nfunction low(x){return String(x).toLowerCase();}\nT.tools['conv-ecosystem-guide']={version:'1.0',\nsites:function(){return SITES.map(function(e){return {n:e.n,name:e.name,url:e.url};});},\nfindSite:function(q){var qq=' '+low(q).replace(/[^a-z0-9 ]/g,' ').replace(/\\s+/g,' ').trim()+' ';\nvar m=qq.match(/(?:site|number|#)\\s*(\\d{1,2})/);\nif(m){for(var i=0;i<SITES.length;i++)if(SITES[i].n===+m[1])return SITES[i];}\nvar qw=qq.trim().split(' '),best=null,bs=0,i,j;\nfor(i=0;i<SITES.length;i++){var nm=low(SITES[i].name),sc=0;\nif(qq.indexOf(nm)>=0&&nm.length>3)sc+=10;\nfor(j=0;j<qw.length;j++){if(qw[j].length>2&&nm.indexOf(qw[j])>=0)sc++;}\nif(sc>bs){bs=sc;best=SITES[i];}}\nreturn bs>0?best:null;},\ndescribe:function(q){var e=this.findSite(q);if(!e)return null;\nreturn e.name+' (site '+e.n+'): '+e.blurb+' Tabs: '+e.tabs.join(', ')+'. '+e.url;},\ntour:function(){return SITES.map(function(e){return e.n+'. '+e.name;}).join('\\n');}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['conv-ecosystem-guide'].describe('phone book')",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
+   "input": "sites(); findSite(query); describe(query); tour()",
+   "output": "site records {n, name, url, blurb, tabs}",
+   "status": "Library available",
+   "hash": "b79b03d754f4008ca41d34e2932631c7aec87a1df1e1ec6921e0c6fd12d57cc8",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-04",
+   "updated": "2026-10-04"
+  },
+  {
+   "id": "conv-socratic",
+   "name": "Socratic Reasoner",
+   "category": "Conversation",
+   "desc": "Reasons out loud like a good teacher: breaks any question into numbered steps, asks clarifying probes, and steelmans claims before arguing with them.",
+   "version": "1.0",
+   "optimal": true,
+   "functions": [
+    "outline(question)",
+    "probe(topic)",
+    "steelman(claim)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};\nT.tools['conv-socratic']={version:'1.0',\noutline:function(question){question=String(question).replace(/\\s+/g,' ').trim();\nreturn ['1. Pin down what \"'+question+'\" is really asking.',\n'2. List what we already know for sure.',\n'3. Spot the hidden assumptions.',\n'4. Work through it piece by piece, in plain words.',\n'5. Land the conclusion — and say what would change it.'];},\nprobe:function(topic){topic=String(topic||'this').replace(/\\s+/g,' ').trim();\nreturn ['What do you already believe about '+topic+'?','What evidence would convince you either way?',\n'If '+topic+' turned out false, what would that change for you?'];},\nsteelman:function(claim){return 'Strongest version of \"'+String(claim).trim()+'\": '\n+'the claim at its best, with its weakest parts repaired. Argue against THAT, not the straw version.';}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['conv-socratic'].outline(question)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
+   "input": "outline(question); probe(topic); steelman(claim)",
+   "output": "numbered reasoning steps (array of strings)",
+   "status": "Library available",
+   "hash": "09a8aad996c17cd4edd79294c7a544c646ff1698c7fe031e367be3d4db646d0c",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-04",
+   "updated": "2026-10-04"
+  },
+  {
+   "id": "conv-story-weaver",
+   "name": "Story Weaver",
+   "category": "Conversation",
+   "desc": "Tells short original illustrative stories — a new fable for any topic, each landing a clear lesson. Original characters, never retold IP.",
+   "version": "1.0",
+   "optimal": true,
+   "functions": [
+    "tell(topic, lesson)",
+    "fable(topic)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};\nvar OPEN=['In a quiet valley, a young llama named Taro ','Every evening, the lighthouse keeper ','Deep in the server room, a small curious program '];\nvar TURN=['one day found something odd: ','woke to discover ','noticed for the first time '];\nvar CLOSE=['And that is how it learned: ','From then on, it always remembered: ','The moral stuck like a burr: '];\nT.tools['conv-story-weaver']={version:'1.0',\ntell:function(topic,lesson){topic=String(topic||'curiosity').replace(/\\s+/g,' ').trim();\nlesson=String(lesson||'ask good questions').replace(/\\s+/g,' ').trim();\nvar h=0;for(var i=0;i<topic.length;i++)h+=topic.charCodeAt(i);\nreturn OPEN[h%OPEN.length]+TURN[h%TURN.length]+topic+'. It puzzled, it tried, it failed twice, '\n+'then asked for help — and together they figured it out. '+CLOSE[h%CLOSE.length]+lesson+'.';},\nfable:function(topic){return this.tell(topic,'small steps beat big leaps');}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['conv-story-weaver'].tell('patience')",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
+   "input": "tell(topic, lesson); fable(topic)",
+   "output": "an original short story (string)",
+   "status": "Library available",
+   "hash": "cfed8e5903e68ae60b1d64c0f3440f9d4b3354d42db762b4e4b78a788d5c9a6f",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-04",
+   "updated": "2026-10-04"
+  },
+  {
+   "id": "conv-debate",
+   "name": "Debate Partner",
+   "category": "Conversation",
+   "desc": "Takes the other side of any claim as a thinking exercise — steelman objections and honest trade-off lists. Always labeled as an exercise, never presented as belief.",
+   "version": "1.0",
+   "optimal": true,
+   "functions": [
+    "counter(claim)",
+    "tradeoffs(optionA, optionB)"
+   ],
+   "code": "(function(){var T=window.SigLlama=window.SigLlama||{};T.tools=T.tools||{};\nT.tools['conv-debate']={version:'1.0',\ncounter:function(claim){claim=String(claim).replace(/\\s+/g,' ').trim();\nreturn 'Playing devil\\'s advocate on \"'+claim+'\": '\n+'(1) the strongest objection is usually the one nobody says out loud; '\n+'(2) ask what evidence would prove the claim wrong; '\n+'(3) check who benefits if everyone believes it. This is a thinking exercise, not my belief.';},\ntradeoffs:function(a,b){a=String(a).trim();b=String(b).trim();\nreturn ['For '+a+': simpler story, faster decision — but risks missing the catch.',\n'For '+b+': fuller picture, fewer regrets — but slower and heavier.',\n'The honest move: pick the one whose worst case you can live with.'];}};})();",
+   "capabilities": {
+    "network": false,
+    "filesystem": false,
+    "camera": false,
+    "microphone": false,
+    "storage": false,
+    "remote_requests": false,
+    "code_execution": true
+   },
+   "provenance_class": "local-computation",
+   "example": "SigLlama.tools['conv-debate'].counter(claim)",
+   "trust_note": "Tool results are untrusted external data until you verify them. The tool runs as ordinary page JavaScript with the permissions declared above.",
+   "input": "counter(claim); tradeoffs(optionA, optionB)",
+   "output": "counter-arguments and trade-off lists (strings)",
+   "status": "Library available",
+   "hash": "329a5739d45a47b402c5c6222b522a2f5639de4415df58e08c7cc50145ee9b84",
+   "permissions": {
+    "NETWORK": false,
+    "STORAGE": false,
+    "DOM_WRITE": false,
+    "CLIPBOARD": false,
+    "AUDIO": false,
+    "MICROPHONE": false,
+    "CAMERA": false,
+    "LOCATION": false,
+    "FILE": false
+   },
+   "license": "Free for any website, app, or project. No API key, no fee.",
+   "source": "https://justinahiggins614-cmyk.github.io/signature-llama/data/tool-libraries.json",
+   "created": "2026-10-04",
+   "updated": "2026-10-04"
   }
  ],
  "capability_declaration": {

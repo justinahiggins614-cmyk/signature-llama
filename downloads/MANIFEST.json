@@ -1,0 +1,67 @@
+{
+ "built": "2026-10-04",
+ "generator": "code/build_versions.py",
+ "note": "No .exe is offered -- it cannot be built on this machine.",
+ "files": {
+  "signature-llama-offline-static-py.zip": {
+   "sha256": "29cc5bbfe6e8c82001cc0bd8fdd1e66624b550997120d94cf10e4054644859c5",
+   "bytes": 15036,
+   "variant": "offline-static"
+  },
+  "signature-llama-offline-static.js": {
+   "sha256": "7684d974f0aaefe9afbf54d68d20e87e950a745f87c559e302d2933aa1d234b5",
+   "bytes": 46673,
+   "variant": "offline-static"
+  },
+  "llama-thumbdrive-offline-static.py": {
+   "sha256": "2f9412817287e156b3e36efeafa01c824e559c76ccbd2710b1bdd20947c73c07",
+   "bytes": 38896,
+   "variant": "offline-static"
+  },
+  "signature-llama-online-no-key-py.zip": {
+   "sha256": "0ddcfad8350d2d2898e95ce499737b43f55a7260de064066183ae68e01679473",
+   "bytes": 15050,
+   "variant": "online-no-key"
+  },
+  "signature-llama-online-no-key.js": {
+   "sha256": "7a1cbdffcd2b3bc92cc4ac2ed23906b4ea62edc31e2424e08dcbce8f04abd649",
+   "bytes": 46735,
+   "variant": "online-no-key"
+  },
+  "llama-thumbdrive-online-no-key.py": {
+   "sha256": "c1a603aca1cb8c6f4cafbeef3add201af09c81fa4aeb03af49fe8a744fd40278",
+   "bytes": 38958,
+   "variant": "online-no-key"
+  },
+  "signature-llama-online-with-key-py.zip": {
+   "sha256": "ba77e46b0d67362b0157830f8932974bde8b1c5a9b90b2e5f9ddca9422af4b7d",
+   "bytes": 15066,
+   "variant": "online-with-key"
+  },
+  "signature-llama-online-with-key.js": {
+   "sha256": "6854a55c69fdc6136bcb1ae2fca190f5ab33877ae01584691ef08e04ded43128",
+   "bytes": 46728,
+   "variant": "online-with-key"
+  },
+  "llama-thumbdrive-online-with-key.py": {
+   "sha256": "2706890e2eebac05dda2c2e287cb65c1fe62ecabcbbaf0586742770de14bf47f",
+   "bytes": 38951,
+   "variant": "online-with-key"
+  },
+  "signature-llama-best-figurehead-py.zip": {
+   "sha256": "a2c1ab17b16fa8858ad492b5be851e295609dddd355ae095eb3dec7e00021151",
+   "bytes": 15071,
+   "variant": "best-figurehead"
+  },
+  "signature-llama-best-figurehead.js": {
+   "sha256": "449d03a21cfc71ff2ff33a936c49ec9e4f5be14a4e91c2197b6c749696bb063f",
+   "bytes": 46821,
+   "variant": "best-figurehead"
+  },
+  "llama-thumbdrive-best-figurehead.py": {
+   "sha256": "fa2851370d5b1e2211b26c8661f88347f560459cfcd3e96dc672781d66b9182f",
+   "bytes": 38956,
+   "variant": "best-figurehead"
+  }
+ }
+}

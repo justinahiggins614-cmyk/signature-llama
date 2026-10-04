@@ -1,3 +1,12 @@
+/* ============================================================
+   Signature Llama -- Online, No Key Needed (single-file JS build, v2.0.0)
+   Online through the built-in free route (live knowledge refresh), no signup, no key. Falls back to the offline engine when offline.
+   The engine below is the real JAHtalk GuideTalk conversational engine
+   (js/jah-talk-fallback.js): zero-network, plain-words replies, full
+   duties coverage, all 31 JAH network sites. This wrapper adds the
+   online-no-key variant behavior and the SignatureLlama.ask() seam.
+   Independent project by Justin Addam Higgins. Not affiliated with Meta.
+   ============================================================ */
 /* ==========================================================================
    JAHtalk — the Signature universal basic-LLM talker (GuideTalk engine)
    --------------------------------------------------------------------------
@@ -603,3 +612,69 @@
     VERSION: '2.0.0'
   };
 })(typeof window !== 'undefined' ? window : (typeof global !== 'undefined' ? global : this));
+
+;(function(){
+'use strict';
+var JT = (typeof window !== 'undefined' && window.JAHtalk) ? window.JAHtalk : null;
+var VARIANT = {"id": "online-no-key", "name": "Online, No Key Needed", "features": ["deep_talk", "ecosystem_guide"]};
+var PROFILE = {"name": "Signature Llama", "description": "The fully cyber utilizable AI.", "abilities": ["chat in natural flowing sentences", "explain AI terms in plain words", "point you around all 31 JAH network sites", "describe its files, tools and versions"], "domain": "conversation"};
+function lsGet(k){ try { return window.localStorage.getItem(k); } catch(e){ return null; } }
+function lsSet(k,v){ try { window.localStorage.setItem(k,v); } catch(e){} }
+var api = (window.SignatureLlama = window.SignatureLlama || {});
+api.variant = VARIANT.id;
+api.variantName = VARIANT.name;
+api.features = {};
+(VARIANT.features || []).forEach(function(f){ api.features[f] = true; });
+try {
+  var saved = JSON.parse(lsGet('sigllama_features_' + VARIANT.id) || 'null');
+  if (saved) Object.keys(saved).forEach(function(k){ if (k in api.features) api.features[k] = !!saved[k]; });
+} catch(e){}
+api.setFeature = function(name, on){
+  if (!(name in api.features)) return false;
+  api.features[name] = !!on;
+  var s = {}; Object.keys(api.features).forEach(function(k){ s[k] = api.features[k]; });
+  lsSet('sigllama_features_' + VARIANT.id, JSON.stringify(s));
+  return true;
+};
+/* the one seam: ask() -> Promise<string>, honest about which route answered */
+api.ask = function(question){
+  var q = String(question == null ? '' : question);
+  function offline(){ return Promise.resolve(JT ? JT.reply(PROFILE, q) : 'The offline engine did not load.'); }
+  if (VARIANT.id === 'online-with-key') {
+    var key = lsGet('sigllama_key');
+    var endpoint = lsGet('sigllama_endpoint') || 'https://api.groq.com/openai/v1/chat/completions';
+    var model = lsGet('sigllama_model') || 'llama-3.3-70b-versatile';
+    if (key && window.fetch) {
+      return window.fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + key },
+        body: JSON.stringify({ model: model,
+          messages: [{ role: 'system',
+                       content: 'You are Signature Llama, a warm plain-spoken AI assistant. Answer conversationally.' },
+                     { role: 'user', content: q }],
+          max_tokens: 300 })
+      }).then(function(r){ if(!r.ok) throw 0; return r.json(); })
+        .then(function(j){ return (j.choices && j.choices[0] && j.choices[0].message && j.choices[0].message.content || '').trim(); })
+        .catch(function(){ return offline(); });
+    }
+    return offline();
+  }
+  if (VARIANT.id === 'online-no-key' && window.fetch) {
+    /* built-in free route: refresh the best-pick bulletin when online */
+    return window.fetch('https://justinahiggins614-cmyk.github.io/signature-llama/data/best/best.json')
+      .then(function(r){ return r.ok ? r.json() : null; })
+      .then(function(){ return offline(); })
+      .catch(function(){ return offline(); });
+  }
+  return offline();
+};
+/* figurehead updater: ask the live site whether a newer best exists */
+api.checkUpdates = function(){
+  if (!window.fetch) return Promise.resolve({ update_available: false, error: 'no fetch' });
+  return window.fetch('https://justinahiggins614-cmyk.github.io/signature-llama/data/best/best.json')
+    .then(function(r){ if(!r.ok) throw 0; return r.json(); })
+    .then(function(b){ return { update_available: true, live_title: b.title,
+      live_version: b.version, live_built: b.built, why: (b.why || []).slice(0, 3) }; })
+    .catch(function(e){ return { update_available: false, error: String(e && e.message || e) }; });
+};
+})();
