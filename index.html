@@ -75,6 +75,9 @@ body{margin:0;background:var(--bg);color:var(--txt);font-family:Georgia,'Times N
 .jahnet a{color:#9fc2ff;text-decoration:none;margin:0 7px;white-space:nowrap}
 .jahnet a:hover{text-decoration:underline}
 .jahnet .cur{color:var(--gold);font-weight:700;margin:0 7px}
+.jah-tabs{display:flex;gap:6px;overflow-x:auto;padding:10px 12px;background:var(--panel2);border-bottom:2px solid var(--gold)}
+.jah-tabs a.tablink{flex:0 0 auto;background:var(--panel);color:var(--txt);border:1px solid var(--line);border-radius:6px;padding:9px 14px;font-size:.92em;cursor:pointer;text-decoration:none;font-family:Arial,Helvetica,sans-serif;white-space:nowrap}
+.jah-tabs a.tablink.on{background:var(--gold);color:#241a02;font-weight:700;border-color:var(--gold)}
 .bigmenu{position:sticky;top:0;z-index:50;display:flex;flex-wrap:wrap;gap:8px;justify-content:center;background:#0a0f1cee;border-bottom:2px solid var(--amber);padding:10px 8px}
 .bigmenu a{display:inline-block;background:var(--amber);color:#1a1206;font-weight:800;text-decoration:none;font-size:1.05em;padding:12px 22px;border-radius:10px;letter-spacing:.02em}
 .bigmenu a:active{transform:scale(.96)}
@@ -172,6 +175,8 @@ function paint(){try{b.innerHTML=(document.documentElement.dataset.theme==="dark
 b.addEventListener("click",function(){try{var d=document.documentElement;var dark=d.dataset.theme!=="dark";d.dataset.theme=dark?"dark":"";localStorage.setItem("jah-theme",dark?"dark":"light");}catch(e){}paint();});
 paint();})();
 </script>
+
+<nav class="jah-tabs" aria-label="Llama pages"><a class="tablink on" href="index.html" aria-current="page">&#127968; Main</a><a class="tablink" href="archive.html">&#128449; Archive</a><a class="tablink" href="compiler.html">&#9881;&#65039; Compiler</a><a class="tablink" href="showcase.html">&#9733; Best of the Best</a></nav>
 
 <nav class="bigmenu" aria-label="Site menu">
   <a href="#chat">💬 Talk</a>

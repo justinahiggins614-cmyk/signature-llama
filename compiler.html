@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>try{if(localStorage.getItem("jah-theme")==="dark")document.documentElement.dataset.theme="dark";}catch(e){}</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Llama Compiler — Build Your Own Signature Llama</title>
+<meta name="description" content="Pick add-ons, drop them into the compiler tray, and build a real custom Signature Llama file to download or copy.">
+<link rel="canonical" href="https://justinahiggins614-cmyk.github.io/signature-llama/compiler.html">
+<style>:root{--bg:#070b14;--panel:#0d1424;--panel2:#111a30;--line:#1e2c4d;--txt:#d7e0f2;--dim:#8b98b8;--gold:#e8c766;--amber:#ffc93c;--amber2:#ffdf7e;--acc:#5aa2ff;--grn:#5aff8a;--red:#ff5a5a}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--txt);font-family:Georgia,'Times New Roman',serif;line-height:1.55}
+.jahnet{background:#0a0f1e;color:#9aa4b2;font-size:.76em;padding:7px 10px;text-align:center;line-height:2;letter-spacing:.02em;border-bottom:1px solid var(--line)}
+.jahnet-t{color:var(--gold);font-weight:700;letter-spacing:.25em;margin-right:10px}
+.jahnet a{color:#9fc2ff;text-decoration:none;margin:0 7px;white-space:nowrap}
+.jahnet a:hover{text-decoration:underline}
+.jahnet .cur{color:var(--gold);font-weight:700;margin:0 7px}
+/* calculator-style tab bar (Manon's order: Main page --> Archive) */
+.jah-tabs{display:flex;gap:6px;overflow-x:auto;padding:10px 12px;background:var(--panel2);border-bottom:2px solid var(--gold)}
+.jah-tabs a.tablink{flex:0 0 auto;background:var(--panel);color:var(--txt);border:1px solid var(--line);border-radius:6px;padding:9px 14px;font-size:.92em;cursor:pointer;text-decoration:none;font-family:Arial,Helvetica,sans-serif;white-space:nowrap}
+.jah-tabs a.tablink.on{background:var(--gold);color:#241a02;font-weight:700;border-color:var(--gold)}
+.hero{max-width:960px;margin:0 auto;padding:26px 14px 10px}
+.sitekicker{display:inline-block;color:var(--gold);font-weight:700;letter-spacing:.2em;font-size:.85em;border:1px solid var(--gold);border-radius:3px;padding:1px 8px;margin:0 0 10px;white-space:nowrap}
+.hero h1{margin:.1em 0 .2em;font-size:1.9em;color:var(--txt)}
+.hero .offname{color:var(--amber2);letter-spacing:.12em;font-weight:700;margin:.1em 0 .6em}
+.hero p.lead{max-width:660px}
+.wrap{max-width:960px;margin:0 auto;padding:14px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px;margin-bottom:16px}
+.panel h2{margin:0 0 4px;font-size:1.15em;color:var(--gold);letter-spacing:1px}
+.panel .sub{color:var(--dim);font-size:.88em;margin:0 0 12px}
+.dim{color:var(--dim)}
+input[type=text]{background:#0b111c;color:var(--txt);border:1px solid var(--line);border-radius:6px;padding:11px;font-size:1em;width:100%}
+button.big{background:#1a2340;border:1px solid var(--amber);color:var(--amber2);border-radius:8px;padding:11px 18px;font-size:1em;cursor:pointer;margin:6px 6px 6px 0;font-family:inherit}
+button.big:hover{background:#232c52}
+button.big.gold{background:var(--gold);border-color:var(--gold);color:#241a02;font-weight:800}
+button.big:disabled{opacity:.5;cursor:default}
+.footer{text-align:center;color:var(--dim);font-size:.82em;padding:26px 12px 60px;border-top:1px solid var(--line);margin-top:10px}
+.footer .sig{color:var(--gold);letter-spacing:.25em;font-weight:700}
+#jah-theme-toggle{position:fixed;right:14px;bottom:14px;z-index:99999;width:40px;height:40px;border-radius:50%;border:1px solid var(--gold);background:#0a0f1e;color:var(--gold);font-size:20px;line-height:1;cursor:pointer;opacity:.7}
+html[data-theme="dark"]{filter:invert(1) hue-rotate(180deg)}
+html[data-theme="dark"] img{filter:invert(1) hue-rotate(180deg)}
+a{color:var(--acc)}
+code{background:#0b1120;border:1px solid var(--line);border-radius:4px;padding:1px 6px;font-size:.88em}
+.acard{background:#0b1120;border:1px solid var(--line);border-radius:8px;padding:10px;display:flex;flex-direction:column;gap:6px}
+.agrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin-top:10px}
+.aname{font-weight:700;color:var(--txt)}
+.ameta{font-size:.75em;color:var(--dim);letter-spacing:.04em}
+.adesc{font-size:.85em;color:var(--dim);flex:1}
+.best-tag{font-size:.68em;background:var(--gold);color:#241a02;border-radius:999px;padding:1px 8px;font-weight:700;letter-spacing:.06em}
+.abtn{background:#1a2340;border:1px solid var(--amber);color:var(--amber2);border-radius:6px;padding:9px;font-size:.9em;cursor:pointer}
+.abtn:disabled{opacity:.55;cursor:default;border-color:var(--line);color:var(--dim)}
+.tchip{display:inline-block;background:#1a2340;border:1px solid var(--gold);color:var(--amber2);border-radius:999px;padding:6px 8px 6px 12px;margin:4px;font-size:.88em}
+.tchip button{background:none;border:0;color:var(--red);cursor:pointer;font-size:1em;padding:2px 6px}
+.brow{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.inside{columns:2;font-size:.9em}
+@media(max-width:600px){.inside{columns:1}}
+.ans{background:#0b1120;border:1px solid var(--line);border-radius:8px;padding:10px;margin:8px 0}
+.steps{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 12px}
+.step{flex:1;min-width:160px;background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:10px;font-size:.88em}
+.step b{color:var(--gold)}
+</style>
+</head>
+<body>
+<button id="jah-theme-toggle" type="button" title="Toggle dark mode" aria-label="Toggle dark mode">&#9681;</button>
+<script>
+/* UX-2026-10-03: dark-mode toggle wiring (opt-in; default look unchanged) */
+(function(){var b=document.getElementById("jah-theme-toggle");
+function paint(){try{b.innerHTML=(document.documentElement.dataset.theme==="dark")?"&#9728;":"&#9681;";}catch(e){}}
+b.addEventListener("click",function(){try{var d=document.documentElement;var dark=d.dataset.theme!=="dark";d.dataset.theme=dark?"dark":"";localStorage.setItem("jah-theme",dark?"dark":"light");}catch(e){}paint();});
+paint();})();
+</script>
+<div class="jahnet"><span class="jahnet-t">THE JAH NETWORK</span><a href="https://justinahiggins614-cmyk.github.io/signature-math/">1 Signature Math</a><a href="https://justinahiggins614-cmyk.github.io/jah-calculator/">2 Signature Universal Paradox Immune Calculator</a><a href="https://justinahiggins614-cmyk.github.io/jah-dictionary/">3 The Signature Dictionary</a><a href="https://justinahiggins614-cmyk.github.io/jah-wiki/">4 JAH Wiki</a><a href="https://justinahiggins614-cmyk.github.io/jah-n-wiki-leaks/">5 Wiki Leaks</a><a class="cur" href="https://justinahiggins614-cmyk.github.io/signature-llama/">6 Signature Llama: The Fully Cyber Utilizable AI</a><a href="https://justinahiggins614-cmyk.github.io/jah-ai-models/">7 The Signature AI Phone Book</a><a href="https://justinahiggins614-cmyk.github.io/cyber-patent-catalog/">8 Globally Rejustered Patent Catalog</a><a href="https://justinahiggins614-cmyk.github.io/signature-one-archive/specs.html">9 Signature Spec Catalog Pending Patents</a><a href="https://justinahiggins614-cmyk.github.io/jah-computer-systems/">10 The Signature PC System Depository</a><a href="https://justinahiggins614-cmyk.github.io/signature-books/">11 The Signature Book Depository</a><a href="https://justinahiggins614-cmyk.github.io/signature-comics/">12 The Signature Comic Store</a><a href="https://justinahiggins614-cmyk.github.io/signature-newspapers/">13 The Signature Global Newspaper Archive</a><a href="https://justinahiggins614-cmyk.github.io/signature-backend/">14 The Signature AI Mad Scientist Creation Lab</a><a href="https://justinahiggins614-cmyk.github.io/signature-boundless-generators/">15 The Signature Boundless Generator Archive</a><a href="https://justinahiggins614-cmyk.github.io/signature-ai-mixlab/">16 The Signature AI Mix Lab</a><a href="https://justinahiggins614-cmyk.github.io/signature-ai-olypics/">17 AI Olypics</a><a href="https://justinahiggins614-cmyk.github.io/signature-chip-maker/">18 The Signature Computer Chip Maker and Archive</a><a href="https://justinahiggins614-cmyk.github.io/signature-app-archive/">19 The Signature App Archive</a><a href="https://justinahiggins614-cmyk.github.io/signature-ai-robot-matcher/">20 The Signature AI Robot Matcher</a><a href="https://justinahiggins614-cmyk.github.io/signature-experiment-solver/">21 The Signature Experiment Solver</a><a href="https://justinahiggins614-cmyk.github.io/signature-ai-image-video-maker/">22 Signature AI Pixel</a><a href="https://justinahiggins614-cmyk.github.io/signature-ai-song-maker/">23 Signature Music Studio</a><a href="https://justinahiggins614-cmyk.github.io/signature-fixit/">24 The Signature Mr Fix-It</a><a href="https://justinahiggins614-cmyk.github.io/signature-university/">25 The Signature University</a><a href="https://justinahiggins614-cmyk.github.io/signature-cyber-mega-mall/">26 The Signature Cyber Mega-Mall</a><a href="https://justinahiggins614-cmyk.github.io/signature-3d-print/">27 The Signature 3D Print Mega Mall</a></div>
+<nav class="jah-tabs" aria-label="Llama pages"><a class="tablink" href="index.html">&#127968; Main</a><a class="tablink" href="archive.html">&#128449; Archive</a><a class="tablink on" href="compiler.html" aria-current="page">&#9881;&#65039; Compiler</a><a class="tablink" href="showcase.html">&#9733; Best of the Best</a></nav>
+
+<div class="hero">
+  <p class="sitekicker">SITE 6 OF 27 &middot; THE JAH NETWORK</p>
+  <h1>The Llama Compiler</h1>
+  <p class="offname">PICK ADD-ONS &middot; DROP THEM IN &middot; BUILD YOUR LLAMA</p>
+  <p class="lead">This page builds you a <b>real, working</b> custom Llama file. Pick any add-ons below, drop them into the compiler tray, and hit <b>Build</b>. You get a file to download (or copy) that contains <b>exactly</b> what you picked &mdash; nothing more, nothing less. <span class="dim"><span id="libCount">&hellip;</span> add-ons available.</span></p>
+</div>
+<div class="wrap">
+  <div class="steps">
+    <div class="step"><b>Step 1.</b> Pick add-ons below (tap &ldquo;Drop into compiler&rdquo;).</div>
+    <div class="step"><b>Step 2.</b> Check your tray &mdash; remove any you changed your mind about.</div>
+    <div class="step"><b>Step 3.</b> Hit <b>Build my Llama</b> &mdash; download or copy the finished file.</div>
+  </div>
+  <div class="panel">
+    <h2>&#10133; STEP 1 &mdash; PICK YOUR ADD-ONS</h2>
+    <p class="sub">Every plug-in tool library on this site. Use search to narrow it down.</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:6px">
+      <input type="text" id="addonSearch" style="flex:1;min-width:200px" placeholder="Search add-ons&hellip; (try &ldquo;text&rdquo;, &ldquo;voice&rdquo;, &ldquo;math&rdquo;)" aria-label="Search add-ons">
+      <button type="button" class="big" id="addOptimal">&#9733; Add the best starter set</button>
+    </div>
+    <div class="agrid" id="addonGrid"><p class="dim">Loading add-ons&hellip;</p></div>
+  </div>
+  <div class="panel" style="border:2px solid var(--gold)">
+    <h2>&#129717; STEP 2 &mdash; YOUR COMPILER TRAY (<span id="trayCount">0</span>)</h2>
+    <p class="sub">These add-ons go into your build. Tap &#10005; to take one back out.</p>
+    <div id="tray"><p class="dim">Your tray is empty. Tap &ldquo;&#10133; Drop into compiler&rdquo; on any add-on above.</p></div>
+    <div style="margin-top:8px"><button type="button" class="big" id="clearTray">Clear the tray</button></div>
+  </div>
+  <div class="panel" style="border:2px solid var(--grn)">
+    <h2>&#128296; STEP 3 &mdash; BUILD</h2>
+    <p class="sub">Compiles your tray into one working file, made from the add-ons&rsquo; real code.</p>
+    <button type="button" class="big gold" id="buildBtn" style="font-size:1.1em;padding:14px 26px">&#128296; Build my Llama</button>
+    <div id="buildResult" hidden style="margin-top:12px"></div>
+  </div>
+</div>
+<script src="js/compiler.js"></script>
+<div class="footer"><span class="sig">A SIGNATURE SYSTEM</span><br>Signature Llama &mdash; the baseline AI, currently free for all internet tasks.<br><span style="font-size:.8em">Independent model by Justin Addam Higgins &middot; Not affiliated with Meta</span></div>
+</body>
+</html>

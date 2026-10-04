@@ -29,7 +29,7 @@ sections = ['phonebook', 'model', 'chat', 'creations', 'downloads', 'compatibili
             'facts', 'methodology']
 
 core = [
-    '', '/browse.html', '/llms.txt', '/llama-manifest.json', '/model-status.json', '/llama-api.js',
+    '', '/browse.html', '/archive.html', '/compiler.html', '/showcase.html', '/llms.txt', '/llama-manifest.json', '/model-status.json', '/llama-api.js',
     '/industry-llama.js', '/network-index.json', '/network-sitemap.xml',
     '/data/llm-dictionary.json', '/data/explainer-kb.json', '/data/tool-libraries.json',
     '/data/browse-index.json',
