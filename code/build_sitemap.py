@@ -1,14 +1,17 @@
 #!/usr/bin/env python3
 """Regenerate sitemap.xml for signature-llama.
 
-Includes: core pages/data files, every LLM-dictionary term (?term= URL), and
-every tool library (?toollib= URL). GitHub Pages serves the page for every
-query string, so all listed URLs return HTTP 200.
+Includes: core pages/data files (browse.html added 2026-10-04), every
+LLM-dictionary term (?term= URL, matched by exact term title), and every
+tool library (?toollib= URL, by library id). GitHub Pages serves the page
+for every query string, so all listed URLs return HTTP 200.
 
 NOTE: section anchors (#model, #chat, ...) are deliberately NOT listed --
 fragments are not distinct crawlable URLs and don't belong in sitemaps.
 
 Run: python3 code/build_sitemap.py
+(Part of the count-stamp chain: see code/stamp_browse.py -- run AFTER any
+dictionary / tool-library data flush, never one run behind.)
 """
 import json, os, urllib.parse
 from datetime import date
@@ -26,9 +29,10 @@ sections = ['phonebook', 'model', 'chat', 'creations', 'downloads', 'compatibili
             'facts', 'methodology']
 
 core = [
-    '', '/llms.txt', '/llama-manifest.json', '/model-status.json', '/llama-api.js',
+    '', '/browse.html', '/llms.txt', '/llama-manifest.json', '/model-status.json', '/llama-api.js',
     '/industry-llama.js', '/network-index.json', '/network-sitemap.xml',
     '/data/llm-dictionary.json', '/data/explainer-kb.json', '/data/tool-libraries.json',
+    '/data/browse-index.json',
     '/sigllama/sigllama.js', '/sigllama/vocab.json',
     '/patch/signature-llama-patch-v1.zip',
 ]

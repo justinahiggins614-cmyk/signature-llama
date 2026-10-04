@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>try{if(localStorage.getItem("jah-theme")==="dark")document.documentElement.dataset.theme="dark";}catch(e){}</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Signature Llama Archive — Browse Every AI Term & Tool</title>
+<meta name="description" content="The full Signature Llama catalog: every LLM/AI Dictionary term (A–Z) and every plug-in tool library, with deep links into the model home.">
+<link rel="canonical" href="https://justinahiggins614-cmyk.github.io/signature-llama/browse.html">
+</script>
+<style>
+:root{--bg:#070b14;--panel:#0d1424;--panel2:#111a30;--line:#1e2c4d;--txt:#d7e0f2;--dim:#8b98b8;--gold:#e8c766;--amber:#ffc93c;--amber2:#ffdf7e;--acc:#5aa2ff;--grn:#5aff8a;--red:#ff5a5a}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--txt);font-family:Georgia,'Times New Roman',serif;line-height:1.55}
+.jahnet{background:#0a0f1e;color:#9aa4b2;font-size:.76em;padding:7px 10px;text-align:center;line-height:2;letter-spacing:.02em;border-bottom:1px solid var(--line)}
+.jahnet-t{color:var(--gold);font-weight:700;letter-spacing:.25em;margin-right:10px}
+/* NETWORK 10-FIX consistency layer (additive, 2026-10-03) */
+.sitekicker{display:inline-block;color:var(--gold);font-weight:700;letter-spacing:.2em;font-size:.85em;
+  border:1px solid var(--gold);border-radius:3px;padding:1px 8px;margin:0 0 10px;white-space:nowrap}
+.jahstatus{display:inline-block;font-size:.72em;letter-spacing:.18em;font-weight:700;color:#0a0f1e;
+  background:var(--gold);border-radius:3px;padding:2px 9px;margin:6px 8px 6px 0}
+.jahstatus.gen{background:#9fc2ff;color:#0a1424}
+.jahstatus.sim{background:#b48cff;color:#141021}
+.jahstatus.pub{background:#7fe0c3;color:#0a1a14}
+.jahprov{font-size:.78em;color:var(--dim);margin:8px 0 2px;letter-spacing:.02em}
+.jahrecord{border:1px solid var(--line);border-radius:8px;padding:8px 12px;margin:10px 0;background:#0b1120;font-size:.8em;color:var(--txt)}
+.jahrecord .jrp-meta{color:var(--dim);margin:4px 0 8px;font-size:.92em}
+.jahrecord .jrp-meta b{color:var(--amber2);font-weight:700;letter-spacing:.08em}
+.jahrecord .jrp-row{display:flex;flex-wrap:wrap;gap:6px}
+.jrp-btn{background:#1a2340;border:1px solid var(--amber);color:var(--amber2);border-radius:6px;
+  padding:7px 12px;font-size:.85em;cursor:pointer;text-decoration:none;display:inline-block}
+.jrp-btn:hover{background:#232c52}
+.jah-aiid{border-left:3px solid var(--amber);background:#0d1424;padding:8px 12px;margin:8px 0;font-size:.82em;color:var(--txt)}
+.jah-aiid b{color:var(--amber2);letter-spacing:.06em;font-weight:700}
+.jahnet a{color:#9fc2ff;text-decoration:none;margin:0 7px;white-space:nowrap}
+.jahnet a:hover{text-decoration:underline}
+.jahnet .cur{color:var(--gold);font-weight:700;margin:0 7px}
+.bigmenu{position:sticky;top:0;z-index:50;display:flex;flex-wrap:wrap;gap:8px;justify-content:center;background:#0a0f1cee;border-bottom:2px solid var(--amber);padding:10px 8px}
+.bigmenu a{display:inline-block;background:var(--amber);color:#1a1206;font-weight:800;text-decoration:none;font-size:1.05em;padding:12px 22px;border-radius:10px;letter-spacing:.02em}
+.bigmenu a:active{transform:scale(.96)}
+html{scroll-behavior:smooth}
+.panel{scroll-margin-top:120px}
+h2 .lk{font-size:.6em;padding:3px 10px;margin-left:10px;vertical-align:middle}
+.hero{text-align:center;padding:40px 16px 22px;background:radial-gradient(ellipse at 50% 0%,#2a2008 0%,var(--bg) 70%);border-bottom:3px double var(--amber)}
+.hero h1{margin:.2em 0 .1em;font-size:2.1em;letter-spacing:.1em;color:var(--amber2);text-shadow:0 0 22px #7a5a10}
+.hero .offname{color:var(--amber);letter-spacing:.28em;font-size:.95em;margin:.1em 0 .6em;text-transform:uppercase}
+.hero p{color:var(--dim);max-width:660px;margin:.4em auto}
+.pill{display:inline-block;border:1px solid var(--amber);border-radius:999px;padding:4px 16px;margin-top:10px;font-size:.85em;letter-spacing:.15em;color:var(--amber2)}
+.pill.live{border-color:var(--grn);color:var(--grn)}
+.pill.train{border-color:var(--amber);color:var(--amber2)}
+.wrap{max-width:900px;margin:0 auto;padding:18px 14px 60px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 18px;margin:18px 0}
+.panel h2{color:var(--gold);letter-spacing:.12em;font-size:1.05em;margin:.1em 0 .6em}
+.panel h2 .tick{color:var(--acc)}
+.kv{display:flex;gap:10px;margin:.35em 0;font-size:.95em}
+.kv b{color:var(--amber2);min-width:170px;font-weight:400}
+select,input[type=text]{background:#0a1226;border:1px solid var(--line);color:var(--txt);padding:8px 10px;border-radius:6px;font-family:Georgia,serif;font-size:.95em}
+button{background:#16244a;border:1px solid var(--acc);color:#cfe2ff;padding:8px 16px;border-radius:6px;cursor:pointer;font-family:Georgia,serif;font-size:.95em}
+button:hover{background:#1d2f60}
+button:disabled{opacity:.45;cursor:default}
+.chatlog{border:1px solid var(--line);border-radius:6px;background:#05080f;padding:8px;height:220px;overflow:auto;font-size:.88em;margin:8px 0}
+.chatlog .u{color:#9fc2ff;margin:.3em 0}
+.chatlog .a{color:#ffe1a8;margin:.3em 0}
+.chatlog .s{color:var(--dim);margin:.3em 0;font-style:italic}
+.chatrow{display:flex;gap:6px}
+.chatrow input{flex:1;min-width:0}
+.chatrow button{flex:none}
+pre{background:#05080f;border:1px solid var(--line);border-radius:6px;padding:10px;font-size:.82em;overflow:auto;color:#9fc2ff;white-space:pre-wrap}
+.docs{font-size:.93em}
+.docs li{margin:.45em 0}
+.docs b{color:var(--amber2)}
+code{background:#05080f;border:1px solid var(--line);border-radius:4px;padding:1px 6px;font-size:.88em;color:#9fc2ff}
+.copybtn{margin-top:6px;font-size:.85em}
+.az{display:flex;flex-wrap:wrap;gap:4px;margin:10px 0}
+.az button{padding:5px 9px;font-size:.85em}
+.az button.on{background:#3a2f10;border-color:var(--amber);color:var(--amber2)}
+.dterm{border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin:8px 0;background:var(--panel2)}
+.dterm h3{margin:.1em 0;color:var(--amber2);font-size:1em}
+.dterm .cat{display:inline-block;font-size:.72em;letter-spacing:.1em;color:var(--dim);border:1px solid var(--line);border-radius:999px;padding:2px 10px;margin-left:8px;vertical-align:middle}
+.dterm p{margin:.4em 0;font-size:.93em;color:var(--txt)}
+.dterm .row{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.dterm .row button{font-size:.8em;padding:4px 10px}
+.count{color:var(--dim);font-size:.85em;margin:6px 0}
+.disclaimer{border:1px dashed var(--line);border-radius:8px;padding:10px 14px;font-size:.85em;color:var(--dim);margin:18px 0}
+.footer{text-align:center;color:var(--dim);font-size:.85em;padding:26px 10px;border-top:1px solid var(--line);margin-top:30px}
+.footer .sig{color:var(--gold);letter-spacing:.2em}
+
+/* FINDER + TERM/LIBRARY HELPER (additive, 2026-10-02) */
+.finder{border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:8px;background:#0b101c;margin:12px 0;padding:12px 14px}
+.finder-h{color:var(--gold);font-weight:700;letter-spacing:.12em;font-size:.8em;margin-bottom:10px}
+.finder-row{display:flex;gap:8px}
+#finderq{flex:1;min-width:0;background:#0e1424;border:1px solid var(--line);color:var(--ink);padding:9px 10px;font:inherit;border-radius:6px}
+#finderq:focus{outline:none;border-color:var(--gold)}
+#findergo{background:var(--gold);border:none;color:#241a02;font:inherit;font-weight:700;padding:9px 18px;cursor:pointer;border-radius:6px;white-space:nowrap}
+.finder-res{margin-top:10px;display:grid;gap:8px}
+.finder-count{color:var(--gold);letter-spacing:.08em;font-size:.78em}
+.finder-none{color:var(--dim);font-size:.85em}
+a.fcard{display:block;border:1px solid var(--line);background:#0e1424;padding:10px 12px;text-decoration:none;color:var(--ink);border-radius:8px}
+a.fcard:hover{border-color:var(--gold)}
+a.fcard .fkind{color:var(--gold);font-size:.75em;letter-spacing:.1em;font-weight:700}
+a.fcard h3{margin:6px 0;color:var(--ink);font-size:1em}
+a.fcard .fmeta{font-size:.82em;color:var(--dim)}
+a.fcard .fabs{font-size:.86em;margin-top:6px;color:var(--ink)}
+a.fcard .fgo{margin-top:8px;color:var(--gold);font-weight:700;font-size:.85em}
+.llamahelper{border:1px dashed var(--gold);border-radius:8px;margin:12px 0;padding:10px 12px;background:#0b101c}
+.llamahelper-h{color:var(--gold);font-weight:700;letter-spacing:.1em;font-size:.78em;margin-bottom:8px}
+.helper-chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+.hchip{background:transparent;border:1px solid var(--gold);color:var(--gold);font:inherit;font-size:.78em;padding:5px 10px;border-radius:14px;cursor:pointer}
+.hchip:hover{background:rgba(232,199,102,.12)}
+.helper-log{max-height:230px;overflow:auto;margin-bottom:8px}
+.hmsg{margin:6px 0;font-size:.86em;line-height:1.5}
+.hmsg.you{color:var(--dim)}
+.hmsg.ai{color:var(--ink)}
+.helper-row{display:flex;gap:6px}
+.helper-input{flex:1;min-width:0;background:#0e1424;border:1px solid var(--line);color:var(--ink);padding:8px 10px;font:inherit;border-radius:6px}
+.helper-input:focus{outline:none;border-color:var(--gold)}
+.helper-send{background:var(--gold);border:none;color:#241a02;font:inherit;font-weight:700;padding:8px 14px;cursor:pointer;border-radius:6px;white-space:nowrap}
+/* UX-2026-10-03: opt-in dark mode via data-theme; default look unchanged */
+html[data-theme="dark"]{filter:invert(1) hue-rotate(180deg)}
+html[data-theme="dark"] img,html[data-theme="dark"] video,html[data-theme="dark"] canvas,html[data-theme="dark"] svg{filter:invert(1) hue-rotate(180deg)}
+#jah-theme-toggle{position:fixed;right:14px;bottom:14px;z-index:99999;width:40px;height:40px;border-radius:50%;border:1px solid var(--gold);background:#0a0f1e;color:var(--gold);font-size:20px;line-height:1;cursor:pointer;opacity:.7;box-shadow:0 2px 8px rgba(0,0,0,.4)}
+#jah-theme-toggle:hover{opacity:1}
+</style>
+
+</head>
+<body>
+<button id="jah-theme-toggle" type="button" title="Toggle dark mode" aria-label="Toggle dark mode">&#9681;</button>
+<script>
+/* UX-2026-10-03: dark-mode toggle wiring (opt-in; default look unchanged) */
+(function(){var b=document.getElementById("jah-theme-toggle");
+function paint(){try{b.innerHTML=(document.documentElement.dataset.theme==="dark")?"&#9728;":"&#9681;";}catch(e){}}
+b.addEventListener("click",function(){try{var d=document.documentElement;var dark=d.dataset.theme!=="dark";d.dataset.theme=dark?"dark":"";localStorage.setItem("jah-theme",dark?"dark":"light");}catch(e){}paint();});
+paint();})();
+</script>
+<div class="jahnet"><span class="jahnet-t">THE JAH NETWORK</span><a href="https://justinahiggins614-cmyk.github.io/signature-math/">1 Signature Math</a><a href="https://justinahiggins614-cmyk.github.io/jah-calculator/">2 Signature Universal Paradox Immune Calculator</a><a href="https://justinahiggins614-cmyk.github.io/jah-dictionary/">3 The Signature Dictionary</a><a href="https://justinahiggins614-cmyk.github.io/jah-wiki/">4 JAH Wiki</a><a href="https://justinahiggins614-cmyk.github.io/jah-n-wiki-leaks/">5 Wiki Leaks</a><a class="cur" href="https://justinahiggins614-cmyk.github.io/signature-llama/">6 Signature Llama: The Fully Cyber Utilizable AI</a><a href="https://justinahiggins614-cmyk.github.io/jah-ai-models/">7 The Signature AI Phone Book</a><a href="https://justinahiggins614-cmyk.github.io/cyber-patent-catalog/">8 Globally Rejustered Patent Catalog</a><a href="https://justinahiggins614-cmyk.github.io/signature-one-archive/specs.html">9 Signature Spec Catalog Pending Patents</a><a href="https://justinahiggins614-cmyk.github.io/jah-computer-systems/">10 The Signature PC System Depository</a><a href="https://justinahiggins614-cmyk.github.io/signature-books/">11 The Signature Book Depository</a><a href="https://justinahiggins614-cmyk.github.io/signature-comics/">12 The Signature Comic Store</a><a href="https://justinahiggins614-cmyk.github.io/signature-newspapers/">13 The Signature Global Newspaper Archive</a><a href="https://justinahiggins614-cmyk.github.io/signature-backend/">14 The Signature AI Mad Scientist Creation Lab</a><a href="https://justinahiggins614-cmyk.github.io/signature-boundless-generators/">15 The Signature Boundless Generator Archive</a><a href="https://justinahiggins614-cmyk.github.io/signature-ai-mixlab/">16 The Signature AI Mix Lab</a><a href="https://justinahiggins614-cmyk.github.io/signature-ai-olypics/">17 AI Olypics</a><a href="https://justinahiggins614-cmyk.github.io/signature-chip-maker/">18 The Signature Computer Chip Maker and Archive</a><a href="https://justinahiggins614-cmyk.github.io/signature-app-archive/">19 The Signature App Archive</a><a href="https://justinahiggins614-cmyk.github.io/signature-ai-robot-matcher/">20 The Signature AI Robot Matcher</a><a href="https://justinahiggins614-cmyk.github.io/signature-experiment-solver/">21 The Signature Experiment Solver</a><a href="https://justinahiggins614-cmyk.github.io/signature-ai-image-video-maker/">22 Signature AI Pixel</a><a href="https://justinahiggins614-cmyk.github.io/signature-ai-song-maker/">23 Signature Music Studio</a><a href="https://justinahiggins614-cmyk.github.io/signature-fixit/">24 The Signature Mr Fix-It</a><a href="https://justinahiggins614-cmyk.github.io/signature-university/">25 The Signature University</a><a href="https://justinahiggins614-cmyk.github.io/signature-cyber-mega-mall/">26 The Signature Cyber Mega-Mall</a><a href="https://justinahiggins614-cmyk.github.io/signature-3d-print/">27 The Signature 3D Print Depository</a></div>
+<nav class="bigmenu" aria-label="Site menu">
+  <a href="index.html">&#127968; Llama Home</a>
+  <a href="index.html#dictionary">&#128214; Dictionary</a>
+  <a href="index.html#toollib">&#128295; Tool Library</a>
+  <a href="index.html#downloads">&#10515; Downloads</a>
+  <a href="browse.html" aria-current="page">&#128449; Archive</a>
+</nav>
+
+<div class="hero">
+  <p class="sitekicker">SITE 6 OF 27 &middot; THE JAH NETWORK</p>
+  <h1>The Signature Llama Archive</h1>
+  <p class="offname">EVERY AI TERM &amp; EVERY TOOL LIBRARY &middot; A&ndash;Z</p>
+  <p>The words that make the Llama tick, and every plug-in tool that makes it smarter &mdash; the complete catalog, in one place. Open any entry to see its full record on the model home page.</p>
+  <p><b id="browseCount">312 AI terms · 120 tool libraries</b></p>
+  <div><span class="pill live">&#9679; LIVE ARCHIVE</span></div>
+</div>
+
+<div class="wrap">
+
+  <div class="finder" role="search">
+    <div class="finder-h">&#128269; SEARCH THE ARCHIVE</div>
+    <div class="finder-row">
+      <input type="text" id="bq" placeholder="Type a term or tool name&hellip;" autocomplete="off" aria-label="Search terms and tools">
+    </div>
+    <div class="finder-res" id="bres" aria-live="polite"></div>
+  </div>
+
+  <div class="panel" id="termpanel" style="border:2px solid var(--gold)">
+    <h2><span class="tick">&#9733;</span> LLM / AI DICTIONARY &mdash; <span id="termn">312</span> ORIGINAL TERMS</h2>
+    <p style="color:var(--dim);font-size:.9em;margin-top:0">The Signature original definitions behind the Llama &mdash; model architecture, training, inference, tokens, evaluation, deployment. Each term opens its full record on the model home page.</p>
+    <div class="count" id="termhint">Tap a letter to browse &mdash; the catalog loads only what you open.</div>
+    <div id="termaz"></div>
+  </div>
+
+  <div class="panel" id="toolpanel" style="border:2px solid var(--amber)">
+    <h2><span class="tick">&#9733;</span> TOOL LIBRARY &mdash; <span id="tooln">120</span> PLUG-IN LIBRARIES</h2>
+    <p style="color:var(--dim);font-size:.9em;margin-top:0">Every plug-in tool library &mdash; text, thinking, memory, chat, search, math, web, data, voice, safety, embedding and fun. Each library opens its full record on the model home page.</p>
+    <div class="count" id="toolhint">Tap a letter to browse &mdash; the catalog loads only what you open.</div>
+    <div id="toolaz"></div>
+  </div>
+
+</div>
+
+<div class="footer"><span class="sig">A SIGNATURE SYSTEM</span><br>Signature Llama &mdash; the baseline AI, currently free for all internet tasks.<br><span style="font-size:.8em">Independent model by Justin Addam Higgins &middot; Not affiliated with Meta</span></div>
+
+<style>
+/* browse.html additive bits (same visual language as index.html) */
+.azgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(64px,1fr));gap:6px;margin:10px 0}
+.azgrid details{border:1px solid var(--line);border-radius:8px;background:var(--panel2);overflow:hidden}
+.azgrid details[open]{border-color:var(--gold);grid-column:1/-1}
+.azgrid summary{list-style:none;cursor:pointer;padding:10px 6px;text-align:center;font-weight:700;color:var(--amber2);font-size:1.1em;user-select:none;-webkit-tap-highlight-color:transparent}
+.azgrid summary::-webkit-details-marker{display:none}
+.azgrid details[open] summary{background:#1a2340;border-bottom:1px solid var(--line)}
+.azlist{padding:8px;display:grid;gap:6px}
+.azlist a.bent{display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--txt);background:#0b1120;border:1px solid var(--line);border-radius:6px;padding:8px 10px;font-size:.92em}
+.azlist a.bent:hover{border-color:var(--gold)}
+.azlist a.bent .go{margin-left:auto;color:var(--gold);font-weight:700;white-space:nowrap;font-size:.85em}
+.azlist .bcat{font-size:.72em;letter-spacing:.08em;color:var(--dim);border:1px solid var(--line);border-radius:999px;padding:1px 8px;white-space:nowrap}
+.azloading{padding:10px;color:var(--dim);font-size:.85em;font-style:italic}
+</style>
+
+<script>
+/* ============ Signature Llama archive: lazy A-Z browser ============ */
+(function(){
+"use strict";
+var IDX=null, IDXP=null;
+var bq=document.getElementById("bq"), bres=document.getElementById("bres");
+var termaz=document.getElementById("termaz"), toolaz=document.getElementById("toolaz");
+var termn=document.getElementById("termn"), tooln=document.getElementById("tooln");
+
+function loadIdx(){
+  if(IDX)return Promise.resolve(IDX);
+  if(IDXP)return IDXP;
+  IDXP=fetch("data/browse-index.json").then(function(r){
+    if(!r.ok)throw new Error("http "+r.status);
+    return r.json();
+  }).then(function(j){IDX=j;return j;}).catch(function(){IDXP=null;throw new Error("load failed");});
+  return IDXP;
+}
+
+function letterOf(name){
+  var c=String(name||"").trim().charAt(0).toUpperCase();
+  return (c>="A"&&c<="Z")?c:"#";
+}
+function groupByLetter(items,getName){
+  var g={};
+  items.forEach(function(it){var L=letterOf(getName(it));(g[L]=g[L]||[]).push(it);});
+  Object.keys(g).forEach(function(L){
+    g[L].sort(function(a,b){return getName(a).toLowerCase().localeCompare(getName(b).toLowerCase());});
+  });
+  return g;
+}
+var LETTERS="ABCDEFGHIJKLMNOPQRSTUVWXYZ#".split("");
+
+function termLink(t){return "index.html?term="+encodeURIComponent(t.t);}
+function toolLink(l){return "index.html?toollib="+encodeURIComponent(l.id);}
+
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+
+function buildPanel(grid, groups, isTool, doneLabel){
+  grid.innerHTML="";
+  var wrap=document.createElement("div");wrap.className="azgrid";grid.appendChild(wrap);
+  LETTERS.forEach(function(L){
+    var items=groups[L]||[];
+    var d=document.createElement("details");
+    var s=document.createElement("summary");
+    s.innerHTML=esc(L)+(items.length?' <span style="font-weight:400;font-size:.72em;color:var(--dim)">('+items.length+")</span>":"");
+    if(!items.length)d.style.opacity=".45";
+    var body=document.createElement("div");body.className="azlist";
+    body.innerHTML='<div class="azloading">'+(items.length?"Loading&hellip;":"No entries under this letter.")+"</div>";
+    d.appendChild(s);d.appendChild(body);wrap.appendChild(d);
+    var filled=false;
+    d.addEventListener("toggle",function(){
+      if(!d.open||filled)return;filled=true;
+      var html=items.map(function(it){
+        var name=isTool?it.name:it.t, cat=isTool?it.cat:it.c, link=isTool?toolLink(it):termLink(it);
+        return '<a class="bent" href="'+link+'"><span>'+esc(name)+'</span><span class="bcat">'+esc(cat||"")+'</span><span class="go">Open &rarr;</span></a>';
+      }).join("");
+      body.innerHTML=html||'<div class="azloading">No entries under this letter.</div>';
+    });
+  });
+  // deep-link support: browse.html?letter=T / ?toolletter=M
+  try{
+    var u=new URLSearchParams(location.search);
+    var want=isTool?u.get("toolletter"):u.get("letter");
+    if(want){want=want.charAt(0).toUpperCase();
+      var ds=wrap.querySelectorAll("details");
+      for(var i=0;i<ds.length;i++){
+        if(ds[i].querySelector("summary").textContent.charAt(0)===want){ds[i].open=true;break;}
+      }
+    }
+  }catch(e){}
+}
+
+function buildAll(j){
+  termn.textContent=j.term_count;tooln.textContent=j.tool_count;
+  buildPanel(termaz, groupByLetter(j.terms,function(t){return t.t;}), false);
+  buildPanel(toolaz, groupByLetter(j.tools,function(l){return l.name;}), true);
+  try{var q=new URLSearchParams(location.search).get("q");if(q){bq.value=q;runSearch(q);}}catch(e){}
+}
+
+function failMsg(el,what){
+  el.innerHTML='<div class="azloading">Could not load the '+what+' catalog right now. Check your connection and reload.</div>';
+}
+
+function ensureAndBuild(){
+  loadIdx().then(buildAll,function(){
+    failMsg(termaz,"term");failMsg(toolaz,"tool");
+    bres.innerHTML='<div class="finder-none">Search is unavailable until the catalog index loads. Try reloading.</div>';
+  });
+}
+
+/* lazy: the compact index is only fetched when the user opens a letter,
+   types in the search box, or passes ?q= / ?letter= in the URL */
+var armed=false;
+function arm(){if(armed)return;armed=true;ensureAndBuild();}
+document.addEventListener("toggle",function(e){if(e.target&&e.target.tagName==="DETAILS")arm();},true);
+bq.addEventListener("input",function(){arm();});
+bq.addEventListener("focus",function(){arm();});
+window.addEventListener("DOMContentLoaded",function(){
+  try{
+    var u=new URLSearchParams(location.search);
+    if(u.get("q")||u.get("letter")||u.get("toolletter"))arm();
+  }catch(e){}
+});
+
+var searchT=null;
+bq.addEventListener("input",function(){
+  clearTimeout(searchT);
+  var q=bq.value;
+  searchT=setTimeout(function(){runSearch(q);},180);
+});
+
+function runSearch(q){
+  q=String(q||"").trim().toLowerCase();
+  bres.innerHTML="";
+  if(q.length<2)return;
+  if(!IDX){ /* index still lazy-loading: run again once it arrives */
+    loadIdx().then(function(){runSearch(q);},function(){});
+    return;
+  }
+  var terms=IDX.terms.filter(function(t){return t.t.toLowerCase().indexOf(q)>-1;}).slice(0,60);
+  var tools=IDX.tools.filter(function(l){return l.name.toLowerCase().indexOf(q)>-1||l.id.toLowerCase().indexOf(q)>-1;}).slice(0,60);
+  var total=terms.length+tools.length;
+  var h='<div class="finder-count">'+total+' result'+(total===1?"":"s")+' for &ldquo;'+esc(q)+'&rdquo;</div>';
+  if(!total)h+='<div class="finder-none">No terms or tools match. Try a shorter word.</div>';
+  terms.forEach(function(t){
+    h+='<a class="fcard" href="'+termLink(t)+'"><span class="fkind">AI TERM</span><h3>'+esc(t.t)+'</h3><div class="fmeta">'+esc(t.c||"")+'</div><div class="fgo">Open full record &rarr;</div></a>';
+  });
+  tools.forEach(function(l){
+    h+='<a class="fcard" href="'+toolLink(l)+'"><span class="fkind">TOOL LIBRARY</span><h3>'+esc(l.name)+'</h3><div class="fmeta">'+esc(l.cat||"")+' &middot; '+esc(l.id)+'</div><div class="fgo">Open full record &rarr;</div></a>';
+  });
+  bres.innerHTML=h;
+}
+
+/* live count refresh: stamped value is the initial content; JS replaces
+   it with the fresh count once the compact index loads */
+loadIdx().then(function(j){
+  var bc=document.getElementById("browseCount");
+  if(bc)bc.textContent=j.term_count+" AI terms · "+j.tool_count+" tool libraries";
+},function(){});
+})();
+</script>
+</body>
+</html>
