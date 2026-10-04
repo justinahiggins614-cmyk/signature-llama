@@ -182,7 +182,7 @@ paint();})();
   <a href="#inventory">🧰 Inventory</a>
   <a href="#guide">🧭 Explainers</a>
   <a href="#developers">💻 Developers</a>
-  <a href="#siteguide">? Guide</a>
+  <a href="#" id="guideopen">? Guide</a>
 </nav>
 
 <div class="hero">
@@ -199,21 +199,25 @@ paint();})();
 <div class="wrap">
 
 <style>
-/* UX-2026-10-03 first-time tour: themed tooltip + highlight, no look changes elsewhere */
-.tour-hl{outline:3px solid var(--gold)!important;outline-offset:4px;border-radius:6px;box-shadow:0 0 0 6px rgba(255,200,80,.15);position:relative;z-index:100000}
-#tourcard{position:fixed;z-index:100001;max-width:min(340px,92vw);background:#0d1428;border:2px solid var(--gold);border-radius:10px;padding:12px 14px;color:var(--txt);font-size:.88em;box-shadow:0 8px 30px rgba(0,0,0,.6);display:none}
-#tourcard h4{margin:.1em 0 .4em;color:var(--gold);font-size:1em}
-#tourcard p{margin:.35em 0}
-#tourcard .tbtns{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
-#tourcard button{min-height:44px;min-width:64px;padding:10px 16px}
-#tourprompt{position:fixed;z-index:100001;right:14px;bottom:64px;max-width:min(320px,92vw);background:#0d1428;border:2px solid var(--gold);border-radius:10px;padding:12px 14px;color:var(--txt);font-size:.88em;box-shadow:0 8px 30px rgba(0,0,0,.6);display:none}
-#tourprompt .tbtns{display:flex;gap:8px;margin-top:10px}
-#tourprompt button{min-height:44px;padding:10px 16px}
+/* TOUR FIX 2026-10-04: centered welcome overlay. No page scrolling, no spotlight, no auto-jump. One "Got it" button. */
+#wel{position:fixed;inset:0;z-index:100002;background:rgba(4,8,18,.78);display:flex;align-items:center;justify-content:center;padding:14px}
+#wel[hidden]{display:none}
+#wel .wcard{width:min(560px,96vw);max-height:92vh;overflow:auto;background:#0d1428;border:2px solid var(--gold);border-radius:12px;padding:18px;box-shadow:0 10px 40px rgba(0,0,0,.7);color:var(--txt)}
+#wel .wkick{font-size:.68em;letter-spacing:.22em;color:var(--dim);margin-bottom:6px}
+#wel h2{margin:.1em 0 .4em;color:var(--gold);font-size:1.25em}
+#wel .wlead{font-size:.92em;line-height:1.6;margin:.3em 0}
+#wel ol{margin:.6em 0;padding-left:1.3em}
+#wel li{margin:.55em 0;font-size:.92em;line-height:1.6}
+#wel li b{color:var(--gold)}
+#welok{display:block;width:100%;min-height:56px;margin-top:12px;font-size:1.1em;font-weight:800;border-radius:10px;border:0;background:var(--gold);color:#0a0e14;cursor:pointer}
+#wel .wfine{font-size:.78em;color:var(--dim);margin:.8em 0 0;line-height:1.5}
+#wel .wfine a{color:var(--gold)}
+
 </style>
 
   <div class="panel" id="siteguide">
     <h2><span class="tick">?</span> HOW TO USE THIS SITE</h2>
-    <p style="color:var(--dim);font-size:.9em;margin-top:0">First time here? Every feature on this page, in plain words — what it is, what it does, how to use it. New visitors also get a 1-minute guided tour: <button type="button" id="retaketour" style="font-size:.95em;padding:8px 16px;min-height:44px">▶ Take the tour</button></p>
+    <p style="color:var(--dim);font-size:.9em;margin-top:0">First time here? Every feature on this page, in plain words — what it is, what it does, how to use it. New visitors also get a welcome guide: <button type="button" id="retaketour" style="font-size:.95em;padding:8px 16px;min-height:44px">▶ Show the welcome guide</button></p>
     <div style="font-size:.88em;line-height:1.55">
     <p><b>💬 Talk to Llama (chat box).</b> WHAT: a conversation with the Llama, right in this page. WHAT IT DOES: answers your questions — from the trained model, the knowledge guide, or the cloud, always labeled. HOW: type in the box and hit Enter or Send. Reset clears the 12-turn history.</p>
     <p><b>Model picker (✦ / ⬢).</b> WHAT: chooses which Llama answers. WHAT IT DOES: ✦ Signature Llama v2 runs on your device (LOCAL, free, 96-word context); ⬢ Industry Standard is the full-scale cloud Llama (CLOUD, 128k context, needs a free key). HOW: pick from the dropdown above the chat.</p>
@@ -1767,127 +1771,37 @@ function buildDictCat() {
    Canonical record-status badge (exactly one of the network set), record action
    panels (OPEN.SOURCE.ID.VERSION.SHARE.COPY.DOWNLOAD.READ ALOUD), provenance
    lines, AI identity cards. ES5-safe. */
-/* ============ FIRST-TIME USER GUIDE (tour), 2026-10-03 ============
-   First-visit spotlight tour + permanent "#siteguide" panel. The tour never
-   blocks content (no dim overlay), remembers dismissal in localStorage
-   ('jah-tour-seen-llama'), and is keyboard accessible (Esc closes,
-   arrow keys move). All targets are real elements on this page. */
-var TOUR_STEPS = [
-  { sel: '#modelpick', title: '1 · Model picker',
-    what: 'the dropdown that chooses which Llama answers you.',
-    does: '✦ Signature Llama v2 runs on your device (LOCAL, free, 96-word context); ⬢ Industry Standard is the full-scale cloud Llama (CLOUD, 128k context).',
-    how: 'Pick from the dropdown. The cloud option needs a free API key first (setup box appears when you pick it).' },
-  { sel: '#llamainput', title: '2 · Chat box',
-    what: 'where you talk to the Llama.',
-    does: 'Sends your message to the selected engine; the 12-turn history feeds the reply.',
-    how: 'Type and hit Enter or Send. Reset clears the history.' },
-  { sel: '#statuspill', title: '3 · LOCAL vs CLOUD indicator',
-    what: 'the ● LIVE / ◌ DEGRADED pill in the header.',
-    does: 'Shows whether the on-device model is live right now; every single reply is also labeled with the engine that wrote it.',
-    how: 'Glance at the pill before chatting — and read the ✦/⬢/Guide label on each answer.' },
-  { sel: '#ttsstop', title: '4 · Read-aloud controls',
-    what: 'the row under the chat box with ▶ ⏸ ⏵ ⏹.',
-    does: 'Every reply is read aloud automatically through two voice tiers.',
-    how: 'Pause, resume, or stop the reading any time; Replay re-reads the last reply.' },
-  { sel: '#savechat', title: '5 · Save chat',
-    what: 'the ⤓ Save chat button by the model picker.',
-    does: 'Downloads your whole visible conversation as a text file.',
-    how: 'Click it — signature-llama-chat.txt lands in your Downloads folder.' },
-  { sel: '#dl-bin', title: '6 · Downloads',
-    what: 'the Downloads panel buttons (weights, engine, vocab, zip).',
-    does: 'Gives you the actual model files; the SHA-256 hash is verified automatically when the model loads.',
-    how: 'Click a button once the status reads "Published".' },
-  { sel: '#creations', title: '7 · Use it in your creations',
-    what: 'the ★ panel with the 3-line embed code.',
-    does: 'Puts Signature Llama inside your own websites, games, and apps.',
-    how: 'Copy the embed code and paste it into any page (must be a type="module" script).' },
-  { sel: '#developers', title: '8 · Developers',
-    what: 'the 💻 panel with llama-api.js.',
-    does: 'SignatureLlama.ask(question) gives on-demand answers with machine-readable provenance; every code sample has a copy button.',
-    how: 'Include the script, call ask() — copy buttons sit on every sample.' },
-  { sel: '#dictsearch', title: '9 · LLM / AI Dictionary',
-    what: 'the 📖 dictionary search box.',
-    does: 'Searches 312 original AI terms with read-aloud, copy, and a per-term AI helper.',
-    how: 'Type in the box or browse the A–Z letters.' }
-];
-var Tour = { i: -1, active: false, el: null };
-function tourCard() { return document.getElementById('tourcard'); }
-function tourClearHL() {
-  var h = document.querySelector('.tour-hl'); if (h) h.classList.remove('tour-hl');
+/* ============ TOUR FIX 2026-10-04: WELCOME OVERLAY ============
+   Centered first-visit guide. The page NEVER scrolls, never spotlights,
+   never jumps. One "Got it" button dismisses (localStorage
+   'jah-tour-seen-llama'); the nav "? Guide" link re-opens it any time. */
+function openWel(){
+  var w=document.getElementById('wel'); if(!w) return;
+  w.hidden=false;
+  try{document.getElementById('welok').focus();}catch(e){}
 }
-function tourPlace() {
-  var card = tourCard(), t = Tour.el;
-  if (!card || !t) return;
-  var r = t.getBoundingClientRect(), cw = Math.min(340, window.innerWidth * 0.92);
-  var left = Math.max(8, Math.min(window.innerWidth - cw - 8, r.left));
-  var top = r.bottom + 12;
-  if (top + 260 > window.innerHeight) top = Math.max(8, r.top - 272);
-  card.style.left = left + 'px'; card.style.top = top + 'px'; card.style.maxWidth = cw + 'px';
+function closeWel(){
+  var w=document.getElementById('wel'); if(w) w.hidden=true;
+  try{localStorage.setItem('jah-tour-seen-llama','1');}catch(e){}
 }
-function tourShow(i) {
-  var card = tourCard(); if (!card) return;
-  if (i < 0 || i >= TOUR_STEPS.length) { tourEnd(); return; }
-  var s = TOUR_STEPS[i], t = document.querySelector(s.sel);
-  if (!t) { tourShow(i + 1); return; } /* never strand the tour on a missing target */
-  tourClearHL(); Tour.i = i; Tour.el = t;
-  t.classList.add('tour-hl');
-  try { t.scrollIntoView({ block: 'center', behavior: 'smooth' }); } catch (e) {}
-  document.getElementById('tourtit').textContent = s.title;
-  document.getElementById('tourwhat').textContent = s.what;
-  document.getElementById('tourdoes').textContent = s.does;
-  document.getElementById('tourhow').textContent = s.how;
-  document.getElementById('tourstep').textContent = 'Step ' + (i + 1) + ' of ' + TOUR_STEPS.length;
-  document.getElementById('tourback').disabled = (i === 0);
-  document.getElementById('tournext').textContent = (i === TOUR_STEPS.length - 1) ? 'Finish ✓' : 'Next →';
-  card.style.display = 'block';
-  setTimeout(tourPlace, 350); /* after the smooth scroll settles */
-}
-function tourEnd() {
-  var card = tourCard(); if (card) card.style.display = 'none';
-  tourClearHL(); Tour.active = false; Tour.i = -1; Tour.el = null;
-  try { localStorage.setItem('jah-tour-seen-llama', '1'); } catch (e) {}
-  try {
-    window.removeEventListener('scroll', tourPlace, true);
-    window.removeEventListener('resize', tourPlace);
-    document.removeEventListener('keydown', tourKeys);
-  } catch (e) {}
-}
-function tourKeys(e) {
-  if (!Tour.active) return;
-  var tag = (e.target && e.target.tagName) || '';
-  if (e.key === 'Escape') { tourEnd(); return; }
-  if (/INPUT|TEXTAREA|SELECT/.test(tag)) return;
-  if (e.key === 'ArrowRight') { tourShow(Tour.i + 1); }
-  else if (e.key === 'ArrowLeft') { tourShow(Tour.i - 1); }
-}
-function tourStart() {
-  var p = document.getElementById('tourprompt'); if (p) p.style.display = 'none';
-  Tour.active = true;
-  window.addEventListener('scroll', tourPlace, true);
-  window.addEventListener('resize', tourPlace);
-  document.addEventListener('keydown', tourKeys);
-  tourShow(0);
-  try { document.getElementById('tournext').focus(); } catch (e) {}
-}
-function wireTour() {
-  var card = tourCard(); if (!card) return;
-  document.getElementById('tourback').onclick = function () { tourShow(Tour.i - 1); };
-  document.getElementById('tournext').onclick = function () { tourShow(Tour.i + 1); };
-  document.getElementById('tourend').onclick = function () { tourEnd(); };
-  var retake = document.getElementById('retaketour');
-  if (retake) retake.onclick = function () { tourStart(); };
-  var prompt = document.getElementById('tourprompt');
-  var seen = false;
-  try { seen = !!localStorage.getItem('jah-tour-seen-llama'); } catch (e) {}
-  function offer() {
-    var p2 = document.getElementById('tourprompt'); if (p2) p2.style.display = 'block';
-  }
-  document.getElementById('tourstart').onclick = function () { tourStart(); };
-  document.getElementById('tourskip').onclick = function () {
-    var p2 = document.getElementById('tourprompt'); if (p2) p2.style.display = 'none';
-    try { localStorage.setItem('jah-tour-seen-llama', '1'); } catch (e) {}
-  };
-  if (!seen && prompt) setTimeout(offer, 2500); /* let the page settle first */
+function wireWelcome(){
+  var w=document.getElementById('wel'); if(!w) return;
+  var ok=document.getElementById('welok');
+  if(ok) ok.onclick=function(){ closeWel(); };
+  w.addEventListener('click',function(e){ if(e.target===w) closeWel(); });
+  document.addEventListener('keydown',function(e){
+    if(e.key==='Escape'&&!w.hidden) closeWel();
+  });
+  var go=document.getElementById('guideopen');
+  if(go) go.onclick=function(e){ try{e.preventDefault();}catch(x){} openWel(); };
+  var retake=document.getElementById('retaketour');
+  if(retake) retake.onclick=function(){ openWel(); };
+  var gf=document.getElementById('welfull');
+  if(gf) gf.onclick=function(e){ try{e.preventDefault();}catch(x){} closeWel(); var sg=document.getElementById('siteguide'); if(sg) sg.scrollIntoView(); };
+  var seen=false, deep=false;
+  try{ seen=!!localStorage.getItem('jah-tour-seen-llama'); }catch(e){ seen=true; }
+  try{ deep=/[?&#](ask|term|dial)=/i.test(location.search+location.hash); }catch(e){}
+  if(!seen&&!deep) setTimeout(function(){ if(w.hidden) openWel(); },2000);
 }
 /* ============ /tour ============ */
 function jahStatusBadge(status){
@@ -2681,7 +2595,7 @@ document.addEventListener('DOMContentLoaded', function () {
   loadModelStatus().then(function () { renderLastUpdated(); });
   wireChatBox();
   wireTTSButtons();
-  wireTour();
+  wireWelcome();
   wireTestLlama();
   wireModelPicker();
   wireCopyButtons();
@@ -2754,24 +2668,20 @@ window.addEventListener("load",function(){setTimeout(doScroll,900);});
 }catch(e){}
 })();
 </script>
-<div id="tourprompt" role="dialog" aria-label="First-visit tour offer">
-  <b style="color:var(--gold)">New here?</b> Take the 1-minute tour — it points at each feature and shows what it does.
-  <div class="tbtns">
-    <button type="button" id="tourstart">▶ Start tour</button>
-    <button type="button" id="tourskip">Skip</button>
-  </div>
-</div>
-<div id="tourcard" role="dialog" aria-label="Site tour">
-  <h4 id="tourtit"></h4>
-  <p><b>WHAT:</b> <span id="tourwhat"></span></p>
-  <p><b>DOES:</b> <span id="tourdoes"></span></p>
-  <p><b>HOW:</b> <span id="tourhow"></span></p>
-  <p style="color:var(--dim);font-size:.82em"><span id="tourstep"></span> · Esc closes, ← → move</p>
-  <div class="tbtns">
-    <button type="button" id="tourback">← Back</button>
-    <button type="button" id="tournext">Next →</button>
-    <button type="button" id="tourend">Skip tour</button>
+<div id="wel" hidden>
+  <div class="wcard" role="dialog" aria-modal="true" aria-label="Welcome — how to use this site">
+    <div class="wkick">WELCOME — FIRST-TIME GUIDE</div>
+    <h2>Signature Llama</h2>
+    <p class="wlead">The Fully Cyber Utilizable AI — chat with it right here, or put it in your own creations. The page never moves during this guide.</p>
+    <ol>
+      <li><b>Pick the engine.</b> The model dropdown: &#10022; <b>Signature Llama v2</b> runs on your device (LOCAL, free); &#11022; <b>Industry Standard</b> is the cloud Llama (CLOUD — needs a free API key first). The &#9679; LIVE pill shows the on-device model&#8217;s state.</li>
+      <li><b>Chat.</b> Type in the box, hit Enter or Send. Every reply is labeled with the engine that wrote it, and read aloud automatically — the &#9654; &#9208; &#9205; &#9209; controls sit under the box, and <b>Save chat</b> downloads the conversation.</li>
+      <li><b>Use it in your creations.</b> The Developers wing: copy the 3-line embed code or llama-api.js to put Signature Llama in your own websites, games, and apps. The LLM / AI Dictionary wing holds 300+ original AI terms.</li>
+    </ol>
+    <button type="button" id="welok">Got it</button>
+    <p class="wfine">Tap the <b>? Guide</b> link in the nav any time to see this again. <a href="#" id="welfull">Read the full guide</a> for every feature in plain words.</p>
   </div>
 </div>
 </body>
+
 </html>
