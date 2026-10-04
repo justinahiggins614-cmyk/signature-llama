@@ -1816,7 +1816,7 @@ function buildDictCat() {
 function openWel(){
   var w=document.getElementById('wel'); if(!w) return;
   w.hidden=false;
-  try{document.getElementById('welok').focus();}catch(e){}
+  try{document.getElementById('welok').focus({preventScroll:true});}catch(e){}
 }
 function closeWel(){
   var w=document.getElementById('wel'); if(w) w.hidden=true;
