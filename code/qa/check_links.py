@@ -37,7 +37,7 @@ NAV_EXPECTED = [
     ("https://justinahiggins614-cmyk.github.io/signature-backend/", "Signature Backend"),
     ("https://justinahiggins614-cmyk.github.io/signature-boundless-generators/", "Boundless Generator Archive"),
     ("https://justinahiggins614-cmyk.github.io/signature-ai-mixlab/", "AI Mix Lab"),
-    ("https://justinahiggins614-cmyk.github.io/signature-ai-olypics/", "AI Olypics"),
+    ("https://justinahiggins614-cmyk.github.io/signature-ai-olypics/", "AI Olympics"),
     ("https://justinahiggins614-cmyk.github.io/signature-chip-maker/", "Chip Maker and Archive"),
     ("https://justinahiggins614-cmyk.github.io/signature-app-archive/", "App Archive"),
     ("https://justinahiggins614-cmyk.github.io/signature-ai-robot-matcher/", "AI Robot Matcher"),
