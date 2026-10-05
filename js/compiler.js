@@ -753,10 +753,10 @@ if (typeof document !== "undefined"){
   });
 
   /* ----- phone-book queue (this browser) ----- */
-  function pbQueue(){ try{ return JSON.parse(localStorage.getItem("jah-llama-phonebook-queue")||"[]"); }catch(e){ return []; } }
-  function pbQueueSave(a){ try{ localStorage.setItem("jah-llama-phonebook-queue", JSON.stringify(a)); }catch(e){} }
-  function nextSeq(){ var s=3; try{ s=parseInt(localStorage.getItem("jah-llama-cmp-seq")||"3",10)||3; }catch(e){} return s; }
-  function bumpSeq(s){ try{ localStorage.setItem("jah-llama-cmp-seq", String(s+2)); }catch(e){} }
+  function pbQueue(){ var PS = (typeof JAHProfile !== 'undefined') ? JAHProfile.store : localStorage; try{ return JSON.parse(PS.get("jah-llama-phonebook-queue")||"[]"); }catch(e){ return []; } }
+  function pbQueueSave(a){ var PS = (typeof JAHProfile !== 'undefined') ? JAHProfile.store : localStorage; try{ PS.set("jah-llama-phonebook-queue", JSON.stringify(a)); }catch(e){} }
+  function nextSeq(){ var PS = (typeof JAHProfile !== 'undefined') ? JAHProfile.store : localStorage; var s=3; try{ s=parseInt(PS.get("jah-llama-cmp-seq")||"3",10)||3; }catch(e){} return s; }
+  function bumpSeq(s){ var PS = (typeof JAHProfile !== 'undefined') ? JAHProfile.store : localStorage; try{ PS.set("jah-llama-cmp-seq", String(s+2)); }catch(e){} }
 
   /* ----- compile flow ----- */
   var lastBuild = null;
@@ -873,11 +873,12 @@ if (typeof document !== "undefined"){
   }
 
   /* ----- build history (this browser) ----- */
-  function getHistory(){ try{ return JSON.parse(localStorage.getItem("jah-llama-compiles")||"[]"); }catch(e){ return []; } }
+  function getHistory(){ var PS = (typeof JAHProfile !== 'undefined') ? JAHProfile.store : localStorage; try{ return JSON.parse(PS.get("jah-llama-compiles")||"[]"); }catch(e){ return []; } }
   function saveHistory(h){
+    var PS = (typeof JAHProfile !== 'undefined') ? JAHProfile.store : localStorage;
     try{
       var a = getHistory(); a.unshift(h);
-      localStorage.setItem("jah-llama-compiles", JSON.stringify(a.slice(0,20)));
+      PS.set("jah-llama-compiles", JSON.stringify(a.slice(0,20)));
     }catch(e){}
     renderHistory();
   }

@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script>try{if(localStorage.getItem("jah-theme")==="dark")document.documentElement.dataset.theme="dark";}catch(e){}</script>
+<script src="js/signin.js"></script>
+<script>try{var _ps=(typeof JAHProfile!=='undefined')?JAHProfile.store:localStorage;if(_ps.get("jah-theme")==="dark")document.documentElement.dataset.theme="dark";}catch(e){}</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>The Signature Llama Archive — Browse Every AI Term & Tool</title>
@@ -127,9 +128,9 @@ html[data-theme="dark"] img,html[data-theme="dark"] video,html[data-theme="dark"
 <button id="jah-theme-toggle" type="button" title="Toggle dark mode" aria-label="Toggle dark mode">&#9681;</button>
 <script>
 /* UX-2026-10-03: dark-mode toggle wiring (opt-in; default look unchanged) */
-(function(){var b=document.getElementById("jah-theme-toggle");
+(function(){var PS=(typeof JAHProfile!=='undefined')?JAHProfile.store:localStorage;var b=document.getElementById("jah-theme-toggle");
 function paint(){try{b.innerHTML=(document.documentElement.dataset.theme==="dark")?"&#9728;":"&#9681;";}catch(e){}}
-b.addEventListener("click",function(){try{var d=document.documentElement;var dark=d.dataset.theme!=="dark";d.dataset.theme=dark?"dark":"";localStorage.setItem("jah-theme",dark?"dark":"light");}catch(e){}paint();});
+b.addEventListener("click",function(){try{var d=document.documentElement;var dark=d.dataset.theme!=="dark";d.dataset.theme=dark?"dark":"";PS.set("jah-theme",dark?"dark":"light");}catch(e){}paint();});
 paint();})();
 </script>
 <nav class="bigmenu" aria-label="Site menu">
@@ -335,6 +336,17 @@ loadIdx().then(function(j){
   var bc=document.getElementById("browseCount");
   if(bc)bc.textContent=j.term_count+" AI terms · "+j.tool_count+" tool libraries";
 },function(){});
+})();
+</script>
+<script>
+(function () {
+  /* JAHProfile sign-in / profiles button (device-local profiles; Google-ready) */
+  var mount = document.querySelector('header .booksearch') ||
+              document.querySelector('nav.jtabbar') ||
+              document.querySelector('header nav') ||
+              document.querySelector('header') ||
+              document.body;
+  if (window.JAHProfile && JAHProfile.ui) JAHProfile.ui.renderButton(mount);
 })();
 </script>
 </body>

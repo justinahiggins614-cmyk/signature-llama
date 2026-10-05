@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script>try{if(localStorage.getItem("jah-theme")==="dark")document.documentElement.dataset.theme="dark";}catch(e){}</script>
+<script src="js/signin.js"></script>
+<script>try{var _ps=(typeof JAHProfile!=='undefined')?JAHProfile.store:localStorage;if(_ps.get("jah-theme")==="dark")document.documentElement.dataset.theme="dark";}catch(e){}</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Signature Llama: The Fully Cyber Utilizable AI</title>
@@ -170,9 +171,9 @@ html[data-theme="dark"] img,html[data-theme="dark"] video,html[data-theme="dark"
 <button id="jah-theme-toggle" type="button" title="Toggle dark mode" aria-label="Toggle dark mode">&#9681;</button>
 <script>
 /* UX-2026-10-03: dark-mode toggle wiring (opt-in; default look unchanged) */
-(function(){var b=document.getElementById("jah-theme-toggle");
+(function(){var PS=(typeof JAHProfile!=='undefined')?JAHProfile.store:localStorage;var b=document.getElementById("jah-theme-toggle");
 function paint(){try{b.innerHTML=(document.documentElement.dataset.theme==="dark")?"&#9728;":"&#9681;";}catch(e){}}
-b.addEventListener("click",function(){try{var d=document.documentElement;var dark=d.dataset.theme!=="dark";d.dataset.theme=dark?"dark":"";localStorage.setItem("jah-theme",dark?"dark":"light");}catch(e){}paint();});
+b.addEventListener("click",function(){try{var d=document.documentElement;var dark=d.dataset.theme!=="dark";d.dataset.theme=dark?"dark":"";PS.set("jah-theme",dark?"dark":"light");}catch(e){}paint();});
 paint();})();
 </script>
 
@@ -1353,10 +1354,11 @@ function wireModelPicker() {
     say('Key removed from this browser.', false); renderIndustryStatus();
   };
   if (clearAllBtn) clearAllBtn.onclick = function () {
+    var PS=(typeof JAHProfile!=='undefined')?JAHProfile.store:localStorage;
     try {
-      localStorage.removeItem('sigllama_industry_key');
-      localStorage.removeItem('sigllama_industry_model');
-      localStorage.removeItem('sigllama_model_choice');
+      PS.remove('sigllama_industry_key');
+      PS.remove('sigllama_industry_model');
+      PS.remove('sigllama_model_choice');
     } catch (e) {}
     if (keyInp) keyInp.value = '';
     pick.value = 'v1';
@@ -1880,8 +1882,9 @@ function openWel(){
   try{document.getElementById('welok').focus({preventScroll:true});}catch(e){}
 }
 function closeWel(){
+  var PS=(typeof JAHProfile!=='undefined')?JAHProfile.store:localStorage;
   var w=document.getElementById('wel'); if(w) w.hidden=true;
-  try{localStorage.setItem('jah-tour-seen-llama','1');}catch(e){}
+  try{PS.set('jah-tour-seen-llama','1');}catch(e){}
 }
 function wireWelcome(){
   var w=document.getElementById('wel'); if(!w) return;
@@ -1898,7 +1901,8 @@ function wireWelcome(){
   var gf=document.getElementById('welfull');
   if(gf) gf.onclick=function(e){ try{e.preventDefault();}catch(x){} closeWel(); var sg=document.getElementById('siteguide'); if(sg) sg.scrollIntoView(); };
   var seen=false, deep=false;
-  try{ seen=!!localStorage.getItem('jah-tour-seen-llama'); }catch(e){ seen=true; }
+  var PS=(typeof JAHProfile!=='undefined')?JAHProfile.store:localStorage;
+  try{ seen=!!PS.get('jah-tour-seen-llama'); }catch(e){ seen=true; }
   try{ deep=/[?&#](ask|term|dial)=/i.test(location.search+location.hash); }catch(e){}
   if(!seen&&!deep) setTimeout(function(){ if(w.hidden) openWel(); },2000);
 }
@@ -2732,24 +2736,25 @@ window.LlamaChat = LlamaChat;
    (b) tab state: n/a on this page (no tab buttons). */
 (function(){
 try{
+var PS=(typeof JAHProfile!=='undefined')?JAHProfile.store:localStorage;
 var P=location.pathname;
 function sk(n){return "jah-sx:"+P+":"+n;}
 var recScrolled=false;
 function hasDeepLink(){try{var u=new URLSearchParams(location.search);return !!(u.get("term")||u.get("toollib")||u.get("ask"));}catch(e){return false;}}
 /* (a) scroll position: throttled save, restore after content settles */
 var st=null;
-window.addEventListener("scroll",function(){if(st)return;st=setTimeout(function(){st=null;try{localStorage.setItem(sk("y"),String(window.scrollY||window.pageYOffset||0));}catch(e){}},300);},{passive:true});
-function doScroll(){if(recScrolled||hasDeepLink())return;try{var y=parseInt(localStorage.getItem(sk("y"))||"0",10);if(y>0)window.scrollTo(0,y);}catch(e){}}
+window.addEventListener("scroll",function(){if(st)return;st=setTimeout(function(){st=null;try{PS.set(sk("y"),String(window.scrollY||window.pageYOffset||0));}catch(e){}},300);},{passive:true});
+function doScroll(){if(recScrolled||hasDeepLink())return;try{var y=parseInt(PS.get(sk("y"))||"0",10);if(y>0)window.scrollTo(0,y);}catch(e){}}
 /* (c) last-viewed record: ?term= / ?toollib= deep links; scroll into view on a bare page if present */
 try{
   var u2=new URLSearchParams(location.search);
   var rec=u2.get("term")?("term:"+u2.get("term")):(u2.get("toollib")?("toollib:"+u2.get("toollib")):null);
-  if(rec)localStorage.setItem(sk("rec"),rec);
+  if(rec)PS.set(sk("rec"),rec);
 }catch(e){}
 function restoreRec(){
   try{
     if(hasDeepLink())return;
-    var rec=localStorage.getItem(sk("rec"));
+    var rec=PS.get(sk("rec"));
     if(!rec)return;
     var i=rec.indexOf(":"),kind=rec.slice(0,i),val=rec.slice(i+1);
     if(kind==="term"){
@@ -2796,6 +2801,17 @@ window.addEventListener("load",function(){setTimeout(doScroll,900);});
 <!-- JAH NETWORK: site list moved to page bottom, above footer -->
 <div class="jahnet"><span class="jahnet-t">THE JAH NETWORK</span><a href="https://justinahiggins614-cmyk.github.io/signature-math/">1 Signature Math</a><a href="https://justinahiggins614-cmyk.github.io/jah-calculator/">2 Signature Universal Paradox Immune Calculator</a><a href="https://justinahiggins614-cmyk.github.io/jah-dictionary/">3 The Signature Dictionary</a><a href="https://justinahiggins614-cmyk.github.io/jah-wiki/">4 JAH Wiki</a><a href="https://justinahiggins614-cmyk.github.io/jah-n-wiki-leaks/">5 JAH-N Wiki Leaks</a><a href="https://justinahiggins614-cmyk.github.io/jah-ai-models/">7 The Signature AI Phone Book</a><a href="https://justinahiggins614-cmyk.github.io/cyber-patent-catalog/">8 Globally Rejustered Patent Catalog</a><a href="https://justinahiggins614-cmyk.github.io/signature-one-archive/specs.html">9 Signature Spec Catalog Pending Patents</a><a href="https://justinahiggins614-cmyk.github.io/jah-computer-systems/">10 The Signature PC System Depository</a><a href="https://justinahiggins614-cmyk.github.io/signature-books/">11 The Signature Book Depository</a><a href="https://justinahiggins614-cmyk.github.io/signature-comics/">12 The Signature Comic Store</a><a href="https://justinahiggins614-cmyk.github.io/signature-newspapers/">13 The Signature Global Newspaper Archive</a><a href="https://justinahiggins614-cmyk.github.io/signature-backend/">14 The Signature AI Mix and Match Generator</a><a href="https://justinahiggins614-cmyk.github.io/signature-boundless-generators/">15 The Signature Boundless Generator Archive</a><a href="https://justinahiggins614-cmyk.github.io/signature-ai-mixlab/">16 The Signature AI Mix Lab</a><a href="https://justinahiggins614-cmyk.github.io/signature-ai-olypics/">17 AI Olympics</a><a href="https://justinahiggins614-cmyk.github.io/signature-chip-maker/">18 The Signature Computer Chip Maker and Archive</a><a href="https://justinahiggins614-cmyk.github.io/signature-app-archive/">19 The Signature App Archive</a><a href="https://justinahiggins614-cmyk.github.io/signature-ai-robot-matcher/">20 The Signature AI Robot Matcher</a><a href="https://justinahiggins614-cmyk.github.io/signature-experiment-solver/">21 The Signature Experiment Solver</a><a href="https://justinahiggins614-cmyk.github.io/signature-ai-image-video-maker/">22 Signature AI Pixel</a><a href="https://justinahiggins614-cmyk.github.io/signature-ai-song-maker/">23 Signature Music Studio</a><a href="https://justinahiggins614-cmyk.github.io/signature-fixit/">24 The Signature Mr Fix-It</a><a href="https://justinahiggins614-cmyk.github.io/signature-university/">25 The Signature University</a><a href="https://justinahiggins614-cmyk.github.io/signature-cyber-mega-mall/">26 The Signature Cyber Mega-Mall</a><a href="https://justinahiggins614-cmyk.github.io/signature-3d-print/">27 The Signature 3D Print Mega Mall</a><a href="https://justinahiggins614-cmyk.github.io/signature-earth/">28 Signature Earth</a><a href="https://justinahiggins614-cmyk.github.io/signature-flight-school/">29 The Signature Flight School</a><a href="https://justinahiggins614-cmyk.github.io/signature-game-store/">30 The Signature Game Store</a><a href="https://justinahiggins614-cmyk.github.io/signature-website-creator/">31 The Signature Website Creator</a><span class="here">6 Signature Llama: The Fully Cyber Utilizable AI — YOU ARE HERE</span></div>
 <div class="jah-stamp" style="margin-top:10px;text-align:center;"><img src="assets/signature-stamp.jpg" alt="Official Signature stamp" style="height:64px;width:auto;border-radius:4px;"><div style="font-size:.72em;opacity:.75;margin-top:4px;">Official Signature stamp</div></div>
+<script>
+(function () {
+  /* JAHProfile sign-in / profiles button (device-local profiles; Google-ready) */
+  var mount = document.querySelector('header .booksearch') ||
+              document.querySelector('nav.jtabbar') ||
+              document.querySelector('header nav') ||
+              document.querySelector('header') ||
+              document.body;
+  if (window.JAHProfile && JAHProfile.ui) JAHProfile.ui.renderButton(mount);
+})();
+</script>
 </body>
 
 </html>

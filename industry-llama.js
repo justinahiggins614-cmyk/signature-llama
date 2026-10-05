@@ -22,6 +22,10 @@
  * ============================================================ */
 (function () {
   'use strict';
+  /* Profile-aware storage: public (signed-out) behaves exactly as before;
+     signed-in profiles get their own namespaced keys. Guard keeps this working
+     even when signin.js is not loaded. */
+  var PS = (typeof JAHProfile !== 'undefined') ? JAHProfile.store : localStorage;
   var ENDPOINT = 'https://api.groq.com/openai/v1/chat/completions';
   var KEY_STORE = 'sigllama_industry_key';
   var MODEL_STORE = 'sigllama_industry_model';
@@ -34,9 +38,9 @@
   ];
   var DEFAULT_MODEL = MODELS[0].id;
 
-  function lsGet(k) { try { return window.localStorage.getItem(k); } catch (e) { return null; } }
-  function lsSet(k, v) { try { window.localStorage.setItem(k, v); } catch (e) {} }
-  function lsDel(k) { try { window.localStorage.removeItem(k); } catch (e) {} }
+  function lsGet(k) { try { return PS.get(k); } catch (e) { return null; } }
+  function lsSet(k, v) { try { PS.set(k, v); } catch (e) {} }
+  function lsDel(k) { try { PS.remove(k); } catch (e) {} }
 
   function err(code, message) { var e = new Error(message); e.code = code; return e; }
 
