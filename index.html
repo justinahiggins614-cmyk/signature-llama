@@ -636,10 +636,6 @@ Signature Llama is an independent model by Justin Addam Higgins, not affiliated 
 
   <div class="disclaimer">Signature Llama is an <b>independent model created by Justin Addam Higgins</b> — trained from scratch on the Signature Dictionary and Signature spec text. It is not affiliated with, endorsed by, sponsored by, or connected to Meta Platforms, Inc. or the LLaMA model family. The name similarity is coincidental branding of the "signature" line.</div>
 
-
-
-
-
   <div class="disclaimer">Signature Llama is an <b>independent model created by Justin Addam Higgins</b> — trained from scratch on the Signature Dictionary and Signature spec text. It is not affiliated with, endorsed by, sponsored by, or connected to Meta Platforms, Inc. or the LLaMA model family. The name similarity is coincidental branding of the "signature" line.</div>
 
 </div>
@@ -2799,6 +2795,30 @@ window.addEventListener("load",function(){setTimeout(doScroll,900);});
 </div>
 
 <!-- JAH NETWORK: site list moved to page bottom, above footer -->
+
+<div class="jah-stamp" style="margin-top:10px;text-align:center;"><img src="assets/signature-stamp.jpg" alt="Official Signature stamp" style="height:64px;width:auto;border-radius:4px;"><div style="font-size:.72em;opacity:.75;margin-top:4px;">Official Signature stamp</div></div>
+<script>
+(function () {
+  /* JAHProfile sign-in / profiles button (device-local profiles; Google-ready) */
+  var mount = document.querySelector('header .booksearch') ||
+              document.querySelector('nav.jtabbar') ||
+              document.querySelector('header nav') ||
+              document.querySelector('header') ||
+              document.body;
+  if (window.JAHProfile && JAHProfile.ui) JAHProfile.ui.renderButton(mount);
+})();
+</script>
+<script>
+(function () {
+  /* JAHProfile "Make it mine" greeting — renders ONLY when personalization is
+     live (signed in + My view + opted in); silent otherwise. */
+  if (window.JAHProfile && JAHProfile.ui) {
+    var gmount = document.querySelector("header") || document.body;
+    JAHProfile.ui.renderGreeting(gmount);
+  }
+})();
+</script>
+
 <div class="jahnet"><span class="jahnet-t">THE JAH NETWORK</span><a href="https://justinahiggins614-cmyk.github.io/signature-math/">1 Signature Math</a>
 <a href="https://justinahiggins614-cmyk.github.io/jah-calculator/">2 Signature Universal Paradox Immune Calculator</a>
 <a href="https://justinahiggins614-cmyk.github.io/jah-dictionary/">3 The Signature Dictionary</a>
@@ -2836,28 +2856,6 @@ window.addEventListener("load",function(){setTimeout(doScroll,900);});
 <a href="https://justinahiggins614-cmyk.github.io/signature-image-grid-measure/">35 Grid Measure</a>
 <a href="https://justinahiggins614-cmyk.github.io/signature-cyber-mega-mall/">36 The Signature Cyber Mega-Mall</a>
 <a href="https://justinahiggins614-cmyk.github.io/signature-3d-print/">37 The Signature 3D Print Mega Mall</a><span class="here">6 Signature Llama: The Fully Cyber Utilizable AI — YOU ARE HERE</span></div>
-<div class="jah-stamp" style="margin-top:10px;text-align:center;"><img src="assets/signature-stamp.jpg" alt="Official Signature stamp" style="height:64px;width:auto;border-radius:4px;"><div style="font-size:.72em;opacity:.75;margin-top:4px;">Official Signature stamp</div></div>
-<script>
-(function () {
-  /* JAHProfile sign-in / profiles button (device-local profiles; Google-ready) */
-  var mount = document.querySelector('header .booksearch') ||
-              document.querySelector('nav.jtabbar') ||
-              document.querySelector('header nav') ||
-              document.querySelector('header') ||
-              document.body;
-  if (window.JAHProfile && JAHProfile.ui) JAHProfile.ui.renderButton(mount);
-})();
-</script>
-<script>
-(function () {
-  /* JAHProfile "Make it mine" greeting — renders ONLY when personalization is
-     live (signed in + My view + opted in); silent otherwise. */
-  if (window.JAHProfile && JAHProfile.ui) {
-    var gmount = document.querySelector("header") || document.body;
-    JAHProfile.ui.renderGreeting(gmount);
-  }
-})();
-</script>
 </body>
 
 </html>
