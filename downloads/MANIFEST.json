@@ -4,13 +4,13 @@
  "note": "No .exe is offered -- it cannot be built on this machine.",
  "files": {
   "signature-llama-offline-static-py.zip": {
-   "sha256": "a7ac2d5e79fb37e7634c4396fa91670fcc4759cc488a5f7cc6f87b163e66fae4",
+   "sha256": "43cd014cad080145914869a25b338afca46f0f640ae678d27fd0ca3d95deb4f8",
    "bytes": 15036,
    "variant": "offline-static"
   },
   "signature-llama-offline-static.js": {
-   "sha256": "abd9c82d9ac212c4abcacc9e84a4fba4f7e61cc01715a8bef769bb1751afaf11",
-   "bytes": 63738,
+   "sha256": "eaa4a7f89df73e77361fa233f7db1f8253d5d7affb37931096a7a70614a7519e",
+   "bytes": 64563,
    "variant": "offline-static"
   },
   "llama-thumbdrive-offline-static.py": {
@@ -19,13 +19,13 @@
    "variant": "offline-static"
   },
   "signature-llama-online-no-key-py.zip": {
-   "sha256": "ced5b62724e07290672a550b7bb2a726802667d5bd25f4afbc93a94914ed9d34",
+   "sha256": "16c0915c2ff1310a90d27909909e4fe43dc5f929b08c4c8c7493b4d13688637a",
    "bytes": 15050,
    "variant": "online-no-key"
   },
   "signature-llama-online-no-key.js": {
-   "sha256": "0d052682daf7f838dedee58a7212777a30c6eacaa09d5a7a60eabd4958be7dd2",
-   "bytes": 63800,
+   "sha256": "a9cf9afc45c03cb066ccd785c4e8be7aa55df2f5edd7084af5160a2c9e410168",
+   "bytes": 64625,
    "variant": "online-no-key"
   },
   "llama-thumbdrive-online-no-key.py": {
@@ -34,13 +34,13 @@
    "variant": "online-no-key"
   },
   "signature-llama-online-with-key-py.zip": {
-   "sha256": "55859a9d5004854c80bc27296af8e3ca192187f0da5dd0a7858c0f1f9142153e",
+   "sha256": "6ded44a74950495b24c48794c2bc5385c9af340750070d6e244c96f3a3bd4dee",
    "bytes": 15066,
    "variant": "online-with-key"
   },
   "signature-llama-online-with-key.js": {
-   "sha256": "8af7e31078aa6f3c992b337123aa9fb718dc33a4f4fc9c8ac8a5900b38c1a49d",
-   "bytes": 63793,
+   "sha256": "15e07774bcac2b82dfc333bb4bf7f1c1e7f6badf96576d1827284b105763418b",
+   "bytes": 64618,
    "variant": "online-with-key"
   },
   "llama-thumbdrive-online-with-key.py": {
@@ -49,13 +49,13 @@
    "variant": "online-with-key"
   },
   "signature-llama-best-figurehead-py.zip": {
-   "sha256": "9614eb75bec5c6b6497428675f611346edb02bc5bcddd34d35ae8391f9a2eea5",
+   "sha256": "e4bcd0029cfd8938ef50e8c3e1e455354a0a4fb35b67e5efbbcf0131c4239edf",
    "bytes": 15072,
    "variant": "best-figurehead"
   },
   "signature-llama-best-figurehead.js": {
-   "sha256": "857f2a3ca84303cc56c529cda60551c3c842187a04380c7ca9827b13ee00a0a1",
-   "bytes": 63886,
+   "sha256": "4de20f1d6a55395b282cb4bc306e0af15972433f4be5212d5a1d7deed00135ea",
+   "bytes": 64711,
    "variant": "best-figurehead"
   },
   "llama-thumbdrive-best-figurehead.py": {
