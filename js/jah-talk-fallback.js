@@ -1,5 +1,5 @@
 /* ==========================================================================
-   JAHtalk — the Signature universal basic-LLM talker (GuideTalk engine)
+   JAHtalk — the Signature universal basic-LLM talker (GuideTalk engine v2.1)
    --------------------------------------------------------------------------
    One shared conversational module for EVERY AI on EVERY Signature website.
 
@@ -15,6 +15,12 @@
        to chat about the whole JAH ecosystem (all 31 sites, what each does,
        its tabs and options) as context. Never word salad, never generic
        filler, never Mad-Libs templates.
+     2026-10-04: v2.1 chat context — every AI keeps conversation memory
+       (last 10 turns, entities mentioned, last numbered list, current
+       topic) so follow-ups like "tell me more about it", "the second one"
+       and "how do I download it?" resolve against what was just discussed.
+       JAHtalk.chat()/chatFor() sessions; transcript persists to
+       localStorage namespaced per AI (24h) where available.
 
    Design:
      - ES5-safe ('use strict', var/function only), ZERO network, drop-in.
@@ -25,9 +31,21 @@
      - JAHtalk.guard() scrubs terse stat-dump replies
        ("CPC=G06F | ERA=Past UPTIME=99.99% ...") and repairs them into
        human words — use it on EVERY final reply, live or canned.
+     - v2.1 chat sessions: JAHtalk.chatFor(profile, key) at each chat
+       send-point gives the AI conversation memory (pronouns, ordinals,
+       "tell me more", topic carryover). Replies stay in the AI's voice.
 
    API:
-     JAHtalk.reply(profile, text)   -> human conversational reply (string)
+     JAHtalk.reply(profile, text[, chatOrKey]) -> human conversational reply
+       (third arg optional: a ChatSession, or a chatFor key string, to ask
+       with full conversation memory; omitted = stateless, exactly v2.0)
+     JAHtalk.chat(profile[, chatId]) -> stateful chat session with memory
+     JAHtalk.chatFor(profile, key)   -> cached session for one AI/surface
+       (canon profile refreshed on every call, transcript memory kept)
+       session.reply(text)  -> ask with conversation memory
+       session.transcript() -> last 10 turns [{role, text}]
+       session.topic()      -> current topic label (pronoun/ordinal target)
+       session.reset()      -> clear memory (also clears localStorage)
      JAHtalk.greet(profile)         -> warm opening line for a new chat
      JAHtalk.duties(profile)        -> plain-language duties explanation
      JAHtalk.guard(text, profile)   -> returns text unchanged, or a human
@@ -208,6 +226,93 @@
     return (b2s >= 2) ? b2 : null;
   }
 
+  /* ---------- capability routes: "which site lets me mix AIs?" ----------
+     Short phrases users actually type, mapped to the site that does it.
+     Consulted only when findSite() finds nothing, and the usual
+     site/how-to/ecosystem intent gates still apply, so these never
+     hijack normal chat. */
+  var CAP_ROUTES = [
+    { k: ['mix ai', 'mix ais', 'mix an ai', 'mix and match', 'blend ai', 'combine ai'], n: 14 },
+    { k: ['hybrid ai', 'ai hybrid'], n: 16 },
+    { k: ['battle ai', 'ai battle', 'versus', 'head to head', 'ai competition'], n: 17 },
+    { k: ['download llama', 'install llama', 'llama download'], n: 6 },
+    { k: ['phone number', 'dial an ai', 'call an ai', 'prank call'], n: 7 },
+    { k: ['search patent', 'patent search', 'public patent'], n: 8 },
+    { k: ['draft spec', 'write a patent', 'patent draft', 'file a patent'], n: 9 },
+    { k: ['make music', 'write a song', 'beat maker', 'make a song'], n: 23 },
+    { k: ['generate image', 'make an image', 'generate video', 'make a video', 'ai picture'], n: 22 },
+    { k: ['fix it', 'repair it', 'how to fix', 'fix my'], n: 24 },
+    { k: ['take a course', 'online course'], n: 25 },
+    { k: ['3d print', 'print a model', 'stl file'], n: 27 },
+    { k: ['learn to fly', 'fly a plane', 'pilot lesson'], n: 29 },
+    { k: ['play a game', 'arcade game'], n: 30 },
+    { k: ['build a website', 'make a website', 'create a website', 'mirror a website'], n: 31 },
+    { k: ['today news', 'headlines', 'read the news'], n: 13 },
+    { k: ['find a book', 'read a book'], n: 11 },
+    { k: ['chip design', 'make a chip', 'design a chip'], n: 18 },
+    { k: ['mobile app', 'phone app', 'make an app'], n: 19 },
+    { k: ['robot body'], n: 20 },
+    { k: ['run an experiment', 'science experiment'], n: 21 },
+    { k: ['calculate', 'do math', 'solve a math'], n: 2 },
+    { k: ['define a word'], n: 3 }
+  ];
+  function routeCapability(t) {
+    var i, j, s2;
+    for (i = 0; i < CAP_ROUTES.length; i++) {
+      var r = CAP_ROUTES[i];
+      for (j = 0; j < r.k.length; j++) {
+        if (has(t, r.k[j])) {
+          for (s2 = 0; s2 < ECO.length; s2++) if (ECO[s2].n === r.n) return ECO[s2];
+        }
+      }
+    }
+    return null;
+  }
+
+  /* ---------- entity scanning: what was just talked about ----------
+     Used by chat sessions to track the conversation's entities. */
+  function scanSites(text) {
+    var t = ' ' + low(text).replace(/[^a-z0-9\s]/g, ' ').replace(/\s+/g, ' ') + ' ';
+    var hits = [], seen = {}, i, j;
+    for (i = 0; i < ECO.length; i++) {
+      var e = ECO[i];
+      var cands = [e.name].concat(e.aliases || []);
+      for (j = 0; j < cands.length; j++) {
+        var c = trim(low(cands[j]).replace(/[^a-z0-9\s]/g, ' ').replace(/\s+/g, ' '));
+        if (c.length > 2 && t.indexOf(' ' + c + ' ') >= 0) {
+          hits.push({ e: e, at: t.indexOf(' ' + c + ' ') });
+          break;
+        }
+      }
+    }
+    hits.sort(function (a, b) { return a.at - b.at; });
+    var out = [];
+    for (i = 0; i < hits.length; i++)
+      if (!seen[hits[i].e.n]) { seen[hits[i].e.n] = 1; out.push(hits[i].e); }
+    return out;
+  }
+  function scanConcepts(text) {
+    var t = ' ' + low(text).replace(/[^a-z0-9\s]/g, ' ').replace(/\s+/g, ' ') + ' ';
+    var out = [], seen = {}, i, j;
+    for (i = 0; i < CONCEPTS.length; i++) {
+      var c = CONCEPTS[i];
+      for (j = 0; j < c.k.length; j++) {
+        if (t.indexOf(' ' + c.k[j] + ' ') >= 0 && !seen[c.k[0]]) {
+          seen[c.k[0]] = 1; out.push(c.k[0]); break;
+        }
+      }
+    }
+    return out;
+  }
+  function parseNumberedList(text) {
+    var out = [], m, re = /^\s*(\d{1,2})\s*[).:]\s*(.+?)\s*$/gm;
+    while ((m = re.exec(text)) !== null) {
+      out.push({ n: parseInt(m[1], 10), label: m[2].replace(/[.;]+$/, '') });
+      if (out.length >= 10) break;
+    }
+    return out;
+  }
+
   /* ---------- intents ---------- */
   function isGreet(t) {
     return /^(hi|hii+|hey|hello|yo|howdy|good\s?(morning|afternoon|evening|day)|greetings|sup|hiya)\b/.test(t) || (t.length <= 4 && has(t, 'hi'));
@@ -238,7 +343,8 @@
     return has(t, 'all the sites') || has(t, 'all sites') || has(t, 'the network') ||
       has(t, 'jah network') || has(t, 'list of sites') || has(t, 'what sites') ||
       has(t, 'which sites') || has(t, 'ecosystem') || has(t, 'how many sites') ||
-      has(t, 'show me the sites') || has(t, 'full tour') || has(t, 'site list');
+      has(t, 'show me the sites') || has(t, 'full tour') || has(t, 'site list') ||
+      has(t, 'which site');
   }
   function isVersions(t) {
     return has(t, 'which version') || has(t, 'what version') || has(t, 'versions') ||
@@ -425,6 +531,129 @@
     ], 'howto-follow');
   }
 
+  /* ---------- v2.1 follow-up resolution (needs a chat session) ----------
+     Pronouns ("it", "that one") resolve to the last-mentioned entity,
+     ordinals ("the second one") resolve against the last numbered list
+     the AI gave, "tell me more" expands the current topic, and a bare
+     "how do I download it?" carries the topic forward. Replies stay in
+     the AI's own voice. Explicit entities and real intents always win
+     over follow-up reading. */
+  var ORD_MAP = { first: 1, second: 2, third: 3, fourth: 4, fifth: 5,
+    sixth: 6, seventh: 7, eighth: 8, ninth: 9, tenth: 10,
+    '1st': 1, '2nd': 2, '3rd': 3, '4th': 4, '5th': 5,
+    '6th': 6, '7th': 7, '8th': 8, '9th': 9, '10th': 10, last: -1 };
+  function matchMore(t) {
+    var m = t.match(/^(tell me more|more|more info|more details|go deeper|elaborate|expand)(\s+(about|on)\s+(it|that|this|that one|this one|them))?\.?!?$/);
+    if (m) return { about: m[4] || null };
+    m = t.match(/^(what|how) about (it|that|this|that one|this one)\??$/);
+    if (m) return { about: m[2] };
+    if (/^(it|that|this)\??$/.test(t)) return { about: t.replace(/\?$/, '') };
+    return null;
+  }
+  function matchOrdinal(t) {
+    var m = t.match(/^(?:what about |tell me about |tell me more about |and )?(?:the\s+)?(first|second|third|fourth|fifth|sixth|seventh|eighth|ninth|tenth|1st|2nd|3rd|4th|5th|6th|7th|8th|9th|10th|last)(?:\s+one)?\s*\??$/);
+    if (!m) return 0;
+    return ORD_MAP[m[1]] || 0;
+  }
+  function downloadHint(site) {
+    var n = site.n;
+    if (n === 6) return 'For downloads, open the Versions tab on the Llama site — all four versions come as real Python, JS and thumbdrive packages.';
+    if (n === 7) return 'Every AI file in the phone book carries its own download buttons — Python and JS source you can run locally.';
+    if (n === 14 || n === 16) return 'Anything you generate there comes with real Python and JS downloads, ready to run.';
+    return 'Look for the download buttons on the entry pages — most things in the network download as real working files.';
+  }
+  function siteDeepAnswer(P, site, t) {
+    var tabs = (site.tabs || []).join(', ');
+    return pickH(t, [
+      'Let me lay it all out. ',
+      'Here is the full picture. ',
+      'Glad you asked — here is the deeper tour. '
+    ], 'deep-open') + site.name + ' is site ' + site.n + ' of 31 in the JAH network. ' +
+      cap1(site.blurb) + ' The main sections are ' + tabs + '. ' +
+      'Open it at ' + site.url + ' — start with the ' + ((site.tabs || [])[0] || 'main page') +
+      ' and you will find your footing fast. ' + downloadHint(site) + ' ' + pickH(t, [
+        'What do you want to do first over there?',
+        'Want me to walk you through any particular tab?',
+        'Anything else about it — or shall we look at another site?'
+      ], 'deep-follow');
+  }
+  function howtoDownload(P, site, t) {
+    return pickH(t, [
+      'On ' + site.name + ', downloading is straightforward. ',
+      'Easy — here is how downloading works there. '
+    ], 'dl-open') + downloadHint(site) + ' The site is at ' + site.url + '. ' + pickH(t, [
+      'Want the tour of its tabs while you are there?',
+      'Anything else you want to grab from it?'
+    ], 'dl-follow');
+  }
+  function expandDuty(P, label, t) {
+    var a = low(cleanAbility(label)).replace(/\.$/, '');
+    return pickH(t, [
+      'Let me unpack that one. ',
+      'Going deeper on that duty. '
+    ], 'duty-open') + 'One of my core duties as ' + P.name + ' is ' + a + '. ' +
+      'In plain words, that means: ' + a + '. ' + pickH(t, [
+        'Give me a concrete example of what you are trying to do and I will walk you through it step by step.',
+        'Tell me what you are working on and I will put that duty to work for you right now.',
+        'Want to try it? Describe your situation and we will work it through together.'
+      ], 'duty-follow');
+  }
+  function expandEntity(P, ent, t) {
+    if (ent.kind === 'site') return siteDeepAnswer(P, ent.ref, t);
+    if (ent.kind === 'concept') {
+      var c = conceptAnswer('what is ' + ent.label);
+      return (c || 'That is a good thread to pull.') + ' ' + pickH(t, [
+        'Want me to go deeper on any part of that?',
+        'I can also tie it to what I do here — just ask.'
+      ], 'concept-tail');
+    }
+    if (ent.kind === 'duty') return expandDuty(P, ent.label, t);
+    return 'Say a little more about what you want to dig into and I will go deep with you.';
+  }
+  function resolveOrdinal(P, ctx, n, t) {
+    var list = ctx._lastList || [];
+    var idx = (n === -1) ? list.length - 1 : n - 1;
+    if (idx < 0 || idx >= list.length) {
+      return 'I only listed ' + list.length + ' things just now — which one did you mean? Name it and I will go deep.';
+    }
+    var item = list[idx];
+    var site = findSite(item.label);
+    if (site) return siteDeepAnswer(P, site, t);
+    return expandDuty(P, item.label, t);
+  }
+  function topicTail(ans, raw, ctx) {
+    if (ctx && ctx._topic && trim(raw).length < 40) {
+      ans += ' (We are on ' + ctx._topic + ' — say "tell me more" and I will go deeper.)';
+    }
+    return ans;
+  }
+  /* Returns a follow-up reply string, or null when this is not a follow-up. */
+  function resolveFollowUp(P, raw, t, ctx) {
+    /* explicit entities and real intents always win over follow-up reading */
+    if (findSite(t) || isDuties(t) || isIdentity(t) || isEcosystem(t) || isVersions(t)) return null;
+    if (conceptAnswer(t)) return null;
+    var more = matchMore(t);
+    if (more) {
+      var ord = matchOrdinal(t);
+      if (ord && ctx._lastList && ctx._lastList.length) return resolveOrdinal(P, ctx, ord, t);
+      var ent = ctx.currentEntity();
+      if (ent) return expandEntity(P, ent, t);
+      return 'More on what, exactly? Name a topic — a site, one of my duties, anything we were just on — and I will go deep.';
+    }
+    var ord2 = matchOrdinal(t);
+    if (ord2 && ctx._lastList && ctx._lastList.length) return resolveOrdinal(P, ctx, ord2, t);
+    if (ord2 && !ctx._lastList) {
+      return 'The ' + (ord2 === -1 ? 'last' : 'number ' + ord2) +
+        ' what, exactly? I have not listed anything yet — ask me about my duties and then pick one.';
+    }
+    /* bare "how do I download it?" carries the topic forward */
+    if (isHowTo(t) && /\b(it|that|this|that one|this one)\b/.test(t)) {
+      var ent2 = ctx.currentEntity();
+      if (ent2 && ent2.kind === 'site') return howtoDownload(P, ent2.ref, t);
+    }
+    return null;
+  }
+
   /* ---------- the main reply: natural, responsive, never templated ---------- */
   function joke(P) {
     return pickR('joke', [
@@ -451,7 +680,7 @@
     return '';
   }
   /* the open-ended fallback: honest, specific, tied to the AI's real duties */
-  function openAnswer(P, raw, t) {
+  function openAnswer(P, raw, t, ctx) {
     var topic = shortTopic(raw);
     var about = topic ? ' about ' + topic : '';
     var offer = offerLine(P, t);
@@ -465,7 +694,7 @@
         'Hmm' + about + ' — that one is outside what I know cold, and I will not pretend otherwise. What I do know cold is ' + sum + '. ' +
           'Rephrase it toward that and I will take a real swing. Or if you are looking for something in the wider network — a patent, a definition, a dossier, a song — tell me which and I will point you to the exact site.'
       ];
-      return pickH(t, variants, 'open-q');
+      return topicTail(pickH(t, variants, 'open-q'), raw, ctx);
     }
     var variants2 = [
       'I am with you' + (topic ? ' on ' + topic : '') + '. Here is what I can genuinely do with that: ' + offer + '. ' +
@@ -474,13 +703,10 @@
       'Say more — I am listening. ' + (topic ? 'With ' + topic + ', it helps to know: are you trying to learn it, build with it, or find it somewhere? ' : '') +
         'Meanwhile, know that I am ' + P.name + ', good for ' + sum + ', and I can tour-guide you through all 31 network sites if that is what you need.'
     ];
-    return pickH(t, variants2, 'open-s');
+    return topicTail(pickH(t, variants2, 'open-s'), raw, ctx);
   }
 
-  function reply(p, text) {
-    var P = prof(p);
-    var raw = trim(s(text));
-    var t = low(raw);
+  function replyCore(P, raw, t, ctx) {
     if (!t) return greet(P);
 
     if (isBye(t)) {
@@ -526,8 +752,14 @@
     if (isProfane(t)) return profaneDeflect(P);
     if (isJoke(t)) return joke(P);
 
+    /* v2.1: follow-ups resolve against the conversation so far */
+    if (ctx) {
+      var fu = resolveFollowUp(P, raw, t, ctx);
+      if (fu) return fu;
+    }
+
     /* ecosystem + site talk (before generic intents so "take me to the phone book" wins) */
-    var site = findSite(t);
+    var site = findSite(t) || routeCapability(t);
     if (site && (siteSignal(t) || isHowTo(t) || isEcosystem(t))) return siteAnswer(P, site, t);
     if (isEcosystem(t)) return ecosystemAnswer(P, t);
     if (isHowTo(t)) return howtoAnswer(P, t, site);
@@ -544,7 +776,114 @@
     }
     if (isOpinion(t)) return opinionAnswer(P, raw);
 
-    return openAnswer(P, raw, t);
+    return openAnswer(P, raw, t, ctx);
+  }
+
+  /* Backwards compatible: JAHtalk.reply(profile, text) behaves exactly as
+     v2.0. Pass a ChatSession (or a chatFor key string) as the third
+     argument to ask with full conversation memory. */
+  function reply(p, text, chatOrKey) {
+    if (chatOrKey != null && typeof chatOrKey.reply === 'function') return chatOrKey.reply(text);
+    if (chatOrKey != null && chatOrKey !== '') return chatFor(p, chatOrKey).reply(text);
+    var P = prof(p);
+    var raw = trim(s(text));
+    return replyCore(P, raw, low(raw), null);
+  }
+
+  /* ---------- v2.1 chat sessions: conversation memory ----------
+     A session holds the last 10 turns, the entities mentioned (sites,
+     concepts, duties), the last numbered list given, and the current
+     topic — so follow-ups resolve against what was just discussed.
+     The transcript persists to localStorage (namespaced per AI, kept
+     24h) where available; without it everything still works in-memory.
+     Use JAHtalk.chatFor(profile, key) at each chat send-point: one
+     session per AI/surface, canon profile refreshed on every call. */
+  var chatCache = {};
+  var LS_PREFIX = 'JAHtalkChat.v1:';
+  function lsGet(k) { try { if (typeof localStorage === 'undefined') return null; return localStorage.getItem(k); } catch (e) { return null; } }
+  function lsSet(k, v) { try { if (typeof localStorage === 'undefined') return; localStorage.setItem(k, v); } catch (e) {} }
+  function lsDel(k) { try { if (typeof localStorage === 'undefined') return; localStorage.removeItem(k); } catch (e) {} }
+  function sessionKey(P, id) {
+    return LS_PREFIX + s(P.id || P.name || 'ai').replace(/[:|]/g, '_') + ':' + s(id);
+  }
+  function ChatSession(profile, chatId) {
+    this._P = prof(profile);
+    this._id = (chatId == null || chatId === '') ? 'default' : String(chatId);
+    this._key = sessionKey(this._P, this._id);
+    this._turns = [];
+    this._entities = [];
+    this._lastList = null;
+    this._topic = null;
+    this._restore();
+  }
+  ChatSession.prototype._pushEntity = function (ent) {
+    var last = this._entities[this._entities.length - 1];
+    if (last && last.label === ent.label) return;
+    this._entities.push(ent);
+    if (this._entities.length > 5) this._entities.shift();
+    this._topic = ent.label;
+  };
+  ChatSession.prototype.currentEntity = function () {
+    return this._entities.length ? this._entities[this._entities.length - 1] : null;
+  };
+  ChatSession.prototype._observePair = function (userText, aiText) {
+    var userSites = scanSites(String(userText));
+    var aiSites = scanSites(String(aiText)).slice(0, 1); /* reply's primary subject */
+    var combined = String(userText) + ' ' + String(aiText);
+    var concepts = scanConcepts(combined), i;
+    var cur = this.currentEntity();
+    var newSiteFromUser = userSites.length > 0 &&
+      (!cur || cur.kind !== 'site' || cur.label !== userSites[0].name);
+    for (i = 0; i < userSites.length; i++)
+      this._pushEntity({ kind: 'site', label: userSites[i].name, ref: userSites[i] });
+    for (i = 0; i < aiSites.length; i++)
+      this._pushEntity({ kind: 'site', label: aiSites[i].name, ref: aiSites[i] });
+    for (i = 0; i < concepts.length; i++)
+      this._pushEntity({ kind: 'concept', label: concepts[i], ref: null });
+    var list = parseNumberedList(String(aiText));
+    if (list.length >= 2) this._lastList = list;
+    else if (newSiteFromUser) this._lastList = null;
+  };
+  ChatSession.prototype.reply = function (text) {
+    var raw = trim(s(text));
+    var ans = replyCore(this._P, raw, low(raw), this);
+    this._turns.push({ role: 'user', text: raw });
+    this._turns.push({ role: 'ai', text: ans });
+    while (this._turns.length > 10) this._turns.shift();
+    this._observePair(raw, ans);
+    this._save();
+    return ans;
+  };
+  ChatSession.prototype.transcript = function () { return this._turns.slice(); };
+  ChatSession.prototype.topic = function () { return this._topic; };
+  ChatSession.prototype.reset = function () {
+    this._turns = []; this._entities = []; this._lastList = null; this._topic = null;
+    lsDel(this._key);
+  };
+  ChatSession.prototype._save = function () {
+    lsSet(this._key, JSON.stringify({ v: 1, ts: Date.now(), turns: this._turns }));
+  };
+  ChatSession.prototype._restore = function () {
+    var raw = lsGet(this._key), d;
+    if (!raw) return;
+    try {
+      d = JSON.parse(raw);
+      if (!d || !d.turns || !d.turns.length) return;
+      if (d.ts && (Date.now() - d.ts) > 24 * 3600 * 1000) { lsDel(this._key); return; }
+      this._turns = d.turns.slice(-10);
+      for (var i = 0; i + 1 < this._turns.length; i += 2) {
+        var u = this._turns[i], a = this._turns[i + 1];
+        if (u && a && u.role === 'user' && a.role === 'ai') this._observePair(u.text, a.text);
+      }
+    } catch (e) { /* corrupted save -> start fresh */ }
+  };
+  function chat(profile, chatId) { return new ChatSession(profile, chatId); }
+  function chatFor(profile, key) {
+    var P = prof(profile);
+    var k = 'mem:' + s(P.id || P.name || 'ai') + '|' + (key == null || key === '' ? 'default' : String(key));
+    if (!chatCache[k]) chatCache[k] = new ChatSession(P, key);
+    else chatCache[k]._P = P; /* canon profile refreshed, memory kept */
+    return chatCache[k];
   }
 
   /* ---------- stat-dump detector + repair ----------
@@ -600,6 +939,8 @@
     looksLikeDump: looksLikeDump,
     findSite: findSite,
     ecosystem: ecosystem,
-    VERSION: '2.0.0'
+    chat: chat,
+    chatFor: chatFor,
+    VERSION: '2.1.0'
   };
 })(typeof window !== 'undefined' ? window : (typeof global !== 'undefined' ? global : this));
