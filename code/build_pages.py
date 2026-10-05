@@ -192,7 +192,7 @@ askQ.addEventListener("keydown",function(e){if(e.key==="Enter")answer();});
 
 archive_body = """
 <div class="hero">
-  <p class="sitekicker">SITE 6 OF 27 &middot; THE JAH NETWORK</p>
+  <p class="sitekicker">SITE 6 OF 35 &middot; THE JAH NETWORK</p>
   <h1>The Signature Llama Archive</h1>
   <p class="offname">EVERY AI TERM &middot; EVERY TOOL LIBRARY &middot; EVERY BUILD &mdash; A TO Z</p>
   <p class="lead">The words that make the Llama tick, every plug-in tool that makes it smarter, and every released build &mdash; the complete catalog, in one place. Open a letter to browse; the page only loads what you open.</p>
@@ -256,7 +256,7 @@ COMPILER_CSS = """.acard{background:#0b1120;border:1px solid var(--line);border-
 
 compiler_body = """
 <div class="hero">
-  <p class="sitekicker">SITE 6 OF 27 &middot; THE JAH NETWORK</p>
+  <p class="sitekicker">SITE 6 OF 35 &middot; THE JAH NETWORK</p>
   <h1>The Llama Compiler</h1>
   <p class="offname">PICK ADD-ONS &middot; DROP THEM IN &middot; BUILD YOUR LLAMA</p>
   <p class="lead">This page builds you a <b>real, working</b> custom Llama file. Pick any add-ons below, drop them into the compiler tray, and hit <b>Build</b>. You get a file to download (or copy) that contains <b>exactly</b> what you picked &mdash; nothing more, nothing less. <span class="dim"><span id="libCount">&hellip;</span> add-ons available.</span></p>
@@ -328,7 +328,7 @@ Promise.all([
 
 showcase_body = """
 <div class="hero">
-  <p class="sitekicker">SITE 6 OF 27 &middot; THE JAH NETWORK</p>
+  <p class="sitekicker">SITE 6 OF 35 &middot; THE JAH NETWORK</p>
   <h1>&#9733; Best of the Best</h1>
   <p class="offname">THE MIX-AND-MATCH SHOWCASE &mdash; ONE CONSTANT FLAGSHIP</p>
   <p class="lead">One Llama to show off: the best-structured, most universally capable build on this site. An AI reviews every update in the background and refreshes this pick whenever something better arrives &mdash; the full history is below.</p>
