@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Signature Llama -- Best Figurehead (thumbdrive edition, v2.0.0)
+"""Signature Llama -- Best Figurehead (thumbdrive edition, v2.1.0)
 
 The flagship. Every feature toggleable on/off, backed by an updater that automatically refreshes the best version as more data is added.
 

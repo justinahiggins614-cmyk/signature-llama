@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Signature Llama -- Offline Static (thumbdrive edition, v2.0.0)
+"""Signature Llama -- Offline Static (thumbdrive edition, v2.1.0)
 
 The best version. Runs fully client-side on any static page -- no network, ever.
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Signature Llama -- Online with Key (thumbdrive edition, v2.0.0)
+"""Signature Llama -- Online with Key (thumbdrive edition, v2.1.0)
 
 Your own API key, your provider. The key is stored device-local only and never leaves your device except to the provider you chose.
 

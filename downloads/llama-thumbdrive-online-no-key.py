@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Signature Llama -- Online, No Key Needed (thumbdrive edition, v2.0.0)
+"""Signature Llama -- Online, No Key Needed (thumbdrive edition, v2.1.0)
 
 Online through the built-in free route (live knowledge refresh), no signup, no key. Falls back to the offline engine when offline.
 

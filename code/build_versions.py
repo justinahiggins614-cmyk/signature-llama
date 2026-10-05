@@ -52,7 +52,7 @@ PROFILE = {
 }
 
 SETUP_PY = """from setuptools import setup, find_packages
-setup(name='signature-llama-{vid}', version='2.0.0',
+setup(name='signature-llama-{vid}', version='2.1.0',
       description='Signature Llama ({vname}) -- conversational on-device AI',
       packages=find_packages(), package_data={{'signature_llama': ['ecosystem.json']}},
       python_requires='>=3.8')
@@ -139,7 +139,7 @@ def build_python_package(vid, vname, tagline, eco):
 
 
 JS_WRAPPER = """/* ============================================================
-   Signature Llama -- __VNAME__ (single-file JS build, v2.0.0)
+   Signature Llama -- __VNAME__ (single-file JS build, v2.1.0)
    __TAGLINE__
    The engine below is the real JAHtalk GuideTalk conversational engine
    (js/jah-talk-fallback.js): zero-network, plain-words replies, full
@@ -243,7 +243,7 @@ def build_thumbdrive(vid, vname, tagline, eco):
     engine_src = engine_src.replace('from signature_llama.engine import chat_loop', '')
     parts = [
         '#!/usr/bin/env python3',
-        '"""Signature Llama -- %s (thumbdrive edition, v2.0.0)' % vname,
+        '"""Signature Llama -- %s (thumbdrive edition, v2.1.0)' % vname,
         '',
         tagline,
         '',
