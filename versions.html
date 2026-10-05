@@ -228,8 +228,14 @@ function stopAudio(){ try{ if(window.speechSynthesis) window.speechSynthesis.can
 function say(text){ stopAudio(); try{ window.speechSynthesis.speak(new SpeechSynthesisUtterance(String(text).slice(0,1500))); }catch(e){} }
 function copyText(t, btn){
   function done(){ var o=btn.textContent; btn.textContent="\u2713 Copied!"; setTimeout(function(){btn.textContent=o;},1500); }
-  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(done, done);
-  else done();
+  function fallback(){
+    var ta=document.createElement("textarea"); ta.value=t;
+    document.body.appendChild(ta); ta.select();
+    try{ document.execCommand("copy"); }catch(e){}
+    document.body.removeChild(ta); done();
+  }
+  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(done, fallback);
+  else fallback();
 }
 document.querySelectorAll("[data-copy]").forEach(function(b){
   b.addEventListener("click", function(){ copyText(b.getAttribute("data-copy"), b); });

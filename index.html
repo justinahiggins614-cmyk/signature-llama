@@ -1714,6 +1714,13 @@ function copyText(t, msg) {
     ta.remove();
   }
 }
+function shareUrl(url, copiedMsg) {
+  if (navigator.share) {
+    navigator.share({ url: url }).catch(function () { copyText(url, copiedMsg); });
+  } else {
+    copyText(url, copiedMsg);
+  }
+}
 var toastEl = null;
 function toast(msg) {
   if (!toastEl) { toastEl = document.createElement('div'); document.body.appendChild(toastEl);
@@ -1937,7 +1944,7 @@ function renderDict(q) {
     d.appendChild(panel);
     (function (pn) {
       function act(sel, fn){ var b = pn.querySelector(sel); if (b) b.onclick = fn; }
-      act('[data-act="share"]', function () { copyText(termUrl, 'Term link copied — it opens this page on "' + e.t + '".'); });
+      act('[data-act="share"]', function () { shareUrl(termUrl, 'Term link copied — it opens this page on "' + e.t + '".'); });
       act('[data-act="copy"]', function () { copyText(e.t + ' — ' + e.d, 'Copied.'); });
       act('[data-act="dl"]', function () {
         saveBlob(e.t.replace(/[^a-z0-9]+/gi, '-').toLowerCase() + '.txt',
@@ -2545,7 +2552,7 @@ function renderTools(q) {
     d.appendChild(tpanel);
     (function (pn) {
       function act(sel, fn){ var b = pn.querySelector(sel); if (b) b.onclick = fn; }
-      act('[data-act="share"]', function () { copyText(libUrl, 'Library link copied — it opens this page on "' + l.name + '".'); });
+      act('[data-act="share"]', function () { shareUrl(libUrl, 'Library link copied — it opens this page on "' + l.name + '".'); });
       act('[data-act="copy"]', function () { copyText(l.code, 'Library code copied — paste it next to llama-api.js.'); });
       act('[data-act="dl"]', function () { saveBlob(l.id + '.js', new Blob([l.code], { type: 'text/javascript' })); });
       act('[data-act="read"]', function () { speak(l.name + '. ' + l.desc); });
