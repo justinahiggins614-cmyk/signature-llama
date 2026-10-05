@@ -1,28 +1,35 @@
 {
- "id": "SIGLLAMA-BEST-0001",
- "title": "Best of the Best \u2014 the flagship Signature Llama",
- "tagline": "The best-structured, most universally capable Llama build. One constant pick, always current.",
- "built": "2026-10-04",
- "version": 1,
- "why": [
-  "Runs on your device with no keys and no fees (Signature Llama v2, on-device engine).",
-  "Falls back to the full-scale Industry Standard cloud Llama for hard questions.",
-  "Ships with the hand-picked optimal tool-library set, so it is smart out of the box.",
-  "Includes the full v2 patch bundle \u2014 every building block, copy-paste ready."
- ],
  "components": {
+  "cloud_option": {
+   "files": [
+    "industry-llama.js"
+   ],
+   "name": "Llama \u00b7 Industry Standard (cloud, bring-your-own key)"
+  },
   "core_engine": {
-   "name": "Signature Llama v2 \u2014 on-device engine",
    "files": [
     "sigllama/v1/sigllama.js",
     "sigllama/v1/vocab.json"
-   ]
+   ],
+   "name": "Signature Llama v2 \u2014 on-device engine"
   },
-  "cloud_option": {
-   "name": "Llama \u00b7 Industry Standard (cloud, bring-your-own key)",
+  "inventory": {
    "files": [
-    "industry-llama.js"
-   ]
+    "src/tokenizer.py",
+    "src/model.py",
+    "src/train.py",
+    "src/export.py",
+    "src/sigllama.js",
+    "src/vocab.json"
+   ],
+   "name": "Signature Inventory building blocks"
+  },
+  "patch_bundle": {
+   "files": [
+    "patch/signature-llama-patch-v2.zip",
+    "patch/signature-llama-patch-v2.zip.sha256"
+   ],
+   "name": "signature-llama-patch-v2.zip"
   },
   "tool_libraries": [
    {
@@ -84,31 +91,50 @@
     "id": "embed-ask",
     "name": "Ask Snippet",
     "version": "1.0"
+   },
+   {
+    "id": "conv-deep-talk",
+    "name": "Deep Talk",
+    "version": "1.0"
+   },
+   {
+    "id": "conv-ecosystem-guide",
+    "name": "Ecosystem Guide",
+    "version": "1.0"
+   },
+   {
+    "id": "conv-socratic",
+    "name": "Socratic Reasoner",
+    "version": "1.0"
+   },
+   {
+    "id": "conv-story-weaver",
+    "name": "Story Weaver",
+    "version": "1.0"
+   },
+   {
+    "id": "conv-debate",
+    "name": "Debate Partner",
+    "version": "1.0"
    }
-  ],
-  "patch_bundle": {
-   "name": "signature-llama-patch-v2.zip",
-   "files": [
-    "patch/signature-llama-patch-v2.zip",
-    "patch/signature-llama-patch-v2.zip.sha256"
-   ]
-  },
-  "inventory": {
-   "name": "Signature Inventory building blocks",
-   "files": [
-    "src/tokenizer.py",
-    "src/model.py",
-    "src/train.py",
-    "src/export.py",
-    "src/sigllama.js",
-    "src/vocab.json"
-   ]
-  }
+  ]
  },
+ "id": "SIGLLAMA-BEST-0001",
  "stats": {
-  "tool_libraries_total": 120,
-  "optimal_libraries": 12,
-  "dictionary_terms": 312
+  "dictionary_terms": 312,
+  "optimal_libraries": 17,
+  "tool_libraries_total": 125
  },
- "updated_by": "JAH Best-Builder (initial pick)"
+ "tagline": "The best-structured, most universally capable Llama build. One constant pick, always current.",
+ "title": "Best of the Best \u2014 the flagship Signature Llama",
+ "updated_by": "JAH Best-Builder (background review 2026-10-05)",
+ "why": [
+  "Runs on your device with no keys and no fees (Signature Llama v2, on-device engine).",
+  "Falls back to the full-scale Industry Standard cloud Llama for hard questions.",
+  "Ships with the hand-picked optimal tool-library set, now deeper in conversation: Deep Talk turns short replies into real, thoughtful conversation, and Socratic Reasoner thinks out loud like a good teacher.",
+  "Includes the full v2 patch bundle \u2014 every building block, copy-paste ready.",
+  "Carries the Ecosystem Guide \u2014 the flagship can now find any of the 31 JAH network sites by name, number, or keyword."
+ ],
+ "built": "2026-10-05",
+ "version": 2
 }
