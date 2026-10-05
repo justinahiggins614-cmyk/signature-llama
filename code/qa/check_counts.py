@@ -25,7 +25,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)
 
 EXPECTED = {
     "dict_terms": 312,
-    "tool_libraries": 120,
+    "tool_libraries": 125,
     "kb_entries": 28,
     "params": 4056768,
     "weights_size": 4137675,
