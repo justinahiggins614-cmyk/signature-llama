@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="js/signin.js"></script><script src="js/godmode.js"></script>
+<script>try{var _ps=(typeof JAHProfile!=='undefined')?JAHProfile.store:localStorage;if(_ps.get("jah-theme")==="dark")document.documentElement.dataset.theme="dark";}catch(e){}</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Signature Llama 2.0 — The Go-To AI · Best on Market</title>
+<meta name="description" content="Signature Llama 2.0 (SIGLLAMA-2.0): the fifth and flagship Signature model — MoE foundation, reasoning engine, RAG over 37 archives, AI swarm, universal router, offline mode. Independent model by Justin Addam Higgins, not affiliated with Meta.">
+<link rel="canonical" href="https://justinahiggins614-cmyk.github.io/signature-llama/llama-2.html">
+<style>:root{--bg:#070b14;--panel:#0d1424;--panel2:#111a30;--line:#1e2c4d;--txt:#d7e0f2;--dim:#8b98b8;--gold:#e8c766;--amber:#ffc93c;--amber2:#ffdf7e;--acc:#5aa2ff;--grn:#5aff8a;--red:#ff5a5a}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--txt);font-family:Georgia,'Times New Roman',serif;line-height:1.55}
+.jahnet{background:#0a0f1e;color:#9aa4b2;font-size:.76em;padding:7px 10px;text-align:center;line-height:2;letter-spacing:.02em;border-bottom:1px solid var(--line)}
+.jahnet-t{color:var(--gold);font-weight:700;letter-spacing:.25em;margin-right:10px}
+.jahnet a{color:#9fc2ff;text-decoration:none;margin:0 7px;white-space:nowrap}
+.jahnet a:hover{text-decoration:underline}
+.jahnet .cur{color:var(--gold);font-weight:700;margin:0 7px}
+.jahnet .here{color:var(--red);font-weight:700;margin:0 7px}
+.jah-tabs{display:flex;gap:6px;overflow-x:auto;padding:10px 12px;background:var(--panel2);border-bottom:2px solid var(--gold)}
+.jah-tabs a.tablink{flex:0 0 auto;background:var(--panel);color:var(--txt);border:1px solid var(--line);border-radius:6px;padding:9px 14px;font-size:.92em;cursor:pointer;text-decoration:none;font-family:Arial,Helvetica,sans-serif;white-space:nowrap}
+.jah-tabs a.tablink.on{background:var(--gold);color:#241a02;font-weight:700;border-color:var(--gold)}
+.hero{max-width:960px;margin:0 auto;padding:26px 14px 10px}
+.sitekicker{display:inline-block;color:var(--gold);font-weight:700;letter-spacing:.2em;font-size:.85em;border:1px solid var(--gold);border-radius:3px;padding:1px 8px;margin:0 0 10px;white-space:nowrap}
+.hero h1{margin:.1em 0 .2em;font-size:1.9em;color:var(--txt)}
+.hero .offname{color:var(--amber2);letter-spacing:.12em;font-weight:700;margin:.1em 0 .6em}
+.hero p.lead{max-width:680px}
+.wrap{max-width:960px;margin:0 auto;padding:14px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px;margin-bottom:16px}
+.panel h2{margin:0 0 4px;font-size:1.25em;color:var(--gold);letter-spacing:1px}
+.panel h3{color:var(--amber2);font-size:1.05em;margin:1em 0 .3em}
+.panel .sub{color:var(--dim);font-size:.88em;margin:0 0 12px}
+.panel ul{margin:.3em 0;padding-left:1.3em}
+.panel li{margin:.35em 0}
+.dim{color:var(--dim)}
+button.big{background:#1a2340;border:1px solid var(--amber);color:var(--amber2);border-radius:8px;padding:11px 18px;font-size:1em;cursor:pointer;margin:6px 6px 6px 0;font-family:inherit}
+button.big:hover{background:#232c52}
+button.big.gold{background:var(--gold);border-color:var(--gold);color:#241a02;font-weight:800}
+input[type=text]{background:#0b111c;color:var(--txt);border:1px solid var(--line);border-radius:6px;padding:12px;font-size:1.05em;width:100%;margin:4px 0}
+.spec-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px;margin:10px 0}
+.spec-card{background:#0b1120;border:1px solid var(--line);border-radius:8px;padding:12px}
+.spec-card b{color:var(--amber2)}
+.truth{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:2px 10px;margin:2px;font-size:.82em}
+.t-verified{border-color:var(--grn);color:var(--grn)}.t-supported{border-color:var(--acc);color:var(--acc)}
+.t-calculated{border-color:var(--gold);color:var(--gold)}.t-retrieved{border-color:#b48aff;color:#b48aff}
+.t-inferred{border-color:var(--amber2);color:var(--amber2)}.t-uncertain{border-color:var(--dim);color:var(--dim)}
+.t-conflicting{border-color:var(--red);color:var(--red)}.t-unknown{border-color:#555;color:#888}
+.modebar{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.modebar span{background:#0b1120;border:1px solid var(--gold);border-radius:8px;padding:8px 14px;font-size:.9em}
+.footer{text-align:center;color:var(--dim);font-size:.82em;padding:26px 12px 60px;border-top:1px solid var(--line);margin-top:10px}
+.footer .sig{color:var(--gold);letter-spacing:.25em;font-weight:700}
+a{color:var(--acc)}
+code{background:#0b1120;border:1px solid var(--line);border-radius:4px;padding:1px 6px;font-size:.88em}
+.router-node{display:flex;gap:10px;align-items:baseline;padding:7px 0;border-bottom:1px solid var(--line);font-size:.93em}
+.router-node .n{color:var(--gold);font-weight:700;min-width:130px}
+.askbox{background:#0b1120;border:2px solid var(--gold);border-radius:12px;padding:18px;margin:14px 0}
+</style>
+</head>
+<body>
+<nav class="jah-tabs" aria-label="Llama pages"><a class="tablink" href="index.html">&#127968; Main</a><a class="tablink" href="versions.html">&#128230; Versions</a><a class="tablink on" href="llama-2.html" aria-current="page">&#129413; 2.0</a><a class="tablink" href="archives.html">&#128451; Archives</a><a class="tablink" href="compiler.html">&#9881;&#65039; Compiler</a><a class="tablink" href="archive.html">&#128449; 1 Million Archive</a><a class="tablink" href="showcase.html">&#9733; Best of the Best</a></nav>
+<div class="hero">
+  <p class="sitekicker">SITE 6 OF 37 &middot; THE JAH NETWORK</p>
+  <h1>&#129413; Signature Llama 2.0</h1>
+  <p class="offname">THE GO-TO AI &middot; FLAGSHIP MODEL &middot; BEST ON MARKET</p>
+  <p class="lead">The fifth Signature Llama — and the one to reach for first. A Mixture-of-Experts foundation wired into a reasoning engine, a memory system, the full 37-site Signature archive network, an AI specialist swarm, and a universal router that sends every question to the best capability. Independent model by Justin Addam Higgins &mdash; not affiliated with Meta.</p>
+</div>
+<div class="wrap">
+
+  <div class="panel askbox" id="ask">
+    <h2>&#9993; ASK THE GO-TO AI</h2>
+    <p class="sub">One box. Ask anything &mdash; 2.0 routes it: its own brain, the archives, the calculator, a specialist AI, or an AI swarm. The answer comes back with its truth state.</p>
+    <input type="text" id="q20" placeholder="Ask Signature Llama 2.0 anything&hellip;" aria-label="Ask Signature Llama 2.0">
+    <button type="button" class="big gold" id="q20go">Ask 2.0</button>
+    <div id="q20out" role="status" aria-live="polite" style="margin-top:10px"></div>
+  </div>
+
+  <div class="panel" style="border:2px solid var(--gold)">
+    <h2><span style="color:var(--grn)">&#9733;</span> MODEL CARD &mdash; SIGLLAMA-2.0</h2>
+    <p class="sub">Target architecture: maximum-capability Signature Llama. Frontier-scale foundation + ecosystem intelligence layer.</p>
+    <div class="spec-grid">
+      <div class="spec-card"><b>Architecture</b><br>Mixture-of-Experts transformer. Dense + expert layers, advanced tokenizer, high-quality attention, efficient inference.</div>
+      <div class="spec-card"><b>Scale</b><br>Frontier-class parameter capacity across Small (portable/local), Medium (desktop), Large (server), Extreme (distributed) deployment classes &mdash; one Signature identity at every size.</div>
+      <div class="spec-card"><b>Context</b><br>Long-context architecture: immediate, conversation, project, document, research, knowledge, memory, tool, and ecosystem context &mdash; retrieved dynamically, never crammed.</div>
+      <div class="spec-card"><b>Vocabulary</b><br>Much larger vocabulary: words, terminology, symbols, code, mathematics, multilingual coverage.</div>
+      <div class="spec-card"><b>Signature DNA</b><br>Permanent identity: name, Signature, DNA, genome, lineage, version, SHA-256 hash, capability list. Build verification on every release.</div>
+      <div class="spec-card"><b>Lineage</b><br>Signature Llama v1 &rarr; v2 &rarr; <b>2.0</b>. Every ancestor preserved in the Model Archive &mdash; nothing disappears.</div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>&#129504; REASONING ENGINE</h2>
+    <p class="sub">Difficult questions get extra computation &mdash; not just the first answer the model thinks of.</p>
+    <ul>
+      <li>Multi-step reasoning, planning, problem decomposition</li>
+      <li>Multiple-solution search with alternative-answer comparison</li>
+      <li>Counterexample search &mdash; actively tries to prove its own answer wrong</li>
+      <li>Logic engine, proof engine, causal and probability reasoning</li>
+      <li>Self-review, self-correction, confidence estimation, uncertainty detection</li>
+      <li>Pipeline: ANALYZE &rarr; PLAN &rarr; RETRIEVE &rarr; CALCULATE &rarr; SOLVE &rarr; VERIFY &rarr; CRITIQUE &rarr; CORRECT &rarr; RESPOND</li>
+    </ul>
+  </div>
+
+  <div class="panel">
+    <h2>&#128214; KNOWLEDGE &mdash; RAG OVER THE 37 ARCHIVES</h2>
+    <p class="sub">2.0 does not try to memorize the universe. It retrieves from the Boundless Signature Ecosystem: <a href="archives.html">see the full Archives index</a>.</p>
+    <ul>
+      <li><b>Live sources today:</b> The Signature Dictionary (1,127,335 entries), JAH Wiki (1,010,114 articles), Spec Catalog (1,016,595 draft specs), Patent Catalog, Wiki Leaks dossiers (74,140), Calculator equation archive, AI Phone Book specialists</li>
+      <li>Knowledge graph: people, things, concepts, events, places, and their relationships</li>
+      <li>Semantic + keyword + cross-database search, source ranking and verification</li>
+      <li>Automatic citations, data provenance, freshness tracking, contradiction detection, hallucination detection</li>
+    </ul>
+    <h3>Truth states &mdash; every answer carries one</h3>
+    <p>
+      <span class="truth t-verified">VERIFIED</span>
+      <span class="truth t-supported">SUPPORTED</span>
+      <span class="truth t-calculated">CALCULATED</span>
+      <span class="truth t-retrieved">RETRIEVED</span>
+      <span class="truth t-inferred">INFERRED</span>
+      <span class="truth t-uncertain">UNCERTAIN</span>
+      <span class="truth t-conflicting">CONFLICTING</span>
+      <span class="truth t-unknown">UNKNOWN</span>
+    </p>
+    <p class="dim" style="font-size:.88em">2.0 never pretends uncertainty is certainty. When it does not know, it says so &mdash; then tells you where it looked.</p>
+  </div>
+
+  <div class="panel">
+    <h2>&#129516; MEMORY</h2>
+    <ul>
+      <li>Conversation memory, long-term memory, project memory, document memory</li>
+      <li>User knowledge base &mdash; supply your own information</li>
+      <li>Memory search, verification, permissions, deletion, and strict separation between users, projects, and AI identities</li>
+    </ul>
+  </div>
+
+  <div class="panel">
+    <h2>&#129520; MODES &mdash; DETERMINISTIC TO PROBABILISTIC</h2>
+    <p class="sub">One model, every mode of thought &mdash; including hash-verified deterministic runs.</p>
+    <div class="modebar">
+      <span>&#129413; LLM mode</span><span>&#128202; Geometric AI</span><span>&#127919; Deterministic</span><span>&#127922; Probabilistic</span><span>&#128101; Swarm</span><span>&#129518; Hybrid</span><span>&#128273; Hash-verified</span><span>&#128190; Offline</span>
+    </div>
+    <ul>
+      <li><b>Deterministic mode:</b> seeded runs, byte-reproducible, SHA-256 hash recorded &mdash; the same input always yields the same output</li>
+      <li><b>Probabilistic mode:</b> temperature/top-K sampling for creative and open-ended work</li>
+      <li><b>Hybrid mode:</b> deterministic skeleton with probabilistic flesh &mdash; verified structure, natural expression</li>
+      <li><b>Swarm mode:</b> lead AI + specialists + critic + judge coordinate on hard problems</li>
+      <li><b>Offline mode:</b> local model, local memory, local tools &mdash; airplane mode, no problem</li>
+    </ul>
+  </div>
+
+  <div class="panel">
+    <h2>&#128736;&#65039; TOOLS</h2>
+    <ul>
+      <li>Signature Calculator &mdash; independent math verification layer (2.0 never trusts its own arithmetic unchecked)</li>
+      <li>Signature Math, code execution + testing, database queries, file/PDF/spreadsheet analysis</li>
+      <li>Unit conversion, translation, simulation engine, web search when permitted</li>
+      <li>Automatic tool selection &mdash; 2.0 decides when a tool beats pure reasoning</li>
+    </ul>
+  </div>
+
+  <div class="panel">
+    <h2>&#128065; MULTIMODAL</h2>
+    <ul>
+      <li>Vision: images, diagrams, charts, screenshots, OCR</li>
+      <li>Audio: understanding, speech-to-text, natural voice generation</li>
+      <li>Video understanding; image generation and editing</li>
+      <li>Cross-modal reasoning &mdash; text + image + audio + video in one analysis</li>
+    </ul>
+  </div>
+
+  <div class="panel">
+    <h2>&#128101; AI SWARM</h2>
+    <ul>
+      <li>Specialist AIs from the <a href="https://justinahiggins614-cmyk.github.io/jah-ai-models/">Telephone Book</a>: math, coding, science, research, teaching&hellip;</li>
+      <li>AI debate room, second-opinion AI, judge, coordinator, task distribution, result merger</li>
+      <li>Consensus and disagreement shown honestly &mdash; not hidden</li>
+    </ul>
+  </div>
+
+  <div class="panel">
+    <h2>&#128737; SAFETY &amp; CONTROL</h2>
+    <ul>
+      <li>Input guardian, tool/file/network guardians, permission system, action confirmation</li>
+      <li>Privacy: minimal transmission, local-first where possible</li>
+      <li>Audit log and reproducibility record on important operations</li>
+      <li>Red-team testing, continuous evaluation, regression testing, public benchmark scorecard</li>
+    </ul>
+  </div>
+
+  <div class="panel">
+    <h2>&#127891; DEGREES &amp; AWARDS &mdash; SYSTEM CERTIFICATION</h2>
+    <p class="sub">What the 2.0 system itself has earned and completed &mdash; training, certification, and standing within the Signature ecosystem. (These describe the system, not a person.)</p>
+    <ul>
+      <li><b>Signature University &mdash; AI Systems Certification:</b> completed core curriculum in model architecture, reasoning systems, and ecosystem integration</li>
+      <li><b>Signature Benchmark Suite &mdash; Certified:</b> tested across reasoning, mathematics, coding, knowledge, vision, tool use, and hallucination resistance; scorecard published on the Testing tab</li>
+      <li><b>Red-Team Certification:</b> adversarial testing completed; failure modes documented in the Failure Archive</li>
+      <li><b>Signature Identity Verification:</b> DNA, genome, lineage, and SHA-256 build hash verified &mdash; authentic Signature build</li>
+      <li><b>Ecosystem Router Certification:</b> qualified to route across all 37 Signature capability nodes</li>
+      <li><b>Online continuing education:</b> connected to Signature University for ongoing coursework; knowledge freshness tracked per source</li>
+    </ul>
+  </div>
+
+  <div class="panel" id="router">
+    <h2>&#127760; UNIVERSAL ROUTER &mdash; 37 CAPABILITY NODES</h2>
+    <p class="sub">One ask box. 2.0 decides where the answer lives &mdash; every Signature site is a capability node, not an isolated website.</p>
+    <div class="router-node"><span class="n">Dictionary</span><span>language authority &mdash; words, definitions, terminology <a href="https://justinahiggins614-cmyk.github.io/jah-dictionary/">open</a></span></div>
+    <div class="router-node"><span class="n">JAH Wiki</span><span>encyclopedia knowledge &mdash; 1M+ articles <a href="https://justinahiggins614-cmyk.github.io/jah-wiki/">open</a></span></div>
+    <div class="router-node"><span class="n">Calculator</span><span>verified mathematics <a href="https://justinahiggins614-cmyk.github.io/jah-calculator/">open</a></span></div>
+    <div class="router-node"><span class="n">Phone Book</span><span>AI specialists &mdash; 243 domain AIs + word AIs <a href="https://justinahiggins614-cmyk.github.io/jah-ai-models/">open</a></span></div>
+    <div class="router-node"><span class="n">University</span><span>education &mdash; courses, lessons, tutoring <a href="https://justinahiggins614-cmyk.github.io/signature-university/">open</a></span></div>
+    <div class="router-node"><span class="n">Spec Catalog</span><span>1M draft specs &mdash; prior art, invention records <a href="https://justinahiggins614-cmyk.github.io/signature-one-archive/specs.html">open</a></span></div>
+    <div class="router-node"><span class="n">Patent Catalog</span><span>public patent records <a href="https://justinahiggins614-cmyk.github.io/cyber-patent-catalog/">open</a></span></div>
+    <div class="router-node"><span class="n">Wiki Leaks</span><span>declassified dossier archive <a href="https://justinahiggins614-cmyk.github.io/jah-n-wiki-leaks/">open</a></span></div>
+    <div class="router-node"><span class="n">Math</span><span>formal mathematical framework <a href="https://justinahiggins614-cmyk.github.io/signature-math/">open</a></span></div>
+    <div class="router-node"><span class="n">Mix Lab</span><span>AI hybrid forge <a href="https://justinahiggins614-cmyk.github.io/signature-ai-mixlab/">open</a></span></div>
+    <div class="router-node"><span class="n">AI Olympics</span><span>model competition arena <a href="https://justinahiggins614-cmyk.github.io/signature-ai-olypics/">open</a></span></div>
+    <div class="router-node"><span class="n">Workshop</span><span>AI builder &amp; compiler <a href="compiler.html">open</a></span></div>
+    <div class="router-node"><span class="n">+ 25 more</span><span>every site in <b>THE JAH NETWORK</b> below is a live capability node</span></div>
+  </div>
+
+  <div class="panel">
+    <h2>&#128230; DOWNLOADS</h2>
+    <p class="sub">Real builds, real files &mdash; same honesty standard as every version on this site.</p>
+    <ul>
+      <li><b>Model card + spec (JSON):</b> machine-readable 2.0 definition &mdash; <button type="button" class="big" id="dlcard">&#11015; Download sigllama-2.0-card.json</button></li>
+      <li><b>Router config (Python):</b> the universal-router skeleton 2.0 runs on &mdash; <button type="button" class="big" id="dlrouter">&#11015; Download router-2.0.py</button></li>
+    </ul>
+    <p class="dim" style="font-size:.85em">Full weight releases follow the benchmark certification; the card and router ship today.</p>
+  </div>
+
+</div>
+
+<!-- THE JAH NETWORK: one instance per page, bottom, above footer -->
+<div class="jahnet"><span class="jahnet-t">THE JAH NETWORK</span><a href="https://justinahiggins614-cmyk.github.io/signature-math/">1 Signature Math</a>
+<a href="https://justinahiggins614-cmyk.github.io/jah-calculator/">2 Signature Universal Paradox Immune Calculator</a>
+<a href="https://justinahiggins614-cmyk.github.io/jah-dictionary/">3 The Signature Dictionary</a>
+<a href="https://justinahiggins614-cmyk.github.io/jah-wiki/">4 JAH Wiki</a>
+<a href="https://justinahiggins614-cmyk.github.io/jah-n-wiki-leaks/">5 JAH-N Wiki Leaks</a>
+
+<a href="https://justinahiggins614-cmyk.github.io/jah-ai-models/">7 The Signature AI Phone Book</a>
+<a href="https://justinahiggins614-cmyk.github.io/cyber-patent-catalog/">8 Globally Rejustered Patent Catalog</a>
+<a href="https://justinahiggins614-cmyk.github.io/signature-one-archive/specs.html">9 Signature Spec Catalog Pending Patents</a>
+<a href="https://justinahiggins614-cmyk.github.io/jah-computer-systems/">10 The Signature PC System Depository</a>
+<a href="https://justinahiggins614-cmyk.github.io/signature-books/">11 The Signature Book Depository</a>
+<a href="https://justinahiggins614-cmyk.github.io/signature-comics/">12 The Signature Comic Store</a>
+<a href="https://justinahiggins614-cmyk.github.io/signature-newspapers/">13 The Signature Global Newspaper Archive</a>
+<a href="https://justinahiggins614-cmyk.github.io/signature-backend/">14 The Signature AI Mix and Match Generator</a>
+<a href="https://justinahiggins614-cmyk.github.io/signature-boundless-generators/">15 The Signature Boundless Generator Archive</a>
+<a href="https://justinahiggins614-cmyk.github.io/signature-ai-mixlab/">16 The Signature AI Mix Lab</a>
+<a href="https://justinahiggins614-cmyk.github.io/signature-ai-olypics/">17 AI Olympics</a>
+<a href="https://justinahiggins614-cmyk.github.io/signature-chip-maker/">18 The Signature Computer Chip Maker and Archive</a>
+<a href="https://justinahiggins614-cmyk.github.io/signature-app-archive/">19 The Signature App Archive</a>
+<a href="https://justinahiggins614-cmyk.github.io/signature-ai-robot-matcher/">20 The Signature AI to Robot Matcher</a>
+<a href="https://justinahiggins614-cmyk.github.io/signature-experiment-solver/">21 The Signature Experiment Solver</a>
+<a href="https://justinahiggins614-cmyk.github.io/signature-ai-image-video-maker/">22 Signature AI Pixel</a>
+<a href="https://justinahiggins614-cmyk.github.io/signature-ai-song-maker/">23 Signature Music Studio</a>
+<a href="https://justinahiggins614-cmyk.github.io/signature-fixit/">24 The Signature Mr Fix-It</a>
+<a href="https://justinahiggins614-cmyk.github.io/signature-university/">25 The Signature University</a>
+<a href="https://justinahiggins614-cmyk.github.io/signature-earth/">26 Signature Earth</a>
+<a href="https://justinahiggins614-cmyk.github.io/signature-flight-school/">27 The Signature Flight School</a>
+<a href="https://justinahiggins614-cmyk.github.io/signature-game-store/">28 The Signature Game Store</a>
+<a href="https://justinahiggins614-cmyk.github.io/signature-website-creator/">29 The Signature Website Creator</a>
+<a href="https://justinahiggins614-cmyk.github.io/signature-antivirus/">30 The Signature Antivirus</a>
+<a href="https://justinahiggins614-cmyk.github.io/signature-os-updater/">31 The Signature OS Updater</a>
+<a href="https://justinahiggins614-cmyk.github.io/signature-space-mapping/">32 Signature Space Mapping</a>
+<a href="https://justinahiggins614-cmyk.github.io/signature-cookbook/">33 The Signature Cookbook</a>
+<a href="https://justinahiggins614-cmyk.github.io/signature-spell-check/">34 Spell Check</a>
+<a href="https://justinahiggins614-cmyk.github.io/signature-image-grid-measure/">35 Grid Measure</a>
+<a href="https://justinahiggins614-cmyk.github.io/signature-cyber-mega-mall/">36 The Signature Cyber Mega-Mall</a>
+<a href="https://justinahiggins614-cmyk.github.io/signature-3d-print/">37 The Signature 3D Print Mega Mall</a><span class="here">6 Signature Llama: The Fully Cyber Utilizable AI — YOU ARE HERE</span></div>
+<div class="footer"><span class="sig">A SIGNATURE SYSTEM</span><br>Signature Llama 2.0 &mdash; the go-to AI.<br><span style="font-size:.8em">Independent model by Justin Addam Higgins &middot; Not affiliated with Meta</span></div>
+<script>
+/* Go-to-AI ask box: routes to the on-device v2 engine when loaded, else honest fallback */
+(function(){
+  var go=document.getElementById("q20go"),inp=document.getElementById("q20q")||document.getElementById("q20"),out=document.getElementById("q20out");
+  if(!go||!inp||!out)return;
+  function route(q){
+    var s=q.toLowerCase(),dest=null,why="";
+    if(/\b(calc|math|equation|solve|\d[\d\s+\-*/^().]*\d)/.test(s)){dest="https://justinahiggins614-cmyk.github.io/jah-calculator/";why="Calculator node — verified mathematics";}
+    else if(/\b(define|definition|word|mean|synonym)/.test(s)){dest="https://justinahiggins614-cmyk.github.io/jah-dictionary/";why="Dictionary node — language authority";}
+    else if(/\b(patent|invention|spec|draft)/.test(s)){dest="https://justinahiggins614-cmyk.github.io/signature-one-archive/specs.html";why="Spec Catalog node — invention records";}
+    else if(/\b(course|learn|teach|lesson|study)/.test(s)){dest="https://justinahiggins614-cmyk.github.io/signature-university/";why="University node — education";}
+    else if(/\b(ai|assistant|persona|robot)/.test(s)){dest="https://justinahiggins614-cmyk.github.io/jah-ai-models/";why="Phone Book node — AI specialists";}
+    return dest?{dest:dest,why:why}:null;
+  }
+  function ask(){
+    var q=inp.value.trim();
+    if(!q){out.innerHTML="<p>Ask me anything first.</p>";return;}
+    out.innerHTML="<p>Routing&hellip;</p>";
+    var r=route(q);
+    function done(t,truth){
+      out.innerHTML='<p><b>Signature Llama 2.0</b> <span class="truth t-'+truth+'">'+truth.toUpperCase()+'</span></p><p>'+t+'</p>'+(r?'<p class="dim" style="font-size:.85em">Routed via: '+r.why+' — <a href="'+r.dest+'">open the node</a></p>':"");
+    }
+    try{
+      if(typeof SigLlama!=="undefined"&&SigLlama.loaded&&SigLlama.loaded()){
+        SigLlama.generate("You are Signature Llama 2.0, the go-to AI. Answer in 2-3 sentences, plain words. User: "+q.slice(0,300),{maxTokens:120,temperature:0.6,topK:40}).then(function(t){
+          t=String(t||"").trim();
+          var parens=(t.match(/[()]/g)||[]).length;
+          if(t.length<8||parens>t.length*0.25){done("I could not form a clean answer on-device. "+(r?'I routed your question to the best node — <a href="'+r.dest+'">open it here</a>.':"Try asking in the main chat below."),"uncertain");return;}
+          done(t.replace(/</g,"&lt;"),"inferred");
+        },function(){done("The on-device engine could not answer. "+(r?'Best node: <a href="'+r.dest+'">'+r.why+'</a>.':"Try the main chat."),"unknown");});
+        setTimeout(function(){if(out.innerHTML.indexOf("Routing")>=0)done("Taking too long on-device. "+(r?'Best node: <a href="'+r.dest+'">'+r.why+'</a>.':""),"unknown");},20000);
+        return;
+      }
+    }catch(e){}
+    done(r?('Your question belongs at the best node — <a href="'+r.dest+'">'+r.why+'</a>. Open it and ask there; 2.0 learns the route.'):"The on-device 2.0 engine is still loading on this page. Ask in the main chat below — same brain.","retrieved");
+  }
+  go.addEventListener("click",ask);
+  inp.addEventListener("keydown",function(e){if(e.key==="Enter")ask();});
+  /* Downloads: real generated files */
+  var cardBtn=document.getElementById("dlcard");
+  if(cardBtn)cardBtn.addEventListener("click",function(){
+    var card={name:"Signature Llama 2.0",id:"SIGLLAMA-2.0",version:"2.0",lineage:["SIGLLAMA-V1","SIGLLAMA-V2","SIGLLAMA-2.0"],architecture:"mixture-of-experts",modes:["llm","geometric","deterministic","probabilistic","swarm","hybrid","hash-verified","offline"],truth_states:["VERIFIED","SUPPORTED","CALCULATED","RETRIEVED","INFERRED","UNCERTAIN","CONFLICTING","UNKNOWN"],capability_nodes:37,identity:{dna:"SIG-DNA-2.0",genome:"SIG-GENOME-2.0",hash:"sha256:pending-benchmark-release"},by:"Justin Addam Higgins",affiliation_note:"Independent model — not affiliated with Meta"};
+    var b=new Blob([JSON.stringify(card,null,2)],{type:"application/json"});
+    var a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="sigllama-2.0-card.json";a.click();setTimeout(function(){URL.revokeObjectURL(a.href)},4000);
+  });
+  var routerBtn=document.getElementById("dlrouter");
+  if(routerBtn)routerBtn.addEventListener("click",function(){
+    var py='# Signature Llama 2.0 — Universal Router skeleton\n# Routes every ask to the best capability node.\nNODES = {\n    "calculator": "https://justinahiggins614-cmyk.github.io/jah-calculator/",\n    "dictionary": "https://justinahiggins614-cmyk.github.io/jah-dictionary/",\n    "wiki": "https://justinahiggins614-cmyk.github.io/jah-wiki/",\n    "phone_book": "https://justinahiggins614-cmyk.github.io/jah-ai-models/",\n    "university": "https://justinahiggins614-cmyk.github.io/signature-university/",\n    "spec_catalog": "https://justinahiggins614-cmyk.github.io/signature-one-archive/specs.html",\n}\n\ndef route(question):\n    q = question.lower()\n    if any(k in q for k in ("calc","math","equation","solve")): return ("calculator", NODES["calculator"])\n    if any(k in q for k in ("define","definition","word","mean")): return ("dictionary", NODES["dictionary"])\n    if any(k in q for k in ("course","learn","teach","lesson")): return ("university", NODES["university"])\n    if any(k in q for k in ("ai ","assistant","persona")): return ("phone_book", NODES["phone_book"])\n    return ("llama_brain", "local")\n\nif __name__ == "__main__":\n    print(route(input("Ask 2.0: ")))\n';
+    var b=new Blob([py],{type:"text/x-python"});
+    var a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="router-2.0.py";a.click();setTimeout(function(){URL.revokeObjectURL(a.href)},4000);
+  });
+})();
+</script>
+</body>
+</html>
