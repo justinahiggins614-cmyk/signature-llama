@@ -478,10 +478,12 @@ document.body.insertAdjacentHTML('beforeend', '&lt;p&gt;' + reply + '&lt;/p&gt;'
     <p style="color:var(--dim);font-size:.9em;margin-top:0" id="dlstate">Checking model status…</p>
     <p style="color:var(--dim);font-size:.78em;margin:.2em 0">Independent Signature implementation — not affiliated with, endorsed by, or related to Meta or the LLaMA models.</p>
     <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <a href="downloads/signature-llama-full-source.zip" download style="background:var(--gold);color:#111;padding:12px 20px;border-radius:8px;font-weight:700;text-decoration:none;display:inline-block">⤓ FULL SOURCE CODE (model.py + tokenizer + trainer + weights, 3.8MB)</a>
       <button type="button" id="dl-bin" disabled>⤓ Weights (sigllama-v2.bin)</button>
       <button type="button" id="dl-js" disabled>⤓ Engine (sigllama.js)</button>
       <button type="button" id="dl-vocab" disabled>⤓ Vocab (vocab2.json)</button>
     </div>
+    <p style="font-size:.82em;color:var(--dim)">The full source zip has the real neural network code — model.py (transformer), tokenizer.py, train.py, weights, and a README with working examples.</p>
     <div id="assetmeta" style="font-size:.82em;color:var(--dim);margin-top:10px"></div>
   </div>
 
