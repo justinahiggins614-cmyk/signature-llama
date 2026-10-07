@@ -116,7 +116,42 @@
       .then(function (j) { kbCache = j.entries || j; return kbCache; })
       .catch(function () { kbCache = []; return kbCache; });
   }
+  /* Conversational pre-pass for the Guide API path (Manon's order: real dialog,
+     never the same canned block). Self-contained — llama-api.js is standalone. */
+  var guideConvSeen = [];
+  function guideConvReply(question) {
+    var t = ' ' + String(question || '').toLowerCase().replace(/[^a-z0-9' ]/g, ' ').replace(/\s+/g, ' ').trim() + ' ';
+    var bank = null;
+    if (/test(ing)? .{0,12}(you|u)|to see if|are you (aware|conscious|sentient|alive)/.test(t)) bank = [
+      'Fair test, and I will answer it straight: I am the on-site guide — a curated conversational layer, not the trained model, and not conscious. Judge me on the answers, not the label. Ask me something real.',
+      'Good — test away. Honest answer: I am the guide, not the 4-million-parameter model and not a mind. What I can do is talk through this whole project with you, coherently. Hit me.' ];
+    else if (/you( are|'re| r) (repeating|saying).{0,15}(same|again)|same (thing|answer|block).{0,12}(twice|again)|already said|copy.?paste|keep repeating/.test(t)) bank = [
+      'You are right — I handed you the same canned answer twice. That ends here. Ask me again in plain words and I will actually answer it.',
+      'Fair catch. I repeated myself instead of answering. Give me the question again and I will give you a real answer this time.' ];
+    else if (/(are you|are u|r u).{0,12}(ai|an ai|artificial|real|a robot|a bot)\b|who are you|what are you/.test(t)) bank = [
+      'I am Signature Llama — the on-site guide for this project. I chat, explain AI and language models, answer questions about the Llama project, and point you to the right file, library, or tool. What do you want to dig into?',
+      'Signature Llama, at your service — I am the guide that lives on this page. I explain the model, its files and tools, and I chat in plain words. Try me with a real question.' ];
+    else if (/^(hi|hii+|hey|hello|yo|howdy|sup)\b/.test(t.replace(/^ /, ''))) bank = [
+      'Hey — good to see you. What do you want to talk through?',
+      'Hello! What is on your mind — the model, the files, the tools?' ];
+    else if (/thank|thx|\bty\b/.test(t)) bank = [ 'Anytime. What is next?', 'You are welcome — keep the questions coming.' ];
+    else if (/^(bye|goodbye|see you|later|cya)\b/.test(t.replace(/^ /, ''))) bank = [
+      'Later — I will be here when you come back.', 'Goodbye for now.' ];
+    else if (/what can you do|your duties|your job|\bhelp\b|what do you do/.test(t)) bank = [
+      'Here is my whole job: I chat in plain human words, explain AI and language models clearly, answer questions about the Signature Llama project, and point you to the right file, library, or tool.' ];
+    if (!bank) return null;
+    for (var i = 0; i < bank.length; i++) {
+      if (guideConvSeen.indexOf(bank[i]) < 0) {
+        guideConvSeen.push(bank[i]);
+        while (guideConvSeen.length > 6) guideConvSeen.shift();
+        return bank[i];
+      }
+    }
+    return bank[0];
+  }
   function answerFromKB(question, kb) {
+    var conv = guideConvReply(question);
+    if (conv) return 'Signature Llama: ' + conv;
     var ws = words(question), best = null, bestScore = 0;
     kb.forEach(function (e) {
       var hay = (e.title + ' ' + (e.kw || []).join(' ') + ' ' + e.text).toLowerCase();
@@ -127,10 +162,18 @@
       if (score > bestScore) { bestScore = score; best = e; }
     });
     if (best && bestScore >= 2) return best.title + ': ' + best.text;
-    return 'I can explain Signature Llama itself, or any of its files, ' +
-      'libraries, and tools — try asking what sigllama.js does, what the ' +
-      'quantizer is for, or how to use the model in your own page. ' +
-      'See ' + SITE + '#guide for everything the on-site guide knows.';
+    /* retired the old canned block — honest, varied dontknow instead */
+    var dks = [
+      'I do not have a good answer for that one yet. I know the Llama project cold — the model, sigllama.js, the weights, the versions, the downloads — so steer me there and I will deliver.',
+      'That is outside what I know well. My ground is the Signature Llama project: files, tools, versions, how to use the model in your own page. What part of that are you after?'
+    ];
+    var dk = dks[0], i;
+    for (i = 0; i < dks.length; i++) {
+      if (guideConvSeen.indexOf(dks[i]) < 0) { dk = dks[i]; break; }
+    }
+    guideConvSeen.push(dk);
+    while (guideConvSeen.length > 6) guideConvSeen.shift();
+    return 'Signature Llama: ' + dk;
   }
   function trainedReady() {
     try { return !!(window.SigLlama && SigLlama.loaded && SigLlama.loaded()); }
