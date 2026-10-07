@@ -457,4 +457,24 @@
   <url><loc>https://justinahiggins614-cmyk.github.io/signature-llama/?toollib=conv-socratic</loc><lastmod>2026-10-04</lastmod><changefreq>monthly</changefreq></url>
   <url><loc>https://justinahiggins614-cmyk.github.io/signature-llama/?toollib=conv-story-weaver</loc><lastmod>2026-10-04</lastmod><changefreq>monthly</changefreq></url>
   <url><loc>https://justinahiggins614-cmyk.github.io/signature-llama/?toollib=conv-debate</loc><lastmod>2026-10-04</lastmod><changefreq>monthly</changefreq></url>
+  <url><loc>https://justinahiggins614-cmyk.github.io/signature-llama/files.html</loc><lastmod>2026-10-06</lastmod><changefreq>weekly</changefreq></url>
+  <url><loc>https://justinahiggins614-cmyk.github.io/signature-llama/src/model.py</loc><lastmod>2026-10-06</lastmod><changefreq>weekly</changefreq></url>
+  <url><loc>https://justinahiggins614-cmyk.github.io/signature-llama/src/tokenizer.py</loc><lastmod>2026-10-06</lastmod><changefreq>weekly</changefreq></url>
+  <url><loc>https://justinahiggins614-cmyk.github.io/signature-llama/src/train.py</loc><lastmod>2026-10-06</lastmod><changefreq>weekly</changefreq></url>
+  <url><loc>https://justinahiggins614-cmyk.github.io/signature-llama/src/export.py</loc><lastmod>2026-10-06</lastmod><changefreq>weekly</changefreq></url>
+  <url><loc>https://justinahiggins614-cmyk.github.io/signature-llama/src/build_corpus.py</loc><lastmod>2026-10-06</lastmod><changefreq>weekly</changefreq></url>
+  <url><loc>https://justinahiggins614-cmyk.github.io/signature-llama/src/vocab.json</loc><lastmod>2026-10-06</lastmod><changefreq>weekly</changefreq></url>
+  <url><loc>https://justinahiggins614-cmyk.github.io/signature-llama/src/sigllama.js</loc><lastmod>2026-10-06</lastmod><changefreq>weekly</changefreq></url>
+  <url><loc>https://justinahiggins614-cmyk.github.io/signature-llama/sigllama/sigllama-v2.bin</loc><lastmod>2026-10-06</lastmod><changefreq>weekly</changefreq></url>
+  <url><loc>https://justinahiggins614-cmyk.github.io/signature-llama/sigllama/vocab2.json</loc><lastmod>2026-10-06</lastmod><changefreq>weekly</changefreq></url>
+  <url><loc>https://justinahiggins614-cmyk.github.io/signature-llama/sigllama/sigllama-v1.bin</loc><lastmod>2026-10-06</lastmod><changefreq>weekly</changefreq></url>
+  <url><loc>https://justinahiggins614-cmyk.github.io/signature-llama/downloads/signature-llama-full-source.zip</loc><lastmod>2026-10-06</lastmod><changefreq>weekly</changefreq></url>
+  <url><loc>https://justinahiggins614-cmyk.github.io/signature-llama/downloads/MANIFEST.json</loc><lastmod>2026-10-06</lastmod><changefreq>weekly</changefreq></url>
+  <url><loc>https://justinahiggins614-cmyk.github.io/signature-llama/llama-model-card.json</loc><lastmod>2026-10-06</lastmod><changefreq>weekly</changefreq></url>
+  <url><loc>https://justinahiggins614-cmyk.github.io/signature-llama/data/ecosystem.json</loc><lastmod>2026-10-06</lastmod><changefreq>weekly</changefreq></url>
+  <url><loc>https://justinahiggins614-cmyk.github.io/signature-llama/data/best/best.json</loc><lastmod>2026-10-06</lastmod><changefreq>weekly</changefreq></url>
+  <url><loc>https://justinahiggins614-cmyk.github.io/signature-llama/downloads/llama-thumbdrive-offline-static.py</loc><lastmod>2026-10-06</lastmod><changefreq>weekly</changefreq></url>
+  <url><loc>https://justinahiggins614-cmyk.github.io/signature-llama/downloads/llama-thumbdrive-online-no-key.py</loc><lastmod>2026-10-06</lastmod><changefreq>weekly</changefreq></url>
+  <url><loc>https://justinahiggins614-cmyk.github.io/signature-llama/downloads/llama-thumbdrive-online-with-key.py</loc><lastmod>2026-10-06</lastmod><changefreq>weekly</changefreq></url>
+  <url><loc>https://justinahiggins614-cmyk.github.io/signature-llama/downloads/llama-thumbdrive-best-figurehead.py</loc><lastmod>2026-10-06</lastmod><changefreq>weekly</changefreq></url>
 </urlset>
